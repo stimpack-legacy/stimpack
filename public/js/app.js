@@ -10422,11 +10422,6 @@ var Tabs = function (_Component) {
     return Tabs;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-//<ul>
-//    { this.props.tabs.map(this.renderTab) }
-//</ul>
-
-
 /* unused harmony default export */ var _unused_webpack_default_export = (Tabs);
 
 /***/ }),
@@ -10466,25 +10461,37 @@ var Actions = function (_Component) {
                 { className: 'actions' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
-                    { className: 'btn btn-success btn-cool' },
+                    { onClick: this.stim, id: '12345', className: 'btn btn-success btn-cool' },
                     'Stim!'
                 )
             );
+        }
+    }, {
+        key: 'stim',
+        value: function stim(e) {
+            var stimRequest = {
+                tasks: [
+                // "createDatabase",
+                //      "update .env"
+                // "purgeMigrations"
+                // "purgeModels"
+                // ""
+                "makeMigrations", "migrate"]
+            };
+
+            stimRequest.tasks.map(function (task) {
+                $.ajax({
+                    url: "/stimpack/perform/" + task,
+                    data: stimRequest,
+                    success: function success(result) {
+                        console.log(result);
+                    } });
+            });
         }
     }]);
 
     return Actions;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-/*
-                <button className="btn btn-primary">Generate pivots</button>
-                <button className="btn btn-primary">Cleanup</button>
-                <button className="btn btn-success">Help</button>
-                <button className="btn btn-success">API</button>
-                <button className="btn btn-success">CRUD</button>
-                <button className="btn btn-success">Visualize</button>
-*/
-
 
 /* harmony default export */ __webpack_exports__["a"] = (Actions);
 
@@ -53847,13 +53854,13 @@ var Workspace = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Editors__["a" /* default */], { content: this.getActiveTab().content }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'container' },
+                    { className: 'container dark' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'panel-group', id: 'accordion' },
+                        { className: 'panel-group dark', id: 'accordion' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'panel panel-default' },
+                            { className: 'panel dark' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'panel-heading' },
@@ -53879,32 +53886,23 @@ var Workspace = function (_Component) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'panel panel-default' },
+                            { className: 'panel dark' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'panel-heading' },
+                                { className: 'panel-heading dark' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'h4',
-                                    { className: 'panel-title' },
+                                    { className: 'panel-title dark' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'checkbox' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'label',
-                                            null,
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', value: '' }),
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'a',
-                                                { 'data-toggle': 'collapse', href: '#collapse2' },
-                                                'Controllers'
-                                            )
-                                        )
+                                        'a',
+                                        { 'data-toggle': 'collapse', href: '#collapse1' },
+                                        'Migrations'
                                     )
                                 )
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { id: 'collapse2', className: 'panel-collapse collapse' },
+                                { id: 'collapse1', className: 'panel-collapse collapse' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
                                     { className: 'panel-body' },
@@ -53914,23 +53912,23 @@ var Workspace = function (_Component) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'panel panel-default' },
+                            { className: 'panel dark' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'panel-heading' },
+                                { className: 'panel-heading dark' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'h4',
-                                    { className: 'panel-title' },
+                                    { className: 'panel-title dark' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'a',
-                                        { 'data-toggle': 'collapse', href: '#collapse3' },
-                                        'Configuration'
+                                        { 'data-toggle': 'collapse', href: '#collapse1' },
+                                        'Migrations'
                                     )
                                 )
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { id: 'collapse3', className: 'panel-collapse collapse' },
+                                { id: 'collapse1', className: 'panel-collapse collapse' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
                                     { className: 'panel-body' },

@@ -40,7 +40,3 @@ export default class Tabs extends Component {
         );
     }
 }
-
-//<ul>
-//    { this.props.tabs.map(this.renderTab) }
-//</ul>

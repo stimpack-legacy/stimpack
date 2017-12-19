@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::get('/code', function () {
     return view('code');
 });
+
+Route::get('/stimpack/perform/{task}', 'StimPackController@perform');
