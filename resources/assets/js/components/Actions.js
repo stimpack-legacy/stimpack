@@ -10,26 +10,38 @@ export default class Actions extends Component {
         );
     }
 
-    stim(e) {
+    stim(e) {        
         var stimRequest = {
             tasks: [
-                // "createDatabase",
+                "CreateDatabaseIfNotExistsTask",
                 //      "update .env"
                 // "purgeMigrations"
                 // "purgeModels"
                 // ""
-                "makeMigrations",
-                "migrate"
+                "CreateMigrationsTask"
+                //migrate ...
             ]
         };
 
-        stimRequest.tasks.map( (task) => {
-            $.ajax({
-                url: "/stimpack/perform/" + task,
-                data: stimRequest, 
-                success: function(result){
-                    console.log(result);                    
-            }});
-        })
+        //this.performTasks(stimRequest.tasks);
     }
+/*
+    performTasks(tasks) {
+        var index = 0;
+        this.perform(tasks[index], function (index) {
+            this.perform(tasks[0]
+        });    
+    }
+
+    performTask(task, callback) {
+        $.ajax({
+            url: "/stimpack/perform/" + task,
+            data: stimRequest, 
+            success: function(result){
+                console.log(result);
+                callback();                    
+            }
+        });        
+    }
+*/
 }

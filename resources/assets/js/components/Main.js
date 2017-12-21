@@ -21,3 +21,26 @@ export default class Main extends Component {
 if (document.getElementById('main')) {
     ReactDOM.render(<Main />, document.getElementById('main'));
 }
+
+/*
+
+<Main>
+    <Header />
+    <Generator>
+        <Inputs>
+            <Code>
+                <PseudoCode />
+                <PHPCode />
+                <Manipulators />
+            </Code>
+            <GlobalConfig />
+            <TaskConfig />
+            <TaskConfig />
+            ...
+        </Inputs>
+        <StimButton />
+    </Generator>
+    <Footer />
+</Main>
+
+*/

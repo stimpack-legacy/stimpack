@@ -19,4 +19,4 @@ Route::get('/code', function () {
     return view('code');
 });
 
-Route::get('/stimpack/perform/{task}', 'StimPackController@perform');
+Route::get('/stimpack/perform/{task}', 'TaskController@perform');

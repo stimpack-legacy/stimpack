@@ -10470,24 +10470,38 @@ var Actions = function (_Component) {
         key: 'stim',
         value: function stim(e) {
             var stimRequest = {
-                tasks: [
-                // "createDatabase",
+                tasks: ["CreateDatabaseIfNotExistsTask",
                 //      "update .env"
                 // "purgeMigrations"
                 // "purgeModels"
                 // ""
-                "makeMigrations", "migrate"]
+                "CreateMigrationsTask"
+                //migrate ...
+                ]
             };
 
-            stimRequest.tasks.map(function (task) {
+            //this.performTasks(stimRequest.tasks);
+        }
+        /*
+            performTasks(tasks) {
+                var index = 0;
+                this.perform(tasks[index], function (index) {
+                    this.perform(tasks[0]
+                });    
+            }
+        
+            performTask(task, callback) {
                 $.ajax({
                     url: "/stimpack/perform/" + task,
-                    data: stimRequest,
-                    success: function success(result) {
+                    data: stimRequest, 
+                    success: function(result){
                         console.log(result);
-                    } });
-            });
-        }
+                        callback();                    
+                    }
+                });        
+            }
+        */
+
     }]);
 
     return Actions;
@@ -53743,6 +53757,29 @@ var Main = function (_Component) {
 if (document.getElementById('main')) {
     __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Main, null), document.getElementById('main'));
 }
+
+/*
+
+<Main>
+    <Header />
+    <Generator>
+        <Inputs>
+            <Code>
+                <PseudoCode />
+                <PHPCode />
+                <Manipulators />
+            </Code>
+            <GlobalConfig />
+            <TaskConfig />
+            <TaskConfig />
+            ...
+        </Inputs>
+        <StimButton />
+    </Generator>
+    <Footer />
+</Main>
+
+*/
 
 /***/ }),
 /* 222 */
