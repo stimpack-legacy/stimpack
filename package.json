@@ -13,8 +13,6 @@
         "axios": "^0.17",
         "babel-preset-react": "^6.23.0",
         "bootstrap-sass": "^3.3.7",
-        "browser-sync": "^2.23.2",
-        "browser-sync-webpack-plugin": "^1.2.0",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
