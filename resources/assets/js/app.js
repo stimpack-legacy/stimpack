@@ -13,6 +13,25 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Header');
+//require('./components/Header');
 require('./components/Main');
 
+
+
+import React from 'react';
+import ReactDOM from "react-dom";
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import allReducers from './reducers';
+import Main from './components/Main';
+
+const store = createStore(
+    allReducers
+);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <Main />
+    </Provider>,
+    document.getElementById('main')
+);

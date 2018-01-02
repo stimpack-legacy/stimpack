@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-//import Header from './Header';
+import Header from './Header';
+import Generator from './Generator';
 //import Footer from './Footer';
 //import Tabs from './Tabs';
 //import Tab from './Tab';
@@ -11,15 +12,16 @@ export default class Main extends Component {
     render() {
         return (
             <div className="container">
-                <p>Hello World!</p>
+                <Header />
+                <Generator />
             </div>
         );
     }
 }
 
-if (document.getElementById('main')) {
-    ReactDOM.render(<Main />, document.getElementById('main'));
-}
+//if (document.getElementById('main')) {
+//    ReactDOM.render(<Main />, document.getElementById('main'));
+//}
 
 /*
 <Header />

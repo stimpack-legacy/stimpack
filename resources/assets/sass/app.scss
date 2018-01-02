@@ -27,16 +27,15 @@ body {
     height:60px;   /* Height of the footer */    
  }
 
+ .input-panel {
+    background-color: #9ACD1E;    
+    height: 20px;    
+}
+
 #pseudo-editor {
     background-color: #141518;    
     width: 200px;
     height: 500px;    
-}
-
-#php-editor {
-    background-color: #141518;
-    width: 800px;
-    height: 500px;
 }
 
 #pseudo-wrapper {
@@ -47,11 +46,18 @@ body {
 
 #php-wrapper {
     background-color: #141518;
-    display: inline-block;    
+    display: inline-block;
+    width: 80%;    
+}
+
+#php-editor {
+    background-color: #141518;
+    width: 100%;
+    height: 500px;
 }
 
 .btn-cool {
-    width: 820px;
+    width: 100%; //820px;
 }
 
 .actions {
