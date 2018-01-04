@@ -13,11 +13,13 @@ export default class Main extends Component {
         return (
             <div className="container">
                 <Header />
-                <Generator />
+                <Generator />                
             </div>
         );
     }
 }
+
+// 
 
 //if (document.getElementById('main')) {
 //    ReactDOM.render(<Main />, document.getElementById('main'));
