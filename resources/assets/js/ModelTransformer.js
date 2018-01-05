@@ -3,11 +3,21 @@ export default class ModelTransformer {
         this.pseudoCode = pseudoCode;
     }
 
-    transform() {
+    transform(callback) {
         this.cleanedCode = this.prepare(this.pseudoCode);
         var segments = this.segment(this.cleanedCode);        
         var definitions = this.definitions(segments);
-        return this.preview(definitions);        
+        /*
+        $.ajax({
+            url: "/stimpack/perform/" + task,
+            data: stimRequest, 
+            success: function(result){
+                console.log(result);
+                callback();                    
+            }
+        });
+        */                
+        typeof callback === 'function' && callback(this.preview(definitions));        
     }
 
     define(segment) {

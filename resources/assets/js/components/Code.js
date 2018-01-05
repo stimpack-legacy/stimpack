@@ -58,18 +58,17 @@ class Code extends Component {
         php.renderer.setShowGutter(false);        
         pseudo.getSession().on('change', function() {
             var pseudoCode = pseudo.getSession().getValue();
-            this.props.updatePseudoCode(pseudoCode);
-            php.setValue(this.transform(pseudoCode), 1)
+            this.props.updatePseudoCode(pseudoCode);            
+            (new ModelTransformer(pseudoCode)).transform(function(result) {
+                php.setValue(result, 1);                
+            }.bind(this));
         }.bind(this));
         var defaultTables = "";
         defaultTables += "User\nname\nemail\password\nrememberToken\ntimestamps\n\n";
         defaultTables += "password_resets\nemail\ntoken\created_at\n";        
         pseudo.setValue(defaultTables,1);
     }
-
-    transform(pseudoCode) {
-        return (new ModelTransformer(pseudoCode)).transform();
-    }    
+    
 }
 
 // "state.activeUser" is set in reducers/index.js
