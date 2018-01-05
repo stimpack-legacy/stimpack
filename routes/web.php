@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Str;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,11 @@ Route::get('/', function () {
 
 Route::get('/code', function () {
     return view('code');
+});
+
+Route::get('pluralize/{word}', function ($word){
+    $wordInPluralForm = Str::plural(Str::snake(class_basename($word)));
+    return $wordInPluralForm;
 });
 
 Route::get('/stimpack/perform/{task}', 'TaskController@perform');
