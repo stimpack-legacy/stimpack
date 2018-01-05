@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import EditorManager from '../EditorManager';
+import ModelTransformer from '../ModelTransformer';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -8,19 +8,14 @@ import {updatePseudoCode} from '../actions/index'
 
 class Code extends Component {
     componentDidMount() {
-        var editors = new EditorManager;
-        editors.setup();
-        editors.test();
-        setTimeout( function() {
-            this.props.updatePseudoCode(1235711);        
-        }.bind(this), 3500);        
+        this.setup();        
     }
 
     render() {
         return (
             <div>
                 <div className="input-panel">
-                    Models & Migrations
+                    Tables
                 </div>            
                 <div id="pseudo-wrapper">
                     <div>
@@ -41,6 +36,39 @@ class Code extends Component {
                 </div>            
             </div>
         );
+    }
+    
+    setup() {
+        var pseudo = ace.edit("pseudo-editor");
+        pseudo.setTheme("ace/theme/monokai");
+        pseudo.getSession().setMode({
+            path: "ace/mode/php",
+            inline: true
+        });        
+        pseudo.setShowPrintMargin(false);
+        pseudo.renderer.setShowGutter(false);        
+        
+        var php = ace.edit("php-editor");
+        php.setTheme("ace/theme/monokai");
+        php.getSession().setMode({
+            path: "ace/mode/php",
+            inline: true
+        });        
+        php.setShowPrintMargin(false);
+        php.renderer.setShowGutter(false);        
+        pseudo.getSession().on('change', function() {
+            var pseudoCode = pseudo.getSession().getValue();
+            this.props.updatePseudoCode(pseudoCode);
+            php.setValue(this.transform(pseudoCode), 1)
+        }.bind(this));
+        var defaultTables = "";
+        defaultTables += "User\nname\nemail\password\nrememberToken\ntimestamps\n\n";
+        defaultTables += "password_resets\nemail\ntoken\created_at\n";        
+        pseudo.setValue(defaultTables,1);
+    }
+
+    transform(pseudoCode) {
+        return (new ModelTransformer(pseudoCode)).transform();
     }    
 }
 

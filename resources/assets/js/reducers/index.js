@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import codeReducer from './code-reducer';
+import taskReducer from './task-reducer';
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
@@ -7,7 +8,8 @@ import codeReducer from './code-reducer';
  * */
 
 const allReducers = combineReducers({
-    pseudoCode: codeReducer
+    pseudoCode: codeReducer,
+    tasks: taskReducer
 });
 
 export default allReducers

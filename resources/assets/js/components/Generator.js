@@ -17,14 +17,9 @@ export default class Generator extends Component {
             </div>
         );
     }
-}
 
-/*
-    performTasks(tasks) {
-        var index = 0;
-        this.perform(tasks[index], function (index) {
-            this.perform(tasks[0]
-        });    
+    stim() {
+
     }
 
     performTask(task, callback) {
@@ -37,4 +32,4 @@ export default class Generator extends Component {
             }
         });        
     }
-*/
+}
