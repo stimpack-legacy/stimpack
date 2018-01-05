@@ -21,8 +21,9 @@ Route::get('/code', function () {
     return view('code');
 });
 
-Route::get('stimpack/pluralize/{word}', function ($word){    
-    return Str::plural(Str::snake(class_basename($word)));
+Route::prefix('stimpack')->group(function () {
+    Route::get('perform/{task}', 'TaskController@perform');
+    Route::get('pluralize/{word}', function ($word){    
+        return Str::plural(Str::snake(class_basename($word)));
+    });    
 });
-
-Route::get('/stimpack/perform/{task}', 'TaskController@perform');
