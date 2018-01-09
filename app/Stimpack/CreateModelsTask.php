@@ -2,7 +2,7 @@
 
 namespace App\Stimpack;
 
-class CreateMigrationsTask implements Task
+class CreateModelsTask implements Task
 {
 
     public function __construct($nbr) {
@@ -12,6 +12,6 @@ class CreateMigrationsTask implements Task
     // throw new \Exception("Could not delete file ______. Please check your folders are writable!");
 
     public function perform() {        
-        return "Migrations successfully created!";
+        return "Models successfully created!";
     }
 }

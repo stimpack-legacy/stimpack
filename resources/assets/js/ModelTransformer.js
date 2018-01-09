@@ -1,49 +1,58 @@
+import Cache from './Cache'; // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage
+
 export default class ModelTransformer {
-    constructor(pseudoCode) {
-        this.pseudoCode = pseudoCode;
+    constructor() {
+        this.transformedModels = [];        
     }
 
-    transform(callback) {
-        this.cleanedCode = this.prepare(this.pseudoCode);
-        var segments = this.segment(this.cleanedCode);        
-        var definitions = this.definitions(segments);
-        /*
-        $.ajax({
-            url: "/stimpack/perform/" + task,
-            data: stimRequest, 
-            success: function(result){
-                console.log(result);
-                callback();                    
-            }
-        });
-        */                
-        typeof callback === 'function' && callback(this.preview(definitions));        
+    transform(pseudoCode, callback) {
+        this.callback = callback; // To be called when everything is ready
+        this.cleanedCode = this.prepare(pseudoCode);
+        this.segments = this.segment(this.cleanedCode);        
+        var definitions = this.definitions(this.segments);        
     }
 
     define(segment) {
         var rows = segment.split(/\n/);
         var model = rows[0];
-        var attributes = rows.slice(1);
-        return {
-            model,
-            attributes
-        }
+        // pluralize model
+        $.ajax({
+            url: "/stimpack/pluralize/" + model,
+            //data: "somedata more thiss as well?", 
+            success: function(modelPluralized){
+                this.transformedModels.push({
+                    model: modelPluralized,
+                    attributes: rows.slice(1)
+                });
+                if(this.finished()) {
+                    this.returnTransformedModels();        
+                }
+                                    
+            }.bind(this)
+        });
+    }
+
+    finished() {        
+        return this.transformedModels.length == this.segments.length || this.segments.length == 0;
+    }
+
+    returnTransformedModels() {
+        typeof this.callback === 'function' && this.callback(this.preview(this.transformedModels));
     }
 
     definitions(segments) {
         var definitions = [];
         segments.map((segment) => {
-            var definition = this.define(segment);
-            if(definition.model != "") {
-                definitions.push(definition);
-            }            
+            this.define(segment);            
         });
-        return definitions;
+        if(this.finished()) {
+            this.returnTransformedModels();
+        }
     }
 
-    preview(definitions) {
+    preview(transformedModels) {
         var result = "";
-        definitions.map((definition) => {
+        transformedModels.map((definition) => {
             result += "// ...\n\nSchema::create('" + definition.model + "', function (Blueprint $table) {\n";
             definition.attributes.map((attribute) => {
                 result += this.phpDefinition(attribute);
@@ -66,13 +75,11 @@ export default class ModelTransformer {
     }
 
     segment(code) {
-        return code.split(/\n\s*\n/);
-    }
-
-    test() {
-        if(this.prepare("User\n\n\n") == "User") {
-            //alert("trim tests passed!");
+        var parts = code.split(/\n\s*\n/);
+        if(parts[0] == "") {
+            return [];
         }
+        return code.split(/\n\s*\n/);        
     }
 
     phpDefinition(attribute) {

@@ -26,7 +26,7 @@ import allReducers from './reducers';
 import Main from './components/Main';
 
 const store = createStore(
-    allReducers
+    allReducers    
 );
 
 ReactDOM.render(

@@ -8,7 +8,15 @@ import {updatePseudoCode} from '../actions/index'
 
 class Code extends Component {
     componentDidMount() {
-        this.setup();        
+        this.setup();
+        this.test();        
+    }
+
+    test() {
+        var modelTransformer = new ModelTransformer();        
+        modelTransformer.transform("", function(phpCode) {
+            console.assert(phpCode == "", {"message": "failed empty string"});                
+        }.bind(this));                        
     }
 
     render() {
@@ -58,9 +66,10 @@ class Code extends Component {
         php.renderer.setShowGutter(false);        
         pseudo.getSession().on('change', function() {
             var pseudoCode = pseudo.getSession().getValue();
-            this.props.updatePseudoCode(pseudoCode);            
-            (new ModelTransformer(pseudoCode)).transform(function(result) {
-                php.setValue(result, 1);                
+            this.props.updatePseudoCode(pseudoCode);
+            var modelTransformer = new ModelTransformer();
+            modelTransformer.transform(pseudoCode, function(phpCode) {
+                php.setValue(phpCode, 1);                
             }.bind(this));
         }.bind(this));
         var defaultTables = "";

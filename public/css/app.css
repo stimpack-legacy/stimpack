@@ -8376,16 +8376,16 @@ body {
   height: 20px;
 }
 
-#pseudo-editor {
-  background-color: #141518;
-  width: 200px;
-  height: 500px;
-}
-
 #pseudo-wrapper {
   background-color: #141518;
   float: left;
   margin-right: 20px;
+}
+
+#pseudo-editor {
+  background-color: #141518;
+  width: 200px;
+  height: 500px;
 }
 
 #php-wrapper {
@@ -8395,6 +8395,12 @@ body {
 }
 
 #php-editor {
+  background-color: #141518;
+  width: 100%;
+  height: 500px;
+}
+
+#log-editor {
   background-color: #141518;
   width: 100%;
   height: 500px;
