@@ -40,8 +40,8 @@ class Log extends Component {
         setTimeout(function() {
             log.setValue(this.props.log,1);
         }.bind(this),10);
-        
-        console.log("FROM THE EDITOR", log.getSession().getValue());        
+        //var Range = ace.require('ace/range').Range;
+        //log.session.addMarker(new Range(2, 0, 1000, 1), "logError", "fullLine");
     }
 
     componentWillReceiveProps(nextProps){

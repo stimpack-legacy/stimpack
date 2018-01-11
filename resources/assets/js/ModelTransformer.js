@@ -1,4 +1,4 @@
-import Cache from './Cache'; // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage
+import Cache from './Cache'; // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
 
 export default class ModelTransformer {
     constructor() {

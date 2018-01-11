@@ -25,9 +25,10 @@ class Generator extends Component {
 
     performTasks(taskIndex = 0) {        
         if(taskIndex < this.props.tasks.length) {
+            console.log("HERE", this.props.tasks);
             $.ajax({
                 url: "/stimpack/perform/" + this.props.tasks[taskIndex].id,
-                data: { "some": "data"},                 
+                data: { "data": this.props.tasks},                                 
                 success: function(result){
                     // write to log
                     console.log("taskIndex", taskIndex);
@@ -35,8 +36,12 @@ class Generator extends Component {
                     this.props.updateLog(result);
                     this.performTasks(taskIndex+1);
                 }.bind(this),
+                contentType: "application/json",
                 error: function(error) {
-                    console.log(`Ops! there was some kind of error on ${this.props.tasks[taskIndex].id}!`);
+                    console.log(error);
+                    this.props.updateLog(`Ops! there was some kind of error on ${this.props.tasks[taskIndex].id}!`);
+                    this.props.updateLog(error.responseJSON.message);
+                    this.props.updateLog("Halting any further tasks.");                    
                 }.bind(this)
             });
         }        

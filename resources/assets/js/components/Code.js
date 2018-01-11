@@ -9,7 +9,7 @@ import {updatePseudoCode} from '../actions/index'
 class Code extends Component {
     componentDidMount() {
         this.setup();
-        this.test();        
+        //this.test();        
     }
 
     test() {

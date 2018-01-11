@@ -8446,3 +8446,9 @@ li a:hover {
   background-color: #333333;
 }
 
+.logError {
+  position: absolute;
+  background: red;
+  z-index: 20;
+}
+
