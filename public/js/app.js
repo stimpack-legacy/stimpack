@@ -54882,11 +54882,13 @@ function matchDispatchToProps(dispatch) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Cache__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Template__ = __webpack_require__(280);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
  // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
+
 
 var ModelTransformer = function () {
     function ModelTransformer() {
@@ -54931,7 +54933,9 @@ var ModelTransformer = function () {
     }, {
         key: 'returnTransformedModels',
         value: function returnTransformedModels() {
-            typeof this.callback === 'function' && this.callback(this.preview(this.transformedModels));
+            typeof this.callback === 'function' && this.callback(
+            //this.preview(this.transformedModels)
+            __WEBPACK_IMPORTED_MODULE_1__Template__["a" /* default */].model());
         }
     }, {
         key: 'definitions',
@@ -56649,6 +56653,73 @@ var initialLog = "";
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_migration__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_model__ = __webpack_require__(282);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+var Template = function () {
+    function Template() {
+        _classCallCheck(this, Template);
+    }
+
+    _createClass(Template, null, [{
+        key: 'migration',
+        value: function migration() {
+            return Template.replace(__WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */], { "Model": "Monkey" });
+        }
+    }, {
+        key: 'model',
+        value: function model() {
+            return Template.replace(__WEBPACK_IMPORTED_MODULE_1__templates_model__["a" /* default */], { "Model": "Monkey" });
+        }
+    }, {
+        key: 'replace',
+        value: function replace(template, replacementPairs) {
+            for (var key in replacementPairs) {
+                template = template.replace(key, replacementPairs[key]);
+            }
+            return template;
+        }
+    }]);
+
+    return Template;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Template);
+
+/***/ }),
+/* 281 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("alrighty!\nmore text\nokokok\n\n\n\n\nbye");
+
+/***/ }),
+/* 282 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("Model template!\nmore text\nokokok\n\n\n\n\nbye");
 
 /***/ })
 /******/ ]);

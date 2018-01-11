@@ -1,4 +1,5 @@
 import Cache from './Cache'; // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
+import Template from './Template';
 
 export default class ModelTransformer {
     constructor() {
@@ -37,7 +38,10 @@ export default class ModelTransformer {
     }
 
     returnTransformedModels() {
-        typeof this.callback === 'function' && this.callback(this.preview(this.transformedModels));
+        typeof this.callback === 'function' && this.callback(
+            //this.preview(this.transformedModels)
+            Template.model()
+        );
     }
 
     definitions(segments) {
