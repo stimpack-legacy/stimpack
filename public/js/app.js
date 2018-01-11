@@ -54933,9 +54933,7 @@ var ModelTransformer = function () {
     }, {
         key: 'returnTransformedModels',
         value: function returnTransformedModels() {
-            typeof this.callback === 'function' && this.callback(
-            //this.preview(this.transformedModels)
-            __WEBPACK_IMPORTED_MODULE_1__Template__["a" /* default */].model());
+            typeof this.callback === 'function' && this.callback(__WEBPACK_IMPORTED_MODULE_1__Template__["a" /* default */].migration(this.transformedModels));
         }
     }, {
         key: 'definitions',
@@ -56684,8 +56682,8 @@ var Template = function () {
 
     _createClass(Template, null, [{
         key: 'migration',
-        value: function migration() {
-            return Template.replace(__WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */], { "Model": "Monkey" });
+        value: function migration(transformedModels) {
+            return Template.replace(__WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */], { "$TABLES$": transformedModels[0].model });
         }
     }, {
         key: 'model',
@@ -56712,14 +56710,14 @@ var Template = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("alrighty!\nmore text\nokokok\n\n\n\n\nbye");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass CreateUsersTable extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('users', function (Blueprint $table) {\n            $TABLES$\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('users');\n    }\n}\n");
 
 /***/ }),
 /* 282 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("Model template!\nmore text\nokokok\n\n\n\n\nbye");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass User extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n        'name', 'email', 'password',\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n        'password', 'remember_token',\n    ];\n}");
 
 /***/ })
 /******/ ]);
