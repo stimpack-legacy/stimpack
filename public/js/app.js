@@ -54509,11 +54509,7 @@ var Header = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'header' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h1',
-                    null,
-                    'Laravel Stimpack'
-                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: 'img/stimpack_logo_with_text.png', width: '450px' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'p',
                     null,

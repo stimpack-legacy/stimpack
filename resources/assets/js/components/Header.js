@@ -5,7 +5,7 @@ export default class Header extends Component {
     render() {
         return (
             <div className="header">
-                <h1>Laravel Stimpack</h1>
+                <img src="img/stimpack_logo_with_text.png" width="450px" />                 
                 <p> Kickstart your laravel project </p>                
             </div>
         );
