@@ -8,6 +8,6 @@
 </p>
 
 ## Build Laravel apps in seconds.
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Laravel Stimpack is a task runner for speedy boilerplate generation. It sets the appropriate datatypes and integrity rules, relationships from minimal input. Stimpack is powered by statistics from thousands of open source repos.
 
 <img src="https://i.imgur.com/U9NnDix.gif" title="source: imgur.com" />
