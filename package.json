@@ -12,7 +12,6 @@
     "devDependencies": {
         "axios": "^0.17",
         "babel-preset-react": "^6.23.0",
-        "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
@@ -21,6 +20,7 @@
         "react-dom": "^15.4.2"
     },
     "dependencies": {
+        "popper.js": "^1.12.9",
         "react-redux": "^5.0.6",
         "redux": "^3.7.2"
     }
