@@ -15,13 +15,14 @@ class Generator extends Component {
 
     render() {
         return (
-            <div>
+            <div className="generator">
                 <Inputs />
-                <button onClick={this.stim.bind(this)} className="btn btn-success btn-cool">Stim!</button>
-                <Log />
             </div>
         );
     }
+
+    //<button onClick={this.stim.bind(this)} className="btn btn-success btn-cool">Stim!</button>
+    //<Log />
 
     performTasks(taskIndex = 0) {        
         if(taskIndex < this.props.tasks.length) {

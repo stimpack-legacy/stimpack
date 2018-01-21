@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header';
-import Generator from './Generator';
 
-export default class Main extends Component {
+export default class SampleTask extends Component {
+
     render() {
         return (
-            <div className="app">
-                <Header />
-                <Generator />
-            </div>
-        );
-    }
-}
-
-
-/*
-<Generator />
-
-                <Header />
-                <Generator />
             <div className="container">
                 <div className="card">
                 <div className="card-header">
@@ -31,5 +16,9 @@ export default class Main extends Component {
                     <a href="#" className="btn btn-primary">Go somewhere</a>
                 </div>
                 </div>                
-            </div>                
-*/
+            </div>
+        );
+    }
+
+    
+}

@@ -2,8 +2,47 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: $dark;
+    color: white;
+}
+
+.header {
+    margin-top: 10px;
+    background-color: $darkest;
+    text-align: center;
+}
+
+.generator {
+    margin-top: 10px;
+}
+
+.heading-app-name {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 170%;
+    letter-spacing: 5px;
+    color: $neon-green;
+}
+
+.card-header {
+    background-color: $darkest;
+}
+
+.card-body {
+    background-color: $dark;
+}
+
+.btn-primary {
+    background-color: $neon-green;
+}
