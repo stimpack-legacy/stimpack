@@ -8,7 +8,7 @@ export default class Main extends Component {
         return (
             <div className="app">
                 <Header />
-                <Generator />
+                <Generator />                                 
             </div>
         );
     }

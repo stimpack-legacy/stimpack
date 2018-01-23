@@ -7,23 +7,31 @@
 // Variables
 @import "variables";
 
+// Switch
+@import "switch";
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: $dark;
+    background-color: $semi-dark;
     color: white;
 }
 
 .header {
-    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
     background-color: $darkest;
     text-align: center;
 }
 
 .generator {
-    margin-top: 10px;
+    margin-top: 20px;
+}
+
+.inputs > * {
+    margin: 10px 0;
 }
 
 .heading-app-name {
@@ -46,3 +54,18 @@ body {
 .btn-primary {
     background-color: $neon-green;
 }
+
+
+
+// Extend default container width!
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1600px;
+    }
+}
+
+
+
+  .task-name {
+      margin-left: 10px;
+  }

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import Code from './Code';
 import Database from './Database';
 import CreateModelsTask from './tasks/CreateModelsTask';
-import SampleTask from './SampleTask';
+import CreateDatabaseTask from './tasks/CreateDatabaseTask';
+import SampleTask from './tasks/SampleTask';
 
 export default class Inputs extends Component {
     constructor(props) {
@@ -14,8 +15,10 @@ export default class Inputs extends Component {
 
     render() {
         return (
-            <div>
-                <SampleTask />
+            <div className="inputs">
+                <Code />                
+                <CreateDatabaseTask />
+                <CreateModelsTask />
             </div>
         );
     }
@@ -24,6 +27,8 @@ export default class Inputs extends Component {
 /*
 <Code />
 <CreateModelsTask />
+<SampleTask />
+
 
 <Database />
 <Code />                

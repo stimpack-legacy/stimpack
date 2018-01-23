@@ -21,27 +21,34 @@ class Code extends Component {
 
     render() {
         return (
-            <div>
-                <div className="input-panel">
-                    Tables
-                </div>            
-                <div id="pseudo-wrapper">
-                    <div>
-                        <ul>
-                            <li><a href="#">Input</a></li>
-                        </ul>
-                    </div>
-                    <div id="pseudo-editor" />
+            <div className="container">                              
+            <div className="card">
+                <div className="card-header">
+                    <span className="switch switch-sm">
+                        <input type="checkbox" className="switch" id="switch-id" checked onChange={this.enableTask} />
+                        <label htmlFor="switch-id">Project Object Model</label>                    
+                    </span>
                 </div>
-                <div id="php-wrapper">
-                    <div>
-                        <ul>
-                            <li><a href="#home">User</a></li>                                                                                                                                                                                               
-                    </ul>
+                <div className="card-body">                    
+                    <div id="pseudo-wrapper">
+                        <div>
+                            <ul>
+                                <li><a href="#">Input</a></li>
+                            </ul>
+                        </div>
+                        <div id="pseudo-editor" />
                     </div>
+                    <div id="php-wrapper">
+                        <div>
+                            <ul>
+                                <li><a href="#home">User</a></li>                                                                                                                                                                                               
+                        </ul>
+                        </div>
 
-                    <div id="php-editor" />
-                </div>            
+                        <div id="php-editor" />
+                    </div>                                
+                </div>
+            </div>                
             </div>
         );
     }
@@ -96,3 +103,9 @@ function matchDispatchToProps(dispatch){
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
 export default connect(mapStateToProps, matchDispatchToProps)(Code);
+
+
+
+
+
+
