@@ -4,7 +4,7 @@ namespace App\Stimpack;
 
 use Illuminate\Support\Facades\Log;
 
-class CreateModelsTask implements Task
+class StarOnGithubTask implements Task
 {
 
     public function __construct($tasks) {
@@ -12,6 +12,6 @@ class CreateModelsTask implements Task
     }
 
     public function perform() {
-        return "Models successfully created!";
+        return "Starred this project on github!";
     }
 }

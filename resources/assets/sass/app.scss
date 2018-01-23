@@ -63,6 +63,11 @@ body {
     width: 50%;
 }
 
+.btn-default {
+    background-color: $neon-green;
+    width: auto;
+}
+
 // Extend default container width!
 @media (min-width: 1200px) {
     .container{

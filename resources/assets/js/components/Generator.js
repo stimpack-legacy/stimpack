@@ -28,7 +28,8 @@ class Generator extends Component {
                             </div>
                         </div>
                     </div>      
-                </div>                                
+                </div>
+                <Log />                                
             </div>
         );
     }
@@ -37,32 +38,37 @@ class Generator extends Component {
 
 
 
-    performTasks(taskIndex = 0) {        
-        if(taskIndex < this.props.tasks.length) {
-            console.log("HERE", this.props.tasks);
-            $.ajax({
-                url: "/stimpack/perform/" + this.props.tasks[taskIndex].id,
-                data: { "data": this.props.tasks},                                 
-                success: function(result){
-                    // write to log
-                    console.log("taskIndex", taskIndex);
-                    console.log(result);
-                    this.props.updateLog(result);
-                    this.performTasks(taskIndex+1);
-                }.bind(this),
-                contentType: "application/json",
-                error: function(error) {
-                    console.log(error);
-                    this.props.updateLog(`Ops! there was some kind of error on ${this.props.tasks[taskIndex].id}!`);
-                    this.props.updateLog(error.responseJSON.message);
-                    this.props.updateLog("Halting any further tasks.");                    
-                }.bind(this)
-            });
-        }        
+    performTasks(taskIndex = 0) {
+        var count = 0;
+        for (var taskName in this.props.tasks) {
+            if (this.props.tasks.hasOwnProperty(taskName)) {
+                if(count == taskIndex) {
+                    $.ajax({
+                        url: "/stimpack/perform/" + taskName,
+                        data: { "data": this.props.tasks},                                 
+                        success: function(result){
+                            // write to log
+                            this.props.updateLog(result);
+                            this.performTasks(taskIndex+1);
+                        }.bind(this),
+                        contentType: "application/json",
+                        error: function(error) {
+                            this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
+                            this.props.updateLog(error.responseJSON.message);
+                            this.props.updateLog("Halting any further tasks.");                    
+                        }.bind(this)
+                    });                
+                }
+            }
+        }
+
+
+
+
+
     }
 
     stim() {
-        console.log("AVAILABLE TASKS: " + this.props.tasks.length);
         this.performTasks();
     }
 }

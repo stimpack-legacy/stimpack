@@ -12,7 +12,7 @@ class CreateDatabaseTask implements Task
     public function perform() {
         $path = database_path() . "/database.sqlite";        
         file_put_contents($path, "");
-        $message = "Created database at " . $path;
+        $message = "Created database at '" . $path . "'";
         return $message;
     }
 }

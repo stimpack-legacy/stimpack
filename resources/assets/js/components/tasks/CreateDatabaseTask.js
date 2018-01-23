@@ -6,7 +6,6 @@ import {updateTask} from '../../actions/index'
 
 class CreateDatabaseTask extends Component {
     componentDidMount() {
-        console.log(this.props.tasks[0].enabled);
     }
 
     render() {
@@ -15,7 +14,7 @@ class CreateDatabaseTask extends Component {
                 <div className="card">
                     <div className="card-header">
                         <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="switch-id" checked={this.props.tasks[0].enabled} onChange={this.enableTask.bind(this)} />
+                            <input type="checkbox" className="switch" id="switch-id" checked={this.props.tasks.CreateDatabaseTask.enabled} onChange={this.enableTask.bind(this)} />
                             <label htmlFor="switch-id">Create Database</label>                    
                         </span>
                     </div>
@@ -36,7 +35,7 @@ class CreateDatabaseTask extends Component {
 
         var extracted = this.props.tasks;
         var updatedTasks = this.props.tasks;
-        updatedTasks[0].enabled = !updatedTasks[0].enabled;
+        updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
         this.props.updateTask(updatedTasks);
         //console.log(this.props.tasks[0].enabled);
     }    

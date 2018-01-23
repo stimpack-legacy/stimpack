@@ -58604,7 +58604,8 @@ var Generator = function (_Component) {
                             )
                         )
                     )
-                )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Log__["a" /* default */], null)
             );
         }
 
@@ -58616,32 +58617,32 @@ var Generator = function (_Component) {
         value: function performTasks() {
             var taskIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
-            if (taskIndex < this.props.tasks.length) {
-                console.log("HERE", this.props.tasks);
-                $.ajax({
-                    url: "/stimpack/perform/" + this.props.tasks[taskIndex].id,
-                    data: { "data": this.props.tasks },
-                    success: function (result) {
-                        // write to log
-                        console.log("taskIndex", taskIndex);
-                        console.log(result);
-                        this.props.updateLog(result);
-                        this.performTasks(taskIndex + 1);
-                    }.bind(this),
-                    contentType: "application/json",
-                    error: function (error) {
-                        console.log(error);
-                        this.props.updateLog('Ops! there was some kind of error on ' + this.props.tasks[taskIndex].id + '!');
-                        this.props.updateLog(error.responseJSON.message);
-                        this.props.updateLog("Halting any further tasks.");
-                    }.bind(this)
-                });
+            var count = 0;
+            for (var taskName in this.props.tasks) {
+                if (this.props.tasks.hasOwnProperty(taskName)) {
+                    if (count == taskIndex) {
+                        $.ajax({
+                            url: "/stimpack/perform/" + taskName,
+                            data: { "data": this.props.tasks },
+                            success: function (result) {
+                                // write to log
+                                this.props.updateLog(result);
+                                this.performTasks(taskIndex + 1);
+                            }.bind(this),
+                            contentType: "application/json",
+                            error: function (error) {
+                                this.props.updateLog('Ops! there was some kind of error on ' + key + '!');
+                                this.props.updateLog(error.responseJSON.message);
+                                this.props.updateLog("Halting any further tasks.");
+                            }.bind(this)
+                        });
+                    }
+                }
             }
         }
     }, {
         key: 'stim',
         value: function stim() {
-            console.log("AVAILABLE TASKS: " + this.props.tasks.length);
             this.performTasks();
         }
     }]);
@@ -60450,9 +60451,7 @@ var CreateDatabaseTask = function (_Component) {
 
     _createClass(CreateDatabaseTask, [{
         key: 'componentDidMount',
-        value: function componentDidMount() {
-            console.log(this.props.tasks[0].enabled);
-        }
+        value: function componentDidMount() {}
     }, {
         key: 'render',
         value: function render() {
@@ -60468,7 +60467,7 @@ var CreateDatabaseTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: this.props.tasks[0].enabled, onChange: this.enableTask.bind(this) }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: this.props.tasks.CreateDatabaseTask.enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { htmlFor: 'switch-id' },
@@ -60514,7 +60513,7 @@ var CreateDatabaseTask = function (_Component) {
 
             var extracted = this.props.tasks;
             var updatedTasks = this.props.tasks;
-            updatedTasks[0].enabled = !updatedTasks[0].enabled;
+            updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
             this.props.updateTask(updatedTasks);
             //console.log(this.props.tasks[0].enabled);
         }
@@ -60651,7 +60650,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
 
 /***/ }),
 /* 272 */
@@ -60702,36 +60701,35 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 /* harmony default export */ __webpack_exports__["a"] = (function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     var action = arguments[1];
 
     switch (action.type) {
         case 'TASK_UPDATED':
-            return [].concat(_toConsumableArray(action.payload));
+            var tasks = Object.assign({}, action.payload);
+            return tasks;
             break;
     }
 
     // Default task properties
-    return [{
-        id: "CreateDatabaseTask",
-        enabled: false
-    }, {
-        id: "CreateMigrationsTask",
-        pseudoCode: "some code goes here",
-        enabled: false
-    }, {
-        id: "CreateModelsTask",
-        enabled: false
-    }, {
-        id: "CreateControllersTask",
-        enabled: false
-    }, {
-        id: "StarOnGithubTask",
-        enabled: false
-    }];
+    return {
+        CreateDatabaseTask: {
+            enabled: false
+        },
+        CreateMigrationsTask: {
+            enabled: false
+        },
+        CreateModelsTask: {
+            enabled: false
+        },
+        CreateControllersTask: {
+            enabled: false
+        },
+        StarOnGithubTask: {
+            enabled: false
+        }
+    };
 });
 
 /***/ }),
@@ -60999,6 +60997,11 @@ var CreateMigrationsTask = function (_Component) {
                                 )
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'php-editor' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { className: 'btn btn-default btn-cool' },
+                            'make:auth'
                         )
                     )
                 )

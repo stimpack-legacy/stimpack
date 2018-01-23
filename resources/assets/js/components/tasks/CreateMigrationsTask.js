@@ -47,7 +47,10 @@ class CreateMigrationsTask extends Component {
 
                         <div id="php-editor" />
                     </div>                                
+                    
+                    <button className="btn btn-default btn-cool">make:auth</button>
                 </div>
+                
             </div>                
             </div>
         );

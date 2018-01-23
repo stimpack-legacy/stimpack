@@ -1,32 +1,27 @@
 export default function (state = null, action) {
     switch (action.type) {
-        case 'TASK_UPDATED':            
-            return [ ...action.payload];
+        case 'TASK_UPDATED':
+            var tasks = Object.assign({}, action.payload);            
+            return tasks;
             break;
     }
     
     // Default task properties
-    return [
-        {
-            id: "CreateDatabaseTask",
+    return {
+        CreateDatabaseTask: {
             enabled: false
         },
-        {
-            id: "CreateMigrationsTask",
-            pseudoCode: "some code goes here",
+        CreateMigrationsTask: {
             enabled: false
         },
-        {
-            id: "CreateModelsTask",
+        CreateModelsTask: {
             enabled: false
         },
-        {
-            id: "CreateControllersTask",
+        CreateControllersTask: {
             enabled: false
         },
-        {
-            id: "StarOnGithubTask",
+        StarOnGithubTask: {
             enabled: false
-        },                        
-    ]
+        }
+    }
 }

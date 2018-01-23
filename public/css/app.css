@@ -10243,6 +10243,11 @@ body {
   width: 50%;
 }
 
+.btn-default {
+  background-color: #AFE418;
+  width: auto;
+}
+
 @media (min-width: 1200px) {
   .container {
     max-width: 1600px;
