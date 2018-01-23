@@ -1,16 +1,32 @@
-export default function () {
+export default function (state = null, action) {
+    switch (action.type) {
+        case 'TASK_UPDATED':            
+            return [ ...action.payload];
+            break;
+    }
+    
+    // Default task properties
     return [
         {
+            id: "CreateDatabaseTask",
+            enabled: false
+        },
+        {
             id: "CreateMigrationsTask",
-            heading: "Create migrations",
-            description: "```php artisan migrate:fresh```",
-            enabled: true
+            pseudoCode: "some code goes here",
+            enabled: false
         },
         {
             id: "CreateModelsTask",
-            heading: "Create models",
-            description: "```php artisan make:model X```",
-            enabled: true
-        },        
+            enabled: false
+        },
+        {
+            id: "CreateControllersTask",
+            enabled: false
+        },
+        {
+            id: "StarOnGithubTask",
+            enabled: false
+        },                        
     ]
 }

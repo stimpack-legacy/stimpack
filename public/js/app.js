@@ -22133,6 +22133,7 @@ function verifyPlainObject(value, displayName, methodName) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updatePseudoCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTask; });
 var updatePseudoCode = function updatePseudoCode(code) {
     return {
         type: 'PSEUDO_CODE_UPDATED',
@@ -22141,10 +22142,16 @@ var updatePseudoCode = function updatePseudoCode(code) {
 };
 
 var updateLog = function updateLog(message) {
-    console.log("action");
     return {
         type: 'LOG_UPDATED',
         payload: message
+    };
+};
+
+var updateTask = function updateTask(tasks) {
+    return {
+        type: 'TASK_UPDATED',
+        payload: tasks
     };
 };
 
@@ -60417,6 +60424,7 @@ function mapStateToProps(state) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(108);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60424,6 +60432,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -60440,6 +60449,11 @@ var CreateDatabaseTask = function (_Component) {
     }
 
     _createClass(CreateDatabaseTask, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log(this.props.tasks[0].enabled);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -60454,7 +60468,7 @@ var CreateDatabaseTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: true, onChange: this.enableTask }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: this.props.tasks[0].enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { htmlFor: 'switch-id' },
@@ -60496,7 +60510,13 @@ var CreateDatabaseTask = function (_Component) {
     }, {
         key: 'enableTask',
         value: function enableTask() {
-            // do something
+            //console.log(this.props.tasks[0].enabled);
+
+            var extracted = this.props.tasks;
+            var updatedTasks = this.props.tasks;
+            updatedTasks[0].enabled = !updatedTasks[0].enabled;
+            this.props.updateTask(updatedTasks);
+            //console.log(this.props.tasks[0].enabled);
         }
     }]);
 
@@ -60508,13 +60528,18 @@ var CreateDatabaseTask = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks
     };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */] }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(CreateDatabaseTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask));
 
 /*
 
@@ -60677,17 +60702,35 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'TASK_UPDATED':
+            return [].concat(_toConsumableArray(action.payload));
+            break;
+    }
+
+    // Default task properties
     return [{
+        id: "CreateDatabaseTask",
+        enabled: false
+    }, {
         id: "CreateMigrationsTask",
-        heading: "Create migrations",
-        description: "```php artisan migrate:fresh```",
-        enabled: true
+        pseudoCode: "some code goes here",
+        enabled: false
     }, {
         id: "CreateModelsTask",
-        heading: "Create models",
-        description: "```php artisan make:model X```",
-        enabled: true
+        enabled: false
+    }, {
+        id: "CreateControllersTask",
+        enabled: false
+    }, {
+        id: "StarOnGithubTask",
+        enabled: false
     }];
 });
 

@@ -6,9 +6,15 @@ export const updatePseudoCode = (code) => {
 };
 
 export const updateLog = (message) => {
-    console.log("action");
     return {
         type: 'LOG_UPDATED',
         payload: message
+    }
+};
+
+export const updateTask = (tasks) => {
+    return {
+        type: 'TASK_UPDATED',
+        payload: tasks
     }
 };
