@@ -10,6 +10,9 @@
 // Switch
 @import "switch";
 
+// Code editors
+@import "editors";
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
@@ -64,8 +67,11 @@ body {
     }
 }
 
+.task-name {
+    margin-left: 10px;
+}
 
-
-  .task-name {
-      margin-left: 10px;
-  }
+  // Select box width
+select {
+    width:30% !important;
+}

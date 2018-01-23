@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Code from './Code';
+
 import Database from './Database';
+import CreateMigrationsTask from './tasks/CreateMigrationsTask';
 import CreateModelsTask from './tasks/CreateModelsTask';
 import CreateDatabaseTask from './tasks/CreateDatabaseTask';
 import SampleTask from './tasks/SampleTask';
@@ -16,8 +17,8 @@ export default class Inputs extends Component {
     render() {
         return (
             <div className="inputs">
-                <Code />                
                 <CreateDatabaseTask />
+                <CreateMigrationsTask />
                 <CreateModelsTask />
             </div>
         );

@@ -138,6 +138,72 @@
   margin-left: 1rem;
 }
 
+#pseudo-wrapper {
+  font-size: 1rem;
+  background-color: #141518;
+  float: left;
+  margin-right: 20px;
+}
+
+#pseudo-editor {
+  font-size: 1rem;
+  background-color: #141518;
+  width: 200px;
+  height: 500px;
+}
+
+#php-wrapper {
+  font-size: 1rem;
+  background-color: #141518;
+  display: inline-block;
+  width: 80%;
+}
+
+#php-editor {
+  font-size: 1rem;
+  background-color: #141518;
+  width: 100%;
+  height: 500px;
+}
+
+#log-editor {
+  background-color: #141518;
+  width: 100%;
+  height: 500px;
+}
+
+.btn-cool {
+  width: 100%;
+}
+
+.actions {
+  margin-top: 40px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 4px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111111;
+}
+
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -10184,5 +10250,9 @@ body {
 
 .task-name {
   margin-left: 10px;
+}
+
+select {
+  width: 30% !important;
 }
 

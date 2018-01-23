@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ModelTransformer from '../ModelTransformer';
+import ModelTransformer from '../../ModelTransformer';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updatePseudoCode} from '../actions/index'
+import {updatePseudoCode} from '../../actions/index'
 
-class Code extends Component {
+class CreateMigrationsTask extends Component {
     componentDidMount() {
         this.setup();
         //this.test();        
@@ -26,7 +26,7 @@ class Code extends Component {
                 <div className="card-header">
                     <span className="switch switch-sm">
                         <input type="checkbox" className="switch" id="switch-id" checked onChange={this.enableTask} />
-                        <label htmlFor="switch-id">Project Object Model</label>                    
+                        <label htmlFor="switch-id">Create Migrations</label>                    
                     </span>
                 </div>
                 <div className="card-body">                    
@@ -102,7 +102,7 @@ function matchDispatchToProps(dispatch){
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-export default connect(mapStateToProps, matchDispatchToProps)(Code);
+export default connect(mapStateToProps, matchDispatchToProps)(CreateMigrationsTask);
 
 
 
