@@ -6,6 +6,8 @@ import CreateMigrationsTask from './tasks/CreateMigrationsTask';
 import CreateModelsTask from './tasks/CreateModelsTask';
 import CreateDatabaseTask from './tasks/CreateDatabaseTask';
 import SampleTask from './tasks/SampleTask';
+import StarOnGithubTask from './tasks/StarOnGithubTask';
+import CreateControllersTask from './tasks/CreateControllersTask';
 
 export default class Inputs extends Component {
     constructor(props) {
@@ -20,6 +22,8 @@ export default class Inputs extends Component {
                 <CreateDatabaseTask />
                 <CreateMigrationsTask />
                 <CreateModelsTask />
+                <CreateControllersTask />
+                <StarOnGithubTask />
             </div>
         );
     }

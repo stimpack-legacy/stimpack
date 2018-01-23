@@ -37,6 +37,10 @@ body {
     margin: 10px 0;
 }
 
+.buttons > * {
+    margin: 10px 0;
+}
+
 .heading-app-name {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
@@ -56,9 +60,8 @@ body {
 
 .btn-primary {
     background-color: $neon-green;
+    width: 50%;
 }
-
-
 
 // Extend default container width!
 @media (min-width: 1200px) {

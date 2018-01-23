@@ -17,12 +17,25 @@ class Generator extends Component {
         return (
             <div className="generator">
                 <Inputs />
+                <div className="buttons"> 
+                    <div className="container">                             
+                        <div className="card">
+                            <div className="card-header">
+                                <h4>Run Tasks!</h4>
+                            </div>
+                            <div className="card-body">                                                                                                
+                                <button onClick={this.stim.bind(this)} className="btn btn-primary btn-cool">Stim!</button>                           
+                            </div>
+                        </div>
+                    </div>      
+                </div>                                
             </div>
         );
     }
 
-    //<button onClick={this.stim.bind(this)} className="btn btn-success btn-cool">Stim!</button>
-    //<Log />
+    // <Log />
+
+
 
     performTasks(taskIndex = 0) {        
         if(taskIndex < this.props.tasks.length) {

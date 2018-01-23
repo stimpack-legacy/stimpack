@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-class CreateDatabaseTask extends Component {
+class CreateControllersTask extends Component {
     render() {
         return (
             <div className="container">                              
@@ -11,17 +11,12 @@ class CreateDatabaseTask extends Component {
                     <div className="card-header">
                         <span className="switch switch-sm">
                             <input type="checkbox" className="switch" id="switch-id" checked onChange={this.enableTask} />
-                            <label htmlFor="switch-id">Create Database</label>                    
+                            <label htmlFor="switch-id">Create Controllers</label>                    
                         </span>
                     </div>
-                    <div className="card-body">                                            
-                        <select className="form-control" id="inputGroupSelect01">                      
-                            <option value="volvo" disabled selected>Select database type</option>
-                            <option value="sqlite">Sqlite</option>
-                            <option value="mysql" disabled>MySQL</option>
-                            <option value="postgres" disabled>PostgreSQL</option>
-                        </select>                       
-                        </div>
+                    <div className="card-body">                    
+                    <p>Populate from project object model</p>                       
+                    </div>
                 </div>                
             </div>
         );
@@ -42,7 +37,7 @@ function mapStateToProps(state) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-export default connect(mapStateToProps)(CreateDatabaseTask);
+export default connect(mapStateToProps)(CreateControllersTask);
 
 
 /*

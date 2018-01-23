@@ -10,10 +10,7 @@ class Log extends Component {
 
     render() {
         return (
-            <div>
-                <div className="input-panel">
-                    Log
-                </div>            
+            <div className="container">
                 <div id="log-wrapper">
                     <div id="log-editor" />
                 </div>            

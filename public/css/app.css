@@ -172,10 +172,6 @@
   height: 500px;
 }
 
-.btn-cool {
-  width: 100%;
-}
-
 .actions {
   margin-top: 40px;
 }
@@ -10221,6 +10217,10 @@ body {
   margin: 10px 0;
 }
 
+.buttons > * {
+  margin: 10px 0;
+}
+
 .heading-app-name {
   font-family: 'Open Sans', sans-serif;
   font-weight: 500;
@@ -10240,6 +10240,7 @@ body {
 
 .btn-primary {
   background-color: #AFE418;
+  width: 50%;
 }
 
 @media (min-width: 1200px) {
