@@ -71,6 +71,7 @@ class CreateMigrationsTask extends Component {
 
     setup() {
         var pseudo = ace.edit("pseudo-editor");
+        pseudo.$blockScrolling = Infinity;
         pseudo.setTheme("ace/theme/monokai");
         pseudo.getSession().setMode({
             path: "ace/mode/php",
@@ -80,6 +81,7 @@ class CreateMigrationsTask extends Component {
         pseudo.renderer.setShowGutter(false);        
         
         var php = ace.edit("php-editor");
+        php.$blockScrolling = Infinity;
         php.setTheme("ace/theme/monokai");
         php.getSession().setMode({
             path: "ace/mode/php",
