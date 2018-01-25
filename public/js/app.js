@@ -60554,7 +60554,6 @@ var Template = function () {
             if (transformedModels.length < 1) {
                 return "";
             }
-            console.log(transformedModels);
             var result = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
             result = Template.replace(result, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModels[0].table.charAt(0).toUpperCase() + transformedModels[0].table.slice(1) + "Table" });
             result = Template.replace(result, { "$TABLE-NAME$": transformedModels[0].table });
@@ -60570,7 +60569,8 @@ var Template = function () {
         key: 'replace',
         value: function replace(template, replacementPairs) {
             for (var key in replacementPairs) {
-                template = template.replace(key, replacementPairs[key]);
+                console.log(template, new RegExp(key, 'g'));
+                template = template.replace(new RegExp(key.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'g'), replacementPairs[key]);
             }
             return template;
         }
