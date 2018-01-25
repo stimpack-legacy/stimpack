@@ -2637,12 +2637,20 @@ module.exports = PooledClass;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updatePseudoCode; });
+/* unused harmony export updateTransformedModels */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTask; });
 var updatePseudoCode = function updatePseudoCode(code) {
     return {
         type: 'PSEUDO_CODE_UPDATED',
         payload: code
+    };
+};
+
+var updateTransformedModels = function updateTransformedModels(transformedModels) {
+    return {
+        type: 'TRANSFORMED_MODELS_UPDATED',
+        payload: transformedModels
     };
 };
 
@@ -60100,6 +60108,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Template__ = __webpack_require__(265);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60107,6 +60116,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -60236,38 +60246,41 @@ var CreateMigrationsTask = function (_Component) {
     }, {
         key: 'setup',
         value: function setup() {
-            var pseudo = ace.edit("pseudo-editor");
-            pseudo.$blockScrolling = Infinity;
-            pseudo.setTheme("ace/theme/monokai");
-            pseudo.getSession().setMode({
+            this.pseudo = ace.edit("pseudo-editor");
+            this.pseudo.$blockScrolling = Infinity;
+            this.pseudo.setTheme("ace/theme/monokai");
+            this.pseudo.getSession().setMode({
                 path: "ace/mode/php",
                 inline: true
             });
-            pseudo.setShowPrintMargin(false);
-            pseudo.renderer.setShowGutter(false);
+            this.pseudo.setShowPrintMargin(false);
+            this.pseudo.renderer.setShowGutter(false);
 
-            var php = ace.edit("php-editor");
-            php.$blockScrolling = Infinity;
-            php.setTheme("ace/theme/monokai");
-            php.getSession().setMode({
+            this.php = ace.edit("php-editor");
+            this.php.$blockScrolling = Infinity;
+            this.php.setTheme("ace/theme/monokai");
+            this.php.getSession().setMode({
                 path: "ace/mode/php",
                 inline: true
             });
-            php.setShowPrintMargin(false);
-            php.renderer.setShowGutter(false);
-            pseudo.getSession().on('change', function () {
-                var pseudoCode = pseudo.getSession().getValue();
+            this.php.setShowPrintMargin(false);
+            this.php.renderer.setShowGutter(false);
+            this.pseudo.getSession().on('change', function () {
+                var pseudoCode = this.pseudo.getSession().getValue();
                 this.props.updatePseudoCode(pseudoCode);
                 this.updatePseudoCode(pseudoCode);
                 var modelTransformer = new __WEBPACK_IMPORTED_MODULE_2__ModelTransformer__["a" /* default */]();
-                modelTransformer.transform(pseudoCode, function (phpCode) {
-                    php.setValue(phpCode, 1);
+                modelTransformer.transform(pseudoCode, function (transformedModels) {
+                    this.renderPhpCode(transformedModels);
                 }.bind(this));
             }.bind(this));
-            var defaultTables = "";
-            defaultTables += "User\nname\nemail\password\nrememberToken\ntimestamps\n\n";
-            defaultTables += "password_resets\nemail\ntoken\created_at\n";
-            pseudo.setValue(defaultTables, 1);
+        }
+    }, {
+        key: 'renderPhpCode',
+        value: function renderPhpCode(transformedModels) {
+            // Split into tabs etc...
+            var phpCode = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(transformedModels);
+            this.php.setValue(phpCode, 1);
         }
     }]);
 
@@ -60354,7 +60367,7 @@ var ModelTransformer = function () {
     }, {
         key: 'returnTransformedModels',
         value: function returnTransformedModels() {
-            typeof this.callback === 'function' && this.callback(__WEBPACK_IMPORTED_MODULE_1__Template__["a" /* default */].migration(this.transformedModels));
+            typeof this.callback === 'function' && this.callback(this.transformedModels);
         }
     }, {
         key: 'definitions',
@@ -60519,7 +60532,6 @@ var Template = function () {
     _createClass(Template, null, [{
         key: 'migration',
         value: function migration(transformedModels) {
-            console.log("Length", transformedModels.length);
             if (transformedModels.length < 1) {
                 return "";
             }
@@ -60550,7 +60562,7 @@ var Template = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass CreateUsersTable extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('users', function (Blueprint $table) {\n            $TABLES$\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('users');\n    }\n}\n");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n            $COLUMNS$\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
 
 /***/ }),
 /* 267 */
@@ -61230,9 +61242,9 @@ function matchDispatchToProps(dispatch) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__code_reducer__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__task_reducer__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__log_reducer__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__codeReducer__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__taskReducer__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__logReducer__ = __webpack_require__(285);
 
 
 
@@ -61244,15 +61256,28 @@ function matchDispatchToProps(dispatch) {
  * */
 
 var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReducers */])({
-  pseudoCode: __WEBPACK_IMPORTED_MODULE_1__code_reducer__["a" /* default */],
-  tasks: __WEBPACK_IMPORTED_MODULE_2__task_reducer__["a" /* default */],
-  log: __WEBPACK_IMPORTED_MODULE_3__log_reducer__["a" /* default */]
+  pseudoCode: __WEBPACK_IMPORTED_MODULE_1__codeReducer__["a" /* default */],
+  tasks: __WEBPACK_IMPORTED_MODULE_2__taskReducer__["a" /* default */],
+  log: __WEBPACK_IMPORTED_MODULE_3__logReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
 
 /***/ }),
-/* 275 */
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61269,7 +61294,7 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 });
 
 /***/ }),
-/* 276 */
+/* 284 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61307,7 +61332,7 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 });
 
 /***/ }),
-/* 277 */
+/* 285 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61324,12 +61349,6 @@ var initialLog = "";
     }
     return state;
 });
-
-/***/ }),
-/* 278 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
-import codeReducer from './code-reducer';
-import taskReducer from './task-reducer';
-import logReducer from './log-reducer';
+import codeReducer from './codeReducer';
+import taskReducer from './taskReducer';
+import logReducer from './logReducer';
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store

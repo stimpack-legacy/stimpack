@@ -5,6 +5,13 @@ export const updatePseudoCode = (code) => {
     }
 };
 
+export const updateTransformedModels = (transformedModels) => {    
+    return {
+        type: 'TRANSFORMED_MODELS_UPDATED',
+        payload: transformedModels
+    }
+};
+
 export const updateLog = (message) => {
     return {
         type: 'LOG_UPDATED',

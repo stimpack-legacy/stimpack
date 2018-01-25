@@ -61,11 +61,6 @@ class Generator extends Component {
                 }
             }
         }
-
-
-
-
-
     }
 
     stim() {

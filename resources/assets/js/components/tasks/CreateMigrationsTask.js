@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updatePseudoCode} from '../../actions/index';
 import {updateTask} from '../../actions/index';
+import Template from './../../Template';
 
 class CreateMigrationsTask extends Component {
     componentDidMount() {
@@ -70,38 +71,40 @@ class CreateMigrationsTask extends Component {
     }
 
     setup() {
-        var pseudo = ace.edit("pseudo-editor");
-        pseudo.$blockScrolling = Infinity;
-        pseudo.setTheme("ace/theme/monokai");
-        pseudo.getSession().setMode({
+        this.pseudo = ace.edit("pseudo-editor");
+        this.pseudo.$blockScrolling = Infinity;
+        this.pseudo.setTheme("ace/theme/monokai");
+        this.pseudo.getSession().setMode({
             path: "ace/mode/php",
             inline: true
         });        
-        pseudo.setShowPrintMargin(false);
-        pseudo.renderer.setShowGutter(false);        
+        this.pseudo.setShowPrintMargin(false);
+        this.pseudo.renderer.setShowGutter(false);        
         
-        var php = ace.edit("php-editor");
-        php.$blockScrolling = Infinity;
-        php.setTheme("ace/theme/monokai");
-        php.getSession().setMode({
+        this.php = ace.edit("php-editor");
+        this.php.$blockScrolling = Infinity;
+        this.php.setTheme("ace/theme/monokai");
+        this.php.getSession().setMode({
             path: "ace/mode/php",
             inline: true
         });        
-        php.setShowPrintMargin(false);
-        php.renderer.setShowGutter(false);        
-        pseudo.getSession().on('change', function() {
-            var pseudoCode = pseudo.getSession().getValue();
+        this.php.setShowPrintMargin(false);
+        this.php.renderer.setShowGutter(false);        
+        this.pseudo.getSession().on('change', function() {
+            var pseudoCode = this.pseudo.getSession().getValue();
             this.props.updatePseudoCode(pseudoCode);
             this.updatePseudoCode(pseudoCode);
             var modelTransformer = new ModelTransformer();
-            modelTransformer.transform(pseudoCode, function(phpCode) {
-                php.setValue(phpCode, 1);                
+            modelTransformer.transform(pseudoCode, function(transformedModels) {                
+                this.renderPhpCode(transformedModels);                
             }.bind(this));
         }.bind(this));
-        var defaultTables = "";
-        defaultTables += "User\nname\nemail\password\nrememberToken\ntimestamps\n\n";
-        defaultTables += "password_resets\nemail\ntoken\created_at\n";        
-        pseudo.setValue(defaultTables,1);
+    }
+
+    renderPhpCode(transformedModels) {
+        // Split into tabs etc...
+        var phpCode = Template.migration(transformedModels);
+        this.php.setValue(phpCode, 1);
     }
     
 }

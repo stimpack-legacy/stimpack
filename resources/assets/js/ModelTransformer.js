@@ -38,9 +38,7 @@ export default class ModelTransformer {
     }
 
     returnTransformedModels() {
-        typeof this.callback === 'function' && this.callback(            
-            Template.migration(this.transformedModels)
-        );
+        typeof this.callback === 'function' && this.callback(this.transformedModels);
     }
 
     definitions(segments) {
