@@ -22,7 +22,8 @@ export default class ModelTransformer {
             //data: "somedata more thiss as well?", 
             success: function(modelPluralized){
                 this.transformedModels.push({
-                    model: modelPluralized,
+                    model: model.charAt(0).toUpperCase() + model.slice(1),
+                    table: modelPluralized,
                     attributes: rows.slice(1)
                 });
                 if(this.finished()) {

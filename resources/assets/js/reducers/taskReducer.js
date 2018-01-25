@@ -14,7 +14,13 @@ export default function (state = null, action) {
         },
         CreateMigrationsTask: {
             enabled: true,
-            pseudoCode: ""
+            pseudoCode: "",
+            transformedModels: [{
+                model: "No models supplied yet",
+                table: "Home",
+                attributes: "No Attributes"
+            }],
+            migrations: []
         },
         CreateModelsTask: {
             enabled: true

@@ -43,8 +43,8 @@ class CreateMigrationsTask extends Component {
                     <div id="php-wrapper">
                         <div>
                             <ul>
-                                <li><a href="#home">User</a></li>                                                                                                                                                                                               
-                        </ul>
+                                {this.renderPhpTabs()}
+                            </ul>
                         </div>
 
                         <div id="php-editor" />
@@ -58,6 +58,17 @@ class CreateMigrationsTask extends Component {
         );
     }
 
+    renderPhpTabs() {        
+        return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+            return (
+                <li key={model.table}>
+                    <a href="#">{model.model}</a>
+                </li>
+            );
+        });
+    }    
+    //onClick={() => this.props.selectUser(user)}
+    //{this.renderPhpTabs()}                                
     enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateMigrationsTask.enabled = !updatedTasks.CreateMigrationsTask.enabled; // ^= 1
@@ -67,6 +78,12 @@ class CreateMigrationsTask extends Component {
     updatePseudoCode(pseudoCode) {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateMigrationsTask.pseudoCode = pseudoCode;
+        this.props.updateTask(updatedTasks);        
+    }
+
+    updateTransformedModels(models) {
+        var updatedTasks = this.props.tasks;
+        updatedTasks.CreateMigrationsTask.transformedModels = models;
         this.props.updateTask(updatedTasks);        
     }
 
@@ -92,10 +109,11 @@ class CreateMigrationsTask extends Component {
         this.php.renderer.setShowGutter(false);        
         this.pseudo.getSession().on('change', function() {
             var pseudoCode = this.pseudo.getSession().getValue();
-            this.props.updatePseudoCode(pseudoCode);
+            //this.props.updatePseudoCode(pseudoCode);
             this.updatePseudoCode(pseudoCode);
             var modelTransformer = new ModelTransformer();
-            modelTransformer.transform(pseudoCode, function(transformedModels) {                
+            modelTransformer.transform(pseudoCode, function(transformedModels) {
+                this.updateTransformedModels(transformedModels);                                
                 this.renderPhpCode(transformedModels);                
             }.bind(this));
         }.bind(this));

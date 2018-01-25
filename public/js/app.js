@@ -60207,15 +60207,7 @@ var CreateMigrationsTask = function (_Component) {
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'ul',
                                     null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'li',
-                                        null,
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'a',
-                                            { href: '#home' },
-                                            'User'
-                                        )
-                                    )
+                                    this.renderPhpTabs()
                                 )
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'php-editor' })
@@ -60230,6 +60222,24 @@ var CreateMigrationsTask = function (_Component) {
             );
         }
     }, {
+        key: 'renderPhpTabs',
+        value: function renderPhpTabs() {
+            return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: model.table },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: '#' },
+                        model.model
+                    )
+                );
+            });
+        }
+        //onClick={() => this.props.selectUser(user)}
+        //{this.renderPhpTabs()}                                
+
+    }, {
         key: 'enableTask',
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
@@ -60241,6 +60251,13 @@ var CreateMigrationsTask = function (_Component) {
         value: function updatePseudoCode(pseudoCode) {
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateMigrationsTask.pseudoCode = pseudoCode;
+            this.props.updateTask(updatedTasks);
+        }
+    }, {
+        key: 'updateTransformedModels',
+        value: function updateTransformedModels(models) {
+            var updatedTasks = this.props.tasks;
+            updatedTasks.CreateMigrationsTask.transformedModels = models;
             this.props.updateTask(updatedTasks);
         }
     }, {
@@ -60267,10 +60284,11 @@ var CreateMigrationsTask = function (_Component) {
             this.php.renderer.setShowGutter(false);
             this.pseudo.getSession().on('change', function () {
                 var pseudoCode = this.pseudo.getSession().getValue();
-                this.props.updatePseudoCode(pseudoCode);
+                //this.props.updatePseudoCode(pseudoCode);
                 this.updatePseudoCode(pseudoCode);
                 var modelTransformer = new __WEBPACK_IMPORTED_MODULE_2__ModelTransformer__["a" /* default */]();
                 modelTransformer.transform(pseudoCode, function (transformedModels) {
+                    this.updateTransformedModels(transformedModels);
                     this.renderPhpCode(transformedModels);
                 }.bind(this));
             }.bind(this));
@@ -60350,7 +60368,8 @@ var ModelTransformer = function () {
                 //data: "somedata more thiss as well?", 
                 success: function (modelPluralized) {
                     this.transformedModels.push({
-                        model: modelPluralized,
+                        model: model.charAt(0).toUpperCase() + model.slice(1),
+                        table: modelPluralized,
                         attributes: rows.slice(1)
                     });
                     if (this.finished()) {
@@ -60535,7 +60554,12 @@ var Template = function () {
             if (transformedModels.length < 1) {
                 return "";
             }
-            return Template.replace(__WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */], { "$TABLES$": transformedModels[0].model });
+            console.log(transformedModels);
+            var result = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
+            result = Template.replace(result, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModels[0].table.charAt(0).toUpperCase() + transformedModels[0].table.slice(1) + "Table" });
+            result = Template.replace(result, { "$TABLE-NAME$": transformedModels[0].table });
+            result = Template.replace(result, { "$COLUMNS$": transformedModels[0].attributes[0] });
+            return result;
         }
     }, {
         key: 'model',
@@ -61317,7 +61341,13 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
         },
         CreateMigrationsTask: {
             enabled: true,
-            pseudoCode: ""
+            pseudoCode: "",
+            transformedModels: [{
+                model: "No models supplied yet",
+                table: "Home",
+                attributes: "No Attributes"
+            }],
+            migrations: []
         },
         CreateModelsTask: {
             enabled: true
