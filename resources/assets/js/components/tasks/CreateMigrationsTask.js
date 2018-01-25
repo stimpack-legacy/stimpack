@@ -63,6 +63,12 @@ class CreateMigrationsTask extends Component {
         this.props.updateTask(updatedTasks);
     }
 
+    updatePseudoCode(pseudoCode) {
+        var updatedTasks = this.props.tasks;
+        updatedTasks.CreateMigrationsTask.pseudoCode = pseudoCode;
+        this.props.updateTask(updatedTasks);        
+    }
+
     setup() {
         var pseudo = ace.edit("pseudo-editor");
         pseudo.setTheme("ace/theme/monokai");
@@ -84,6 +90,7 @@ class CreateMigrationsTask extends Component {
         pseudo.getSession().on('change', function() {
             var pseudoCode = pseudo.getSession().getValue();
             this.props.updatePseudoCode(pseudoCode);
+            this.updatePseudoCode(pseudoCode);
             var modelTransformer = new ModelTransformer();
             modelTransformer.transform(pseudoCode, function(phpCode) {
                 php.setValue(phpCode, 1);                

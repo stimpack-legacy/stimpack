@@ -13,7 +13,8 @@ export default function (state = null, action) {
             type: "sqlite"
         },
         CreateMigrationsTask: {
-            enabled: true
+            enabled: true,
+            pseudoCode: ""
         },
         CreateModelsTask: {
             enabled: true

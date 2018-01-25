@@ -20,8 +20,8 @@ class CreateDatabaseTask extends Component {
                     </div>
                     <div className="card-body">                                            
                         <select value={this.props.tasks.CreateDatabaseTask.type} onChange={this.changeDatabaseType.bind(this)} className="form-control" id="inputGroupSelect01">                                                  
-                            <option value="sqlite">Sqlite</option>
                             <option value="mysql" >MySQL</option>
+                            <option value="sqlite">Sqlite</option>
                             <option value="postgres">PostgreSQL</option>
                         </select>                       
                         </div>

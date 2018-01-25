@@ -3,6 +3,10 @@ import model from './templates/model';
 
 export default class Template {
     static migration(transformedModels) {
+        console.log("Length", transformedModels.length);
+        if(transformedModels.length < 1) {
+            return "";
+        }
         return Template.replace(migration, {"$TABLES$": transformedModels[0].model});
     }
 
