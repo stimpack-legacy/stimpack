@@ -60284,7 +60284,6 @@ var CreateMigrationsTask = function (_Component) {
             this.php.renderer.setShowGutter(false);
             this.pseudo.getSession().on('change', function () {
                 var pseudoCode = this.pseudo.getSession().getValue();
-                //this.props.updatePseudoCode(pseudoCode);
                 this.updatePseudoCode(pseudoCode);
                 var modelTransformer = new __WEBPACK_IMPORTED_MODULE_2__ModelTransformer__["a" /* default */]();
                 modelTransformer.transform(pseudoCode, function (transformedModels) {
@@ -61347,7 +61346,8 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
                 table: "Home",
                 attributes: "No Attributes"
             }],
-            migrations: []
+            migrations: [],
+            activeTab: null
         },
         CreateModelsTask: {
             enabled: true

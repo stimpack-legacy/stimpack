@@ -108,8 +108,7 @@ class CreateMigrationsTask extends Component {
         this.php.setShowPrintMargin(false);
         this.php.renderer.setShowGutter(false);        
         this.pseudo.getSession().on('change', function() {
-            var pseudoCode = this.pseudo.getSession().getValue();
-            //this.props.updatePseudoCode(pseudoCode);
+            var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);
             var modelTransformer = new ModelTransformer();
             modelTransformer.transform(pseudoCode, function(transformedModels) {

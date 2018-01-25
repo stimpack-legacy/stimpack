@@ -18,9 +18,10 @@ export default function (state = null, action) {
             transformedModels: [{
                 model: "No models supplied yet",
                 table: "Home",
-                attributes: "No Attributes"
+                attributes: "No Attributes",
             }],
-            migrations: []
+            migrations: [],
+            activeTab: null
         },
         CreateModelsTask: {
             enabled: true
