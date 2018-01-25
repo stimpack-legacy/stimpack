@@ -60330,6 +60330,7 @@ function mapStateToProps(state) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(108);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60337,6 +60338,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -60367,10 +60369,10 @@ var CreateModelsTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: true, onChange: this.enableTask }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateModelsTask-switch', checked: this.props.tasks.CreateModelsTask.enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
-                                { htmlFor: 'switch-id' },
+                                { htmlFor: 'CreateModelsTask-switch' },
                                 'Create Models'
                             )
                         )
@@ -60390,7 +60392,9 @@ var CreateModelsTask = function (_Component) {
     }, {
         key: 'enableTask',
         value: function enableTask() {
-            // do something
+            var updatedTasks = this.props.tasks;
+            updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1
+            this.props.updateTask(updatedTasks);
         }
     }]);
 
@@ -60402,13 +60406,20 @@ var CreateModelsTask = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks
     };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+    }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(CreateModelsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
 
 /*
 
@@ -60467,10 +60478,10 @@ var CreateDatabaseTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: this.props.tasks.CreateDatabaseTask.enabled, onChange: this.enableTask.bind(this) }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateDatabaseTask-switch', checked: this.props.tasks.CreateDatabaseTask.enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
-                                { htmlFor: 'switch-id' },
+                                { htmlFor: 'CreateDatabaseTask-switch' },
                                 'Create Database'
                             )
                         )
@@ -60480,12 +60491,7 @@ var CreateDatabaseTask = function (_Component) {
                         { className: 'card-body' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'select',
-                            { className: 'form-control', id: 'inputGroupSelect01' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'option',
-                                { value: 'volvo', disabled: true, selected: true },
-                                'Select database type'
-                            ),
+                            { value: this.props.tasks.CreateDatabaseTask.type, onChange: this.changeDatabaseType.bind(this), className: 'form-control', id: 'inputGroupSelect01' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'option',
                                 { value: 'sqlite' },
@@ -60493,12 +60499,12 @@ var CreateDatabaseTask = function (_Component) {
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'option',
-                                { value: 'mysql', disabled: true },
+                                { value: 'mysql' },
                                 'MySQL'
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'option',
-                                { value: 'postgres', disabled: true },
+                                { value: 'postgres' },
                                 'PostgreSQL'
                             )
                         )
@@ -60507,15 +60513,18 @@ var CreateDatabaseTask = function (_Component) {
             );
         }
     }, {
+        key: 'changeDatabaseType',
+        value: function changeDatabaseType(e) {
+            var updatedTasks = this.props.tasks;
+            updatedTasks.CreateDatabaseTask.type = e.target.value;
+            this.props.updateTask(updatedTasks);
+        }
+    }, {
         key: 'enableTask',
         value: function enableTask() {
-            //console.log(this.props.tasks[0].enabled);
-
-            var extracted = this.props.tasks;
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
             this.props.updateTask(updatedTasks);
-            //console.log(this.props.tasks[0].enabled);
         }
     }]);
 
@@ -60715,16 +60724,17 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
     // Default task properties
     return {
         CreateDatabaseTask: {
-            enabled: false
+            enabled: true,
+            type: "sqlite"
         },
         CreateMigrationsTask: {
-            enabled: false
+            enabled: true
         },
         CreateModelsTask: {
-            enabled: false
+            enabled: true
         },
         CreateControllersTask: {
-            enabled: false
+            enabled: true
         },
         StarOnGithubTask: {
             enabled: false
@@ -60905,6 +60915,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var CreateMigrationsTask = function (_Component) {
     _inherits(CreateMigrationsTask, _Component);
 
@@ -60943,10 +60954,10 @@ var CreateMigrationsTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: true, onChange: this.enableTask }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateMigrationsTask-switch', checked: this.props.tasks.CreateMigrationsTask.enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
-                                { htmlFor: 'switch-id' },
+                                { htmlFor: 'CreateMigrationsTask-switch' },
                                 'Create Migrations'
                             )
                         )
@@ -61008,6 +61019,13 @@ var CreateMigrationsTask = function (_Component) {
             );
         }
     }, {
+        key: 'enableTask',
+        value: function enableTask() {
+            var updatedTasks = this.props.tasks;
+            updatedTasks.CreateMigrationsTask.enabled = !updatedTasks.CreateMigrationsTask.enabled; // ^= 1
+            this.props.updateTask(updatedTasks);
+        }
+    }, {
         key: 'setup',
         value: function setup() {
             var pseudo = ace.edit("pseudo-editor");
@@ -61050,14 +61068,18 @@ var CreateMigrationsTask = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks
     };
 }
 
 // Get actions and pass them as props to to UserList
 //      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({ updatePseudoCode: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* updatePseudoCode */] }, dispatch);
+    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
+        updatePseudoCode: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* updatePseudoCode */],
+        updateTask: __WEBPACK_IMPORTED_MODULE_5__actions_index__["c" /* updateTask */]
+    }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
@@ -61075,6 +61097,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(108);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61082,6 +61105,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -61112,10 +61136,10 @@ var StarOnGithubTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', onChange: this.enableTask }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'StarOnGithubTask-switch', checked: this.props.tasks.StarOnGithubTask.enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
-                                { htmlFor: 'switch-id' },
+                                { htmlFor: 'StarOnGithubTask-switch' },
                                 'Star this package on github'
                             )
                         )
@@ -61135,25 +61159,31 @@ var StarOnGithubTask = function (_Component) {
     }, {
         key: 'enableTask',
         value: function enableTask() {
-            // do something
+            var updatedTasks = this.props.tasks;
+            updatedTasks.StarOnGithubTask.enabled = !updatedTasks.StarOnGithubTask.enabled; // ^= 1
+            this.props.updateTask(updatedTasks);
         }
     }]);
 
     return StarOnGithubTask;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-// "state.activeUser" is set in reducers/index.js
-
-
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks
     };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+    }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(StarOnGithubTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(StarOnGithubTask));
 
 /*
 
@@ -61170,6 +61200,7 @@ function mapStateToProps(state) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(108);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61177,6 +61208,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -61207,10 +61239,10 @@ var CreateControllersTask = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'span',
                             { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'switch-id', checked: true, onChange: this.enableTask }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateControllersTask-switch', checked: this.props.tasks.CreateControllersTask.enabled, onChange: this.enableTask.bind(this) }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
-                                { htmlFor: 'switch-id' },
+                                { htmlFor: 'CreateControllersTask-switch' },
                                 'Create Controllers'
                             )
                         )
@@ -61230,7 +61262,9 @@ var CreateControllersTask = function (_Component) {
     }, {
         key: 'enableTask',
         value: function enableTask() {
-            // do something
+            var updatedTasks = this.props.tasks;
+            updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
+            this.props.updateTask(updatedTasks);
         }
     }]);
 
@@ -61242,13 +61276,20 @@ var CreateControllersTask = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks
     };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+    }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(CreateControllersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateControllersTask));
 
 /*
 

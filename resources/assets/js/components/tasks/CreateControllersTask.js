@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {updateTask} from '../../actions/index'
 
 class CreateControllersTask extends Component {
     render() {
@@ -10,8 +11,8 @@ class CreateControllersTask extends Component {
                 <div className="card">
                     <div className="card-header">
                         <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="switch-id" checked onChange={this.enableTask} />
-                            <label htmlFor="switch-id">Create Controllers</label>                    
+                            <input type="checkbox" className="switch" id="CreateControllersTask-switch" checked={this.props.tasks.CreateControllersTask.enabled} onChange={this.enableTask.bind(this)} />
+                            <label htmlFor="CreateControllersTask-switch">Create Controllers</label>                    
                         </span>
                     </div>
                     <div className="card-body">                    
@@ -22,22 +23,30 @@ class CreateControllersTask extends Component {
         );
     }
     enableTask() {
-        // do something
+        var updatedTasks = this.props.tasks;
+        updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
+        this.props.updateTask(updatedTasks);
     }    
 }
 
 // "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks 
     };
 }
 
-
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            updateTask: updateTask
+        }, dispatch);
+}
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-export default connect(mapStateToProps)(CreateControllersTask);
+export default connect(mapStateToProps, matchDispatchToProps)(CreateControllersTask);
 
 
 /*

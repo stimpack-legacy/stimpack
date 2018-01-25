@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {updateTask} from '../../actions/index'
 
 class StarOnGithubTask extends Component {
     render() {
@@ -10,8 +11,8 @@ class StarOnGithubTask extends Component {
                 <div className="card">
                     <div className="card-header">
                         <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="switch-id" onChange={this.enableTask} />
-                            <label htmlFor="switch-id">Star this package on github</label>                    
+                            <input type="checkbox" className="switch" id="StarOnGithubTask-switch" checked={this.props.tasks.StarOnGithubTask.enabled} onChange={this.enableTask.bind(this)} />
+                            <label htmlFor="StarOnGithubTask-switch">Star this package on github</label>                    
                         </span>
                     </div>
                     <div className="card-body">                    
@@ -22,22 +23,31 @@ class StarOnGithubTask extends Component {
         );
     }
     enableTask() {
-        // do something
-    }    
+        var updatedTasks = this.props.tasks;
+        updatedTasks.StarOnGithubTask.enabled = !updatedTasks.StarOnGithubTask.enabled; // ^= 1
+        this.props.updateTask(updatedTasks);
+    }     
 }
 
-// "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks 
     };
+}
+
+function matchDispatchToProps(dispatch){
+    return bindActionCreators(
+        {
+            updateTask: updateTask
+        }, dispatch);
 }
 
 
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-export default connect(mapStateToProps)(StarOnGithubTask);
+export default connect(mapStateToProps,matchDispatchToProps)(StarOnGithubTask);
 
 
 /*

@@ -4,7 +4,8 @@ import ModelTransformer from '../../ModelTransformer';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updatePseudoCode} from '../../actions/index'
+import {updatePseudoCode} from '../../actions/index';
+import {updateTask} from '../../actions/index';
 
 class CreateMigrationsTask extends Component {
     componentDidMount() {
@@ -25,8 +26,8 @@ class CreateMigrationsTask extends Component {
             <div className="card">
                 <div className="card-header">
                     <span className="switch switch-sm">
-                        <input type="checkbox" className="switch" id="switch-id" checked onChange={this.enableTask} />
-                        <label htmlFor="switch-id">Create Migrations</label>                    
+                        <input type="checkbox" className="switch" id="CreateMigrationsTask-switch" checked={this.props.tasks.CreateMigrationsTask.enabled} onChange={this.enableTask.bind(this)} />
+                        <label htmlFor="CreateMigrationsTask-switch">Create Migrations</label>                    
                     </span>
                 </div>
                 <div className="card-body">                    
@@ -55,7 +56,13 @@ class CreateMigrationsTask extends Component {
             </div>
         );
     }
-    
+
+    enableTask() {
+        var updatedTasks = this.props.tasks;
+        updatedTasks.CreateMigrationsTask.enabled = !updatedTasks.CreateMigrationsTask.enabled; // ^= 1
+        this.props.updateTask(updatedTasks);
+    }
+
     setup() {
         var pseudo = ace.edit("pseudo-editor");
         pseudo.setTheme("ace/theme/monokai");
@@ -93,14 +100,19 @@ class CreateMigrationsTask extends Component {
 // "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode
+        pseudoCode: state.pseudoCode,
+        tasks: state.tasks        
     };
 }
 
 // Get actions and pass them as props to to UserList
 //      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({updatePseudoCode: updatePseudoCode}, dispatch);
+    return bindActionCreators(
+        {
+            updatePseudoCode: updatePseudoCode,
+            updateTask: updateTask
+        }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container

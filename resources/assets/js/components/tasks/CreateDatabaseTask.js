@@ -14,30 +14,32 @@ class CreateDatabaseTask extends Component {
                 <div className="card">
                     <div className="card-header">
                         <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="switch-id" checked={this.props.tasks.CreateDatabaseTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="switch-id">Create Database</label>                    
+                            <input type="checkbox" className="switch" id="CreateDatabaseTask-switch" checked={this.props.tasks.CreateDatabaseTask.enabled} onChange={this.enableTask.bind(this)} />
+                            <label htmlFor="CreateDatabaseTask-switch">Create Database</label>                    
                         </span>
                     </div>
                     <div className="card-body">                                            
-                        <select className="form-control" id="inputGroupSelect01">                      
-                            <option value="volvo" disabled selected>Select database type</option>
+                        <select value={this.props.tasks.CreateDatabaseTask.type} onChange={this.changeDatabaseType.bind(this)} className="form-control" id="inputGroupSelect01">                                                  
                             <option value="sqlite">Sqlite</option>
-                            <option value="mysql" disabled>MySQL</option>
-                            <option value="postgres" disabled>PostgreSQL</option>
+                            <option value="mysql" >MySQL</option>
+                            <option value="postgres">PostgreSQL</option>
                         </select>                       
                         </div>
                 </div>                
             </div>
         );
     }
-    enableTask() {
-        //console.log(this.props.tasks[0].enabled);
 
-        var extracted = this.props.tasks;
+    changeDatabaseType(e) {
+        var updatedTasks = this.props.tasks;
+        updatedTasks.CreateDatabaseTask.type = e.target.value;
+        this.props.updateTask(updatedTasks);        
+    }
+
+    enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
         this.props.updateTask(updatedTasks);
-        //console.log(this.props.tasks[0].enabled);
     }    
 }
 
