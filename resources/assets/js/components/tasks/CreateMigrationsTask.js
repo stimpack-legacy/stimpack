@@ -62,17 +62,21 @@ class CreateMigrationsTask extends Component {
         return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
             return (
                 <li key={model.table}>
-                    <a href="#">{model.model}</a>
+                    <a onClick={this.clickTab.bind(this)} data-model={model.model} href="#">{model.model}</a>
                 </li>
             );
         });
-    }    
-    //onClick={() => this.props.selectUser(user)}
-    //{this.renderPhpTabs()}                                
+    }
+    
+    clickTab(e) {
+        e.preventDefault();
+        this.props.tasks.CreateMigrationsTask.activeTab = e.target.getAttribute("data-model");
+        this.props.updateTask(this.props.tasks);        
+    }
+
     enableTask() {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.CreateMigrationsTask.enabled = !updatedTasks.CreateMigrationsTask.enabled; // ^= 1
-        this.props.updateTask(updatedTasks);
+        this.props.tasks.CreateMigrationsTask.enabled ^= 1;
+        this.props.updateTask(this.props.tasks);
     }
 
     updatePseudoCode(pseudoCode) {
@@ -119,9 +123,23 @@ class CreateMigrationsTask extends Component {
     }
 
     renderPhpCode(transformedModels) {
-        // Split into tabs etc...
-        var phpCode = Template.migration(transformedModels);
-        this.php.setValue(phpCode, 1);
+        var migration = Template.migrations(transformedModels).pop();
+        if(!migration) {
+            migration = "Lets get to work!";
+        }
+        this.php.setValue(migration, 1);
+        //this.php.setValue(this.getMigrationForActiveTab(), 1);
+    }
+
+    getMigrationForActiveTab() {
+        var migration = "Lets get to work!";
+        this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+            console.log(this.props.tasks.CreateMigrationsTask.activeTab);
+            if(model.model == this.props.tasks.CreateMigrationsTask.activeTab) {
+                migration = Template.migration(model);                
+            }
+        });
+        return migration;
     }
     
 }
