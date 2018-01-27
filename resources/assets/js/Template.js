@@ -31,7 +31,7 @@ export default class Template {
             block += " ".repeat(tabsBeforeItem*4) + item + "\n";
         })
         var replacementPairs = {};
-        replacementPairs[marker] = block;
+        replacementPairs[marker] = block.replace(/\n$/, "");
         return Template.replace(template, replacementPairs);
     }
 
