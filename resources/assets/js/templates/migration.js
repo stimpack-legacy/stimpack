@@ -15,7 +15,9 @@ class $MIGRATION-CLASS-NAME$ extends Migration
     public function up()
     {
         Schema::create('$TABLE-NAME$', function (Blueprint $table) {
+            $table->increments('id');            
 $COLUMNS$
+            $table->timestamps();
         });
     }
 

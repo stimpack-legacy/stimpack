@@ -26,6 +26,28 @@ export default class Attribute {
             $table->string('name'); 
     */    
     defineMigration(name) {
+        var overrided = {};
+        if(overrided.hasOwnProperty(name)) {
+            return overrided[name];
+        }
+
+        var reservedNames = {
+            "id": "$table->increments();",
+            "timestamps": "$table->timestamps();",
+            "timestamps()": "$table->timestamps();",
+            "email": "$table->string('email')->unique();",
+        }
+        if(reservedNames.hasOwnProperty(name)) {
+            return reservedNames[name];
+        }
+
+        var rules = {
+            "bajs_id": "$table->integer('$NAME')->unsigned()->references('id')->on('*')->onDelete('cascade');"
+        }
+        if(rules.hasOwnProperty(name)) {
+            return rules[name];
+        }        
+
         return "$table->string('" + name + "');"
     }
 

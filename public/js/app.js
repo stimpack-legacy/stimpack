@@ -60633,7 +60633,7 @@ plurals.get("Car"); // Second time no HTTP call
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n$COLUMNS$\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n            $table->increments('id');            \n$COLUMNS$\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
 
 /***/ }),
 /* 267 */
@@ -61467,6 +61467,28 @@ var Attribute = function () {
     _createClass(Attribute, [{
         key: "defineMigration",
         value: function defineMigration(name) {
+            var overrided = {};
+            if (overrided.hasOwnProperty(name)) {
+                return overrided[name];
+            }
+
+            var reservedNames = {
+                "id": "$table->increments();",
+                "timestamps": "$table->timestamps();",
+                "timestamps()": "$table->timestamps();",
+                "email": "$table->string('email')->unique();"
+            };
+            if (reservedNames.hasOwnProperty(name)) {
+                return reservedNames[name];
+            }
+
+            var rules = {
+                "bajs_id": "$table->integer('$NAME')->unsigned()->references('id')->on('*')->onDelete('cascade');"
+            };
+            if (rules.hasOwnProperty(name)) {
+                return rules[name];
+            }
+
             return "$table->string('" + name + "');";
         }
     }]);
