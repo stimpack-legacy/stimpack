@@ -1,5 +1,6 @@
 import migration from './templates/migration';
 import model from './templates/model';
+import pseudoPlaceholder from './templates/pseudoPlaceholder';
 
 export default class Template {
     static migrations(transformedModels) {
@@ -10,7 +11,10 @@ export default class Template {
         var result = migration;
         result = Template.replace(result, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
         result = Template.replace(result, {"$TABLE-NAME$": transformedModel.table});        
-        result = Template.blockReplace(result, "$COLUMNS$", transformedModel.attributes, 3);
+        result = Template.blockReplace(result, "$COLUMNS$",
+            transformedModel.attributes.map((attribute) => {
+                return attribute.migrationDefinition;
+            }),3);
         return result;
     }
 
@@ -33,6 +37,10 @@ export default class Template {
         var replacementPairs = {};
         replacementPairs[marker] = block.replace(/\n$/, "");
         return Template.replace(template, replacementPairs);
+    }
+
+    static pseudoPlaceholder() {
+        return pseudoPlaceholder;
     }
 
 

@@ -1,5 +1,6 @@
 import Cache from './Cache'; // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
 import Template from './Template';
+import Attribute from './Attribute';
 
 export default class ModelTransformer {
     constructor() {
@@ -24,7 +25,7 @@ export default class ModelTransformer {
                 this.transformedModels.push({
                     model: model.charAt(0).toUpperCase() + model.slice(1),
                     table: modelPluralized,
-                    attributes: rows.slice(1)
+                    attributes: rows.slice(1).map((name) => { return new Attribute(name);})
                 });
                 if(this.finished()) {
                     this.returnTransformedModels();        

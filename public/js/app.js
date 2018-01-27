@@ -22170,9 +22170,11 @@ function verifyPlainObject(value, displayName, methodName) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_migration__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_model__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__ = __webpack_require__(283);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -22193,7 +22195,9 @@ var Template = function () {
             var result = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
             result = Template.replace(result, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
             result = Template.replace(result, { "$TABLE-NAME$": transformedModel.table });
-            result = Template.blockReplace(result, "$COLUMNS$", transformedModel.attributes, 3);
+            result = Template.blockReplace(result, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
+                return attribute.migrationDefinition;
+            }), 3);
             return result;
         }
     }, {
@@ -22219,6 +22223,11 @@ var Template = function () {
             var replacementPairs = {};
             replacementPairs[marker] = block.replace(/\n$/, "");
             return Template.replace(template, replacementPairs);
+        }
+    }, {
+        key: 'pseudoPlaceholder',
+        value: function pseudoPlaceholder() {
+            return __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__["a" /* default */];
         }
     }]);
 
@@ -60248,7 +60257,7 @@ var CreateMigrationsTask = function (_Component) {
                                 null,
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'ul',
-                                    null,
+                                    { className: 'editor-tabs' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'li',
                                         null,
@@ -60270,7 +60279,7 @@ var CreateMigrationsTask = function (_Component) {
                                 null,
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'ul',
-                                    null,
+                                    { className: 'editor-tabs' },
                                     this.renderPhpTabs()
                                 )
                             ),
@@ -60341,6 +60350,7 @@ var CreateMigrationsTask = function (_Component) {
             });
             this.pseudo.setShowPrintMargin(false);
             this.pseudo.renderer.setShowGutter(false);
+            this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
 
             this.php = ace.edit("php-editor");
             this.php.$blockScrolling = Infinity;
@@ -60420,11 +60430,13 @@ function matchDispatchToProps(dispatch) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Cache__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Template__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Attribute__ = __webpack_require__(284);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
  // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
+
 
 
 var ModelTransformer = function () {
@@ -60455,7 +60467,9 @@ var ModelTransformer = function () {
                     this.transformedModels.push({
                         model: model.charAt(0).toUpperCase() + model.slice(1),
                         table: modelPluralized,
-                        attributes: rows.slice(1)
+                        attributes: rows.slice(1).map(function (name) {
+                            return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](name);
+                        })
                     });
                     if (this.finished()) {
                         this.returnTransformedModels();
@@ -61402,6 +61416,85 @@ var initialLog = "";
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("/*\n\nUser\nid\nname\nemail\n...\n\nCar\nid\ncolor\n\nFooModel\nbar_attribute\n\n*/\n");
+
+/***/ }),
+/* 284 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Attribute = function () {
+    function Attribute(name) {
+        _classCallCheck(this, Attribute);
+
+        this.name = name;
+        this.migrationDefinition = this.defineMigration(name);
+    }
+
+    /*
+        PRIORITY ORDER *****************************
+        
+        Reserved names
+            Hardcoded fields like id and timestamps()
+         Rules
+            Handling rules like foreign keys (*_id)
+         Statistics lookup
+            Exact matches
+         Looser rules
+            *time* => DATETIME
+            *_at => DATETIME
+            etc
+            
+        Resort to string
+            $table->string('name'); 
+    */
+
+
+    _createClass(Attribute, [{
+        key: "defineMigration",
+        value: function defineMigration(name) {
+            return "$table->string('" + name + "');";
+        }
+    }]);
+
+    return Attribute;
+}();
+
+/*
+
+class Model
+class Attribute
+
+
+m = new Model;
+m.attributes[
+    Attribute a1 {
+        name
+        migrationDefinition
+    }
+    Attribute a2
+    ...
+]
+
+
+*/
+
+
+/* harmony default export */ __webpack_exports__["a"] = (Attribute);
 
 /***/ })
 /******/ ]);

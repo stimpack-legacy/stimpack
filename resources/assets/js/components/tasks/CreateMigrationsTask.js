@@ -34,7 +34,7 @@ class CreateMigrationsTask extends Component {
                 <div className="card-body">                    
                     <div id="pseudo-wrapper">
                         <div>
-                            <ul>
+                            <ul className="editor-tabs">
                                 <li><a href="#">Input</a></li>
                             </ul>
                         </div>
@@ -42,7 +42,7 @@ class CreateMigrationsTask extends Component {
                     </div>
                     <div id="php-wrapper">
                         <div>
-                            <ul>
+                            <ul className="editor-tabs">
                                 {this.renderPhpTabs()}
                             </ul>
                         </div>
@@ -100,7 +100,8 @@ class CreateMigrationsTask extends Component {
             inline: true
         });        
         this.pseudo.setShowPrintMargin(false);
-        this.pseudo.renderer.setShowGutter(false);        
+        this.pseudo.renderer.setShowGutter(false);
+        this.pseudo.setValue(Template.pseudoPlaceholder(), 1);        
         
         this.php = ace.edit("php-editor");
         this.php.$blockScrolling = Infinity;
