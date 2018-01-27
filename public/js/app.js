@@ -22193,7 +22193,7 @@ var Template = function () {
             var result = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
             result = Template.replace(result, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
             result = Template.replace(result, { "$TABLE-NAME$": transformedModel.table });
-            //result = Template.replace(result, {"$COLUMNS$": transformedModel.attributes[0]});
+            result = Template.blockReplace(result, "$COLUMNS$", transformedModel.attributes, 3);
             return result;
         }
     }, {
@@ -22208,6 +22208,17 @@ var Template = function () {
                 template = template.replace(new RegExp(key.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'g'), replacementPairs[key]);
             }
             return template;
+        }
+    }, {
+        key: 'blockReplace',
+        value: function blockReplace(template, marker, items, tabsBeforeItem) {
+            var block = "";
+            items.forEach(function (item) {
+                block += " ".repeat(tabsBeforeItem * 4) + item + "\n";
+            });
+            var replacementPairs = {};
+            replacementPairs[marker] = block;
+            return Template.replace(template, replacementPairs);
         }
     }]);
 
@@ -60608,7 +60619,7 @@ plurals.get("Car"); // Second time no HTTP call
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n            $COLUMNS$\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n$COLUMNS$\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
 
 /***/ }),
 /* 267 */

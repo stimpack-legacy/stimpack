@@ -10,7 +10,7 @@ export default class Template {
         var result = migration;
         result = Template.replace(result, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
         result = Template.replace(result, {"$TABLE-NAME$": transformedModel.table});        
-        //result = Template.replace(result, {"$COLUMNS$": transformedModel.attributes[0]});
+        result = Template.blockReplace(result, "$COLUMNS$", transformedModel.attributes, 3);
         return result;
     }
 
@@ -23,6 +23,16 @@ export default class Template {
             template = template.replace(new RegExp(key.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'g'),replacementPairs[key]);            
         }
         return template;
+    }
+
+    static blockReplace(template, marker, items, tabsBeforeItem) {      
+        var block = "";
+        items.forEach((item) => {
+            block += " ".repeat(tabsBeforeItem*4) + item + "\n";
+        })
+        var replacementPairs = {};
+        replacementPairs[marker] = block;
+        return Template.replace(template, replacementPairs);
     }
 
 
