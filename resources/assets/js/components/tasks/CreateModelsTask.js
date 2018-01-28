@@ -16,12 +16,26 @@ class CreateModelsTask extends Component {
                         </span>
                     </div>
                     <div className="card-body">                    
-                    <p>Populate from project object model</p>                       
+                        <form>
+                            {this.renderModels()}
+                        </form>                       
                     </div>
                 </div>                
             </div>
         );
     }
+
+    renderModels() {
+        return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+            return (
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input checked type="checkbox" className="form-check-input" value="" />{model.model}
+                    </label>
+                </div>);
+        });
+    }
+
     enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1

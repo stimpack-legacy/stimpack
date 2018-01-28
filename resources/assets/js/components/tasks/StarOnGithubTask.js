@@ -12,7 +12,7 @@ class StarOnGithubTask extends Component {
                     <div className="card-header">
                         <span className="switch switch-sm">
                             <input type="checkbox" className="switch" id="StarOnGithubTask-switch" checked={this.props.tasks.StarOnGithubTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="StarOnGithubTask-switch">Star this package on github</label>                    
+                            <label htmlFor="StarOnGithubTask-switch">Star your dependencies on github</label>                    
                         </span>
                     </div>
                     <div className="card-body">                    
