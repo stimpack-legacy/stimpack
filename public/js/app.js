@@ -60184,6 +60184,8 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Template__ = __webpack_require__(109);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -60226,6 +60228,8 @@ var CreateMigrationsTask = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _React$createElement;
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
@@ -60298,6 +60302,16 @@ var CreateMigrationsTask = function (_Component) {
                             'button',
                             { className: 'btn btn-default btn-cool' },
                             'make:auth'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'form-check' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: 'form-check-label' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', (_React$createElement = { checked: true, type: 'checkbox', className: 'form-check-input' }, _defineProperty(_React$createElement, 'checked', true), _defineProperty(_React$createElement, 'value', ''), _React$createElement)),
+                                'Auto ID and timestamps()'
+                            )
                         )
                     )
                 )

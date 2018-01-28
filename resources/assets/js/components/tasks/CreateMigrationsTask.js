@@ -52,6 +52,11 @@ class CreateMigrationsTask extends Component {
                     </div>                                
                     
                     <button className="btn btn-default btn-cool">make:auth</button>
+                    <div className="form-check">
+                    <label className="form-check-label">
+                        <input checked type="checkbox" className="form-check-input" checked value="" />Auto ID and timestamps()
+                    </label>
+                </div>                    
                 </div>
                 
             </div>                
