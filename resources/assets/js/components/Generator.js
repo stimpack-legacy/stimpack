@@ -34,10 +34,6 @@ class Generator extends Component {
         );
     }
 
-    // <Log />
-
-
-
     performTasks(taskIndex = 0) {
         var count = 0;
         for (var taskName in this.props.tasks) {
@@ -67,8 +63,7 @@ class Generator extends Component {
     }
 
     stim() {
-        //this.performTasks();        
-        this.props.updateLog("ANYTHING!");
+        this.performTasks();                
     }
 }
 

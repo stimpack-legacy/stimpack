@@ -58694,10 +58694,6 @@ var Generator = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Log__["a" /* default */], null)
             );
         }
-
-        // <Log />
-
-
     }, {
         key: 'performTasks',
         value: function performTasks() {
@@ -58732,8 +58728,7 @@ var Generator = function (_Component) {
     }, {
         key: 'stim',
         value: function stim() {
-            //this.performTasks();        
-            this.props.updateLog("ANYTHING!");
+            this.performTasks();
         }
     }]);
 
