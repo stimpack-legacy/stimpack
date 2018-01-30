@@ -58704,7 +58704,9 @@ var Generator = function (_Component) {
                     if (count == taskIndex) {
                         $.ajax({
                             url: "/stimpack/perform/" + taskName,
-                            data: { "tasks": this.props.tasks, "otherKey": 13245 },
+                            data: JSON.stringify({
+                                tasks: this.props.tasks
+                            }),
                             success: function (result) {
                                 // write to log
                                 this.props.updateLog(result);
