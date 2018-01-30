@@ -60319,13 +60319,18 @@ var CreateMigrationsTask = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { className: 'form-check-label' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', (_React$createElement = { checked: true, type: 'checkbox', className: 'form-check-input' }, _defineProperty(_React$createElement, 'checked', true), _defineProperty(_React$createElement, 'value', ''), _React$createElement)),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', (_React$createElement = { checked: true, type: 'checkbox', className: 'form-check-input', onChange: this.toggleAutoIdAndTimestamps }, _defineProperty(_React$createElement, 'checked', true), _defineProperty(_React$createElement, 'value', ''), _React$createElement)),
                                 'Auto ID and timestamps()'
                             )
                         )
                     )
                 )
             );
+        }
+    }, {
+        key: 'toggleAutoIdAndTimestamps',
+        value: function toggleAutoIdAndTimestamps() {
+            console.log("Sure!");
         }
     }, {
         key: 'renderPhpTabs',
@@ -60360,17 +60365,15 @@ var CreateMigrationsTask = function (_Component) {
     }, {
         key: 'updatePseudoCode',
         value: function updatePseudoCode(pseudoCode) {
-            var updatedTasks = this.props.tasks;
-            updatedTasks.CreateMigrationsTask.pseudoCode = pseudoCode;
-            this.props.updateTask(updatedTasks);
+            this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
+            this.props.updateTask(this.props.tasks);
         }
     }, {
         key: 'updateTransformedModelsAndMigrations',
         value: function updateTransformedModelsAndMigrations(models) {
-            var updatedTasks = this.props.tasks;
-            updatedTasks.CreateMigrationsTask.transformedModels = models;
-            updatedTasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(models);
-            this.props.updateTask(updatedTasks);
+            this.props.tasks.CreateMigrationsTask.transformedModels = models;
+            this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(models);
+            this.props.updateTask(this.props.tasks);
         }
     }, {
         key: 'setup',
@@ -60875,6 +60878,8 @@ var CreateModelsTask = function (_Component) {
     }, {
         key: 'renderModels',
         value: function renderModels() {
+            var _this2 = this;
+
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -60882,11 +60887,16 @@ var CreateModelsTask = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
             });
+        }
+    }, {
+        key: 'disableModel',
+        value: function disableModel() {
+            // todo
         }
     }, {
         key: 'enableTask',
@@ -61343,6 +61353,8 @@ var CreateControllersTask = function (_Component) {
     }, {
         key: 'renderControllers',
         value: function renderControllers() {
+            var _this2 = this;
+
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -61350,11 +61362,16 @@ var CreateControllersTask = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
             });
+        }
+    }, {
+        key: 'disableModel',
+        value: function disableModel() {
+            // todo
         }
     }, {
         key: 'enableTask',

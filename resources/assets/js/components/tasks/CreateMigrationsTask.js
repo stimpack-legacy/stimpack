@@ -54,7 +54,7 @@ class CreateMigrationsTask extends Component {
                     <button className="btn btn-default btn-cool">make:auth</button>
                     <div className="form-check">
                     <label className="form-check-label">
-                        <input checked type="checkbox" className="form-check-input" checked value="" />Auto ID and timestamps()
+                        <input checked type="checkbox" className="form-check-input"  onChange={this.toggleAutoIdAndTimestamps} checked value="" />Auto ID and timestamps()
                     </label>
                 </div>                    
                 </div>
@@ -62,6 +62,10 @@ class CreateMigrationsTask extends Component {
             </div>                
             </div>
         );
+    }
+
+    toggleAutoIdAndTimestamps() {
+        console.log("Sure!");
     }
 
     renderPhpTabs() {        
@@ -86,16 +90,14 @@ class CreateMigrationsTask extends Component {
     }
 
     updatePseudoCode(pseudoCode) {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.CreateMigrationsTask.pseudoCode = pseudoCode;
-        this.props.updateTask(updatedTasks);        
+        this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
+        this.props.updateTask(this.props.tasks);        
     }
 
-    updateTransformedModelsAndMigrations(models) {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.CreateMigrationsTask.transformedModels = models;
-        updatedTasks.CreateMigrationsTask.migrations = Template.migrations(models);
-        this.props.updateTask(updatedTasks);        
+    updateTransformedModelsAndMigrations(models) {        
+        this.props.tasks.CreateMigrationsTask.transformedModels = models;
+        this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(models);
+        this.props.updateTask(this.props.tasks);        
     }
 
     setup() {

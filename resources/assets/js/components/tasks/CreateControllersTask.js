@@ -30,10 +30,14 @@ class CreateControllersTask extends Component {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
-                        <input checked key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
+                        <input onChange={this.disableModel} checked key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
                     </label>
                 </div>);
         });
+    }
+
+    disableModel() {
+        // todo
     }
 
     enableTask() {
