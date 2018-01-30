@@ -193,17 +193,16 @@ li {
 
 li a {
   display: block;
-  color: black;
+  color: white;
   text-align: center;
   padding: 4px;
   text-decoration: none;
-  background-color: #AFE418;
-  border-radius: 12px;
-  height: 40%;
 }
 
 li a:hover {
-  background-color: #111111;
+  background-color: #AFE418;
+  border-radius: 12px;
+  color: black;
 }
 
 /*!

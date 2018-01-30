@@ -54,15 +54,14 @@ li {
 
 li a {
     display: block;
-    color: black;
+    color: white;
     text-align: center;
     padding: 4px;
     text-decoration: none;
-    background-color: $neon-green;
-    border-radius: 12px;
-    height: 40%;
 }
 
-li a:hover {
-    background-color: #111111;
+li a:hover {    
+    background-color: $neon-green;
+    border-radius: 12px;
+    color: black;
 }
