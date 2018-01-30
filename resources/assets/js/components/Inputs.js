@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Database from './Database';
 import CreateMigrationsTask from './tasks/CreateMigrationsTask';
+import MigrateTask from './tasks/MigrateTask';
 import CreateModelsTask from './tasks/CreateModelsTask';
 import CreateDatabaseTask from './tasks/CreateDatabaseTask';
 import SampleTask from './tasks/SampleTask';
@@ -20,10 +21,11 @@ export default class Inputs extends Component {
         return (
             <div className="inputs">
                 <CreateDatabaseTask />
-                <CreateMigrationsTask />
+                <CreateMigrationsTask />                
                 <CreateModelsTask />
                 <CreateControllersTask />
                 <StarOnGithubTask />
+                <MigrateTask />
             </div>
         );
     }

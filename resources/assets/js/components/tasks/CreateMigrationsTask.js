@@ -35,8 +35,7 @@ class CreateMigrationsTask extends Component {
                     <div id="pseudo-wrapper">
                         <div>
                             <ul className="editor-tabs">
-                                <li><a href="#">Input</a></li>
-                                <li><a href="#">Help</a></li>                                
+                                <li><a href="#">Input</a></li>                                
                             </ul>
                         </div>
                         <div id="pseudo-editor" />

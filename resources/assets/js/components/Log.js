@@ -10,11 +10,20 @@ class Log extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div id="log-wrapper">
-                    <div id="log-editor" />
-                </div>            
-            </div>
+        <div className="buttons"> 
+            <div className="container">                             
+                <div className="card">
+                    <div className="card-header">
+                        <h4>Log</h4>
+                    </div>
+                    <div className="card-body">                                                                                                
+                        <div id="log-wrapper">
+                            <div id="log-editor" />
+                        </div>
+                    </div>
+                </div>
+            </div>      
+        </div>
         );
     }
     

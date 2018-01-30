@@ -19,6 +19,9 @@ export default function (state = null, action) {
             migrations: [],
             activeTab: null
         },
+        MigrateTask: {
+            enabled: true
+        },        
         CreateModelsTask: {
             enabled: false
         },
