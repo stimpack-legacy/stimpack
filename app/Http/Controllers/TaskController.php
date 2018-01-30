@@ -3,22 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-    public function perform(Request $request, $task) {        
-        return $this->feedback($task, $request->data);
+    public function perform(Request $request, $task) {
+        return $this->feedback($task, $request->tasks);
+        
     }
 
-    private function feedback($task, $data) {
+    private function feedback($task, $tasks) {
         try {
             $taskClassName = '\\App\\Stimpack\\' . $task;
-            $task = new $taskClassName($data);
+            $task = new $taskClassName( $this->array_to_object($tasks));
             $feedback = $task->perform();
         } catch (\Exception $e) {            
-            $feedback = $e->getMessage();
+            $feedback = "THIS TASK FAILED!!!   --->   " . $e->getMessage();
         }
         return $feedback;
     }
+
+    private function array_to_object($array) {
+        $obj = new \stdClass;
+        foreach($array as $k => $v) {
+           if(strlen($k)) {
+              if(is_array($v)) {
+                 $obj->{$k} = $this->array_to_object($v); //RECURSION
+              } else {
+                 $obj->{$k} = $v;
+              }
+           }
+        }
+        return $obj;
+      }     
 }
 

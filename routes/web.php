@@ -17,10 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/code', function () {
-    return view('code');
-});
-
 Route::prefix('stimpack')->group(function () {
     Route::get('perform/{task}', 'TaskController@perform');
     Route::get('pluralize/{word}', function ($word){    

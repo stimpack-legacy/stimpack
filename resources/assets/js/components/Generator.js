@@ -45,13 +45,14 @@ class Generator extends Component {
                 if(count == taskIndex) {
                     $.ajax({
                         url: "/stimpack/perform/" + taskName,
-                        data: { "data": this.props.tasks},                                 
+                        data: { "tasks": this.props.tasks, "otherKey": 13245},                                 
                         success: function(result){
                             // write to log
                             this.props.updateLog(result);
                             this.performTasks(taskIndex+1);
                         }.bind(this),
                         contentType: "application/json",
+                        cache: false,
                         error: function(error) {
                             this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
                             this.props.updateLog(error.responseJSON.message);
