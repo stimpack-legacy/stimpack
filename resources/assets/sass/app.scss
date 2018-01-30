@@ -54,6 +54,11 @@ body {
     color: $neon-green;
 }
 
+.card {
+    border-style: none;
+    border-top: 1px solid;
+}
+
 .card-header {
     background-color: $darkest;
 }

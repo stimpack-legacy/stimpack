@@ -10235,6 +10235,11 @@ body {
   color: #AFE418;
 }
 
+.card {
+  border-style: none;
+  border-top: 1px solid;
+}
+
 .card-header {
   background-color: #1C222B;
 }

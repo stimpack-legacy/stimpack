@@ -15,9 +15,6 @@ class StarOnGithubTask extends Component {
                             <label htmlFor="StarOnGithubTask-switch">Star your dependencies on github</label>                    
                         </span>
                     </div>
-                    <div className="card-body">                    
-                    <p>Spread the word. You can also help by reporting issues or contributing your own task. Thank you for using Laravel Stimpack.</p>                       
-                    </div>
                 </div>                
             </div>
         );
