@@ -58706,7 +58706,7 @@ var Generator = function (_Component) {
             var count = 0;
             for (var taskName in this.props.tasks) {
                 if (this.props.tasks.hasOwnProperty(taskName)) {
-                    if (count == taskIndex) {
+                    if (count == taskIndex && this.props.tasks[taskName].enabled) {
                         $.ajax({
                             url: "/stimpack/perform/" + taskName,
                             data: {
@@ -58720,9 +58720,9 @@ var Generator = function (_Component) {
                             contentType: "application/json",
                             cache: false,
                             error: function (error) {
-                                this.props.updateLog('Ops! there was some kind of error on ' + key + '!');
-                                this.props.updateLog(error.responseJSON.message);
-                                this.props.updateLog("Halting any further tasks.");
+                                //this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
+                                //this.props.updateLog(error.responseJSON.message);
+                                //this.props.updateLog("Halting any further tasks.");                    
                             }.bind(this)
                         });
                     }
@@ -58732,7 +58732,8 @@ var Generator = function (_Component) {
     }, {
         key: 'stim',
         value: function stim() {
-            this.performTasks();
+            //this.performTasks();        
+            this.props.updateLog("ANYTHING!");
         }
     }]);
 
@@ -61497,7 +61498,9 @@ var Log = function (_Component) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.log != nextProps.log) this.refreshLog();
+            if (this.props.log != nextProps.log) {
+                this.refreshLog();
+            }
         }
     }]);
 

@@ -42,7 +42,7 @@ class Generator extends Component {
         var count = 0;
         for (var taskName in this.props.tasks) {
             if (this.props.tasks.hasOwnProperty(taskName)) {
-                if(count == taskIndex) {
+                if(count == taskIndex && this.props.tasks[taskName].enabled) {
                     $.ajax({
                         url: "/stimpack/perform/" + taskName,
                         data: { 
@@ -56,9 +56,9 @@ class Generator extends Component {
                         contentType: "application/json",
                         cache: false,
                         error: function(error) {
-                            this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
-                            this.props.updateLog(error.responseJSON.message);
-                            this.props.updateLog("Halting any further tasks.");                    
+                            //this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
+                            //this.props.updateLog(error.responseJSON.message);
+                            //this.props.updateLog("Halting any further tasks.");                    
                         }.bind(this)
                     });                
                 }
@@ -67,7 +67,8 @@ class Generator extends Component {
     }
 
     stim() {
-        this.performTasks();        
+        //this.performTasks();        
+        this.props.updateLog("ANYTHING!");
     }
 }
 
