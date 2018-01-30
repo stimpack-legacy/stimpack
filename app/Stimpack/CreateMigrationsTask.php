@@ -11,14 +11,15 @@ class CreateMigrationsTask implements Task
     }
 
     public function perform() {
+        Log::info(json_encode($this->tasks->CreateMigrationsTask));
         $message = "";
-        each($this->tasks->CreateDatabaseTask->migrations, function ($migration) {
-            $migrationName = date("Y_m_d_hms",time()) . "create_" . $migration->table . "_table.php";
+        foreach($this->tasks->CreateMigrationsTask->migrations as $migration) {
+            $migrationName = date("Y_m_d_hms",time()) . "_create_" . $migration->table . "_table.php";
             $path = database_path("migrations/" . $migrationName);
-            file_put_contents($path, $model->migration->body);                
-            $message .= "Created migration at '" . $path . "'";
-        });
-
+            file_put_contents($path, $migration->body);                
+            $message = $message . "Created migration at '" . $path . "'";
+        }
+        
         return $message;                
     }
 }
