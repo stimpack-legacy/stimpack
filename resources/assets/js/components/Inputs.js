@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Database from './Database';
 import CreateMigrationsTask from './tasks/CreateMigrationsTask';
 import MigrateTask from './tasks/MigrateTask';
+import GitInitTask from './tasks/GitInitTask';
 import CreateModelsTask from './tasks/CreateModelsTask';
 import CreateDatabaseTask from './tasks/CreateDatabaseTask';
 import SampleTask from './tasks/SampleTask';
@@ -26,6 +27,7 @@ export default class Inputs extends Component {
                 <CreateControllersTask />
                 <StarOnGithubTask />
                 <MigrateTask />
+                <GitInitTask />
             </div>
         );
     }

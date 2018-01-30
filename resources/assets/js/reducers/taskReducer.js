@@ -30,6 +30,9 @@ export default function (state = null, action) {
         },
         StarOnGithubTask: {
             enabled: false
+        },
+        GitInitTask: {
+            enabled: true
         }
     }
 }
