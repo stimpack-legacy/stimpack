@@ -17,6 +17,34 @@ export default class ModelTransformer {
     define(segment) {
         var rows = segment.split(/\n/);
         var model = rows[0];
+
+        /*
+        var fetch = function(model) {
+            $.ajax({
+                url: "/stimpack/pluralize/" + model,
+                //data: "somedata more thiss as well?", 
+                success: function(modelPluralized){
+                    this.transformedModels.push({
+                        model: model.charAt(0).toUpperCase() + model.slice(1),
+                        table: modelPluralized,
+                        attributes: rows.slice(1).map((name) => { return new Attribute(name);})
+                    });
+                    if(this.finished()) {
+                        this.returnTransformedModels();        
+                    }
+                                        
+                }.bind(this)
+            });
+        }.bind(this);
+
+        var assembleTransformedModel = function() {
+
+        };
+
+        var plurals = Cache(fetch, after);
+        plurals.get("user");
+        */
+
         // pluralize model
         $.ajax({
             url: "/stimpack/pluralize/" + model,
@@ -33,6 +61,10 @@ export default class ModelTransformer {
                                     
             }.bind(this)
         });
+    }
+
+    loadPluralized() {
+
     }
 
     finished() {        
