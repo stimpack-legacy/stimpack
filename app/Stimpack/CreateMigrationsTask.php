@@ -10,14 +10,15 @@ class CreateMigrationsTask implements Task
         $this->tasks = $tasks;
     }
 
-    public function perform() {        
-        $migrationName = date("Y_m_d_hms",time()) . "create_" . $model->table . "_table.php";        
-        $path = database_path("migrations/" . $migrationName) ;        
-        file_put_contents($path, $model->migration);
-        $message = "Created migration at '" . $path . "'";
+    public function perform() {
+        $message = "";
+        each($this->tasks->CreateDatabaseTask->migrations, function ($migration) {
+            $migrationName = date("Y_m_d_hms",time()) . "create_" . $migration->table . "_table.php";
+            $path = database_path("migrations/" . $migrationName);
+            file_put_contents($path, $model->migration->body);                
+            $message .= "Created migration at '" . $path . "'";
+        });
+
         return $message;                
-        return "Migrations successfully created!";
     }
 }
-
-//$this->tasks[0]["id"]

@@ -22192,13 +22192,16 @@ var Template = function () {
     }, {
         key: 'migration',
         value: function migration(transformedModel) {
-            var result = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
-            result = Template.replace(result, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
-            result = Template.replace(result, { "$TABLE-NAME$": transformedModel.table });
-            result = Template.blockReplace(result, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
+            var body = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
+            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
+            body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
+            body = Template.blockReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
                 return attribute.migrationDefinition;
             }), 3);
-            return result;
+            return {
+                body: body,
+                table: transformedModel.table
+            };
         }
     }, {
         key: 'model',
@@ -58819,6 +58822,8 @@ var Inputs = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /*
+                
+
 <Code />
 <CreateModelsTask />
 <SampleTask />
@@ -60358,10 +60363,11 @@ var CreateMigrationsTask = function (_Component) {
             this.props.updateTask(updatedTasks);
         }
     }, {
-        key: 'updateTransformedModels',
-        value: function updateTransformedModels(models) {
+        key: 'updateTransformedModelsAndMigrations',
+        value: function updateTransformedModelsAndMigrations(models) {
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateMigrationsTask.transformedModels = models;
+            updatedTasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(models);
             this.props.updateTask(updatedTasks);
         }
     }, {
@@ -60392,7 +60398,7 @@ var CreateMigrationsTask = function (_Component) {
                 this.updatePseudoCode(pseudoCode);
                 var modelTransformer = new __WEBPACK_IMPORTED_MODULE_2__ModelTransformer__["a" /* default */]();
                 modelTransformer.transform(pseudoCode, function (transformedModels) {
-                    this.updateTransformedModels(transformedModels);
+                    this.updateTransformedModelsAndMigrations(transformedModels);
                     this.renderPhpCode(transformedModels);
                 }.bind(this));
             }.bind(this));
@@ -60402,9 +60408,10 @@ var CreateMigrationsTask = function (_Component) {
         value: function renderPhpCode(transformedModels) {
             var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedModels).pop();
             if (!migration) {
-                migration = "Lets get to work!";
+                this.php.setValue("Lets get to work!", 1);
+                return;
             }
-            this.php.setValue(migration, 1);
+            this.php.setValue(migration.body, 1);
             //this.php.setValue(this.getMigrationForActiveTab(), 1);
         }
     }, {
@@ -60841,11 +60848,11 @@ var CreateModelsTask = function (_Component) {
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'form-check' },
+                    { key: '{model.model}', className: 'form-check' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: '{model.model}', type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
@@ -61309,11 +61316,11 @@ var CreateControllersTask = function (_Component) {
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'form-check' },
+                    { key: '{model.model}', className: 'form-check' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: '{model.model}', type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
@@ -61532,9 +61539,6 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
             enabled: true,
             pseudoCode: "",
             transformedModels: [],
-            transformedModels2: [1, 2, 3],
-            transformedModels3: "string",
-            transformedModels4: [4],
             migrations: [],
             activeTab: null
         },

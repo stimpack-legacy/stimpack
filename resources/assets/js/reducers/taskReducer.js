@@ -16,9 +16,6 @@ export default function (state = null, action) {
             enabled: true,
             pseudoCode: "",
             transformedModels: [],
-            transformedModels2: [1,2,3],
-            transformedModels3: "string",
-            transformedModels4: [4],
             migrations: [],
             activeTab: null
         },

@@ -91,9 +91,10 @@ class CreateMigrationsTask extends Component {
         this.props.updateTask(updatedTasks);        
     }
 
-    updateTransformedModels(models) {
+    updateTransformedModelsAndMigrations(models) {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateMigrationsTask.transformedModels = models;
+        updatedTasks.CreateMigrationsTask.migrations = Template.migrations(models);
         this.props.updateTask(updatedTasks);        
     }
 
@@ -123,7 +124,7 @@ class CreateMigrationsTask extends Component {
             this.updatePseudoCode(pseudoCode);
             var modelTransformer = new ModelTransformer();
             modelTransformer.transform(pseudoCode, function(transformedModels) {
-                this.updateTransformedModels(transformedModels);                                
+                this.updateTransformedModelsAndMigrations(transformedModels);                                
                 this.renderPhpCode(transformedModels);                
             }.bind(this));
         }.bind(this));
@@ -132,9 +133,10 @@ class CreateMigrationsTask extends Component {
     renderPhpCode(transformedModels) {
         var migration = Template.migrations(transformedModels).pop();
         if(!migration) {
-            migration = "Lets get to work!";
+            this.php.setValue("Lets get to work!", 1);
+            return;
         }
-        this.php.setValue(migration, 1);
+        this.php.setValue(migration.body, 1);
         //this.php.setValue(this.getMigrationForActiveTab(), 1);
     }
 

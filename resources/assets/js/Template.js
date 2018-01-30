@@ -8,14 +8,17 @@ export default class Template {
     }
 
     static migration(transformedModel) {
-        var result = migration;
-        result = Template.replace(result, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
-        result = Template.replace(result, {"$TABLE-NAME$": transformedModel.table});        
-        result = Template.blockReplace(result, "$COLUMNS$",
+        var body = migration;
+        body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
+        body = Template.replace(body, {"$TABLE-NAME$": transformedModel.table});        
+        body = Template.blockReplace(body, "$COLUMNS$",
             transformedModel.attributes.map((attribute) => {
                 return attribute.migrationDefinition;
             }),3);
-        return result;
+        return {
+            body: body,
+            table: transformedModel.table
+        }
     }
 
     static model() {

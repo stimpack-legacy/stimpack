@@ -28,9 +28,9 @@ class CreateControllersTask extends Component {
     renderControllers() {
         return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
             return (
-                <div className="form-check">
+                <div key="{model.model}" className="form-check">
                     <label className="form-check-label">
-                        <input checked type="checkbox" className="form-check-input" value="" />{model.model}
+                        <input checked key="{model.model}" type="checkbox" className="form-check-input" value="" />{model.model}
                     </label>
                 </div>);
         });
