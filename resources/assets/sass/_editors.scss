@@ -37,12 +37,15 @@
 }
 
 .editor-tabs {
-    list-style-type: none;
-    margin: 0;
+    list-style-type: none;    
     padding: 0;
-    overflow: hidden;
-    background-color: #333333;
+    //overflow: hidden;
+    background-color: #141518;
     min-height:32px;
+}
+
+ul > * {
+    margin-right: 2px;
 }
 
 li {
@@ -51,10 +54,13 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 4px;
     text-decoration: none;
+    background-color: $neon-green;
+    border-radius: 100px;
+    height: 40%;
 }
 
 li a:hover {
