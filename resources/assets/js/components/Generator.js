@@ -56,9 +56,9 @@ class Generator extends Component {
                         contentType: "application/json",
                         cache: false,
                         error: function(error) {
-                            //this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
-                            //this.props.updateLog(error.responseJSON.message);
-                            //this.props.updateLog("Halting any further tasks.");                    
+                            this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
+                            this.props.updateLog(error.responseJSON.message);
+                            this.props.updateLog("Halting any further tasks.");                    
                         }.bind(this)
                     });                
                 }

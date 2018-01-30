@@ -58720,9 +58720,9 @@ var Generator = function (_Component) {
                             contentType: "application/json",
                             cache: false,
                             error: function (error) {
-                                //this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
-                                //this.props.updateLog(error.responseJSON.message);
-                                //this.props.updateLog("Halting any further tasks.");                    
+                                this.props.updateLog('Ops! there was some kind of error on ' + key + '!');
+                                this.props.updateLog(error.responseJSON.message);
+                                this.props.updateLog("Halting any further tasks.");
                             }.bind(this)
                         });
                     }
@@ -61577,8 +61577,37 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var initialState = {
+    CreateDatabaseTask: {
+        enabled: false,
+        type: "sqlite"
+    },
+    CreateMigrationsTask: {
+        enabled: true,
+        pseudoCode: "",
+        transformedModels: [],
+        migrations: [],
+        activeTab: null
+    },
+    MigrateTask: {
+        enabled: true
+    },
+    CreateModelsTask: {
+        enabled: false
+    },
+    CreateControllersTask: {
+        enabled: false
+    },
+    StarOnGithubTask: {
+        enabled: false
+    },
+    GitInitTask: {
+        enabled: true
+    }
+};
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
@@ -61586,6 +61615,8 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
             var tasks = Object.assign({}, action.payload);
             return tasks;
             break;
+        default:
+            return state;
     }
 
     // Default task properties
