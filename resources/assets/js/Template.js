@@ -1,6 +1,7 @@
 import migration from './templates/migration';
 import model from './templates/model';
 import pseudoPlaceholder from './templates/pseudoPlaceholder';
+import helpPlaceholder from './templates/helpPlaceholder';
 
 export default class Template {
     static migrations(transformedModels) {

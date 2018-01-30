@@ -133,7 +133,7 @@ class CreateMigrationsTask extends Component {
     renderPhpCode(transformedModels) {
         var migration = Template.migrations(transformedModels).pop();
         if(!migration) {
-            this.php.setValue("Lets get to work!", 1);
+            this.php.setValue("", 1);
             return;
         }
         this.php.setValue(migration.body, 1);
@@ -141,7 +141,7 @@ class CreateMigrationsTask extends Component {
     }
 
     getMigrationForActiveTab() {
-        var migration = "Lets get to work!";
+        var migration = "";
         this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
             console.log(this.props.tasks.CreateMigrationsTask.activeTab);
             if(model.model == this.props.tasks.CreateMigrationsTask.activeTab) {

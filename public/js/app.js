@@ -22171,9 +22171,11 @@ function verifyPlainObject(value, displayName, methodName) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_migration__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_model__ = __webpack_require__(267);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__ = __webpack_require__(268);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_helpPlaceholder__ = __webpack_require__(285);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -60408,7 +60410,7 @@ var CreateMigrationsTask = function (_Component) {
         value: function renderPhpCode(transformedModels) {
             var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedModels).pop();
             if (!migration) {
-                this.php.setValue("Lets get to work!", 1);
+                this.php.setValue("", 1);
                 return;
             }
             this.php.setValue(migration.body, 1);
@@ -60419,7 +60421,7 @@ var CreateMigrationsTask = function (_Component) {
         value: function getMigrationForActiveTab() {
             var _this3 = this;
 
-            var migration = "Lets get to work!";
+            var migration = "";
             this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 console.log(_this3.props.tasks.CreateMigrationsTask.activeTab);
                 if (model.model == _this3.props.tasks.CreateMigrationsTask.activeTab) {
@@ -60708,7 +60710,7 @@ plurals.get("Car"); // Second time no HTTP call
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("/*\n\nUser\nid\nname\nemail\n...\n\nCar\nid\ncolor\n\nFooModel\nbar_attribute\n\n*/\n");
+/* harmony default export */ __webpack_exports__["a"] = ("");
 
 /***/ }),
 /* 269 */
@@ -61606,6 +61608,17 @@ var initialLog = "";
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony default export */ var _unused_webpack_default_export = ("/*\n\nUser\nid\nname\nemail\n...\n\nCar\nid\ncolor\n\nFooModel\nbar_attribute\n\n*/");
 
 /***/ })
 /******/ ]);
