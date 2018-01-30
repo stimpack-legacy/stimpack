@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-    public function perform(Request $request, $task) {
+    public function perform(Request $request, $task) {        
         return $this->feedback($task, $request->tasks);
         
     }
@@ -15,7 +15,7 @@ class TaskController extends Controller
     private function feedback($task, $tasks) {
         try {
             $taskClassName = '\\App\\Stimpack\\' . $task;
-            $task = new $taskClassName( $this->array_to_object($tasks));
+            $task = new $taskClassName( (object) $tasks);
             $feedback = $task->perform();
         } catch (\Exception $e) {            
             $feedback = "THIS TASK FAILED!!!   --->   " . $e->getMessage();
@@ -27,7 +27,7 @@ class TaskController extends Controller
         $obj = new \stdClass;
         foreach($array as $k => $v) {
            if(strlen($k)) {
-              if(is_array($v)) {
+              if(is_array($v) && $v != []) {
                  $obj->{$k} = $this->array_to_object($v); //RECURSION
               } else {
                  $obj->{$k} = $v;

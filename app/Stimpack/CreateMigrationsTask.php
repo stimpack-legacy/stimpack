@@ -11,18 +11,9 @@ class CreateMigrationsTask implements Task
     }
 
     public function perform() {
-        // this->tasks = object
-        // Contains all the data
-        // this->taks->CreateDatabaseTask
+        Log::info(json_encode($this->tasks->CreateMigrationsTask));
 
-        //Log::info(gettype($this->tasks));
-        //Log::info(gettype($this->tasks->CreateDatabaseTask));
-        
-        $dummy = $this->tasks->CreateDatabaseTask->type;
-
-        
-
-        return "Created " . $dummy . " database.";        
+        return "CREATE MIGRATIONS TASK MESSAGE";
         $migrationName = date("Y_m_d_hms",time()) . "create_" . $model->table . "_table.php";        
 
 

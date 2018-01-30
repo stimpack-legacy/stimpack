@@ -60216,7 +60216,8 @@ var CreateMigrationsTask = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setup();
-            //this.test();        
+            //this.test();
+            console.log(this.props.tasks);
         }
     }, {
         key: 'test',
@@ -61523,21 +61524,24 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
     // Default task properties
     return {
         CreateDatabaseTask: {
-            enabled: true,
+            enabled: false,
             type: "sqlite"
         },
         CreateMigrationsTask: {
             enabled: true,
             pseudoCode: "",
             transformedModels: [],
+            transformedModels2: [1, 2, 3],
+            transformedModels3: "string",
+            transformedModels4: [4],
             migrations: [],
             activeTab: null
         },
         CreateModelsTask: {
-            enabled: true
+            enabled: false
         },
         CreateControllersTask: {
-            enabled: true
+            enabled: false
         },
         StarOnGithubTask: {
             enabled: false

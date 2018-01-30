@@ -11,7 +11,8 @@ import Template from './../../Template';
 class CreateMigrationsTask extends Component {
     componentDidMount() {
         this.setup();
-        //this.test();        
+        //this.test();
+        console.log(this.props.tasks);
     }
 
     test() {

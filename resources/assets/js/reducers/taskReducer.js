@@ -9,21 +9,24 @@ export default function (state = null, action) {
     // Default task properties
     return {
         CreateDatabaseTask: {
-            enabled: true,
+            enabled: false,
             type: "sqlite"
         },
         CreateMigrationsTask: {
             enabled: true,
             pseudoCode: "",
             transformedModels: [],
+            transformedModels2: [1,2,3],
+            transformedModels3: "string",
+            transformedModels4: [4],
             migrations: [],
             activeTab: null
         },
         CreateModelsTask: {
-            enabled: true
+            enabled: false
         },
         CreateControllersTask: {
-            enabled: true
+            enabled: false
         },
         StarOnGithubTask: {
             enabled: false
