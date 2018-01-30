@@ -60848,11 +60848,11 @@ var CreateModelsTask = function (_Component) {
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { key: '{model.model}', className: 'form-check' },
+                    { key: model.model, className: 'form-check' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: '{model.model}', type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
@@ -61316,11 +61316,11 @@ var CreateControllersTask = function (_Component) {
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { key: '{model.model}', className: 'form-check' },
+                    { key: model.model, className: 'form-check' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: '{model.model}', type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
