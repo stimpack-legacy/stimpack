@@ -51,8 +51,9 @@ class Log extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.log != nextProps.log)
+        if(this.props.log != nextProps.log) {
             this.refreshLog();
+        }
     }    
 }
 
