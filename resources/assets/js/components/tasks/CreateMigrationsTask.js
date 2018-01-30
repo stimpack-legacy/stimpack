@@ -12,7 +12,6 @@ class CreateMigrationsTask extends Component {
     componentDidMount() {
         this.setup();
         //this.test();
-        console.log(this.props.tasks);
     }
 
     test() {

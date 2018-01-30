@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-    public function perform(Request $request, $task) {        
+    public function perform(Request $request, $task) {
         return $this->feedback($task, $request->tasks);
-        
     }
 
     private function feedback($task, $tasks) {

@@ -58704,9 +58704,9 @@ var Generator = function (_Component) {
                     if (count == taskIndex) {
                         $.ajax({
                             url: "/stimpack/perform/" + taskName,
-                            data: JSON.stringify({
-                                tasks: this.props.tasks
-                            }),
+                            data: {
+                                tasks: JSON.stringify(this.props.tasks)
+                            },
                             success: function (result) {
                                 // write to log
                                 this.props.updateLog(result);
@@ -60219,7 +60219,6 @@ var CreateMigrationsTask = function (_Component) {
         value: function componentDidMount() {
             this.setup();
             //this.test();
-            console.log(this.props.tasks);
         }
     }, {
         key: 'test',

@@ -10,15 +10,8 @@ class CreateMigrationsTask implements Task
         $this->tasks = $tasks;
     }
 
-    public function perform() {
-        Log::info(json_encode($this->tasks));
-        Log::info(json_encode($this->tasks->CreateDatabaseTask));
-        Log::info(json_encode($this->tasks->CreateDatabaseTask->type));
-        return "CREATE MIGRATIONS TASK MESSAGE. Proof = " . $this->tasks->CreateDatabaseTask->type . " See? I told ya!";
+    public function perform() {        
         $migrationName = date("Y_m_d_hms",time()) . "create_" . $model->table . "_table.php";        
-
-
-
         $path = database_path("migrations/" . $migrationName) ;        
         file_put_contents($path, $model->migration);
         $message = "Created migration at '" . $path . "'";
