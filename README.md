@@ -14,4 +14,17 @@ Laravel Stimpack is a task runner for speedy boilerplate generation. It sets the
 
 ## Installation
 
-    git clone git@github.com:ajthinking/stimpack.git && cd stimpack && composer install && cp .env.example .env && php artisan key:generate && npm install && npm run dev && npm run watch-poll
+    git clone git@github.com:ajthinking/stimpack.git
+    cd stimpack
+    composer install
+    cp .env.example .env
+    php artisan key:generate
+    
+## Temporary time-out solution
+    composer create-project --prefer-dist laravel/laravel refreshCacheForFasterInstall
+    rm -r refreshCacheForFasterInstall
+    
+## Development installation (further steps)
+    npm install
+    npm run dev
+    npm run watch-poll
