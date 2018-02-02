@@ -2,15 +2,10 @@
 
 namespace App\Stimpack;
 
-class CreateDatabaseTask implements Task
+class CreateDatabaseTask extends Task
 {
-
-    public function __construct($tasks) {
-        $this->tasks = $tasks;
-    }
-
     public function perform() {
-        $path = storage_path("database.sqlite");        
+        $path = $this->projectPath()."/storage/database.sqlite";        
         file_put_contents($path, "");
         $message = "Created database at '" . $path . "'";
         return $message;
