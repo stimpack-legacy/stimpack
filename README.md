@@ -10,8 +10,6 @@
 ## Build Laravel apps in seconds.
 Laravel Stimpack is a task runner for speedy boilerplate generation. It sets the appropriate datatypes and integrity rules, relationships from minimal input. Stimpack is powered by statistics from thousands of open source repos.
 
-<img src="https://i.imgur.com/U9NnDix.gif" title="source: imgur.com" />
-
 ## Installation
 
     git clone git@github.com:ajthinking/stimpack.git
