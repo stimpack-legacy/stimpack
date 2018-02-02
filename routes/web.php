@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/test', function () {
+    shell_exec ( "mv /home/anders/Code/dummy /home/anders/Code/stimpack/dummy-xhp");                
+});
+
+
 Route::prefix('stimpack')->group(function () {
     Route::post('perform/{task}', 'TaskController@perform');
     Route::get('pluralize/{word}', function ($word){    

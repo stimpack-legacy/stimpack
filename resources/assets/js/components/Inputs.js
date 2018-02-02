@@ -10,6 +10,7 @@ import CreateDatabaseTask from './tasks/CreateDatabaseTask';
 import SampleTask from './tasks/SampleTask';
 import StarOnGithubTask from './tasks/StarOnGithubTask';
 import CreateControllersTask from './tasks/CreateControllersTask';
+import LaravelNewTask from './tasks/LaravelNewTask';
 
 export default class Inputs extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ export default class Inputs extends Component {
     render() {
         return (
             <div className="inputs">
+                <LaravelNewTask />
                 <CreateDatabaseTask />
                 <CreateMigrationsTask />                
                 <CreateModelsTask />

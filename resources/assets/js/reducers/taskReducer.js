@@ -1,4 +1,9 @@
 const initialState = {
+    LaravelNewTask: {
+        enabled: false,
+        path: "/home/anders/Code",
+        projectName: "my-second-project"
+    },
     CreateDatabaseTask: {
         enabled: false,
         type: "sqlite"
