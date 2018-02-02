@@ -1694,7 +1694,7 @@ module.exports = ReactUpdates;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updatePseudoCode; });
 /* unused harmony export updateTransformedModels */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTasks; });
 var updatePseudoCode = function updatePseudoCode(code) {
     return {
         type: 'PSEUDO_CODE_UPDATED',
@@ -1716,9 +1716,9 @@ var updateLog = function updateLog(message) {
     };
 };
 
-var updateTask = function updateTask(tasks) {
+var updateTasks = function updateTasks(tasks) {
     return {
-        type: 'TASK_UPDATED',
+        type: 'TASKS_UPDATED',
         payload: tasks
     };
 };
@@ -60361,26 +60361,26 @@ var CreateMigrationsTask = function (_Component) {
         value: function clickTab(e) {
             e.preventDefault();
             this.props.tasks.CreateMigrationsTask.activeTab = e.target.getAttribute("data-model");
-            this.props.updateTask(this.props.tasks);
+            this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'enableTask',
         value: function enableTask() {
             this.props.tasks.CreateMigrationsTask.enabled ^= 1;
-            this.props.updateTask(this.props.tasks);
+            this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'updatePseudoCode',
         value: function updatePseudoCode(pseudoCode) {
             this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
-            this.props.updateTask(this.props.tasks);
+            this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'updateTransformedModelsAndMigrations',
         value: function updateTransformedModelsAndMigrations(models) {
             this.props.tasks.CreateMigrationsTask.transformedModels = models;
             this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(models);
-            this.props.updateTask(this.props.tasks);
+            this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'setup',
@@ -60460,7 +60460,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
         updatePseudoCode: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* updatePseudoCode */],
-        updateTask: __WEBPACK_IMPORTED_MODULE_5__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -60899,7 +60899,7 @@ var MigrateTask = function (_Component) {
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.MigrateTask.enabled = !updatedTasks.MigrateTask.enabled; // ^= 1
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -60915,7 +60915,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -60993,7 +60993,7 @@ var GitInitTask = function (_Component) {
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.GitInitTask.enabled = !updatedTasks.GitInitTask.enabled; // ^= 1
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -61009,7 +61009,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -61059,6 +61059,19 @@ var CreateModelsTask = function (_Component) {
     _createClass(CreateModelsTask, [{
         key: 'render',
         value: function render() {
+            var cardBody = "";
+            if (this.props.tasks.CreateModelsTask.enabled) {
+                cardBody = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card-body' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        null,
+                        this.renderModels()
+                    )
+                );
+            }
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
@@ -61079,15 +61092,7 @@ var CreateModelsTask = function (_Component) {
                             )
                         )
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'form',
-                            null,
-                            this.renderModels()
-                        )
-                    )
+                    cardBody
                 )
             );
         }
@@ -61119,7 +61124,7 @@ var CreateModelsTask = function (_Component) {
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -61138,7 +61143,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -61242,14 +61247,14 @@ var CreateDatabaseTask = function (_Component) {
         value: function changeDatabaseType(e) {
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateDatabaseTask.type = e.target.value;
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }, {
         key: 'enableTask',
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -61267,7 +61272,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */] }, dispatch);
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */] }, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
@@ -61459,7 +61464,7 @@ var StarOnGithubTask = function (_Component) {
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.StarOnGithubTask.enabled = !updatedTasks.StarOnGithubTask.enabled; // ^= 1
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -61475,7 +61480,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -61585,7 +61590,7 @@ var CreateControllersTask = function (_Component) {
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -61604,7 +61609,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -61705,14 +61710,14 @@ var LaravelNewTask = function (_Component) {
         value: function changeProjectName(e) {
             var updatedTasks = this.props.tasks;
             updatedTasks.LaravelNewTask.projectName = e.target.value;
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }, {
         key: 'enableTask',
         value: function enableTask() {
             var updatedTasks = this.props.tasks;
             updatedTasks.LaravelNewTask.enabled = !updatedTasks.LaravelNewTask.enabled; // ^= 1
-            this.props.updateTask(updatedTasks);
+            this.props.updateTasks(updatedTasks);
         }
     }]);
 
@@ -61728,7 +61733,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTask: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTask */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
     }, dispatch);
 }
 
@@ -61958,7 +61963,7 @@ var initialState = {
     var action = arguments[1];
 
     switch (action.type) {
-        case 'TASK_UPDATED':
+        case 'TASKS_UPDATED':
             var tasks = Object.assign({}, action.payload);
             return tasks;
             break;

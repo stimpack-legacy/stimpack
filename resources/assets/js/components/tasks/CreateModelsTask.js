@@ -6,6 +6,15 @@ import {updateTasks} from '../../actions/index'
 
 class CreateModelsTask extends Component {
     render() {
+        var cardBody = "";
+        if(this.props.tasks.CreateModelsTask.enabled) {
+            cardBody =  <div className="card-body">                    
+                            <form>
+                                {this.renderModels()}
+                            </form>                       
+                        </div>
+        }
+
         return (
             <div className="container">                              
                 <div className="card">
@@ -15,11 +24,7 @@ class CreateModelsTask extends Component {
                             <label htmlFor="CreateModelsTask-switch">Create Models</label>                    
                         </span>
                     </div>
-                    <div className="card-body">                    
-                        <form>
-                            {this.renderModels()}
-                        </form>                       
-                    </div>
+                    {cardBody}
                 </div>                
             </div>
         );

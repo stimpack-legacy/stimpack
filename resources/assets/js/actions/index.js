@@ -19,7 +19,7 @@ export const updateLog = (message) => {
     }
 };
 
-export const updateTask = (tasks) => {
+export const updateTasks = (tasks) => {
     return {
         type: 'TASKS_UPDATED',
         payload: tasks
