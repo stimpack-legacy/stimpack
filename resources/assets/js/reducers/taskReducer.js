@@ -34,7 +34,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case 'TASK_UPDATED':
+        case 'TASKS_UPDATED':
             var tasks = Object.assign({}, action.payload);            
             return tasks;
             break;

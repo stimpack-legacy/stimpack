@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTask} from '../../actions/index'
+import {updateTasks} from '../../actions/index'
 
 class LaravelNewTask extends Component {
     render() {
@@ -33,13 +33,13 @@ class LaravelNewTask extends Component {
     changeProjectName(e) {
         var updatedTasks = this.props.tasks;
         updatedTasks.LaravelNewTask.projectName = e.target.value;
-        this.props.updateTask(updatedTasks);
+        this.props.updateTasks(updatedTasks);
     }
 
     enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.LaravelNewTask.enabled = !updatedTasks.LaravelNewTask.enabled; // ^= 1
-        this.props.updateTask(updatedTasks);
+        this.props.updateTasks(updatedTasks);
     }     
 }
 
@@ -53,7 +53,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            updateTask: updateTask
+            updateTasks: updateTasks
         }, dispatch);
 }
 

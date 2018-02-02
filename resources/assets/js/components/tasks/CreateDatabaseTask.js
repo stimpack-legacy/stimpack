@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTask} from '../../actions/index'
+import {updateTasks} from '../../actions/index'
 
 class CreateDatabaseTask extends Component {
     componentDidMount() {
@@ -33,13 +33,13 @@ class CreateDatabaseTask extends Component {
     changeDatabaseType(e) {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateDatabaseTask.type = e.target.value;
-        this.props.updateTask(updatedTasks);        
+        this.props.updateTasks(updatedTasks);        
     }
 
     enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
-        this.props.updateTask(updatedTasks);
+        this.props.updateTasks(updatedTasks);
     }    
 }
 
@@ -52,7 +52,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({updateTask: updateTask}, dispatch);
+    return bindActionCreators({updateTasks: updateTasks}, dispatch);
 }
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container

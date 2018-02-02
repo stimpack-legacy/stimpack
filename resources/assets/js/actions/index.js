@@ -21,7 +21,7 @@ export const updateLog = (message) => {
 
 export const updateTask = (tasks) => {
     return {
-        type: 'TASK_UPDATED',
+        type: 'TASKS_UPDATED',
         payload: tasks
     }
 };

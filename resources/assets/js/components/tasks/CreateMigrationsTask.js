@@ -5,7 +5,7 @@ import ModelTransformer from '../../ModelTransformer';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updatePseudoCode} from '../../actions/index';
-import {updateTask} from '../../actions/index';
+import {updateTasks} from '../../actions/index';
 import Template from './../../Template';
 
 class CreateMigrationsTask extends Component {
@@ -89,23 +89,23 @@ class CreateMigrationsTask extends Component {
     clickTab(e) {
         e.preventDefault();
         this.props.tasks.CreateMigrationsTask.activeTab = e.target.getAttribute("data-model");
-        this.props.updateTask(this.props.tasks);        
+        this.props.updateTasks(this.props.tasks);        
     }
 
     enableTask() {
         this.props.tasks.CreateMigrationsTask.enabled ^= 1;
-        this.props.updateTask(this.props.tasks);
+        this.props.updateTasks(this.props.tasks);
     }
 
     updatePseudoCode(pseudoCode) {
         this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
-        this.props.updateTask(this.props.tasks);        
+        this.props.updateTasks(this.props.tasks);        
     }
 
     updateTransformedModelsAndMigrations(models) {        
         this.props.tasks.CreateMigrationsTask.transformedModels = models;
         this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(models);
-        this.props.updateTask(this.props.tasks);        
+        this.props.updateTasks(this.props.tasks);        
     }
 
     setup() {
@@ -177,7 +177,7 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
             updatePseudoCode: updatePseudoCode,
-            updateTask: updateTask
+            updateTasks: updateTasks
         }, dispatch);
 }
 

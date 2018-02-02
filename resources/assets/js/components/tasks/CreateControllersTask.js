@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTask} from '../../actions/index'
+import {updateTasks} from '../../actions/index'
 
 class CreateControllersTask extends Component {
     render() {
@@ -43,7 +43,7 @@ class CreateControllersTask extends Component {
     enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
-        this.props.updateTask(updatedTasks);
+        this.props.updateTasks(updatedTasks);
     }    
 }
 
@@ -58,7 +58,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            updateTask: updateTask
+            updateTasks: updateTasks
         }, dispatch);
 }
 
