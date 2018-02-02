@@ -29,6 +29,14 @@ const store = createStore(
     allReducers    
 );
 
+// Enable jQuery POST requests
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+
 ReactDOM.render(
     <Provider store={store}>
         <Main />

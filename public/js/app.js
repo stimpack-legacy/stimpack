@@ -22297,6 +22297,13 @@ __webpack_require__(66);
 
 var store = Object(__WEBPACK_IMPORTED_MODULE_3_redux__["c" /* createStore */])(__WEBPACK_IMPORTED_MODULE_4__reducers__["a" /* default */]);
 
+// Enable jQuery POST requests
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_2_react_redux__["a" /* Provider */],
     { store: store },
@@ -58711,6 +58718,7 @@ var Generator = function (_Component) {
                 if (this.props.tasks.hasOwnProperty(taskName)) {
                     if (count == taskIndex && this.props.tasks[taskName].enabled) {
                         $.ajax({
+                            type: "POST",
                             url: "/stimpack/perform/" + taskName,
                             data: {
                                 tasks: JSON.stringify(this.props.tasks)
@@ -58720,7 +58728,7 @@ var Generator = function (_Component) {
                                 this.props.updateLog(result);
                                 this.performTasks(taskIndex + 1);
                             }.bind(this),
-                            contentType: "application/json",
+                            //contentType:"application/json; charset=utf-8",
                             cache: false,
                             error: function (error) {
                                 this.props.updateLog('Ops! there was some kind of error on ' + key + '!');
@@ -60526,7 +60534,14 @@ var ModelTransformer = function () {
                         table: modelPluralized,
                         attributes: rows.slice(1).map(function (name) {
                             return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](name);
-                        })
+                        }),
+                        migration: "placeholder",
+                        hasModel: true
+                    });
+                    this.transformedModels.sort(function (a, b) {
+                        if (a.model < b.model) return -1;
+                        if (a.model > b.model) return 1;
+                        return 0;
                     });
                     if (this.finished()) {
                         this.returnTransformedModels();
@@ -60559,21 +60574,6 @@ var ModelTransformer = function () {
             if (this.finished()) {
                 this.returnTransformedModels();
             }
-        }
-    }, {
-        key: 'preview',
-        value: function preview(transformedModels) {
-            var _this2 = this;
-
-            var result = "";
-            transformedModels.map(function (definition) {
-                result += "// ...\n\nSchema::create('" + definition.model + "', function (Blueprint $table) {\n";
-                definition.attributes.map(function (attribute) {
-                    result += _this2.phpDefinition(attribute);
-                });
-                result += "}\n\n";
-            });
-            return result;
         }
     }, {
         key: 'prepare',
