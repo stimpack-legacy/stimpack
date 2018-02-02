@@ -11,7 +11,9 @@ class MigrateTask implements Task
     }
 
     public function perform() {
-        
-        return "PHP ARTISAN MIGRATE:FRESH";                
+        if(\Artisan::call('migrate:fresh')) {
+            return "Failed to migrate:fresh!";
+        }
+        return "Succesfully ran migrate:fresh!";                
     }
 }
