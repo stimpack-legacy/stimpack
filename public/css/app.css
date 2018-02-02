@@ -10253,6 +10253,11 @@ body {
   width: 50%;
 }
 
+.btn-stim {
+  background-color: #1C222B;
+  width: 50%;
+}
+
 .btn-default {
   background-color: #AFE418;
   width: auto;
@@ -10269,6 +10274,10 @@ body {
 }
 
 select {
+  width: 30% !important;
+}
+
+input {
   width: 30% !important;
 }
 

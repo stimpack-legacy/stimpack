@@ -72,6 +72,11 @@ body {
     width: 50%;
 }
 
+.btn-stim {
+    background-color: $darkest;
+    width: 50%;
+}
+
 .btn-default {
     background-color: $neon-green;
     width: auto;
@@ -90,5 +95,9 @@ body {
 
   // Select box width
 select {
+    width:30% !important;
+}
+
+input {
     width:30% !important;
 }

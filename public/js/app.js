@@ -61795,12 +61795,12 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 "use strict";
 var initialState = {
     LaravelNewTask: {
-        enabled: false,
+        enabled: true,
         path: "/home/anders/Code",
         projectName: "my-new-project"
     },
     CreateDatabaseTask: {
-        enabled: false,
+        enabled: true,
         type: "sqlite"
     },
     CreateMigrationsTask: {
@@ -61814,10 +61814,10 @@ var initialState = {
         enabled: true
     },
     CreateModelsTask: {
-        enabled: false
+        enabled: true
     },
     CreateControllersTask: {
-        enabled: false
+        enabled: true
     },
     StarOnGithubTask: {
         enabled: false
@@ -61970,7 +61970,7 @@ var LaravelNewTask = function (_Component) {
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'p',
                                     null,
-                                    'Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, leave this task unchecked.'
+                                    'Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, uncheck this task.'
                                 ),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'label',

@@ -1,11 +1,11 @@
 const initialState = {
     LaravelNewTask: {
-        enabled: false,
+        enabled: true,
         path: "/home/anders/Code",
         projectName: "my-new-project"
     },
     CreateDatabaseTask: {
-        enabled: false,
+        enabled: true,
         type: "sqlite"
     },
     CreateMigrationsTask: {
@@ -19,10 +19,10 @@ const initialState = {
         enabled: true
     },        
     CreateModelsTask: {
-        enabled: false
+        enabled: true
     },
     CreateControllersTask: {
-        enabled: false
+        enabled: true
     },
     StarOnGithubTask: {
         enabled: false
