@@ -50,17 +50,26 @@ class CreateMigrationsTask extends Component {
                         <div id="php-editor" />
                     </div>                                
                     
-                    <button className="btn btn-default btn-cool">make:auth</button>
+                    <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>
+                    {/*
                     <div className="form-check">
-                    <label className="form-check-label">
+                        <label className="form-check-label">
                         <input checked type="checkbox" className="form-check-input"  onChange={this.toggleAutoIdAndTimestamps} checked value="" />Auto ID and timestamps()
-                    </label>
-                </div>                    
+                        </label>
+                    </div>
+                    */}                    
                 </div>
                 
             </div>                
             </div>
         );
+    }
+
+    makeAuth() {        
+        this.pseudo.getSession().insert({
+           row: this.pseudo.getSession().getLength(),
+           column: 0
+        }, "\n" + Template.makeAuthPseudoCode());
     }
 
     toggleAutoIdAndTimestamps() {

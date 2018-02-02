@@ -2,6 +2,7 @@ import migration from './templates/migration';
 import model from './templates/model';
 import pseudoPlaceholder from './templates/pseudoPlaceholder';
 import helpPlaceholder from './templates/helpPlaceholder';
+import makeAuthPseudoCode from './templates/makeAuthPseudoCode';
 
 export default class Template {
     static migrations(transformedModels) {
@@ -45,6 +46,10 @@ export default class Template {
 
     static pseudoPlaceholder() {
         return pseudoPlaceholder;
+    }
+
+    static makeAuthPseudoCode() {
+        return makeAuthPseudoCode;
     }
 
 
