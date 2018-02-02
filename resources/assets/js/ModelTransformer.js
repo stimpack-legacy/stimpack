@@ -53,7 +53,14 @@ export default class ModelTransformer {
                 this.transformedModels.push({
                     model: model.charAt(0).toUpperCase() + model.slice(1),
                     table: modelPluralized,
-                    attributes: rows.slice(1).map((name) => { return new Attribute(name);})
+                    attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
+                    migration: "placeholder",
+                    hasModel: true
+                });
+                this.transformedModels.sort(function(a, b){
+                    if(a.model < b.model) return -1;
+                    if(a.model > b.model) return 1;
+                    return 0;
                 });
                 if(this.finished()) {
                     this.returnTransformedModels();        
@@ -83,18 +90,6 @@ export default class ModelTransformer {
         if(this.finished()) {
             this.returnTransformedModels();
         }
-    }
-
-    preview(transformedModels) {
-        var result = "";
-        transformedModels.map((definition) => {
-            result += "// ...\n\nSchema::create('" + definition.model + "', function (Blueprint $table) {\n";
-            definition.attributes.map((attribute) => {
-                result += this.phpDefinition(attribute);
-            });
-            result += "}\n\n";
-        });
-        return result;
     }
 
     prepare(code) {
