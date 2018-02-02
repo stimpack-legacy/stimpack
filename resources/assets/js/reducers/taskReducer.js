@@ -1,7 +1,7 @@
 const initialState = {
     LaravelNewTask: {
         enabled: true,
-        path: "/home/anders/Code",
+        projectPath: "/../",
         projectName: "my-new-project"
     },
     CreateDatabaseTask: {

@@ -21,7 +21,7 @@ class LaravelNewTask extends Component {
                             <p>Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, uncheck this task.</p>
                             
                             <label htmlFor="project-name">Project name</label>                            
-                            <input type="text" className="form-control" id="project-name" placeholder="my-new-project" />                            
+                            <input type="text" onChange={this.changeProjectName.bind(this)} className="form-control" id="project-name" placeholder="my-new-project" />                            
                         </div>
                     </form>
                     </div>
@@ -29,6 +29,13 @@ class LaravelNewTask extends Component {
             </div>
         );
     }
+
+    changeProjectName(e) {
+        var updatedTasks = this.props.tasks;
+        updatedTasks.LaravelNewTask.projectName = e.target.value;
+        this.props.updateTask(updatedTasks);
+    }
+
     enableTask() {
         var updatedTasks = this.props.tasks;
         updatedTasks.LaravelNewTask.enabled = !updatedTasks.LaravelNewTask.enabled; // ^= 1

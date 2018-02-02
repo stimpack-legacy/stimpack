@@ -37,11 +37,13 @@ class Generator extends Component {
     performTasks(taskIndex = 0) {
         var count = 0;
         for (var taskName in this.props.tasks) {
-            if (this.props.tasks.hasOwnProperty(taskName)) {
-                if(count == taskIndex && this.props.tasks[taskName].enabled) {
-                    $.ajax({
+            var localTaskName = taskName;
+            if (this.props.tasks.hasOwnProperty(localTaskName)) {
+                if(count == taskIndex && this.props.tasks[localTaskName].enabled) {
+                    console.log("LAUNCHING A QUERY!", localTaskName);
+                    $.ajax({                        
                         type: "POST", 
-                        url: "/stimpack/perform/" + taskName,
+                        url: "/stimpack/perform/" + localTaskName,
                         data: { 
                             tasks: JSON.stringify(this.props.tasks) 
                         },                                 
@@ -53,7 +55,7 @@ class Generator extends Component {
                         //contentType:"application/json; charset=utf-8",
                         cache: false,
                         error: function(error) {
-                            this.props.updateLog(`Ops! there was some kind of error on ${key}!`);
+                            this.props.updateLog(`Ops! there was some kind of error!`);
                             this.props.updateLog(error.responseJSON.message);
                             this.props.updateLog("Halting any further tasks.");                    
                         }.bind(this)

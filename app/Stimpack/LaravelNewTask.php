@@ -3,25 +3,52 @@
 namespace App\Stimpack;
 use Illuminate\Support\Facades\Log;
 
-class LaravelNewTask implements Task
+class LaravelNewTask extends Task
 {
-
-    public function __construct($tasks) {
-        $this->tasks = $tasks;
-    }
-
-    public function perform() {                
-        exec("composer create-project --prefer-dist laravel/laravel " . $this->tasks->LaravelNewTask->projectName ." 2>&1 && mv /home/anders/Code/stimpack/public/" . $this->tasks->LaravelNewTask->projectName . " /home/anders/Code/" . $this->tasks->LaravelNewTask->projectName . " 2>&1", $outputAndErrors, $return_value);
-    
-        // Replace app key in .env manually - something is not working with Laravels key:generate
-        $envPath = $this->tasks->LaravelNewTask->path . "/" . $this->tasks->LaravelNewTask->projectName . "/.env";
-        file_put_contents($envPath, preg_replace(
-            "/^APP_KEY=/m",
-            'APP_KEY='."base64:HXvkwnSP3c9bclgmH17cbGsNVswvjbeFpywXSCs5Mpk=",
-            file_get_contents($envPath)
-        ));
-
-
+    public function perform() {
+        // Create new laravel project with composer
+        exec("composer create-project --prefer-dist -n laravel/laravel ../../" . $this->projectName ." 2>&1", $outputAndErrors);    
+        // Laravels key:generate does not work in shell, lets do it manually for now
+        file_put_contents($this->projectPath()."/.env", envContent());
+        // Return output and errors
         return $outputAndErrors;
     }
+}
+
+function envContent() { return
+"APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:yK7lM9GKZWH+6UO/yGorJl08kAZ+uiOQO5Wttl4g9zA=
+APP_DEBUG=true
+APP_LOG_LEVEL=debug
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+QUEUE_DRIVER=sync
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_APP_CLUSTER=mt1";    
 }
