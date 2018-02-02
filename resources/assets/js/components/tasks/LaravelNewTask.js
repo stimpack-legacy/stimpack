@@ -18,7 +18,9 @@ class LaravelNewTask extends Component {
                     <div className="card-body">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="project-name">Project name</label>
+                            <p>Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, leave this task unchecked.</p>
+                            
+                            <label htmlFor="project-name">Project name</label>                            
                             <input type="text" className="form-control" id="project-name" placeholder="my-new-project" />                            
                         </div>
                     </form>

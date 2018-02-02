@@ -61968,6 +61968,11 @@ var LaravelNewTask = function (_Component) {
                                 'div',
                                 { className: 'form-group' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'p',
+                                    null,
+                                    'Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, leave this task unchecked.'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'label',
                                     { htmlFor: 'project-name' },
                                     'Project name'
