@@ -40,6 +40,7 @@ class Generator extends Component {
             if (this.props.tasks.hasOwnProperty(taskName)) {
                 if(count == taskIndex && this.props.tasks[taskName].enabled) {
                     $.ajax({
+                        type: "POST", 
                         url: "/stimpack/perform/" + taskName,
                         data: { 
                             tasks: JSON.stringify(this.props.tasks) 
@@ -49,7 +50,7 @@ class Generator extends Component {
                             this.props.updateLog(result);
                             this.performTasks(taskIndex+1);
                         }.bind(this),
-                        contentType: "application/json",
+                        //contentType:"application/json; charset=utf-8",
                         cache: false,
                         error: function(error) {
                             this.props.updateLog(`Ops! there was some kind of error on ${key}!`);

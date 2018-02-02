@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('stimpack')->group(function () {
-    Route::get('perform/{task}', 'TaskController@perform');
+    Route::post('perform/{task}', 'TaskController@perform');
     Route::get('pluralize/{word}', function ($word){    
         return Str::plural(Str::snake(class_basename($word)));
     });    
