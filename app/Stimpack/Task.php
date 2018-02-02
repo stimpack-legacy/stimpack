@@ -2,8 +2,34 @@
 
 namespace App\Stimpack;
 
-interface Task
+class Task
 {
-    public function __construct($data);
-    public function perform();
+    public function __construct($tasks) {
+        $this->tasks = $tasks;
+        $this->transferParameters();        
+    }
+
+    public function projectPath() {
+        if(isset($this->tasks->LaravelNewTask) && $this->tasks->LaravelNewTask->enabled) {
+            return base_path() . $this->tasks->LaravelNewTask->projectPath . $this->tasks->LaravelNewTask->projectName;
+        }
+
+        return base_path();
+    }
+
+    // Shorthand for accessing the current tasks properties
+    // Example:
+    // Instead of 
+    // $this->tasks->CreateControllersTask->enabled
+    // Use
+    // $this->enabled
+    private function transferParameters() {
+        $taskClassName = class_basename(get_class($this));
+        if($taskClassName != "Task" && isset($this->tasks->$taskClassName)) {
+            $this->tasks->$taskClassName;
+            foreach ($this->tasks->$taskClassName as $key => $value) {
+                $this->$key = $value;
+            }
+        }
+    }
 }
