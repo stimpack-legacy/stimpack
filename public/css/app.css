@@ -3242,7 +3242,7 @@ ul > * {
   margin-right: 2px;
 }
 
-li {
+.editor-tab {
   float: left;
 }
 
@@ -3258,6 +3258,22 @@ li a:hover {
   background-color: #AFE418;
   border-radius: 12px;
   color: black;
+}
+
+.log-ok {
+  color: #AFE418;
+}
+
+.log-pending {
+  color: yellow;
+}
+
+.log-error {
+  color: DarkOrange;
+}
+
+ul {
+  list-style-type: none;
 }
 
 /*!
@@ -13334,9 +13350,5 @@ select {
 
 input {
   width: 30% !important;
-}
-
-i {
-  color: #AFE418;
 }
 

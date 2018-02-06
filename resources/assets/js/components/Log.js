@@ -14,14 +14,16 @@ class Log extends Component {
             <div className="container">                             
                 <div className="card">
                     <div className="card-header">
-                        <h4> <i className="fa fa-check-circle"></i> Log</h4>
+                        <h4>Log</h4>
                     </div>
                     <div className="card-body">                        
-                        <i className="fa fa-exclamation-circle"></i>
-                        <br />                                                                                                
-                        <div id="log-wrapper">
-                            <div id="log-editor" />
-                        </div>
+                    <ul>                        
+                        <li><i className="fa fa-check-circle log-ok"></i> Some task</li>
+                        <li><i className="fa fa-check-circle log-ok"></i> Another task</li>
+                        <li><i className="fa fa-exclamation-circle log-error"></i> Some failded task!</li>
+                        <li><i className="fa fa-refresh fa-spin log-pending"></i> Some pending task!</li>
+                        
+                    </ul>
                     </div>
                 </div>
             </div>      

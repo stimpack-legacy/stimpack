@@ -35,7 +35,7 @@ class CreateMigrationsTask extends Component {
                     <div id="pseudo-wrapper">
                         <div>
                             <ul className="editor-tabs">
-                                <li><a href="#">Input</a></li>                                
+                                <li className="editor-tab"><a href="#">Input</a></li>                                
                             </ul>
                         </div>
                         <div id="pseudo-editor" />
@@ -79,7 +79,7 @@ class CreateMigrationsTask extends Component {
     renderPhpTabs() {        
         return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
             return (
-                <li key={model.table}>
+                <li key={model.table} className="editor-tab">
                     <a onClick={this.clickTab.bind(this)} data-model={model.model} href="#">{model.model}</a>
                 </li>
             );

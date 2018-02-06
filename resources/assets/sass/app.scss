@@ -16,6 +16,10 @@
 // Code editors
 @import "editors";
 
+// Code editors
+@import "log";
+
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
@@ -103,8 +107,4 @@ select {
 
 input {
     width:30% !important;
-}
-
-i {
-    color: $neon-green;
 }

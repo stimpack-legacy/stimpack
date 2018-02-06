@@ -1,0 +1,15 @@
+.log-ok {
+    color: $neon-green;    
+}
+
+.log-pending {
+    color: yellow;    
+}
+
+.log-error {
+    color: DarkOrange;    
+}
+
+ul {
+    list-style-type: none;
+}

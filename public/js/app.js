@@ -60296,7 +60296,7 @@ var CreateMigrationsTask = function (_Component) {
                                     { className: 'editor-tabs' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'li',
-                                        null,
+                                        { className: 'editor-tab' },
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'a',
                                             { href: '#' },
@@ -60351,7 +60351,7 @@ var CreateMigrationsTask = function (_Component) {
             return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
-                    { key: model.table },
+                    { key: model.table, className: 'editor-tab' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'a',
                         { onClick: _this2.clickTab.bind(_this2), 'data-model': model.model, href: '#' },
@@ -61805,20 +61805,39 @@ var Log = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'h4',
                                 null,
-                                ' ',
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-check-circle' }),
-                                ' Log'
+                                'Log'
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'card-body' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-exclamation-circle' }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { id: 'log-wrapper' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'log-editor' })
+                                'ul',
+                                null,
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-check-circle log-ok' }),
+                                    ' Some task'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-check-circle log-ok' }),
+                                    ' Another task'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-exclamation-circle log-error' }),
+                                    ' Some failded task!'
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-refresh fa-spin log-pending' }),
+                                    ' Some pending task!'
+                                )
                             )
                         )
                     )
