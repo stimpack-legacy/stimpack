@@ -22288,6 +22288,10 @@ __webpack_require__(112);
 //require('./components/Header');
 __webpack_require__(66);
 
+// Font Awesome
+//require("font-awesome-webpack");
+
+
 
 
 
@@ -61801,12 +61805,16 @@ var Log = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'h4',
                                 null,
-                                'Log'
+                                ' ',
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-check-circle' }),
+                                ' Log'
                             )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
                             { className: 'card-body' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-exclamation-circle' }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { id: 'log-wrapper' },

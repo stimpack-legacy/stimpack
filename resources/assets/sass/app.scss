@@ -4,6 +4,9 @@
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
+// Font Awesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
 // Variables
 @import "variables";
 
@@ -100,4 +103,8 @@ select {
 
 input {
     width:30% !important;
+}
+
+i {
+    color: $neon-green;
 }

@@ -14,9 +14,11 @@ class Log extends Component {
             <div className="container">                             
                 <div className="card">
                     <div className="card-header">
-                        <h4>Log</h4>
+                        <h4> <i className="fa fa-check-circle"></i> Log</h4>
                     </div>
-                    <div className="card-body">                                                                                                
+                    <div className="card-body">                        
+                        <i className="fa fa-exclamation-circle"></i>
+                        <br />                                                                                                
                         <div id="log-wrapper">
                             <div id="log-editor" />
                         </div>

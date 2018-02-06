@@ -16,6 +16,9 @@ require('./bootstrap');
 //require('./components/Header');
 require('./components/Main');
 
+// Font Awesome
+//require("font-awesome-webpack");
+
 
 
 import React from 'react';
