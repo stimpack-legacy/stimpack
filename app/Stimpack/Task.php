@@ -24,6 +24,7 @@ class Task
     // Use
     // $this->enabled
     private function transferParameters() {
+        $this->bajs = "foobar";
         $taskClassName = class_basename(get_class($this));
         if($taskClassName != "Task" && isset($this->tasks->$taskClassName)) {
             $this->tasks->$taskClassName;
