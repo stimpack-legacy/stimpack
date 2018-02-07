@@ -58685,21 +58685,22 @@ var Generator = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'container' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { className: 'card' },
+                            { className: 'card ready-to-roll-out' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'card-header' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'h4',
-                                    null,
-                                    'Run Tasks!'
+                                    { className: 'ready-to-roll-out' },
+                                    'Ready to roll out?'
                                 )
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { className: 'card-body' },
+                                { className: 'card-body ready-to-roll-out' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'button',
                                     { onClick: this.stim.bind(this), className: 'btn btn-primary btn-cool' },
@@ -58708,8 +58709,7 @@ var Generator = function (_Component) {
                             )
                         )
                     )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Log__["a" /* default */], null)
+                )
             );
         }
     }, {
@@ -58836,12 +58836,7 @@ var Inputs = function (_Component) {
                 { className: 'inputs' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__tasks_LaravelNewTask__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__tasks_CreateDatabaseTask__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__tasks_CreateMigrationsTask__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__tasks_CreateModelsTask__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__tasks_CreateControllersTask__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__tasks_StarOnGithubTask__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__tasks_MigrateTask__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__tasks_GitInitTask__["a" /* default */], null)
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__tasks_CreateMigrationsTask__["a" /* default */], null)
             );
         }
     }]);
@@ -60925,7 +60920,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(MigrateTask));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(MigrateTask));
 
 /*
 
@@ -61019,7 +61014,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(GitInitTask));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(GitInitTask));
 
 /*
 
@@ -61153,7 +61148,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
 
 /*
 
@@ -61490,7 +61485,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(StarOnGithubTask));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(StarOnGithubTask));
 
 /*
 
@@ -61619,7 +61614,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateControllersTask));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateControllersTask));
 
 /*
 
@@ -61679,7 +61674,7 @@ var LaravelNewTask = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'label',
                                 { htmlFor: 'LaravelNewTask-switch' },
-                                'Laravel new'
+                                'Set target project'
                             )
                         )
                     ),
@@ -61695,12 +61690,32 @@ var LaravelNewTask = function (_Component) {
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'p',
                                     null,
-                                    'Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, uncheck this task.'
+                                    'Select an existing project, or type a new name to create a fresh project.'
                                 ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', list: 'cars' }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'label',
-                                    { htmlFor: 'project-name' },
-                                    'Project name'
+                                    'datalist',
+                                    { id: 'cars' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'option',
+                                        null,
+                                        'Volvo'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'option',
+                                        null,
+                                        'Saab'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'option',
+                                        null,
+                                        'Mercedes'
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'option',
+                                        null,
+                                        'Audi'
+                                    )
                                 ),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: this.changeProjectName.bind(this), className: 'form-control', id: 'project-name', placeholder: 'my-new-project' })
                             )
@@ -61900,7 +61915,7 @@ function matchDispatchToProps(dispatch) {
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
 
 /***/ }),
 /* 281 */

@@ -19,17 +19,18 @@ class Generator extends Component {
                 <Inputs />
                 <div className="buttons">
                     <div className="container">
-                        <div className="card">
+                        <hr />
+                        <div className="card ready-to-roll-out">
                             <div className="card-header">
-                                <h4>Run Tasks!</h4>
+                                <h4 className="ready-to-roll-out">Ready to roll out?</h4>
                             </div>
-                            <div className="card-body">
+                            <div className="card-body ready-to-roll-out">
                                 <button onClick={this.stim.bind(this)} className="btn btn-primary btn-cool">Stim!</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <Log />
+                {/*<Log /> */}
             </div>
         );
     }

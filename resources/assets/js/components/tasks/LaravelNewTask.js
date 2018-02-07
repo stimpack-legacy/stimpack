@@ -12,15 +12,21 @@ class LaravelNewTask extends Component {
                     <div className="card-header">
                         <span className="switch switch-sm">
                             <input type="checkbox" className="switch" id="LaravelNewTask-switch" checked={this.props.tasks.LaravelNewTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="LaravelNewTask-switch">Laravel new</label>                    
+                            <label htmlFor="LaravelNewTask-switch">Set target project</label>                    
                         </span>
                     </div>
                     <div className="card-body">
                     <form>
                         <div className="form-group">
-                            <p>Create a brand new laravel application. All concecutive tasks will refer to this project. Tip: to keep working in the current laravel installation, uncheck this task.</p>
-                            
-                            <label htmlFor="project-name">Project name</label>                            
+                            <p>Select an existing project, or type a new name to create a fresh project.</p>
+                            <input type="text" list="cars" />
+                            <datalist id="cars">
+                            <option>Volvo</option>
+                            <option>Saab</option>
+                            <option>Mercedes</option>
+                            <option>Audi</option>
+                            </datalist>
+                            {/*<label htmlFor="project-name">Project name</label>*/}
                             <input type="text" onChange={this.changeProjectName.bind(this)} className="form-control" id="project-name" placeholder="my-new-project" />                            
                         </div>
                     </form>

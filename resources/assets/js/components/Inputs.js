@@ -24,12 +24,14 @@ export default class Inputs extends Component {
             <div className="inputs">
                 <LaravelNewTask />
                 <CreateDatabaseTask />
-                <CreateMigrationsTask />                
+                <CreateMigrationsTask />
+                {/*                
                 <CreateModelsTask />
                 <CreateControllersTask />
                 <StarOnGithubTask />
                 <MigrateTask />
                 <GitInitTask />
+                */}
             </div>
         );
     }
