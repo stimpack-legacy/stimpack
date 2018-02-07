@@ -15,21 +15,21 @@ class Generator extends Component {
 
     render() {
         return (
-            <div className="generator">
+            <div className="generator container">
                 <Inputs />
-                <div className="buttons"> 
-                    <div className="container">                             
+                <div className="buttons">
+                    <div className="container">
                         <div className="card">
                             <div className="card-header">
                                 <h4>Run Tasks!</h4>
                             </div>
-                            <div className="card-body">                                                                                                
-                                <button onClick={this.stim.bind(this)} className="btn btn-primary btn-cool">Stim!</button>                           
+                            <div className="card-body">
+                                <button onClick={this.stim.bind(this)} className="btn btn-primary btn-cool">Stim!</button>
                             </div>
                         </div>
-                    </div>      
+                    </div>
                 </div>
-                <Log />                                
+                <Log />
             </div>
         );
     }
@@ -41,12 +41,12 @@ class Generator extends Component {
             if (this.props.tasks.hasOwnProperty(localTaskName)) {
                 if(count == taskIndex && this.props.tasks[localTaskName].enabled) {
                     console.log("LAUNCHING A QUERY!", localTaskName);
-                    $.ajax({                        
-                        type: "POST", 
+                    $.ajax({
+                        type: "POST",
                         url: "/stimpack/perform/" + localTaskName,
-                        data: { 
-                            tasks: JSON.stringify(this.props.tasks) 
-                        },                                 
+                        data: {
+                            tasks: JSON.stringify(this.props.tasks)
+                        },
                         success: function(result){
                             // write to log
                             this.props.updateLog(result);
@@ -57,23 +57,23 @@ class Generator extends Component {
                         error: function(error) {
                             this.props.updateLog(`Ops! there was some kind of error!`);
                             this.props.updateLog(error.responseJSON.message);
-                            this.props.updateLog("Halting any further tasks.");                    
+                            this.props.updateLog("Halting any further tasks.");
                         }.bind(this)
-                    });                
+                    });
                 }
             }
         }
     }
 
     stim() {
-        this.performTasks();                
+        this.performTasks();
     }
 }
 
 // "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
-        tasks: state.tasks        
+        tasks: state.tasks
     };
 }
 
