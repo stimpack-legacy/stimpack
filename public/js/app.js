@@ -61692,37 +61692,31 @@ var LaravelNewTask = function (_Component) {
                                     null,
                                     'Select an existing project, or type a new name to create a fresh project.'
                                 ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', list: 'cars' }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', list: 'projects' }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'datalist',
-                                    { id: 'cars' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'option',
-                                        null,
-                                        'Volvo'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'option',
-                                        null,
-                                        'Saab'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'option',
-                                        null,
-                                        'Mercedes'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'option',
-                                        null,
-                                        'Audi'
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', onChange: this.changeProjectName.bind(this), className: 'form-control', id: 'project-name', placeholder: 'my-new-project' })
+                                    { id: 'projects', placeholder: 'my-new-project' },
+                                    this.renderOptions()
+                                )
                             )
                         )
                     )
                 )
             );
+        }
+    }, {
+        key: 'renderOptions',
+        value: function renderOptions() {
+            //return (<option>{typeof projects}</option>);
+
+
+            return projects.map(function (project) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { key: project },
+                    project
+                );
+            });
         }
     }, {
         key: 'changeProjectName',

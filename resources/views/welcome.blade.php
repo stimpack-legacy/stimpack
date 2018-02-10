@@ -13,6 +13,9 @@
     </head>
     <body>        
         <div id="main"></div>
+        <script>
+            let projects = Object.values({!! $projects !!});
+        </script>
         <script src="{{asset('js/app.js')}}" ></script>                
     </body>
 </html>

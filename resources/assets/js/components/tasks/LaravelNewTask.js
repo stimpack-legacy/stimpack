@@ -19,21 +19,28 @@ class LaravelNewTask extends Component {
                     <form>
                         <div className="form-group">
                             <p>Select an existing project, or type a new name to create a fresh project.</p>
-                            <input type="text" list="cars" />
-                            <datalist id="cars">
-                            <option>Volvo</option>
-                            <option>Saab</option>
-                            <option>Mercedes</option>
-                            <option>Audi</option>
+                            <input type="text" list="projects" />
+                            <datalist id="projects" placeholder="my-new-project">
+                                {this.renderOptions()}
                             </datalist>
                             {/*<label htmlFor="project-name">Project name</label>*/}
-                            <input type="text" onChange={this.changeProjectName.bind(this)} className="form-control" id="project-name" placeholder="my-new-project" />                            
+                            {/*<input type="text" onChange={this.changeProjectName.bind(this)} className="form-control" id="project-name" placeholder="my-new-project" />*/}                            
                         </div>
                     </form>
                     </div>
                 </div>                
             </div>
         );
+    }
+
+    renderOptions() {
+        //return (<option>{typeof projects}</option>);
+
+
+        return projects.map(function(project) {
+            return (<option key={project}>{project}</option>);
+        })
+        
     }
 
     changeProjectName(e) {

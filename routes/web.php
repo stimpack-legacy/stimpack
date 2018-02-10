@@ -14,7 +14,9 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    chdir("../../");
+    $projects = array_filter(glob("*"), 'is_dir');
+    return view('welcome')->with('projects', collect($projects));
 });
 
 
