@@ -23,6 +23,7 @@ class LaravelNewTask extends Component {
                             <datalist id="projects" placeholder="my-new-project">
                                 {this.renderOptions()}
                             </datalist>
+                                                   
                             {/*<label htmlFor="project-name">Project name</label>*/}
                             {/*<input type="text" onChange={this.changeProjectName.bind(this)} className="form-control" id="project-name" placeholder="my-new-project" />*/}                            
                         </div>
