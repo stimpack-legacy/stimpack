@@ -1405,16 +1405,9 @@ module.exports = emptyFunction;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export updateTransformedModels */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateTasks; });
-var updateTransformedModels = function updateTransformedModels(transformedModels) {
-    return {
-        type: 'TRANSFORMED_MODELS_UPDATED',
-        payload: transformedModels
-    };
-};
-
+/* unused harmony export updateTaskBatch */
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -1425,6 +1418,13 @@ var updateLog = function updateLog(message) {
 var updateTasks = function updateTasks(tasks) {
     return {
         type: 'TASKS_UPDATED',
+        payload: tasks
+    };
+};
+
+var updateTaskBatch = function updateTaskBatch(tasks) {
+    return {
+        type: 'TASK_BATCH_UPDATED',
         payload: tasks
     };
 };
@@ -22448,7 +22448,7 @@ function matchDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateMigrationsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateMigrationsTask));
 
 /***/ }),
 /* 111 */
@@ -22655,7 +22655,7 @@ function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["b" /* updateTasks */] }, dispatch);
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask));
 
 /***/ }),
 /* 113 */,
@@ -61018,18 +61018,16 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__taskReducer__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__logReducer__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__taskBatchReducer__ = __webpack_require__(298);
 
 
 
 
-/*
- * We combine all reducers into a single object before updated data is dispatched (sent) to store
- * Your entire applications state (store) is just whatever gets returned from all your reducers
- * */
 
 var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReducers */])({
-  tasks: __WEBPACK_IMPORTED_MODULE_1__taskReducer__["a" /* default */],
-  log: __WEBPACK_IMPORTED_MODULE_2__logReducer__["a" /* default */]
+    tasks: __WEBPACK_IMPORTED_MODULE_1__taskReducer__["a" /* default */],
+    log: __WEBPACK_IMPORTED_MODULE_2__logReducer__["a" /* default */],
+    taskBatch: __WEBPACK_IMPORTED_MODULE_3__taskBatchReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
@@ -61075,7 +61073,7 @@ __WEBPACK_IMPORTED_MODULE_0__components_tasks_allTasks__["a" /* allTasks */].for
 
 
 
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */]];
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */]];
 
 /***/ }),
 /* 286 */
@@ -61244,6 +61242,25 @@ function matchDispatchToProps(dispatch) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(SetTargetProjectTask));
+
+/***/ }),
+/* 298 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'TASK_BATCH_UPDATED':
+            var taskBatch = Object.assign({}, action.payload);
+            return taskBatch;
+            break;
+        default:
+            return state;
+    }
+});
 
 /***/ })
 /******/ ]);

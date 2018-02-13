@@ -1,10 +1,3 @@
-export const updateTransformedModels = (transformedModels) => {    
-    return {
-        type: 'TRANSFORMED_MODELS_UPDATED',
-        payload: transformedModels
-    }
-};
-
 export const updateLog = (message) => {
     return {
         type: 'LOG_UPDATED',
@@ -15,6 +8,13 @@ export const updateLog = (message) => {
 export const updateTasks = (tasks) => {
     return {
         type: 'TASKS_UPDATED',
+        payload: tasks
+    }
+};
+
+export const updateTaskBatch = (tasks) => {
+    return {
+        type: 'TASK_BATCH_UPDATED',
         payload: tasks
     }
 };
