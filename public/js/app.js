@@ -59168,15 +59168,15 @@ var Generator = function (_Component) {
                             },
                             success: function (result) {
                                 // write to log
-                                this.props.updateLog(result);
+                                //this.props.updateLog(result);
+                                console.log("SUCCESS", result);
                                 this.performTasks(taskIndex + 1);
                             }.bind(this),
-                            //contentType:"application/json; charset=utf-8",
-                            cache: false,
                             error: function (error) {
-                                this.props.updateLog('Ops! there was some kind of error!');
-                                this.props.updateLog(error.responseJSON.message);
-                                this.props.updateLog("Halting any further tasks.");
+                                console.log("ERROR", error);
+                                //this.props.updateLog(`Ops! there was some kind of error!`);
+                                //this.props.updateLog(error.responseJSON.message);
+                                //this.props.updateLog("Halting any further tasks.");
                             }.bind(this)
                         });
                     }
@@ -59193,23 +59193,16 @@ var Generator = function (_Component) {
     return Generator;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-// "state.activeUser" is set in reducers/index.js
-
-
 function mapStateToProps(state) {
     return {
         tasks: state.tasks
     };
 }
 
-// Get actions and pass them as props to to UserList
-//      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_5_redux__["a" /* bindActionCreators */])({ updateLog: __WEBPACK_IMPORTED_MODULE_6__actions_index__["a" /* updateLog */] }, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Generator));
 
 /***/ }),

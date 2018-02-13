@@ -49,15 +49,15 @@ class Generator extends Component {
                         },
                         success: function(result){
                             // write to log
-                            this.props.updateLog(result);
+                            //this.props.updateLog(result);
+                            console.log("SUCCESS", result);
                             this.performTasks(taskIndex+1);
                         }.bind(this),
-                        //contentType:"application/json; charset=utf-8",
-                        cache: false,
                         error: function(error) {
-                            this.props.updateLog(`Ops! there was some kind of error!`);
-                            this.props.updateLog(error.responseJSON.message);
-                            this.props.updateLog("Halting any further tasks.");
+                            console.log("ERROR", error);
+                            //this.props.updateLog(`Ops! there was some kind of error!`);
+                            //this.props.updateLog(error.responseJSON.message);
+                            //this.props.updateLog("Halting any further tasks.");
                         }.bind(this)
                     });
                 }
@@ -70,19 +70,14 @@ class Generator extends Component {
     }
 }
 
-// "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
         tasks: state.tasks
     };
 }
 
-// Get actions and pass them as props to to UserList
-//      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch){
     return bindActionCreators({updateLog: updateLog}, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 export default connect(mapStateToProps, matchDispatchToProps)(Generator);

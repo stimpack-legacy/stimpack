@@ -2,14 +2,13 @@
 
 namespace App\Stimpack;
 use Illuminate\Support\Facades\Log;
+use App\Stimpack\Task;
 
 class SetTargetProjectTask extends Task
 {
     public function perform() {
         // if project exist, do nothing
-        chdir("../../");
-        $projects = collect(array_filter(glob("*"), 'is_dir'));
-        if($projects->contains($this->projectName)) {
+        if(Task::projects()->contains($this->projectName)) {
             return "Project folder identified";
         }
 

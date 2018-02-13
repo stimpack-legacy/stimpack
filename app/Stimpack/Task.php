@@ -16,7 +16,7 @@ class Task
 
         return base_path();
     }
-    
+
     /*
     / Shorthand for accessing the current tasks properties
     / Example:
@@ -34,5 +34,12 @@ class Task
                 $this->$key = $value;
             }
         }
+    }
+
+    public static function projects() {
+        chdir("../../");
+        $projects = collect(array_filter(glob("*"), 'is_dir'));
+        chdir(public_path());
+        return $projects;
     }
 }
