@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTasks} from '../../actions/index'
+import {updateTasks} from '../../../actions/index'
 
-class MigrateTask extends Component {
+class GitInitTask extends Component {
     render() {
         return (
             <div className="container">                              
                 <div className="card">
                     <div className="card-header">
                         <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="MigrateTask-switch" checked={this.props.tasks.MigrateTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="MigrateTask-switch">Migrate</label>                    
+                            <input type="checkbox" className="switch" id="GitInitTask-switch" checked={this.props.tasks.GitInitTask.enabled} onChange={this.enableTask.bind(this)} />
+                            <label htmlFor="GitInitTask-switch">git init</label>                    
                         </span>
                     </div>
                 </div>                
@@ -21,7 +21,7 @@ class MigrateTask extends Component {
     }
     enableTask() {
         var updatedTasks = this.props.tasks;
-        updatedTasks.MigrateTask.enabled = !updatedTasks.MigrateTask.enabled; // ^= 1
+        updatedTasks.GitInitTask.enabled = !updatedTasks.GitInitTask.enabled; // ^= 1
         this.props.updateTasks(updatedTasks);
     }     
 }
@@ -44,7 +44,7 @@ function matchDispatchToProps(dispatch){
 
 // We don't want to return the plain UserList (component) anymore, we want to return the smart Container
 //      > UserList is now aware of state and actions
-export default connect(mapStateToProps,matchDispatchToProps)(MigrateTask);
+export default connect(mapStateToProps,matchDispatchToProps)(GitInitTask);
 
 
 /*

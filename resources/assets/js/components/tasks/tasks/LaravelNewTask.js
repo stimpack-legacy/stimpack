@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTasks} from '../../actions/index'
-import BaseTask from './BaseTask'
+import {updateTasks} from '../../../actions/index'
+import BaseTask from '../BaseTask'
 
 class LaravelNewTask extends BaseTask {
     render() {
@@ -43,6 +43,15 @@ class LaravelNewTask extends BaseTask {
         var updatedTasks = this.props.tasks;
         updatedTasks.LaravelNewTask.projectName = e.target.value;
         this.props.updateTasks(updatedTasks);        
+    }
+
+    static getDefaultParameters() {
+        return {
+            taskName: "LaravelNewTask",
+            enabled: true,
+            projectPath: "/../",
+            projectName: "my-new-project"
+        };        
     }
 }
 

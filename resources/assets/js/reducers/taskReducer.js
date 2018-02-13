@@ -1,9 +1,7 @@
+import {allTasks} from '../components/tasks/allTasks'
+/*
 const initialState = {
-    LaravelNewTask: {
-        enabled: true,
-        projectPath: "/../",
-        projectName: "my-new-project"
-    },
+    LaravelNewTask: LaravelNewTask.getDefaultParameters(),
     CreateDatabaseTask: {
         enabled: true,
         type: "sqlite"
@@ -31,6 +29,14 @@ const initialState = {
         enabled: true
     }
 };
+*/
+
+var initialState = {}
+allTasks.forEach(function(element) {
+    initialState[element.taskName] = element;    
+});
+console.log(allTasks);
+
 
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -40,35 +46,5 @@ export default function (state = initialState, action) {
             break;
         default:
             return state;            
-    }
-    
-    // Default task properties
-    return {
-        CreateDatabaseTask: {
-            enabled: false,
-            type: "sqlite"
-        },
-        CreateMigrationsTask: {
-            enabled: true,
-            pseudoCode: "",
-            transformedModels: [],
-            migrations: [],
-            activeTab: null
-        },
-        MigrateTask: {
-            enabled: true
-        },        
-        CreateModelsTask: {
-            enabled: false
-        },
-        CreateControllersTask: {
-            enabled: false
-        },
-        StarOnGithubTask: {
-            enabled: false
-        },
-        GitInitTask: {
-            enabled: true
-        }
     }
 }

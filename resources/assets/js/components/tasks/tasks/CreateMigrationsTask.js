@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ModelTransformer from '../../ModelTransformer';
+import ModelTransformer from '../../../ModelTransformer';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updatePseudoCode} from '../../actions/index';
-import {updateTasks} from '../../actions/index';
-import Template from './../../Template';
+import {updatePseudoCode} from '../../../actions/index';
+import {updateTasks} from '../../../actions/index';
+import Template from './../../../Template';
 
 class CreateMigrationsTask extends Component {
     componentDidMount() {

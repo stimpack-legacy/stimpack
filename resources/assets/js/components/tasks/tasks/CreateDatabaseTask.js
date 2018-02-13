@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTasks} from '../../actions/index'
+import {updateTasks} from '../../../actions/index'
+import BaseTask from '../BaseTask'
 
-class CreateDatabaseTask extends Component {
+class CreateDatabaseTask extends BaseTask {
     componentDidMount() {
     }
 
@@ -36,10 +37,12 @@ class CreateDatabaseTask extends Component {
         this.props.updateTasks(updatedTasks);        
     }
 
-    enableTask() {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.CreateDatabaseTask.enabled = !updatedTasks.CreateDatabaseTask.enabled;
-        this.props.updateTasks(updatedTasks);
+    static getDefaultParameters() {
+        return {
+            taskName: "CreateDatabaseTask",
+            enabled: true,
+            type: "sqlite"
+        };        
     }    
 }
 

@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Database from './Database';
-import CreateMigrationsTask from './tasks/CreateMigrationsTask';
-import MigrateTask from './tasks/MigrateTask';
-import GitInitTask from './tasks/GitInitTask';
-import CreateModelsTask from './tasks/CreateModelsTask';
-import CreateDatabaseTask from './tasks/CreateDatabaseTask';
-import SampleTask from './tasks/SampleTask';
-import StarOnGithubTask from './tasks/StarOnGithubTask';
-import CreateControllersTask from './tasks/CreateControllersTask';
-import LaravelNewTask from './tasks/LaravelNewTask';
+import CreateMigrationsTask from './tasks/tasks/CreateMigrationsTask';
+import MigrateTask from './tasks/tasks/MigrateTask';
+import GitInitTask from './tasks/tasks/GitInitTask';
+import CreateModelsTask from './tasks/tasks/CreateModelsTask';
+import CreateDatabaseTask from './tasks/tasks/CreateDatabaseTask';
+import SampleTask from './tasks/tasks/SampleTask';
+import StarOnGithubTask from './tasks/tasks/StarOnGithubTask';
+import CreateControllersTask from './tasks/tasks/CreateControllersTask';
+import LaravelNewTask from './tasks/tasks/LaravelNewTask';
 
 export default class Inputs extends Component {
     constructor(props) {
@@ -24,8 +24,8 @@ export default class Inputs extends Component {
             <div className="inputs">
                 <LaravelNewTask />
                 <CreateDatabaseTask />
-                <CreateMigrationsTask />
-                {/*                
+                {/*
+                <CreateMigrationsTask />                                
                 <CreateModelsTask />
                 <CreateControllersTask />
                 <StarOnGithubTask />
