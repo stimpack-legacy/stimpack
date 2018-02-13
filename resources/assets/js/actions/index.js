@@ -18,3 +18,10 @@ export const updateTaskBatch = (tasks) => {
         payload: tasks
     }
 };
+
+export const resetTaskBatch = (tasks) => {
+    return {
+        type: 'TASK_BATCH_RESET',
+        payload: tasks
+    }
+};

@@ -5,14 +5,10 @@ import Log from './Log';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updateLog} from '../actions/index'
+import {updateTaskBatch} from '../actions/index';
+import {resetTaskBatch} from '../actions/index';
 
 class Generator extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-
     render() {
         return (
             <div className="generator container">
@@ -25,6 +21,7 @@ class Generator extends Component {
                                 <h4 className="ready-to-roll-out">Ready to roll out?</h4>
                             </div>
                             <div className="card-body ready-to-roll-out">
+                                <Log />
                                 <button onClick={this.stim.bind(this)} className="btn btn-primary btn-cool">Stim!</button>
                             </div>
                         </div>
@@ -67,8 +64,18 @@ class Generator extends Component {
     }
 
     stim() {
-        this.performTasks();
+        this.props.resetTaskBatch({
+            tasks: Object.values(this.props.tasks).filter(task => task.enabled).map(task => {
+                task.status = "queued";
+                return task;
+            }),
+            busy: true
+        });
+        
+        //this.performTasks();
     }
+
+
 }
 
 function mapStateToProps(state) {
@@ -78,7 +85,11 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({updateLog: updateLog}, dispatch);
+    return bindActionCreators({
+        updateLog: updateLog,
+        resetTaskBatch: resetTaskBatch,
+        updateTaskBatch: updateTaskBatch    
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Generator);

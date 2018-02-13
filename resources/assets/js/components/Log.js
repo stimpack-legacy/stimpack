@@ -4,77 +4,43 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 class Log extends Component {
-    componentDidMount() {
-        this.setup();
-    }
-
     render() {
-        return (
-        <div className="buttons"> 
-            <div className="container">                             
-                <div className="card">
-                    <div className="card-header">
-                        <h4>Log</h4>
-                    </div>
-                    <div className="card-body">                        
-                    <ul>                        
-                        <li><i className="fa fa-check-circle log-ok"></i> Some task</li>
-                        <li><i className="fa fa-check-circle log-ok"></i> Another task</li>
-                        <li><i className="fa fa-exclamation-circle log-error"></i> Some failded task!</li>
-                        <li><i className="fa fa-refresh fa-spin log-pending"></i> Some pending task!</li>
-                        
-                    </ul>
-                    </div>
-                </div>
-            </div>      
-        </div>
+        return (                
+            <ul>
+                {/*                        
+                <li><i className="fa fa-check-circle log-ok"></i> Some task</li>
+                <li><i className="fa fa-check-circle log-ok"></i> Another task</li>
+                <li><i className="fa fa-exclamation-circle log-error"></i> Some failded task!</li>
+                <li><i className="fa fa-refresh fa-spin log-pending"></i> Some pending task!</li>
+                */}
+                {this.renderTaskBatchItems()}            
+            </ul>
         );
     }
-    
-    setup() {
-        var log = ace.edit("log-editor");
-        log.setTheme("ace/theme/monokai");
-        log.getSession().setMode({
-            path: "ace/mode/sh",
-            inline: true
-        });        
-        log.setShowPrintMargin(false);
-        log.renderer.setShowGutter(false);
-                
-        log.setValue(this.props.log,1);
-    }
 
-    refreshLog() {        
-        var log = ace.edit("log-editor");
-        // In order for editor not to overwrite itself... :O
-        setTimeout(function() {
-            log.setValue(this.props.log,1);
-        }.bind(this),10);
-        //var Range = ace.require('ace/range').Range;
-        //log.session.addMarker(new Range(2, 0, 1000, 1), "logError", "fullLine");
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(this.props.log != nextProps.log) {
-            this.refreshLog();
+    renderTaskBatchItems() {
+        var icons = {
+            "queued": "fa-refresh fa-spin log-pending",
+            "pending": "fa-refresh fa-spin log-pending",
+            "succeded": "fa-check-circle log-ok",
+            "failed": "fa-exclamation-circle log-error"
         }
-    }    
+
+        return this.props.taskBatch.tasks.map((task) => {
+            return (<li key={task.taskName}><i className={`fa ${icons[task.status]}`}></i> Some task</li>)
+        })
+    }
 }
 
-// "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
         tasks: state.tasks,
-        log: state.log
+        taskBatch: state.taskBatch
     };
 }
 
-// Get actions and pass them as props to to UserList
-//      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch){
     return bindActionCreators({}, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 export default connect(mapStateToProps, matchDispatchToProps)(Log);

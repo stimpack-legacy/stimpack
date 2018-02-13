@@ -1405,9 +1405,10 @@ module.exports = emptyFunction;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateTasks; });
-/* unused harmony export updateTaskBatch */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return updateTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTaskBatch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return resetTaskBatch; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -1425,6 +1426,13 @@ var updateTasks = function updateTasks(tasks) {
 var updateTaskBatch = function updateTaskBatch(tasks) {
     return {
         type: 'TASK_BATCH_UPDATED',
+        payload: tasks
+    };
+};
+
+var resetTaskBatch = function resetTaskBatch(tasks) {
+    return {
+        type: 'TASK_BATCH_RESET',
         payload: tasks
     };
 };
@@ -22444,7 +22452,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* updateTasks */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["d" /* updateTasks */]
     }, dispatch);
 }
 
@@ -22652,7 +22660,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["b" /* updateTasks */] }, dispatch);
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */] }, dispatch);
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask));
@@ -59070,16 +59078,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
 var Generator = function (_Component) {
     _inherits(Generator, _Component);
 
-    function Generator(props) {
+    function Generator() {
         _classCallCheck(this, Generator);
 
-        var _this = _possibleConstructorReturn(this, (Generator.__proto__ || Object.getPrototypeOf(Generator)).call(this, props));
-
-        _this.state = {};
-        return _this;
+        return _possibleConstructorReturn(this, (Generator.__proto__ || Object.getPrototypeOf(Generator)).apply(this, arguments));
     }
 
     _createClass(Generator, [{
@@ -59111,6 +59118,7 @@ var Generator = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
                                 { className: 'card-body ready-to-roll-out' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Log__["a" /* default */], null),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'button',
                                     { onClick: this.stim.bind(this), className: 'btn btn-primary btn-cool' },
@@ -59160,7 +59168,17 @@ var Generator = function (_Component) {
     }, {
         key: 'stim',
         value: function stim() {
-            this.performTasks();
+            this.props.resetTaskBatch({
+                tasks: Object.values(this.props.tasks).filter(function (task) {
+                    return task.enabled;
+                }).map(function (task) {
+                    task.status = "queued";
+                    return task;
+                }),
+                busy: true
+            });
+
+            //this.performTasks();
         }
     }]);
 
@@ -59174,7 +59192,11 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_5_redux__["a" /* bindActionCreators */])({ updateLog: __WEBPACK_IMPORTED_MODULE_6__actions_index__["a" /* updateLog */] }, dispatch);
+    return Object(__WEBPACK_IMPORTED_MODULE_5_redux__["a" /* bindActionCreators */])({
+        updateLog: __WEBPACK_IMPORTED_MODULE_6__actions_index__["b" /* updateLog */],
+        resetTaskBatch: __WEBPACK_IMPORTED_MODULE_6__actions_index__["a" /* resetTaskBatch */],
+        updateTaskBatch: __WEBPACK_IMPORTED_MODULE_6__actions_index__["c" /* updateTaskBatch */]
+    }, dispatch);
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Generator));
@@ -60892,123 +60914,50 @@ var Log = function (_Component) {
     }
 
     _createClass(Log, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.setup();
-        }
-    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'buttons' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'container' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'card-header' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'h4',
-                                null,
-                                'Log'
-                            )
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'card-body' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'ul',
-                                null,
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-check-circle log-ok' }),
-                                    ' Some task'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-check-circle log-ok' }),
-                                    ' Another task'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-exclamation-circle log-error' }),
-                                    ' Some failded task!'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-refresh fa-spin log-pending' }),
-                                    ' Some pending task!'
-                                )
-                            )
-                        )
-                    )
-                )
+                'ul',
+                null,
+                this.renderTaskBatchItems()
             );
         }
     }, {
-        key: 'setup',
-        value: function setup() {
-            var log = ace.edit("log-editor");
-            log.setTheme("ace/theme/monokai");
-            log.getSession().setMode({
-                path: "ace/mode/sh",
-                inline: true
-            });
-            log.setShowPrintMargin(false);
-            log.renderer.setShowGutter(false);
+        key: 'renderTaskBatchItems',
+        value: function renderTaskBatchItems() {
+            var icons = {
+                "queued": "fa-refresh fa-spin log-pending",
+                "pending": "fa-refresh fa-spin log-pending",
+                "succeded": "fa-check-circle log-ok",
+                "failed": "fa-exclamation-circle log-error"
+            };
 
-            log.setValue(this.props.log, 1);
-        }
-    }, {
-        key: 'refreshLog',
-        value: function refreshLog() {
-            var log = ace.edit("log-editor");
-            // In order for editor not to overwrite itself... :O
-            setTimeout(function () {
-                log.setValue(this.props.log, 1);
-            }.bind(this), 10);
-            //var Range = ace.require('ace/range').Range;
-            //log.session.addMarker(new Range(2, 0, 1000, 1), "logError", "fullLine");
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            if (this.props.log != nextProps.log) {
-                this.refreshLog();
-            }
+            return this.props.taskBatch.tasks.map(function (task) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: task.taskName },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + icons[task.status] }),
+                    ' Some task'
+                );
+            });
         }
     }]);
 
     return Log;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-// "state.activeUser" is set in reducers/index.js
-
-
 function mapStateToProps(state) {
     return {
         tasks: state.tasks,
-        log: state.log
+        taskBatch: state.taskBatch
     };
 }
 
-// Get actions and pass them as props to to UserList
-//      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({}, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
 
 /***/ }),
 /* 282 */
@@ -61042,6 +60991,7 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 
 
 var initialState = {};
+
 __WEBPACK_IMPORTED_MODULE_0__components_tasks_allTasks__["a" /* allTasks */].forEach(function (task) {
     initialState[task.getDefaultParameters().taskName] = task.getDefaultParameters();
 });
@@ -61237,7 +61187,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["b" /* updateTasks */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
     }, dispatch);
 }
 
@@ -61248,11 +61198,20 @@ function matchDispatchToProps(dispatch) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var initialState = {
+    tasks: [],
+    busy: false
+};
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
+        case 'TASK_BATCH_RESET':
+            var taskBatch = Object.assign({}, action.payload);
+            return taskBatch;
+            break;
         case 'TASK_BATCH_UPDATED':
             var taskBatch = Object.assign({}, action.payload);
             return taskBatch;

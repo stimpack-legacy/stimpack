@@ -1,6 +1,7 @@
 import {allTasks} from '../components/tasks/allTasks'
 
 var initialState = {}
+
 allTasks.forEach(function(task) {    
     initialState[task.getDefaultParameters().taskName] = task.getDefaultParameters();    
 });
