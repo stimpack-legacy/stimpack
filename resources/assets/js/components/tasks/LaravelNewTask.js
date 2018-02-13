@@ -20,9 +20,9 @@ class LaravelNewTask extends BaseTask {
                     <form>
                         <div className="form-group">
                             <p>Select an existing project, or type a new name to create a fresh project.</p>
-                            <input type="text" list="projects" />
-                            <datalist onChange={this.changeProjectName.bind(this)} id="projects" placeholder="my-new-project">
-                                {this.renderOptions()}
+                            <input onChange={this.setProjectName.bind(this)} type="text" list="projects" />
+                            <datalist  id="projects" placeholder="my-new-project">
+                                {this.renderAvailableProjects()}
                             </datalist>                            
                         </div>
                     </form>
@@ -32,18 +32,18 @@ class LaravelNewTask extends BaseTask {
         );
     }
 
-    renderOptions() {
+    renderAvailableProjects() {
         return projects.map(function(project) {
             return (<option key={project}>{project}</option>);
         })
         
     }
 
-    changeProjectName(e) {
+    setProjectName(e) {        
         var updatedTasks = this.props.tasks;
         updatedTasks.LaravelNewTask.projectName = e.target.value;
-        this.props.updateTasks(updatedTasks);
-    }     
+        this.props.updateTasks(updatedTasks);        
+    }
 }
 
 function mapStateToProps(state) {

@@ -61694,11 +61694,11 @@ var LaravelNewTask = function (_BaseTask) {
                                     null,
                                     'Select an existing project, or type a new name to create a fresh project.'
                                 ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', list: 'projects' }),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.setProjectName.bind(this), type: 'text', list: 'projects' }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'datalist',
-                                    { onChange: this.changeProjectName.bind(this), id: 'projects', placeholder: 'my-new-project' },
-                                    this.renderOptions()
+                                    { id: 'projects', placeholder: 'my-new-project' },
+                                    this.renderAvailableProjects()
                                 )
                             )
                         )
@@ -61707,8 +61707,8 @@ var LaravelNewTask = function (_BaseTask) {
             );
         }
     }, {
-        key: 'renderOptions',
-        value: function renderOptions() {
+        key: 'renderAvailableProjects',
+        value: function renderAvailableProjects() {
             return projects.map(function (project) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'option',
@@ -61718,8 +61718,8 @@ var LaravelNewTask = function (_BaseTask) {
             });
         }
     }, {
-        key: 'changeProjectName',
-        value: function changeProjectName(e) {
+        key: 'setProjectName',
+        value: function setProjectName(e) {
             var updatedTasks = this.props.tasks;
             updatedTasks.LaravelNewTask.projectName = e.target.value;
             this.props.updateTasks(updatedTasks);
