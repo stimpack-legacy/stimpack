@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Stimpack;
+namespace App\Stimpack\Tasks;
+
+use App\Stimpack\Task;
 
 class CreateDatabaseTask extends Task
 {

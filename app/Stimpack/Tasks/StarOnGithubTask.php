@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Stimpack;
+namespace App\Stimpack\Tasks;
 
 use Illuminate\Support\Facades\Log;
+use App\Stimpack\Task;
 
-class CreateControllersTask implements Task
+class StarOnGithubTask implements Task
 {
 
     public function __construct($tasks) {
@@ -12,6 +13,6 @@ class CreateControllersTask implements Task
     }
 
     public function perform() {
-        return "Controllers successfully created!";
+        return "Starred this project on github!";
     }
 }

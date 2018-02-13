@@ -13,7 +13,7 @@ class TaskController extends Controller
 
     private function feedback($task, $tasks) {
         try {
-            $taskClassName = '\\App\\Stimpack\\' . $task;
+            $taskClassName = '\\App\\Stimpack\\Tasks\\' . $task;
             $task = new $taskClassName( json_decode($tasks));
             $feedback = $task->perform();
         } catch (\Exception $e) {            

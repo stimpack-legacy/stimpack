@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Stimpack;
+namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
+use App\Stimpack\Task;
 
 class GitInitTask implements Task
 {
