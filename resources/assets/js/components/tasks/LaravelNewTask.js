@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../actions/index'
+import BaseTask from './BaseTask'
 
-class LaravelNewTask extends Component {
+class LaravelNewTask extends BaseTask {
     render() {
         return (
             <div className="container">                              
@@ -41,12 +42,6 @@ class LaravelNewTask extends Component {
     changeProjectName(e) {
         var updatedTasks = this.props.tasks;
         updatedTasks.LaravelNewTask.projectName = e.target.value;
-        this.props.updateTasks(updatedTasks);
-    }
-
-    enableTask() {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.LaravelNewTask.enabled = !updatedTasks.LaravelNewTask.enabled; // ^= 1
         this.props.updateTasks(updatedTasks);
     }     
 }
