@@ -33,12 +33,15 @@ class Generator extends Component {
 
     performTasks(taskIndex = 0) {
         var count = 0;
-        for (var taskName in this.props.tasks) {
-            var localTaskName = taskName;
+        for (var task in this.props.taskBatch.tasks) {            
+            var localTaskName = task.taskName;
             if (this.props.tasks.hasOwnProperty(localTaskName)) {
                 if(count == taskIndex && this.props.tasks[localTaskName].enabled) {
                     console.log("Performing ", localTaskName + "!");
-                    // Set the weels to spin!!!
+                    this.props.taskBatch.tasks.filter((task) => { 
+                        return task.taskName == localTaskName;
+                    })[0].status = "pending";
+                    this.props.updateTaskBatch(this.props.taskBatch);                    
                     $.ajax({
                         type: "POST",
                         url: "/stimpack/perform/" + localTaskName,
@@ -46,22 +49,56 @@ class Generator extends Component {
                             tasks: JSON.stringify(this.props.tasks)
                         },
                         success: function(result){
-                            // write to log
-                            //this.props.updateLog(result);
-                            console.log("Success running task " + localTaskName + "! Message: " + result);
+                            console.log("Finished " + localTaskName);
+                            this.props.taskBatch.tasks.filter((task) => { 
+                                return task.taskName == localTaskName;
+                            })[0].status = "succeded";
+                            this.props.updateTaskBatch(this.props.taskBatch);
                             this.performTasks(taskIndex+1);
                         }.bind(this),
                         error: function(error) {
                             console.log("ERROR", error);
-                            //this.props.updateLog(`Ops! there was some kind of error!`);
+                            this.props.taskBatch.tasks.filter((task) => { 
+                                return task.taskName == localTaskName;
+                            })[0].status = "failed";
+                            this.props.updateTaskBatch(this.props.taskBatch);
                             //this.props.updateLog(error.responseJSON.message);
-                            //this.props.updateLog("Halting any further tasks.");
                         }.bind(this)
                     });
                 }
             }
         }
     }
+
+    perform(taskIndex = 0) {        
+        if(taskIndex >= this.props.taskBatch.tasks.length) {
+            return;
+        }
+
+        var task = this.props.taskBatch.tasks[taskIndex];
+        task.status = "pending";        
+        this.props.updateTaskBatch(this.props.taskBatch);
+
+        $.ajax({
+            type: "POST",
+            url: "/stimpack/perform/" + task.taskName,
+            data: {
+                tasks: JSON.stringify(this.props.taskBatch.tasks)
+            },
+            success: function(result){
+                console.log("Finished " + task.taskName, result);
+                task.status = "succeded";
+                this.props.updateTaskBatch(this.props.taskBatch);
+                this.perform(taskIndex+1);
+            }.bind(this),
+            error: function(error) {
+                console.log("ERROR", error);
+                task.status = "failed";
+                this.props.updateTaskBatch(this.props.taskBatch);
+                //this.props.updateLog(error.responseJSON.message);
+            }.bind(this)
+        });
+    }    
 
     stim() {
         this.props.resetTaskBatch({
@@ -70,17 +107,20 @@ class Generator extends Component {
                 return task;
             }),
             busy: true
-        });
-        
-        //this.performTasks();
+        });        
     }
 
-
+    componentDidUpdate(prevProps, prevState) {        
+        if(this.props.taskBatch.busy != prevProps.taskBatch.busy) {
+             this.perform(); 
+        }
+     }    
 }
 
 function mapStateToProps(state) {
     return {
-        tasks: state.tasks
+        tasks: state.tasks,
+        taskBatch: state.taskBatch
     };
 }
 

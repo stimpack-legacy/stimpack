@@ -19,9 +19,9 @@ export const updateTaskBatch = (tasks) => {
     }
 };
 
-export const resetTaskBatch = (tasks) => {
+export const resetTaskBatch = (taskBatch) => {
     return {
         type: 'TASK_BATCH_RESET',
-        payload: tasks
+        payload: taskBatch
     }
 };

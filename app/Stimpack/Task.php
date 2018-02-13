@@ -5,16 +5,22 @@ namespace App\Stimpack;
 class Task
 {
     public function __construct($tasks) {
-        $this->tasks = $tasks;
+        $this->tasks = collect($tasks);
         $this->transferParameters();        
     }
 
     public function projectPath() {
-        if(isset($this->tasks->SetTargetProjectTask) && $this->tasks->SetTargetProjectTask->enabled) {
-            return base_path() . $this->tasks->SetTargetProjectTask->projectPath . $this->tasks->SetTargetProjectTask->projectName;
+        if($this->get("SetTargetProjectTask") && $this->get("SetTargetProjectTask")->enabled) {
+            return base_path() . $this->get("SetTargetProjectTask")->projectPath . $this->get("SetTargetProjectTask")->projectName;
         }
 
         return base_path();
+    }
+
+    public function get($taskName) {
+        return $this->tasks->first(function($value) use($taskName) {
+            return $value->taskName == $taskName;
+        });
     }
 
     /*
@@ -25,13 +31,14 @@ class Task
     / Use
     / $this->enabled
     */
+
     private function transferParameters() {
         $taskClassName = class_basename(get_class($this));
-        if($taskClassName != "Task" && isset($this->tasks->$taskClassName)) {
-            $this->tasks->$taskClassName;
-            foreach ($this->tasks->$taskClassName as $key => $value) {
-                $this->$key = $value;
-            }
+        $thisTask = $this->tasks->first(function($value) use($taskClassName) {
+            return $value->taskName == $taskClassName;
+        });
+        foreach ($thisTask as $key => $value) {
+            $this->$key = $value;
         }
     }
 
