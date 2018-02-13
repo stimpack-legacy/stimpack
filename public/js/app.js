@@ -61695,7 +61695,7 @@ var LaravelNewTask = function (_Component) {
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', list: 'projects' }),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'datalist',
-                                    { id: 'projects', placeholder: 'my-new-project' },
+                                    { onChange: this.changeProjectName.bind(this), id: 'projects', placeholder: 'my-new-project' },
                                     this.renderOptions()
                                 )
                             )
@@ -61707,9 +61707,6 @@ var LaravelNewTask = function (_Component) {
     }, {
         key: 'renderOptions',
         value: function renderOptions() {
-            //return (<option>{typeof projects}</option>);
-
-
             return projects.map(function (project) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'option',

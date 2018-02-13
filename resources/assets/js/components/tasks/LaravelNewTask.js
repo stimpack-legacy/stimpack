@@ -20,12 +20,9 @@ class LaravelNewTask extends Component {
                         <div className="form-group">
                             <p>Select an existing project, or type a new name to create a fresh project.</p>
                             <input type="text" list="projects" />
-                            <datalist id="projects" placeholder="my-new-project">
+                            <datalist onChange={this.changeProjectName.bind(this)} id="projects" placeholder="my-new-project">
                                 {this.renderOptions()}
-                            </datalist>
-                                                   
-                            {/*<label htmlFor="project-name">Project name</label>*/}
-                            {/*<input type="text" onChange={this.changeProjectName.bind(this)} className="form-control" id="project-name" placeholder="my-new-project" />*/}                            
+                            </datalist>                            
                         </div>
                     </form>
                     </div>
@@ -35,9 +32,6 @@ class LaravelNewTask extends Component {
     }
 
     renderOptions() {
-        //return (<option>{typeof projects}</option>);
-
-
         return projects.map(function(project) {
             return (<option key={project}>{project}</option>);
         })
