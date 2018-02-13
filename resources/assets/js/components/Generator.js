@@ -30,7 +30,6 @@ class Generator extends Component {
                         </div>
                     </div>
                 </div>
-                {/*<Log /> */}
             </div>
         );
     }

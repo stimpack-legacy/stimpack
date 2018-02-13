@@ -3,7 +3,7 @@
 namespace App\Stimpack;
 use Illuminate\Support\Facades\Log;
 
-class LaravelNewTask extends Task
+class SetTargetProjectTask extends Task
 {
     public function perform() {
         // Create new laravel project with composer

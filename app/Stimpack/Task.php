@@ -10,8 +10,8 @@ class Task
     }
 
     public function projectPath() {
-        if(isset($this->tasks->LaravelNewTask) && $this->tasks->LaravelNewTask->enabled) {
-            return base_path() . $this->tasks->LaravelNewTask->projectPath . $this->tasks->LaravelNewTask->projectName;
+        if(isset($this->tasks->SetTargetProjectTask) && $this->tasks->SetTargetProjectTask->enabled) {
+            return base_path() . $this->tasks->SetTargetProjectTask->projectPath . $this->tasks->SetTargetProjectTask->projectName;
         }
 
         return base_path();

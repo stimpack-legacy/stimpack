@@ -1,9 +1,9 @@
-import LaravelNewTask from './tasks/LaravelNewTask'
+import SetTargetProjectTask from './tasks/SetTargetProjectTask'
 import CreateDatabaseTask from './tasks/CreateDatabaseTask'
 import CreateMigrationsTask from './tasks/CreateMigrationsTask'
 
 export const allTasks = [
-    LaravelNewTask,
+    SetTargetProjectTask,
     CreateDatabaseTask,
     CreateMigrationsTask
 ]
