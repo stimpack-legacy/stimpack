@@ -1,6 +1,7 @@
 const initialState = {
     tasks: [],
-    busy: false
+    busy: false,
+    startRequested: false
 }
 
 export default function (state = initialState, action) {

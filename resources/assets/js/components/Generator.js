@@ -31,50 +31,14 @@ class Generator extends Component {
         );
     }
 
-    performTasks(taskIndex = 0) {
-        var count = 0;
-        for (var task in this.props.taskBatch.tasks) {            
-            var localTaskName = task.taskName;
-            if (this.props.tasks.hasOwnProperty(localTaskName)) {
-                if(count == taskIndex && this.props.tasks[localTaskName].enabled) {
-                    console.log("Performing ", localTaskName + "!");
-                    this.props.taskBatch.tasks.filter((task) => { 
-                        return task.taskName == localTaskName;
-                    })[0].status = "pending";
-                    this.props.updateTaskBatch(this.props.taskBatch);                    
-                    $.ajax({
-                        type: "POST",
-                        url: "/stimpack/perform/" + localTaskName,
-                        data: {
-                            tasks: JSON.stringify(this.props.tasks)
-                        },
-                        success: function(result){
-                            console.log("Finished " + localTaskName);
-                            this.props.taskBatch.tasks.filter((task) => { 
-                                return task.taskName == localTaskName;
-                            })[0].status = "succeded";
-                            this.props.updateTaskBatch(this.props.taskBatch);
-                            this.performTasks(taskIndex+1);
-                        }.bind(this),
-                        error: function(error) {
-                            console.log("ERROR", error);
-                            this.props.taskBatch.tasks.filter((task) => { 
-                                return task.taskName == localTaskName;
-                            })[0].status = "failed";
-                            this.props.updateTaskBatch(this.props.taskBatch);
-                            //this.props.updateLog(error.responseJSON.message);
-                        }.bind(this)
-                    });
-                }
-            }
-        }
-    }
-
     perform(taskIndex = 0) {        
+        this.props.taskBatch.startRequested = false;
+        
         if(taskIndex >= this.props.taskBatch.tasks.length) {
+            this.props.taskBatch.busy = false;
+            this.props.updateTaskBatch(this.props.taskBatch);            
             return;
-        }
-
+        }        
         var task = this.props.taskBatch.tasks[taskIndex];
         task.status = "pending";        
         this.props.updateTaskBatch(this.props.taskBatch);
@@ -106,12 +70,13 @@ class Generator extends Component {
                 task.status = "queued";
                 return task;
             }),
-            busy: true
+            busy: true,
+            startRequested: true
         });        
     }
 
     componentDidUpdate(prevProps, prevState) {        
-        if(this.props.taskBatch.busy != prevProps.taskBatch.busy) {
+        if(this.props.taskBatch.busy != prevProps.taskBatch.busy && this.props.taskBatch.startRequested) {
              this.perform(); 
         }
      }    

@@ -12,9 +12,3 @@ export default class Header extends Component {
         );
     }
 }
-
-
-/*
-<img src="img/stimpack_logo.png" width="100px" />
-<h4> LARAVEL STIMPACK </h4>
-*/

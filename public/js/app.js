@@ -58665,12 +58665,6 @@ var Header = function (_Component) {
     return Header;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/*
-<img src="img/stimpack_logo.png" width="100px" />
-<h4> LARAVEL STIMPACK </h4>
-*/
-
-
 /* harmony default export */ __webpack_exports__["a"] = (Header);
 
 /***/ }),
@@ -58756,56 +58750,17 @@ var Generator = function (_Component) {
             );
         }
     }, {
-        key: 'performTasks',
-        value: function performTasks() {
-            var taskIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-
-            var count = 0;
-            for (var task in this.props.taskBatch.tasks) {
-                var localTaskName = task.taskName;
-                if (this.props.tasks.hasOwnProperty(localTaskName)) {
-                    if (count == taskIndex && this.props.tasks[localTaskName].enabled) {
-                        console.log("Performing ", localTaskName + "!");
-                        this.props.taskBatch.tasks.filter(function (task) {
-                            return task.taskName == localTaskName;
-                        })[0].status = "pending";
-                        this.props.updateTaskBatch(this.props.taskBatch);
-                        $.ajax({
-                            type: "POST",
-                            url: "/stimpack/perform/" + localTaskName,
-                            data: {
-                                tasks: JSON.stringify(this.props.tasks)
-                            },
-                            success: function (result) {
-                                console.log("Finished " + localTaskName);
-                                this.props.taskBatch.tasks.filter(function (task) {
-                                    return task.taskName == localTaskName;
-                                })[0].status = "succeded";
-                                this.props.updateTaskBatch(this.props.taskBatch);
-                                this.performTasks(taskIndex + 1);
-                            }.bind(this),
-                            error: function (error) {
-                                console.log("ERROR", error);
-                                this.props.taskBatch.tasks.filter(function (task) {
-                                    return task.taskName == localTaskName;
-                                })[0].status = "failed";
-                                this.props.updateTaskBatch(this.props.taskBatch);
-                                //this.props.updateLog(error.responseJSON.message);
-                            }.bind(this)
-                        });
-                    }
-                }
-            }
-        }
-    }, {
         key: 'perform',
         value: function perform() {
             var taskIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
+            this.props.taskBatch.startRequested = false;
+
             if (taskIndex >= this.props.taskBatch.tasks.length) {
+                this.props.taskBatch.busy = false;
+                this.props.updateTaskBatch(this.props.taskBatch);
                 return;
             }
-
             var task = this.props.taskBatch.tasks[taskIndex];
             task.status = "pending";
             this.props.updateTaskBatch(this.props.taskBatch);
@@ -58840,13 +58795,14 @@ var Generator = function (_Component) {
                     task.status = "queued";
                     return task;
                 }),
-                busy: true
+                busy: true,
+                startRequested: true
             });
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            if (this.props.taskBatch.busy != prevProps.taskBatch.busy) {
+            if (this.props.taskBatch.busy != prevProps.taskBatch.busy && this.props.taskBatch.startRequested) {
                 this.perform();
             }
         }
@@ -61225,7 +61181,8 @@ var initialLog = "";
 "use strict";
 var initialState = {
     tasks: [],
-    busy: false
+    busy: false,
+    startRequested: false
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
