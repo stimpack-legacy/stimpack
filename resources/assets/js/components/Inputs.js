@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
-import Database from './Database';
-import CreateMigrationsTask from './tasks/tasks/CreateMigrationsTask';
-import MigrateTask from './tasks/tasks/MigrateTask';
-import GitInitTask from './tasks/tasks/GitInitTask';
-import CreateModelsTask from './tasks/tasks/CreateModelsTask';
-import CreateDatabaseTask from './tasks/tasks/CreateDatabaseTask';
-import SampleTask from './tasks/tasks/SampleTask';
-import StarOnGithubTask from './tasks/tasks/StarOnGithubTask';
-import CreateControllersTask from './tasks/tasks/CreateControllersTask';
-import LaravelNewTask from './tasks/tasks/LaravelNewTask';
+import {allTasks} from './tasks/allTasks'
 
 export default class Inputs extends Component {
     constructor(props) {
@@ -22,35 +12,10 @@ export default class Inputs extends Component {
     render() {
         return (
             <div className="inputs">
-                <LaravelNewTask />
-                <CreateDatabaseTask />
-                {/*
-                <CreateMigrationsTask />                                
-                <CreateModelsTask />
-                <CreateControllersTask />
-                <StarOnGithubTask />
-                <MigrateTask />
-                <GitInitTask />
-                */}
+                {
+                    allTasks.map((Task)=>{return (<Task key={Task.getDefaultParameters().taskName} />)})
+                }
             </div>
         );
     }
 }
-
-/*
-                
-
-<Code />
-<CreateModelsTask />
-<SampleTask />
-
-
-<Database />
-<Code />                
-<Models />
-<Migrations />
-<Controllers />
-<API Controllers />
-<CRUD />
-
-*/

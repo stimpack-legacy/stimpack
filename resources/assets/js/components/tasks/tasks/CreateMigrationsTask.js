@@ -7,8 +7,9 @@ import {bindActionCreators} from 'redux';
 import {updatePseudoCode} from '../../../actions/index';
 import {updateTasks} from '../../../actions/index';
 import Template from './../../../Template';
+import BaseTask from '../BaseTask'
 
-class CreateMigrationsTask extends Component {
+class CreateMigrationsTask extends BaseTask {
     componentDidMount() {
         this.setup();
         //this.test();
@@ -92,10 +93,6 @@ class CreateMigrationsTask extends Component {
         this.props.updateTasks(this.props.tasks);        
     }
 
-    enableTask() {
-        this.props.tasks.CreateMigrationsTask.enabled ^= 1;
-        this.props.updateTasks(this.props.tasks);
-    }
 
     updatePseudoCode(pseudoCode) {
         this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
@@ -159,6 +156,17 @@ class CreateMigrationsTask extends Component {
             }
         });
         return migration;
+    }
+
+    static getDefaultParameters() {
+        return {
+            taskName: "CreateMigrationsTask",
+            enabled: true,
+            pseudoCode: "",
+            transformedModels: [],
+            migrations: [],
+            activeTab: null
+        }
     }
     
 }

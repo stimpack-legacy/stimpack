@@ -1,41 +1,9 @@
 import {allTasks} from '../components/tasks/allTasks'
-/*
-const initialState = {
-    LaravelNewTask: LaravelNewTask.getDefaultParameters(),
-    CreateDatabaseTask: {
-        enabled: true,
-        type: "sqlite"
-    },
-    CreateMigrationsTask: {
-        enabled: true,
-        pseudoCode: "",
-        transformedModels: [],
-        migrations: [],
-        activeTab: null
-    },
-    MigrateTask: {
-        enabled: true
-    },        
-    CreateModelsTask: {
-        enabled: true
-    },
-    CreateControllersTask: {
-        enabled: true
-    },
-    StarOnGithubTask: {
-        enabled: false
-    },
-    GitInitTask: {
-        enabled: true
-    }
-};
-*/
 
 var initialState = {}
-allTasks.forEach(function(element) {
-    initialState[element.taskName] = element;    
+allTasks.forEach(function(task) {    
+    initialState[task.getDefaultParameters().taskName] = task.getDefaultParameters();    
 });
-console.log(allTasks);
 
 
 export default function (state = initialState, action) {
