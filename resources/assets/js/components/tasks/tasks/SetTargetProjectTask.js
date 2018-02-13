@@ -19,7 +19,7 @@ class SetTargetProjectTask extends BaseTask {
                     <div className="card-body">
                     <form>
                         <div className="form-group">
-                            <p>Select an existing project, or type a new name to create a fresh project.</p>
+                            <p>Select an existing project, or type a new name to create a fresh project.</p>                            
                             <input onChange={this.setProjectName.bind(this)} type="text" list="projects" />
                             <datalist  id="projects" placeholder="my-new-project">
                                 {this.renderAvailableProjects()}
@@ -47,6 +47,7 @@ class SetTargetProjectTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
+            mandatory: true,
             taskName: "SetTargetProjectTask",
             enabled: true,
             projectPath: "/../",

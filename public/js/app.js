@@ -61274,6 +61274,7 @@ var SetTargetProjectTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
+                mandatory: true,
                 taskName: "SetTargetProjectTask",
                 enabled: true,
                 projectPath: "/../",
