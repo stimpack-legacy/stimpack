@@ -52,10 +52,8 @@ class CreateModelsTask extends Component {
     }   
 }
 
-// "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks 
     };
 }
@@ -67,11 +65,4 @@ function matchDispatchToProps(dispatch){
         }, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 export default connect(mapStateToProps, matchDispatchToProps)(CreateModelsTask);
-
-
-/*
-
-*/

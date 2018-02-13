@@ -1405,10 +1405,10 @@ module.exports = emptyFunction;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updatePseudoCode; });
+/* unused harmony export updatePseudoCode */
 /* unused harmony export updateTransformedModels */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateTasks; });
 var updatePseudoCode = function updatePseudoCode(code) {
     return {
         type: 'PSEUDO_CODE_UPDATED',
@@ -22224,7 +22224,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var CreateMigrationsTask = function (_BaseTask) {
     _inherits(CreateMigrationsTask, _BaseTask);
 
@@ -22444,9 +22443,6 @@ var CreateMigrationsTask = function (_BaseTask) {
     return CreateMigrationsTask;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-// "state.activeUser" is set in reducers/index.js
-
-
 function mapStateToProps(state) {
     return {
         pseudoCode: state.pseudoCode,
@@ -22454,17 +22450,12 @@ function mapStateToProps(state) {
     };
 }
 
-// Get actions and pass them as props to to UserList
-//      > now UserList has this.props.selectUser
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        updatePseudoCode: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* updatePseudoCode */],
-        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["c" /* updateTasks */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* updateTasks */]
     }, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 /* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateMigrationsTask));
 
 /***/ }),
@@ -22662,27 +22653,17 @@ var CreateDatabaseTask = function (_BaseTask) {
     return CreateDatabaseTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-// "state.activeUser" is set in reducers/index.js
-
-
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks
     };
 }
 
 function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */] }, dispatch);
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["b" /* updateTasks */] }, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 /* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask));
-
-/*
-
-*/
 
 /***/ }),
 /* 113 */,
@@ -59159,7 +59140,8 @@ var Generator = function (_Component) {
                 var localTaskName = taskName;
                 if (this.props.tasks.hasOwnProperty(localTaskName)) {
                     if (count == taskIndex && this.props.tasks[localTaskName].enabled) {
-                        console.log("LAUNCHING A QUERY!", localTaskName);
+                        console.log("Performing ", localTaskName + "!");
+                        // Set the weels to spin!!!
                         $.ajax({
                             type: "POST",
                             url: "/stimpack/perform/" + localTaskName,
@@ -59169,7 +59151,7 @@ var Generator = function (_Component) {
                             success: function (result) {
                                 // write to log
                                 //this.props.updateLog(result);
-                                console.log("SUCCESS", result);
+                                console.log("Success running task " + localTaskName + "! Message: " + result);
                                 this.performTasks(taskIndex + 1);
                             }.bind(this),
                             error: function (error) {
@@ -60690,10 +60672,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Cache = function () {
-    function Cache(pseudoCode) {
+    function Cache() {
         _classCallCheck(this, Cache);
-
-        this.pseudoCode = pseudoCode;
     }
 
     _createClass(Cache, null, [{
@@ -61023,7 +61003,6 @@ var Log = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks,
         log: state.log
     };
@@ -61045,10 +61024,8 @@ function matchDispatchToProps(dispatch) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__codeReducer__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__taskReducer__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__logReducer__ = __webpack_require__(286);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__taskReducer__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__logReducer__ = __webpack_require__(286);
 
 
 
@@ -61059,31 +61036,14 @@ function matchDispatchToProps(dispatch) {
  * */
 
 var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReducers */])({
-  pseudoCode: __WEBPACK_IMPORTED_MODULE_1__codeReducer__["a" /* default */],
-  tasks: __WEBPACK_IMPORTED_MODULE_2__taskReducer__["a" /* default */],
-  log: __WEBPACK_IMPORTED_MODULE_3__logReducer__["a" /* default */]
+  tasks: __WEBPACK_IMPORTED_MODULE_1__taskReducer__["a" /* default */],
+  log: __WEBPACK_IMPORTED_MODULE_2__logReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
 
 /***/ }),
-/* 283 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case 'PSEUDO_CODE_UPDATED':
-            return action.payload;
-            break;
-    }
-    return state;
-});
-
-/***/ }),
+/* 283 */,
 /* 284 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -61281,24 +61241,17 @@ var SetTargetProjectTask = function (_BaseTask) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks
     };
 }
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateTasks */]
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["b" /* updateTasks */]
     }, dispatch);
 }
 
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(SetTargetProjectTask));
-
-/*
-
-*/
 
 /***/ })
 /******/ ]);

@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import codeReducer from './codeReducer';
 import taskReducer from './taskReducer';
 import logReducer from './logReducer';
 
@@ -9,7 +8,6 @@ import logReducer from './logReducer';
  * */
 
 const allReducers = combineReducers({
-    pseudoCode: codeReducer,
     tasks: taskReducer,
     log: logReducer
 });

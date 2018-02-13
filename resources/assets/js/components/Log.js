@@ -64,7 +64,6 @@ class Log extends Component {
 // "state.activeUser" is set in reducers/index.js
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks,
         log: state.log
     };

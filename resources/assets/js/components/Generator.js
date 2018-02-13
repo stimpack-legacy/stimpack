@@ -40,7 +40,8 @@ class Generator extends Component {
             var localTaskName = taskName;
             if (this.props.tasks.hasOwnProperty(localTaskName)) {
                 if(count == taskIndex && this.props.tasks[localTaskName].enabled) {
-                    console.log("LAUNCHING A QUERY!", localTaskName);
+                    console.log("Performing ", localTaskName + "!");
+                    // Set the weels to spin!!!
                     $.ajax({
                         type: "POST",
                         url: "/stimpack/perform/" + localTaskName,
@@ -50,7 +51,7 @@ class Generator extends Component {
                         success: function(result){
                             // write to log
                             //this.props.updateLog(result);
-                            console.log("SUCCESS", result);
+                            console.log("Success running task " + localTaskName + "! Message: " + result);
                             this.performTasks(taskIndex+1);
                         }.bind(this),
                         error: function(error) {

@@ -1,7 +1,5 @@
 export default class Cache {
-    constructor(pseudoCode) {
-        this.pseudoCode = pseudoCode;
-    }
+
 
     static get(name) {
         return JSON.parse(localStorage.getItem(name));
