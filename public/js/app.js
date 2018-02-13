@@ -60932,7 +60932,9 @@ var Log = function (_Component) {
                 "failed": "fa-exclamation-circle log-error"
             };
 
-            return this.props.taskBatch.tasks.map(function (task) {
+            return this.props.taskBatch.tasks.filter(function (task) {
+                return task.status != "queued";
+            }).map(function (task) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: task.taskName },

@@ -26,7 +26,7 @@ class Log extends Component {
             "failed": "fa-exclamation-circle log-error"
         }
 
-        return this.props.taskBatch.tasks.map((task) => {
+        return this.props.taskBatch.tasks.filter(task => task.status != "queued" ).map((task) => {
             return (<li key={task.taskName}><i className={`fa ${icons[task.status]}`}></i> Some task</li>)
         })
     }
