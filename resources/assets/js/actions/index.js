@@ -1,10 +1,3 @@
-export const updatePseudoCode = (code) => {    
-    return {
-        type: 'PSEUDO_CODE_UPDATED',
-        payload: code
-    }
-};
-
 export const updateTransformedModels = (transformedModels) => {    
     return {
         type: 'TRANSFORMED_MODELS_UPDATED',

@@ -1405,17 +1405,9 @@ module.exports = emptyFunction;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export updatePseudoCode */
 /* unused harmony export updateTransformedModels */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateTasks; });
-var updatePseudoCode = function updatePseudoCode(code) {
-    return {
-        type: 'PSEUDO_CODE_UPDATED',
-        payload: code
-    };
-};
-
 var updateTransformedModels = function updateTransformedModels(transformedModels) {
     return {
         type: 'TRANSFORMED_MODELS_UPDATED',
