@@ -16,13 +16,15 @@ class Task
 
         return base_path();
     }
-
-    // Shorthand for accessing the current tasks properties
-    // Example:
-    // Instead of 
-    // $this->tasks->CreateControllersTask->enabled
-    // Use
-    // $this->enabled
+    
+    /*
+    / Shorthand for accessing the current tasks properties
+    / Example:
+    / Instead of 
+    / $this->tasks->CreateControllersTask->enabled
+    / Use
+    / $this->enabled
+    */
     private function transferParameters() {
         $this->bajs = "foobar";
         $taskClassName = class_basename(get_class($this));

@@ -4,6 +4,6 @@ import CreateMigrationsTask from './tasks/CreateMigrationsTask'
 
 export const allTasks = [
     SetTargetProjectTask,
-    CreateDatabaseTask,
-    CreateMigrationsTask
+    //CreateDatabaseTask,
+    //CreateMigrationsTask
 ]

@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Log;
 class SetTargetProjectTask extends Task
 {
     public function perform() {
+        // if project exist, do nothing
+        chdir("../../");
+        $projects = collect(array_filter(glob("*"), 'is_dir'));
+        if($projects->contains($this->projectName)) {
+            return "Project folder identified";
+        }
+
         // Create new laravel project with composer
         exec("composer create-project --prefer-dist -n laravel/laravel ../../" . $this->projectName ." 2>&1", $outputAndErrors);    
         // Laravels key:generate does not work in shell, lets do it manually for now
