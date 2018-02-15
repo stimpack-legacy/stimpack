@@ -60786,16 +60786,16 @@ var CreateMigrationsTask = function (_BaseTask) {
                 var pseudoCode = this.pseudo.getSession().getValue();
                 this.updatePseudoCode(pseudoCode);
                 var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
-                pseudoCodeTransformer.transform(pseudoCode, function (transformedModels) {
-                    this.updateTransformedModelsAndMigrations(transformedModels);
-                    this.renderPhpCode(transformedModels);
+                pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
+                    this.updateTransformedModelsAndMigrations(transformedPseudoCode.models());
+                    this.renderPhpCode(transformedPseudoCode.models());
                 }.bind(this));
             }.bind(this));
         }
     }, {
         key: 'renderPhpCode',
-        value: function renderPhpCode(transformedModels) {
-            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedModels).pop();
+        value: function renderPhpCode(transformedPseudoCode) {
+            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode).pop();
             if (!migration) {
                 this.php.setValue("", 1);
                 return;
@@ -60809,7 +60809,7 @@ var CreateMigrationsTask = function (_BaseTask) {
             var _this3 = this;
 
             var migration = "";
-            this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
+            this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map(function (model) {
                 console.log(_this3.props.tasks.CreateMigrationsTask.activeTab);
                 if (model.model == _this3.props.tasks.CreateMigrationsTask.activeTab) {
                     migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(model);
@@ -60824,7 +60824,7 @@ var CreateMigrationsTask = function (_BaseTask) {
                 taskName: "CreateMigrationsTask",
                 enabled: true,
                 pseudoCode: "",
-                transformedModels: [],
+                transformedPseudoCode: [],
                 migrations: [],
                 activeTab: null
             };
@@ -60836,7 +60836,6 @@ var CreateMigrationsTask = function (_BaseTask) {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks
     };
 }
@@ -60869,7 +60868,7 @@ var PseudoCodeTransformer = function () {
     function PseudoCodeTransformer() {
         _classCallCheck(this, PseudoCodeTransformer);
 
-        this.transformedModels = [];
+        this.transformedPseudoCode = [];
     }
 
     _createClass(PseudoCodeTransformer, [{
@@ -60917,7 +60916,7 @@ var PseudoCodeTransformer = function () {
     }, {
         key: 'pushTransformedModel',
         value: function pushTransformedModel(type, rows, model, table) {
-            this.transformedModels.push({
+            this.transformedPseudoCode.push({
                 type: type,
                 model: model,
                 table: table,
@@ -60926,7 +60925,7 @@ var PseudoCodeTransformer = function () {
                 }),
                 migration: "placeholder"
             });
-            this.transformedModels.sort(function (a, b) {
+            this.transformedPseudoCode.sort(function (a, b) {
                 if (a.model < b.model) return -1;
                 if (a.model > b.model) return 1;
                 return 0;
@@ -60938,12 +60937,31 @@ var PseudoCodeTransformer = function () {
     }, {
         key: 'finished',
         value: function finished() {
-            return this.transformedModels.length == this.segments.length || this.segments.length == 0;
+            return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
         }
     }, {
         key: 'returnTransformedModels',
         value: function returnTransformedModels() {
-            typeof this.callback === 'function' && this.callback(this.transformedModels);
+            typeof this.callback === 'function' && this.callback(this);
+        }
+    }, {
+        key: 'all',
+        value: function all() {
+            return this.transformedPseudoCode;
+        }
+    }, {
+        key: 'models',
+        value: function models() {
+            return this.transformedPseudoCode.filter(function (item) {
+                return item.type == "model";
+            });
+        }
+    }, {
+        key: 'pureTables',
+        value: function pureTables() {
+            return this.transformedPseudoCode.filter(function (item) {
+                return item.type == "table";
+            });
         }
     }, {
         key: 'definitions',
@@ -61042,6 +61060,37 @@ var Cache = function () {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ("");
+
+/*
+
+// Use uppercase for Model
+Car
+model
+color
+...
+
+// Use Lower case for table only
+statistics
+type
+value
+...
+
+// Use table name with trailing _id to reference another model
+Rental
+car_id
+...
+
+// To create a many to many relationship simply reference table1_table2
+car_user
+
+// Use $* to overide best guess
+
+Marine
+$table->integer('hp')->default(1337);
+
+// Notes
+id and timestamps are added by default
+*/
 
 /***/ }),
 /* 272 */

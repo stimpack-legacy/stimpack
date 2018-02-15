@@ -4,7 +4,7 @@ import Attribute from './Attribute';
 
 export default class PseudoCodeTransformer {
     constructor() {
-        this.transformedModels = [];        
+        this.transformedPseudoCode = [];        
     }
 
     transform(pseudoCode, callback) {
@@ -49,14 +49,14 @@ export default class PseudoCodeTransformer {
     }
 
     pushTransformedModel(type, rows, model, table) {
-        this.transformedModels.push({
+        this.transformedPseudoCode.push({
             type: type,
             model: model,
             table: table,
             attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
             migration: "placeholder"
         });
-        this.transformedModels.sort(function(a, b){
+        this.transformedPseudoCode.sort(function(a, b){
             if(a.model < b.model) return -1;
             if(a.model > b.model) return 1;
             return 0;
@@ -67,11 +67,27 @@ export default class PseudoCodeTransformer {
     }
 
     finished() {        
-        return this.transformedModels.length == this.segments.length || this.segments.length == 0;
+        return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
     }
 
     returnTransformedModels() {
-        typeof this.callback === 'function' && this.callback(this.transformedModels);
+        typeof this.callback === 'function' && this.callback(this);
+    }
+
+    all() {
+        return this.transformedPseudoCode;
+    }
+
+    models() {
+        return this.transformedPseudoCode.filter((item) => {
+            return item.type == "model";
+        });
+    }
+    
+    pureTables() {
+        return this.transformedPseudoCode.filter((item) => {
+            return item.type == "table";
+        });
     }
 
     definitions(segments) {

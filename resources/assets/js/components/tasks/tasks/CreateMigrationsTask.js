@@ -122,15 +122,15 @@ class CreateMigrationsTask extends BaseTask {
             var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);
             var pseudoCodeTransformer = new PseudoCodeTransformer();
-            pseudoCodeTransformer.transform(pseudoCode, function(transformedModels) {
-                this.updateTransformedModelsAndMigrations(transformedModels);                                
-                this.renderPhpCode(transformedModels);                
+            pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
+                this.updateTransformedModelsAndMigrations(transformedPseudoCode.models());                                
+                this.renderPhpCode(transformedPseudoCode.models());                
             }.bind(this));
         }.bind(this));
     }
 
-    renderPhpCode(transformedModels) {
-        var migration = Template.migrations(transformedModels).pop();
+    renderPhpCode(transformedPseudoCode) {
+        var migration = Template.migrations(transformedPseudoCode).pop();
         if(!migration) {
             this.php.setValue("", 1);
             return;
@@ -141,7 +141,7 @@ class CreateMigrationsTask extends BaseTask {
 
     getMigrationForActiveTab() {
         var migration = "";
-        this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+        this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map((model) => {
             console.log(this.props.tasks.CreateMigrationsTask.activeTab);
             if(model.model == this.props.tasks.CreateMigrationsTask.activeTab) {
                 migration = Template.migration(model);                
@@ -155,7 +155,7 @@ class CreateMigrationsTask extends BaseTask {
             taskName: "CreateMigrationsTask",
             enabled: true,
             pseudoCode: "",
-            transformedModels: [],
+            transformedPseudoCode: [],
             migrations: [],
             activeTab: null
         }
@@ -165,7 +165,6 @@ class CreateMigrationsTask extends BaseTask {
 
 function mapStateToProps(state) {
     return {
-        pseudoCode: state.pseudoCode,
         tasks: state.tasks        
     };
 }
