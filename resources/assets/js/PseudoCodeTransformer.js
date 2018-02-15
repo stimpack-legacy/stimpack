@@ -18,16 +18,16 @@ export default class PseudoCodeTransformer {
         var rows = segment.split(/\n/);
         var model = rows[0];        
 
-        if(Cache.get("plural-for-" + model) == null) {
+        if(Cache.get(model,"plural") == null) {
             $.ajax({
                 url: "/stimpack/pluralize/" + model,
                 success: function(modelPluralized){
-                    Cache.set("plural-for-" + model, modelPluralized);
+                    Cache.set(model, "plural", modelPluralized);
                     this.pushTransformedModel(rows, model, modelPluralized);                                        
                 }.bind(this)
             });
         } else {
-            this.pushTransformedModel(rows, model, Cache.get("plural-for-" + model));    
+            this.pushTransformedModel(rows, model, Cache.get(model, "plural"));    
         }
     }
 

@@ -1,12 +1,12 @@
 export default class Cache {
 
 
-    static get(name) {
-        return JSON.parse(localStorage.getItem(name));
+    static get(name, prefix = "") {
+        return JSON.parse(localStorage.getItem(prefix + name));
     }
 
-    static set(name, value) {
-        localStorage.setItem(name, JSON.stringify(value));
+    static set(name, prefix = "", value) {
+        localStorage.setItem(prefix + name, JSON.stringify(value));
     }
 }
 

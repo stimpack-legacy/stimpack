@@ -60886,16 +60886,16 @@ var PseudoCodeTransformer = function () {
             var rows = segment.split(/\n/);
             var model = rows[0];
 
-            if (__WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get("plural-for-" + model) == null) {
+            if (__WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get(model, "plural") == null) {
                 $.ajax({
                     url: "/stimpack/pluralize/" + model,
                     success: function (modelPluralized) {
-                        __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].set("plural-for-" + model, modelPluralized);
+                        __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].set(model, "plural", modelPluralized);
                         this.pushTransformedModel(rows, model, modelPluralized);
                     }.bind(this)
                 });
             } else {
-                this.pushTransformedModel(rows, model, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get("plural-for-" + model));
+                this.pushTransformedModel(rows, model, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get(model, "plural"));
             }
         }
     }, {
@@ -61015,12 +61015,17 @@ var Cache = function () {
     _createClass(Cache, null, [{
         key: "get",
         value: function get(name) {
-            return JSON.parse(localStorage.getItem(name));
+            var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+
+            return JSON.parse(localStorage.getItem(prefix + name));
         }
     }, {
         key: "set",
-        value: function set(name, value) {
-            localStorage.setItem(name, JSON.stringify(value));
+        value: function set(name) {
+            var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+            var value = arguments[2];
+
+            localStorage.setItem(prefix + name, JSON.stringify(value));
         }
     }]);
 
