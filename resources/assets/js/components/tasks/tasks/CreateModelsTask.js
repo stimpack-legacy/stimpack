@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../../actions/index'
+import BaseTask from '../BaseTask'
 
-class CreateModelsTask extends Component {
+class CreateModelsTask extends BaseTask {
     render() {
         var cardBody = "";
         if(this.props.tasks.CreateModelsTask.enabled) {
@@ -31,7 +32,7 @@ class CreateModelsTask extends Component {
     }
 
     renderModels() {
-        return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
@@ -49,7 +50,14 @@ class CreateModelsTask extends Component {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1
         this.props.updateTasks(updatedTasks);
-    }   
+    }
+    
+    static getDefaultParameters() {
+        return {
+            taskName: "CreateModelsTask",
+            enabled: true
+        }
+    }    
 }
 
 function mapStateToProps(state) {

@@ -21487,11 +21487,13 @@ module.exports = getHostComponentFromComposite;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_CreateModelsTask__ = __webpack_require__(292);
 
 
 
 
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */]];
+
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_CreateModelsTask__["a" /* default */]];
 
 /***/ }),
 /* 101 */
@@ -60734,7 +60736,7 @@ var CreateMigrationsTask = function (_BaseTask) {
         value: function renderPhpTabs() {
             var _this2 = this;
 
-            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map(function (model) {
+            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: model.table, className: 'editor-tab' },
@@ -60761,9 +60763,9 @@ var CreateMigrationsTask = function (_BaseTask) {
         }
     }, {
         key: 'updateTransformedPseudoCode',
-        value: function updateTransformedPseudoCode(all) {
-            this.props.tasks.CreateMigrationsTask.transformedPseudoCode = all;
-            this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(all);
+        value: function updateTransformedPseudoCode(transformedPseudoCode) {
+            this.props.tasks.CreateMigrationsTask.transformedPseudoCode = transformedPseudoCode;
+            this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all());
             this.props.updateTasks(this.props.tasks);
         }
     }, {
@@ -60799,8 +60801,8 @@ var CreateMigrationsTask = function (_BaseTask) {
                 this.updatePseudoCode(pseudoCode);
                 var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
                 pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
-                    this.updateTransformedPseudoCode(transformedPseudoCode.all());
-                    this.renderPhpCode(transformedPseudoCode.all());
+                    this.updateTransformedPseudoCode(transformedPseudoCode);
+                    this.renderPhpCode(transformedPseudoCode);
                 }.bind(this));
             }.bind(this));
 
@@ -60826,7 +60828,7 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'renderPhpCode',
         value: function renderPhpCode(transformedPseudoCode) {
-            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode).pop();
+            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all()).pop();
             if (!migration) {
                 this.php.setValue("", 1);
                 return;
@@ -60840,7 +60842,7 @@ var CreateMigrationsTask = function (_BaseTask) {
             var _this3 = this;
 
             var migration = "";
-            this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map(function (model) {
+            this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
                 console.log(_this3.props.tasks.CreateMigrationsTask.activeTab);
                 if (model.model == _this3.props.tasks.CreateMigrationsTask.activeTab) {
                     migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(model);
@@ -60855,7 +60857,7 @@ var CreateMigrationsTask = function (_BaseTask) {
                 taskName: "CreateMigrationsTask",
                 enabled: true,
                 pseudoCode: "",
-                transformedPseudoCode: [],
+                transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
                 migrations: [],
                 activeTab: null
             };
@@ -61423,6 +61425,140 @@ var initialState = {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ("");
+
+/***/ }),
+/* 292 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__BaseTask__ = __webpack_require__(59);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var CreateModelsTask = function (_BaseTask) {
+    _inherits(CreateModelsTask, _BaseTask);
+
+    function CreateModelsTask() {
+        _classCallCheck(this, CreateModelsTask);
+
+        return _possibleConstructorReturn(this, (CreateModelsTask.__proto__ || Object.getPrototypeOf(CreateModelsTask)).apply(this, arguments));
+    }
+
+    _createClass(CreateModelsTask, [{
+        key: 'render',
+        value: function render() {
+            var cardBody = "";
+            if (this.props.tasks.CreateModelsTask.enabled) {
+                cardBody = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card-body' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        null,
+                        this.renderModels()
+                    )
+                );
+            }
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'container' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-header' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            { className: 'switch switch-sm' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateModelsTask-switch', checked: this.props.tasks.CreateModelsTask.enabled, onChange: this.enableTask.bind(this) }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { htmlFor: 'CreateModelsTask-switch' },
+                                'Create Models'
+                            )
+                        )
+                    ),
+                    cardBody
+                )
+            );
+        }
+    }, {
+        key: 'renderModels',
+        value: function renderModels() {
+            var _this2 = this;
+
+            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { key: model.model, className: 'form-check' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'label',
+                        { className: 'form-check-label' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        model.model
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'disableModel',
+        value: function disableModel() {
+            // todo
+        }
+    }, {
+        key: 'enableTask',
+        value: function enableTask() {
+            var updatedTasks = this.props.tasks;
+            updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1
+            this.props.updateTasks(updatedTasks);
+        }
+    }], [{
+        key: 'getDefaultParameters',
+        value: function getDefaultParameters() {
+            return {
+                taskName: "CreateModelsTask",
+                enabled: true
+            };
+        }
+    }]);
+
+    return CreateModelsTask;
+}(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
+
+function mapStateToProps(state) {
+    return {
+        tasks: state.tasks
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
 
 /***/ })
 /******/ ]);

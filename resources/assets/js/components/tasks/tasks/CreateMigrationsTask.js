@@ -72,7 +72,7 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     renderPhpTabs() {        
-        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map((model) => {
+        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
             return (
                 <li key={model.table} className="editor-tab">
                     <a onClick={this.clickTab.bind(this)} data-model={model.model} href="#">{model.model}</a>
@@ -93,9 +93,9 @@ class CreateMigrationsTask extends BaseTask {
         this.props.updateTasks(this.props.tasks);        
     }
 
-    updateTransformedPseudoCode(all) {        
-        this.props.tasks.CreateMigrationsTask.transformedPseudoCode = all;
-        this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(all);
+    updateTransformedPseudoCode(transformedPseudoCode) {        
+        this.props.tasks.CreateMigrationsTask.transformedPseudoCode = transformedPseudoCode;
+        this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(transformedPseudoCode.all());
         this.props.updateTasks(this.props.tasks);        
     }
 
@@ -124,14 +124,14 @@ class CreateMigrationsTask extends BaseTask {
                 this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
             }            
         }.bind(this));
-        
+
         this.pseudo.getSession().on('change', function() {
             var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);
             var pseudoCodeTransformer = new PseudoCodeTransformer();
             pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
-                this.updateTransformedPseudoCode(transformedPseudoCode.all());                                
-                this.renderPhpCode(transformedPseudoCode.all());                
+                this.updateTransformedPseudoCode(transformedPseudoCode);                                
+                this.renderPhpCode(transformedPseudoCode);                
             }.bind(this));
         }.bind(this));
         
@@ -157,7 +157,7 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     renderPhpCode(transformedPseudoCode) {
-        var migration = Template.migrations(transformedPseudoCode).pop();
+        var migration = Template.migrations(transformedPseudoCode.all()).pop();
         if(!migration) {
             this.php.setValue("", 1);
             return;
@@ -168,7 +168,7 @@ class CreateMigrationsTask extends BaseTask {
 
     getMigrationForActiveTab() {
         var migration = "";
-        this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map((model) => {
+        this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
             console.log(this.props.tasks.CreateMigrationsTask.activeTab);
             if(model.model == this.props.tasks.CreateMigrationsTask.activeTab) {
                 migration = Template.migration(model);                
@@ -182,7 +182,7 @@ class CreateMigrationsTask extends BaseTask {
             taskName: "CreateMigrationsTask",
             enabled: true,
             pseudoCode: "",
-            transformedPseudoCode: [],
+            transformedPseudoCode: new PseudoCodeTransformer(),
             migrations: [],
             activeTab: null
         }
