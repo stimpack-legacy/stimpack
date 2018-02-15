@@ -8,36 +8,53 @@ export default class PseudoCodeTransformer {
     }
 
     transform(pseudoCode, callback) {
-        this.callback = callback; // To be called when everything is ready
+        // To be called when everything is ready
+        this.callback = callback;
+        // Remove extra line breaks etc
         this.cleanedCode = this.prepare(pseudoCode);
-        this.segments = this.segment(this.cleanedCode);        
+        // Separate pseudoCode into chunks
+        this.segments = this.segment(this.cleanedCode);
+        // Produce definition for each chunk        
         var definitions = this.definitions(this.segments);        
     }
 
     define(segment) {
         var rows = segment.split(/\n/);
-        var model = rows[0];        
+        var heading = rows[0];
+        var type = "model";
+        
+        // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
+        // But "word" is just a table "word" without an associated model.
+        if(heading.charAt(0) == heading.charAt(0).toLowerCase()) {
+            type = "table";
+            this.pushTransformedModel(type, rows, heading, heading);
+            return;
+        }        
 
-        if(Cache.get(model,"plural") == null) {
+        // If no cache present for plural lets get that and save it
+        if(Cache.get(heading,"plural") == null) {
             $.ajax({
-                url: "/stimpack/pluralize/" + model,
+                url: "/stimpack/pluralize/" + heading,
                 success: function(modelPluralized){
-                    Cache.set(model, "plural", modelPluralized);
-                    this.pushTransformedModel(rows, model, modelPluralized);                                        
+                    Cache.set(heading, "plural", modelPluralized);
+                    this.pushTransformedModel(type, rows, heading, modelPluralized);                                        
                 }.bind(this)
             });
-        } else {
-            this.pushTransformedModel(rows, model, Cache.get(model, "plural"));    
+            return;
         }
+
+        // The segment was a Model with present cache for plural.
+        this.pushTransformedModel(type, rows, heading, Cache.get(heading, "plural"));    
+        
     }
 
-    pushTransformedModel(rows, model, modelPluralized) {
+    pushTransformedModel(type, rows, model, table) {
         this.transformedModels.push({
-            model: model.charAt(0).toUpperCase() + model.slice(1),
-            table: modelPluralized,
+            type: type,
+            model: model,
+            table: table,
             attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
-            migration: "placeholder",
-            hasModel: true
+            migration: "placeholder"
         });
         this.transformedModels.sort(function(a, b){
             if(a.model < b.model) return -1;
@@ -49,10 +66,6 @@ export default class PseudoCodeTransformer {
         }
     }
 
-    loadPluralized() {
-
-    }
-
     finished() {        
         return this.transformedModels.length == this.segments.length || this.segments.length == 0;
     }
@@ -62,7 +75,6 @@ export default class PseudoCodeTransformer {
     }
 
     definitions(segments) {
-        var definitions = [];
         segments.map((segment) => {
             this.define(segment);            
         });
@@ -89,27 +101,5 @@ export default class PseudoCodeTransformer {
             return [];
         }
         return code.split(/\n\s*\n/);        
-    }
-
-    phpDefinition(attribute) {
-        var phpDefinition = this.lookup(attribute);
-
-        return "\t" + phpDefinition + "\n";
-    }
-
-    lookup(attribute) {
-        var defaults = {
-            "id": "$table->increments('id');",
-            "email": "$table->string('email')->unique();",
-            "rememberToken": "$table->rememberToken();",
-            "timestamps": "$table->timestamps();"
-        };
-
-        if (attribute in defaults) {
-            return defaults[attribute];
-        }
-
-        // if nothing found resort to default string
-        return "$table->string('" + attribute +"');";
     }
 }
