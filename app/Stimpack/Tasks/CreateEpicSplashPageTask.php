@@ -15,9 +15,9 @@ class CreateEpicSplashPageTask extends Task
         $newStyle = "background-image: url('https://img.wallpapersafari.com/desktop/1920/1080/16/65/JDGTWx.jpg');";
         $welcome=str_replace($oldStyle, $newStyle, $welcome);
 
-        //$oldStyle = "color: #636b6f;";        
-        //$newStyle = "color: #AFE418;";
-        //$welcome=str_replace($oldStyle, $newStyle, $welcome);        
+        $oldStyle = "Laravel";        
+        $newStyle = $this->projectName();
+        $welcome=str_replace($oldStyle, $newStyle, $welcome);        
 
         $oldStyle = "font-weight: 100;";        
         $newStyle = "font-weight: 900;";

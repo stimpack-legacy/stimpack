@@ -20,6 +20,16 @@ class Task
         return base_path();
     }
 
+    public function projectName()
+    {
+        if(isset($this->SetTargetProjectTask))
+        {
+            return $this->SetTargetProjectTask->projectName;
+        }
+
+        return substr(base_path(), strrpos(base_path(), '/') + 1);
+    }    
+
     private function transferParameters()
     {
         $taskClassName = class_basename(get_class($this));
