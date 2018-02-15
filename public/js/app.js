@@ -60439,7 +60439,6 @@ var CreateMigrationsTask = function (_BaseTask) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setup();
-            //this.test();
         }
     }, {
         key: 'test',

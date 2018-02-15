@@ -11,7 +11,6 @@ import BaseTask from '../BaseTask'
 class CreateMigrationsTask extends BaseTask {
     componentDidMount() {
         this.setup();
-        //this.test();
     }
 
     test() {
@@ -51,13 +50,7 @@ class CreateMigrationsTask extends BaseTask {
                     </div>                                
                     
                     <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>
-                    {/*
-                    <div className="form-check">
-                        <label className="form-check-label">
-                        <input checked type="checkbox" className="form-check-input"  onChange={this.toggleAutoIdAndTimestamps} checked value="" />Auto ID and timestamps()
-                        </label>
-                    </div>
-                    */}                    
+                    
                 </div>
                 
             </div>                
