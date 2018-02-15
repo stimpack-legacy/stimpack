@@ -22296,11 +22296,13 @@ function verifyPlainObject(value, displayName, methodName) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_migration__ = __webpack_require__(269);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_model__ = __webpack_require__(270);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_helpPlaceholder__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_makeAuthPseudoCode__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_phpPlaceholder__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_helpPlaceholder__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_makeAuthPseudoCode__ = __webpack_require__(273);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -22362,9 +22364,14 @@ var Template = function () {
             return __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__["a" /* default */];
         }
     }, {
+        key: 'phpPlaceholder',
+        value: function phpPlaceholder() {
+            return __WEBPACK_IMPORTED_MODULE_3__templates_phpPlaceholder__["a" /* default */];
+        }
+    }, {
         key: 'makeAuthPseudoCode',
         value: function makeAuthPseudoCode() {
-            return __WEBPACK_IMPORTED_MODULE_4__templates_makeAuthPseudoCode__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_5__templates_makeAuthPseudoCode__["a" /* default */];
         }
     }]);
 
@@ -60769,9 +60776,44 @@ var CreateMigrationsTask = function (_BaseTask) {
                 path: "ace/mode/php",
                 inline: true
             });
+
             this.pseudo.setShowPrintMargin(false);
             this.pseudo.renderer.setShowGutter(false);
+
             this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
+
+            this.pseudo.on("focus", function () {
+                if (this.pseudo.getSession().getValue() == __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder()) {
+                    this.pseudo.setValue("", 1);
+                }
+            }.bind(this));
+
+            this.pseudo.on("blur", function () {
+                if (this.pseudo.getSession().getValue() == "") {
+                    this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
+                }
+            }.bind(this));
+
+            /********* */
+            /*
+            function setPlaceholderIfEmpty() {
+                var shouldShow = !this.pseudo.session.getValue().length;
+                var node = this.pseudo.renderer.emptyMessageNode;
+                if (!shouldShow && node) {
+                    this.pseudo.renderer.scroller.removeChild(this.pseudo.renderer.emptyMessageNode);
+                    this.pseudo.renderer.emptyMessageNode = null;
+                } else if (shouldShow && !node) {
+                    node = this.pseudo.renderer.emptyMessageNode = document.createElement("div");
+                    node.textContent = "oboyegott"
+                    node.className = "ace_invisible ace_emptyMessage"
+                    node.style.padding = "0 9px"
+                    this.pseudo.renderer.scroller.appendChild(node);
+                }
+            };
+             this.pseudo.on("input", setPlaceholderIfEmpty.bind(this));
+            setTimeout(setPlaceholderIfEmpty.bind(this), 100);
+            */
+            /********* */
 
             this.php = ace.edit("php-editor");
             this.php.$blockScrolling = Infinity;
@@ -60780,6 +60822,15 @@ var CreateMigrationsTask = function (_BaseTask) {
                 path: "ace/mode/php",
                 inline: true
             });
+            this.php.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].phpPlaceholder(), 0);
+
+            this.php.setOptions({
+                readOnly: true,
+                highlightActiveLine: false,
+                highlightGutterLine: false
+            });
+            this.php.renderer.$cursorLayer.element.style.opacity = 0;
+
             this.php.setShowPrintMargin(false);
             this.php.renderer.setShowGutter(false);
             this.pseudo.getSession().on('change', function () {
@@ -60986,6 +61037,7 @@ var PseudoCodeTransformer = function () {
             code = code.replace(/\n\s+\n/, "\n\n");
             // remove comments
             //code = code.replace(/^\/\/.*$/m, "");
+            code = code.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
             return code;
         }
     }, {
@@ -61059,38 +61111,7 @@ var Cache = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("");
-
-/*
-
-// Use uppercase for Model
-Car
-model
-color
-...
-
-// Use Lower case for table only
-statistics
-type
-value
-...
-
-// Use table name with trailing _id to reference another model
-Rental
-car_id
-...
-
-// To create a many to many relationship simply reference table1_table2
-car_user
-
-// Use $* to overide best guess
-
-Marine
-$table->integer('hp')->default(1337);
-
-// Notes
-id and timestamps are added by default
-*/
+/* harmony default export */ __webpack_exports__["a"] = ("/*\n\n// Use uppercase for Model\nCar\nmodel\ncolor\n...\n\n// Use Lower case for table only\nstatistics\ntype\nvalue\n...\n\n// Use trailing _id for one to many\nRental\ncar_id\n...\n\n// use table1_table2 for many to many\ncar_user\n\n// Use $* to overide best guess\nMarine\n$table->integer('hp')->default(1337);\n\n// Notes\nid and timestamps are added by default\n\n*/\n");
 
 /***/ }),
 /* 272 */
@@ -61405,6 +61426,23 @@ var initialState = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("");
 
 /***/ })
 /******/ ]);

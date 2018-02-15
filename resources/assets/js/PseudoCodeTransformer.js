@@ -108,6 +108,7 @@ export default class PseudoCodeTransformer {
         code = code.replace(/\n\s+\n/, "\n\n");
         // remove comments
         //code = code.replace(/^\/\/.*$/m, "");
+        code = code.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
         return code;
     }
 

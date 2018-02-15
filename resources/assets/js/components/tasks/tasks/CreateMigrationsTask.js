@@ -37,7 +37,9 @@ class CreateMigrationsTask extends BaseTask {
                                 <li className="editor-tab"><a href="#">Input</a></li>                                
                             </ul>
                         </div>
+                        
                         <div id="pseudo-editor" />
+                       
                     </div>
                     <div id="php-wrapper">
                         <div>
@@ -104,10 +106,46 @@ class CreateMigrationsTask extends BaseTask {
         this.pseudo.getSession().setMode({
             path: "ace/mode/php",
             inline: true
-        });        
+        });
+
         this.pseudo.setShowPrintMargin(false);
         this.pseudo.renderer.setShowGutter(false);
-        this.pseudo.setValue(Template.pseudoPlaceholder(), 1);        
+        
+        this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
+
+        this.pseudo.on("focus", function() {
+            if(this.pseudo.getSession().getValue() == Template.pseudoPlaceholder()) {                
+                this.pseudo.setValue("", 1);
+            }            
+        }.bind(this));
+        
+        this.pseudo.on("blur", function() {
+            if(this.pseudo.getSession().getValue() == "") {                
+                this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
+            }            
+        }.bind(this));        
+        
+        /********* */
+        /*
+        function setPlaceholderIfEmpty() {
+            var shouldShow = !this.pseudo.session.getValue().length;
+            var node = this.pseudo.renderer.emptyMessageNode;
+            if (!shouldShow && node) {
+                this.pseudo.renderer.scroller.removeChild(this.pseudo.renderer.emptyMessageNode);
+                this.pseudo.renderer.emptyMessageNode = null;
+            } else if (shouldShow && !node) {
+                node = this.pseudo.renderer.emptyMessageNode = document.createElement("div");
+                node.textContent = "oboyegott"
+                node.className = "ace_invisible ace_emptyMessage"
+                node.style.padding = "0 9px"
+                this.pseudo.renderer.scroller.appendChild(node);
+            }
+        };
+
+        this.pseudo.on("input", setPlaceholderIfEmpty.bind(this));
+        setTimeout(setPlaceholderIfEmpty.bind(this), 100);
+        */
+        /********* */
         
         this.php = ace.edit("php-editor");
         this.php.$blockScrolling = Infinity;
@@ -115,7 +153,16 @@ class CreateMigrationsTask extends BaseTask {
         this.php.getSession().setMode({
             path: "ace/mode/php",
             inline: true
+        });
+        this.php.setValue(Template.phpPlaceholder(), 0);
+        
+        this.php.setOptions({
+            readOnly: true,
+            highlightActiveLine: false,
+            highlightGutterLine: false
         });        
+        this.php.renderer.$cursorLayer.element.style.opacity=0;        
+
         this.php.setShowPrintMargin(false);
         this.php.renderer.setShowGutter(false);        
         this.pseudo.getSession().on('change', function() {
