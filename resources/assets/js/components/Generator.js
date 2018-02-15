@@ -36,6 +36,7 @@ class Generator extends Component {
         
         if(taskIndex >= this.props.taskBatch.tasks.length) {
             this.props.taskBatch.busy = false;
+            this.props.taskBatch.presentSiteUrl = "http://epic-car-pool.test";
             this.props.updateTaskBatch(this.props.taskBatch);            
             return;
         }        
@@ -71,7 +72,8 @@ class Generator extends Component {
                 return task;
             }),
             busy: true,
-            startRequested: true
+            startRequested: true,
+            presentSiteUrl: false
         });        
     }
 

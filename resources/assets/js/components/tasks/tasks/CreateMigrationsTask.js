@@ -51,7 +51,7 @@ class CreateMigrationsTask extends BaseTask {
                         <div id="php-editor" />
                     </div>                                
                     
-                    <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>
+                    <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
                     
                 </div>
                 

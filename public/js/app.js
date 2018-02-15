@@ -58950,6 +58950,7 @@ var Generator = function (_Component) {
 
             if (taskIndex >= this.props.taskBatch.tasks.length) {
                 this.props.taskBatch.busy = false;
+                this.props.taskBatch.presentSiteUrl = "http://epic-car-pool.test";
                 this.props.updateTaskBatch(this.props.taskBatch);
                 return;
             }
@@ -58988,7 +58989,8 @@ var Generator = function (_Component) {
                     return task;
                 }),
                 busy: true,
-                startRequested: true
+                startRequested: true,
+                presentSiteUrl: false
             });
         }
     }, {
@@ -60920,6 +60922,9 @@ var PseudoCodeTransformer = function () {
             // Produce definition for each chunk        
             var definitions = this.definitions(this.segments);
         }
+
+        // Produce definition for a single chunk
+
     }, {
         key: 'define',
         value: function define(segment) {
@@ -60928,10 +60933,9 @@ var PseudoCodeTransformer = function () {
             var type = "model";
 
             // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
-            // But "word" is just a table "word" without an associated model.
+            // But "word" is just a table "word" without an associated model. Note - potentially relationship table
             if (heading.charAt(0) == heading.charAt(0).toLowerCase()) {
-                type = "table";
-                this.pushTransformedModel(type, rows, heading, heading);
+                this.pushTransformedModel("table", rows, heading, heading, this.manyToManyDefinition());
                 return;
             }
 
@@ -60950,9 +60954,25 @@ var PseudoCodeTransformer = function () {
             // The segment was a Model with present cache for plural.
             this.pushTransformedModel(type, rows, heading, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get(heading, "plural"));
         }
+
+        // Return an array for instance ["car", "user"]]
+
+    }, {
+        key: 'manyToManyDefinition',
+        value: function manyToManyDefinition(heading) {
+            var tables = this.transformedPseudoCode.map(function (item) {
+                return item.table;
+            }).join("|");
+
+            var manyToManyRegExp = new RegExp("^(" + tables + ")_(" + tables + ")$");
+            var matches;
+            if (matches = manyToManyRegExp.exec(heading)) {
+                return [matches[1], matches[2]];
+            }
+        }
     }, {
         key: 'pushTransformedModel',
-        value: function pushTransformedModel(type, rows, model, table) {
+        value: function pushTransformedModel(type, rows, model, table, manyToManyTables) {
             this.transformedPseudoCode.push({
                 type: type,
                 model: model,
@@ -60960,7 +60980,8 @@ var PseudoCodeTransformer = function () {
                 attributes: rows.slice(1).map(function (name) {
                     return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](name);
                 }),
-                migration: "placeholder"
+                migration: "placeholder",
+                manyToManyTables: manyToManyTables
             });
             this.transformedPseudoCode.sort(function (a, b) {
                 if (a.model < b.model) return -1;
@@ -61626,9 +61647,14 @@ var Log = function (_Component) {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'ul',
-                null,
-                this.renderTaskBatchItems()
+                'div',
+                { className: 'logItems' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    null,
+                    this.renderTaskBatchItems()
+                ),
+                this.renderSiteUrl()
             );
         }
     }, {
@@ -61652,6 +61678,18 @@ var Log = function (_Component) {
                     task.taskName
                 );
             });
+        }
+    }, {
+        key: 'renderSiteUrl',
+        value: function renderSiteUrl() {
+            if (this.props.taskBatch.presentSiteUrl) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'a',
+                    { className: 'siteUrlLink', href: this.props.taskBatch.presentSiteUrl },
+                    ' ',
+                    this.props.taskBatch.presentSiteUrl
+                );
+            }
         }
     }]);
 

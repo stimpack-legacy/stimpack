@@ -5,10 +5,14 @@ import {bindActionCreators} from 'redux';
 
 class Log extends Component {
     render() {
-        return (                
-            <ul>
-                {this.renderTaskBatchItems()}            
-            </ul>
+        return (
+            <div className="logItems">                
+                <ul>
+                    {this.renderTaskBatchItems()}                                
+                </ul>
+
+                {this.renderSiteUrl()}
+            </div>
         );
     }
 
@@ -23,6 +27,12 @@ class Log extends Component {
         return this.props.taskBatch.tasks.filter(task => task.status != "queued" ).map((task) => {
             return (<li key={task.taskName}><i className={`fa ${icons[task.status]}`}></i> {task.taskName}</li>)
         })
+    }
+
+    renderSiteUrl() {
+        if(this.props.taskBatch.presentSiteUrl) {
+            return (<a className="siteUrlLink" href={this.props.taskBatch.presentSiteUrl}> {this.props.taskBatch.presentSiteUrl}</a>);
+        }
     }
 }
 

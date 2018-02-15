@@ -18,16 +18,16 @@ export default class PseudoCodeTransformer {
         var definitions = this.definitions(this.segments);        
     }
 
+    // Produce definition for a single chunk
     define(segment) {
         var rows = segment.split(/\n/);
         var heading = rows[0];
         var type = "model";
         
         // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
-        // But "word" is just a table "word" without an associated model.
+        // But "word" is just a table "word" without an associated model. Note - potentially relationship table
         if(heading.charAt(0) == heading.charAt(0).toLowerCase()) {
-            type = "table";
-            this.pushTransformedModel(type, rows, heading, heading);
+            this.pushTransformedModel("table", rows, heading, heading, this.manyToManyDefinition());
             return;
         }        
 
@@ -48,20 +48,34 @@ export default class PseudoCodeTransformer {
         
     }
 
-    pushTransformedModel(type, rows, model, table) {
+    // Return an array for instance ["car", "user"]]
+    manyToManyDefinition(heading) {
+        var tables = this.transformedPseudoCode.map((item) => {
+            return item.table;
+        }).join("|");
+        
+        var manyToManyRegExp = new RegExp("^(" + tables + ")_(" + tables + ")$");        
+        var matches;
+        if(matches = manyToManyRegExp.exec(heading)) {
+            return [matches[1], matches[2]];
+        }
+    }
+
+    pushTransformedModel(type, rows, model, table, manyToManyTables) {
         this.transformedPseudoCode.push({
             type: type,
             model: model,
             table: table,
             attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
-            migration: "placeholder"
+            migration: "placeholder",
+            manyToManyTables: manyToManyTables
         });
         this.transformedPseudoCode.sort(function(a, b){
             if(a.model < b.model) return -1;
             if(a.model > b.model) return 1;
             return 0;
         });                    
-        if(this.finished()) {
+        if(this.finished()) {            
             this.returnTransformedModels();        
         }
     }
