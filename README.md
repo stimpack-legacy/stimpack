@@ -1,4 +1,4 @@
-<p align="center"><img src="public/img/stimpack_logo_with_text.png" width="40%"></p>
+<p align="center"><img src="public/img/stimpack_logo_with_text.png" width="60%"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
