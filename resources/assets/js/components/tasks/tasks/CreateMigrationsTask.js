@@ -91,9 +91,9 @@ class CreateMigrationsTask extends BaseTask {
         this.props.updateTasks(this.props.tasks);        
     }
 
-    updateTransformedModelsAndMigrations(models) {        
-        this.props.tasks.CreateMigrationsTask.transformedPseudoCode = models;
-        this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(models);
+    updateTransformedPseudoCode(all) {        
+        this.props.tasks.CreateMigrationsTask.transformedPseudoCode = all;
+        this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(all);
         this.props.updateTasks(this.props.tasks);        
     }
 
@@ -123,8 +123,8 @@ class CreateMigrationsTask extends BaseTask {
             this.updatePseudoCode(pseudoCode);
             var pseudoCodeTransformer = new PseudoCodeTransformer();
             pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
-                this.updateTransformedModelsAndMigrations(transformedPseudoCode.models());                                
-                this.renderPhpCode(transformedPseudoCode.models());                
+                this.updateTransformedPseudoCode(transformedPseudoCode.all());                                
+                this.renderPhpCode(transformedPseudoCode.all());                
             }.bind(this));
         }.bind(this));
     }

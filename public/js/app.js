@@ -60753,10 +60753,10 @@ var CreateMigrationsTask = function (_BaseTask) {
             this.props.updateTasks(this.props.tasks);
         }
     }, {
-        key: 'updateTransformedModelsAndMigrations',
-        value: function updateTransformedModelsAndMigrations(models) {
-            this.props.tasks.CreateMigrationsTask.transformedPseudoCode = models;
-            this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(models);
+        key: 'updateTransformedPseudoCode',
+        value: function updateTransformedPseudoCode(all) {
+            this.props.tasks.CreateMigrationsTask.transformedPseudoCode = all;
+            this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(all);
             this.props.updateTasks(this.props.tasks);
         }
     }, {
@@ -60787,8 +60787,8 @@ var CreateMigrationsTask = function (_BaseTask) {
                 this.updatePseudoCode(pseudoCode);
                 var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
                 pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
-                    this.updateTransformedModelsAndMigrations(transformedPseudoCode.models());
-                    this.renderPhpCode(transformedPseudoCode.models());
+                    this.updateTransformedPseudoCode(transformedPseudoCode.all());
+                    this.renderPhpCode(transformedPseudoCode.all());
                 }.bind(this));
             }.bind(this));
         }
