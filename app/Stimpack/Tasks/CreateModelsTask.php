@@ -5,14 +5,11 @@ namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 
-class CreateModelsTask implements Task
+class CreateModelsTask extends Task
 {
 
-    public function __construct($tasks) {
-        $this->tasks = $tasks;
-    }
-
     public function perform() {
+        return "Not implemented";
         $message = "";
         foreach($this->tasks->CreateMigrationsTask->migrations as $migration) {
             $migrationName = date("Y_m_d_hms",time()) . "_create_" . $migration->table . "_table.php";            

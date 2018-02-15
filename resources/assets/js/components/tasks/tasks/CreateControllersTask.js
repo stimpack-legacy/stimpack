@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../../actions/index'
+import BaseTask from '../BaseTask'
 
-class CreateControllersTask extends Component {
+class CreateControllersTask extends BaseTask {
     render() {
         return (
             <div className="container">                              
@@ -26,7 +27,7 @@ class CreateControllersTask extends Component {
     }
 
     renderControllers() {
-        return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
@@ -44,6 +45,13 @@ class CreateControllersTask extends Component {
         var updatedTasks = this.props.tasks;
         updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
         this.props.updateTasks(updatedTasks);
+    }
+    
+    static getDefaultParameters() {
+        return {
+            taskName: "CreateControllersTask",
+            enabled: true
+        }
     }    
 }
 
