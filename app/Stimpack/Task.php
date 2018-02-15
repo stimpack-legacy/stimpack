@@ -7,7 +7,9 @@ class Task
     public function __construct($tasks)
     {
         $this->tasks = collect($tasks);
-        $this->transferParameters();        
+        $this->transferParameters();
+        // To be removed!!!
+        ini_set('max_execution_time', 300);        
     }
 
     public function projectPath()
