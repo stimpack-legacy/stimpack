@@ -61152,30 +61152,17 @@ var Attribute = function () {
         this.migrationDefinition = this.defineMigrationStatement(name);
     }
 
-    /*
-        PRIORITY ORDER *****************************
-        
-        Reserved names
-            Hardcoded fields like id and timestamps()
-         Rules
-            Handling rules like foreign keys (*_id)
-         Statistics lookup
-            Exact matches
-         Looser rules
-            *time* => DATETIME
-            *_at => DATETIME
-            etc
-            
-        Resort to string
-            $table->string('name'); 
-    */
-
-
     _createClass(Attribute, [{
         key: "defineMigrationStatement",
         value: function defineMigrationStatement(name) {
-
-            // Handle overridden line
+            return [this.overridden(name), this.reserved(name), this.ruled(name), "$table->string('" + name + "');"].find(function (filter) {
+                return filter;
+            });
+        }
+    }, {
+        key: "overridden",
+        value: function overridden(name) {
+            // Handle overridden line starting with $
             if (name.charAt(0) == "$") {
                 // Save for future reference
                 return name;
@@ -61187,6 +61174,11 @@ var Attribute = function () {
                 return overrided[name];
             }
 
+            return false;
+        }
+    }, {
+        key: "reserved",
+        value: function reserved(name) {
             var reservedNames = {
                 "id": "$table->increments();",
                 "timestamps": "$table->timestamps();",
@@ -61198,15 +61190,12 @@ var Attribute = function () {
                 return reservedNames[name];
             }
 
+            return false;
+        }
+    }, {
+        key: "ruled",
+        value: function ruled(name) {
             var rules = [{
-                name: "Long names are mocked!",
-                test: function test(name) {
-                    return name.length > 100;
-                },
-                transform: function transform(name) {
-                    return name + " is a long name!";
-                }
-            }, {
                 name: "*_id",
                 test: function test(name) {
                     return new RegExp("_id$").test(name);
@@ -61232,32 +61221,12 @@ var Attribute = function () {
                 return matchedRule.transform(name);
             }
 
-            return "$table->string('" + name + "');";
+            return false;
         }
     }]);
 
     return Attribute;
 }();
-
-/*
-
-class Model
-class Attribute
-
-
-m = new Model;
-m.attributes[
-    Attribute a1 {
-        name
-        migrationDefinition
-    }
-    Attribute a2
-    ...
-]
-
-
-*/
-
 
 /* harmony default export */ __webpack_exports__["a"] = (Attribute);
 

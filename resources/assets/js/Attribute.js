@@ -4,30 +4,17 @@ export default class Attribute {
         this.migrationDefinition = this.defineMigrationStatement(name);
     }
 
-
-    /*
-        PRIORITY ORDER *****************************
-        
-        Reserved names
-            Hardcoded fields like id and timestamps()
-
-        Rules
-            Handling rules like foreign keys (*_id)
-
-        Statistics lookup
-            Exact matches
-
-        Looser rules
-            *time* => DATETIME
-            *_at => DATETIME
-            etc
-            
-        Resort to string
-            $table->string('name'); 
-    */    
     defineMigrationStatement(name) {
-
-        // Handle overridden line
+        return [
+            this.overridden(name), 
+            this.reserved(name),
+            this.ruled(name),
+            "$table->string('" + name + "');"
+        ].find((filter) => filter);
+    }
+       
+    overridden(name) {
+        // Handle overridden line starting with $
         if(name.charAt(0) == "$") {
             // Save for future reference
             return name;
@@ -39,6 +26,10 @@ export default class Attribute {
             return overrided[name];
         }
 
+        return false;        
+    }
+
+    reserved(name) {
         var reservedNames = {
             "id": "$table->increments();",
             "timestamps": "$table->timestamps();",
@@ -50,17 +41,11 @@ export default class Attribute {
             return reservedNames[name];
         }
 
+        return false;        
+    }
+
+    ruled(name) {
         var rules = [
-            
-            {
-                name: "Long names are mocked!",
-                test: function(name) {
-                    return name.length > 100;
-                },
-                transform: function(name) {
-                    return name + " is a long name!";
-                }
-            },
             {
                 name: "*_id",
                 test: function(name) {
@@ -86,31 +71,7 @@ export default class Attribute {
         if(typeof matchedRule !== "undefined") {
             return matchedRule.transform(name);
         }
-        
-        return "$table->string('" + name + "');"
+
+        return false;
     }
-
-
 }
-
-/*
-
-class Model
-class Attribute
-
-
-m = new Model;
-m.attributes[
-    Attribute a1 {
-        name
-        migrationDefinition
-    }
-    Attribute a2
-    ...
-]
-
-
-*/
-
-
-
