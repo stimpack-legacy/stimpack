@@ -61201,7 +61201,7 @@ var Attribute = function () {
             var rules = [{
                 name: "Long names are mocked!",
                 test: function test(name) {
-                    return name.length > 10;
+                    return name.length > 100;
                 },
                 transform: function transform(name) {
                     return name + " is a long name!";

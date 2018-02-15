@@ -55,7 +55,7 @@ export default class Attribute {
             {
                 name: "Long names are mocked!",
                 test: function(name) {
-                    return name.length > 10;
+                    return name.length > 100;
                 },
                 transform: function(name) {
                     return name + " is a long name!";
