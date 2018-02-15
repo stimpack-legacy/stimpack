@@ -60794,26 +60794,15 @@ var CreateMigrationsTask = function (_BaseTask) {
                 }
             }.bind(this));
 
-            /********* */
-            /*
-            function setPlaceholderIfEmpty() {
-                var shouldShow = !this.pseudo.session.getValue().length;
-                var node = this.pseudo.renderer.emptyMessageNode;
-                if (!shouldShow && node) {
-                    this.pseudo.renderer.scroller.removeChild(this.pseudo.renderer.emptyMessageNode);
-                    this.pseudo.renderer.emptyMessageNode = null;
-                } else if (shouldShow && !node) {
-                    node = this.pseudo.renderer.emptyMessageNode = document.createElement("div");
-                    node.textContent = "oboyegott"
-                    node.className = "ace_invisible ace_emptyMessage"
-                    node.style.padding = "0 9px"
-                    this.pseudo.renderer.scroller.appendChild(node);
-                }
-            };
-             this.pseudo.on("input", setPlaceholderIfEmpty.bind(this));
-            setTimeout(setPlaceholderIfEmpty.bind(this), 100);
-            */
-            /********* */
+            this.pseudo.getSession().on('change', function () {
+                var pseudoCode = this.pseudo.getSession().getValue();
+                this.updatePseudoCode(pseudoCode);
+                var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
+                pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
+                    this.updateTransformedPseudoCode(transformedPseudoCode.all());
+                    this.renderPhpCode(transformedPseudoCode.all());
+                }.bind(this));
+            }.bind(this));
 
             this.php = ace.edit("php-editor");
             this.php.$blockScrolling = Infinity;
@@ -60833,15 +60822,6 @@ var CreateMigrationsTask = function (_BaseTask) {
 
             this.php.setShowPrintMargin(false);
             this.php.renderer.setShowGutter(false);
-            this.pseudo.getSession().on('change', function () {
-                var pseudoCode = this.pseudo.getSession().getValue();
-                this.updatePseudoCode(pseudoCode);
-                var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
-                pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
-                    this.updateTransformedPseudoCode(transformedPseudoCode.all());
-                    this.renderPhpCode(transformedPseudoCode.all());
-                }.bind(this));
-            }.bind(this));
         }
     }, {
         key: 'renderPhpCode',

@@ -3232,16 +3232,6 @@
   height: 600px;
 }
 
-#log-editor {
-  background-color: #141518;
-  width: 100%;
-  height: 500px;
-}
-
-.actions {
-  margin-top: 40px;
-}
-
 .editor-tabs {
   list-style-type: none;
   padding: 0;

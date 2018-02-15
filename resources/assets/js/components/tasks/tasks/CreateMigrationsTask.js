@@ -123,29 +123,17 @@ class CreateMigrationsTask extends BaseTask {
             if(this.pseudo.getSession().getValue() == "") {                
                 this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
             }            
-        }.bind(this));        
+        }.bind(this));
         
-        /********* */
-        /*
-        function setPlaceholderIfEmpty() {
-            var shouldShow = !this.pseudo.session.getValue().length;
-            var node = this.pseudo.renderer.emptyMessageNode;
-            if (!shouldShow && node) {
-                this.pseudo.renderer.scroller.removeChild(this.pseudo.renderer.emptyMessageNode);
-                this.pseudo.renderer.emptyMessageNode = null;
-            } else if (shouldShow && !node) {
-                node = this.pseudo.renderer.emptyMessageNode = document.createElement("div");
-                node.textContent = "oboyegott"
-                node.className = "ace_invisible ace_emptyMessage"
-                node.style.padding = "0 9px"
-                this.pseudo.renderer.scroller.appendChild(node);
-            }
-        };
-
-        this.pseudo.on("input", setPlaceholderIfEmpty.bind(this));
-        setTimeout(setPlaceholderIfEmpty.bind(this), 100);
-        */
-        /********* */
+        this.pseudo.getSession().on('change', function() {
+            var pseudoCode = this.pseudo.getSession().getValue();            
+            this.updatePseudoCode(pseudoCode);
+            var pseudoCodeTransformer = new PseudoCodeTransformer();
+            pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
+                this.updateTransformedPseudoCode(transformedPseudoCode.all());                                
+                this.renderPhpCode(transformedPseudoCode.all());                
+            }.bind(this));
+        }.bind(this));
         
         this.php = ace.edit("php-editor");
         this.php.$blockScrolling = Infinity;
@@ -165,15 +153,7 @@ class CreateMigrationsTask extends BaseTask {
 
         this.php.setShowPrintMargin(false);
         this.php.renderer.setShowGutter(false);        
-        this.pseudo.getSession().on('change', function() {
-            var pseudoCode = this.pseudo.getSession().getValue();            
-            this.updatePseudoCode(pseudoCode);
-            var pseudoCodeTransformer = new PseudoCodeTransformer();
-            pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
-                this.updateTransformedPseudoCode(transformedPseudoCode.all());                                
-                this.renderPhpCode(transformedPseudoCode.all());                
-            }.bind(this));
-        }.bind(this));
+
     }
 
     renderPhpCode(transformedPseudoCode) {
