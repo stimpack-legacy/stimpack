@@ -61214,6 +61214,15 @@ var Attribute = function () {
                 transform: function transform(name) {
                     return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
                 }
+            }, {
+                name: "many_to_many",
+                test: function test(name) {
+                    return new RegExp("(fluent|proficient|proficiency)[^.]*(chinese|mandarin|cantonese)").test(name);
+                    // Above will match "fluent_chinese" - but how grab parts from the regex?
+                },
+                transform: function transform(name) {
+                    return "many to many is not implemented yet";
+                }
             }];
 
             var matchedRule = rules.find(function (rule) {
@@ -61221,12 +61230,6 @@ var Attribute = function () {
             });
             if (typeof matchedRule !== "undefined") {
                 return matchedRule.transform(name);
-            }
-
-            //"bajs_id": "$table->integer('$NAME')->unsigned()->references('id')->on('*')->onDelete('cascade');"
-
-            if (rules.hasOwnProperty(name)) {
-                return rules[name];
             }
 
             return "$table->string('" + name + "');";
