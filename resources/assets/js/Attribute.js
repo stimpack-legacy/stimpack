@@ -1,7 +1,7 @@
 export default class Attribute {
     constructor(name) {
         this.name = name;
-        this.migrationDefinition = this.defineMigration(name);
+        this.migrationDefinition = this.defineMigrationStatement(name);
     }
 
 
@@ -25,7 +25,15 @@ export default class Attribute {
         Resort to string
             $table->string('name'); 
     */    
-    defineMigration(name) {
+    defineMigrationStatement(name) {
+
+        // Handle overridden line
+        if(name.charAt(0) == "$") {
+            // Save for future reference
+            return name;
+        }
+
+        // Load previous override rules
         var overrided = {};
         if(overrided.hasOwnProperty(name)) {
             return overrided[name];

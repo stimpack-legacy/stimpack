@@ -61135,7 +61135,7 @@ var Attribute = function () {
         _classCallCheck(this, Attribute);
 
         this.name = name;
-        this.migrationDefinition = this.defineMigration(name);
+        this.migrationDefinition = this.defineMigrationStatement(name);
     }
 
     /*
@@ -61158,8 +61158,16 @@ var Attribute = function () {
 
 
     _createClass(Attribute, [{
-        key: "defineMigration",
-        value: function defineMigration(name) {
+        key: "defineMigrationStatement",
+        value: function defineMigrationStatement(name) {
+
+            // Handle overridden line
+            if (name.charAt(0) == "$") {
+                // Save for future reference
+                return name;
+            }
+
+            // Load previous override rules
             var overrided = {};
             if (overrided.hasOwnProperty(name)) {
                 return overrided[name];
