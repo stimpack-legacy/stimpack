@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ModelTransformer from '../../../ModelTransformer';
+import PseudoCodeTransformer from '../../../PseudoCodeTransformer';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -14,8 +14,8 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     test() {
-        var modelTransformer = new ModelTransformer();        
-        modelTransformer.transform("", function(phpCode) {
+        var pseudoCodeTransformer = new PseudoCodeTransformer();        
+        pseudoCodeTransformer.transform("", function(phpCode) {
             console.assert(phpCode == "", {"message": "failed empty string"});                
         }.bind(this));                        
     }
@@ -121,8 +121,8 @@ class CreateMigrationsTask extends BaseTask {
         this.pseudo.getSession().on('change', function() {
             var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);
-            var modelTransformer = new ModelTransformer();
-            modelTransformer.transform(pseudoCode, function(transformedModels) {
+            var pseudoCodeTransformer = new PseudoCodeTransformer();
+            pseudoCodeTransformer.transform(pseudoCode, function(transformedModels) {
                 this.updateTransformedModelsAndMigrations(transformedModels);                                
                 this.renderPhpCode(transformedModels);                
             }.bind(this));

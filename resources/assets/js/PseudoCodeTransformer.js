@@ -2,7 +2,7 @@ import Cache from './Cache'; // Instead of constantly doing HTTP request to serv
 import Template from './Template';
 import Attribute from './Attribute';
 
-export default class ModelTransformer {
+export default class PseudoCodeTransformer {
     constructor() {
         this.transformedModels = [];        
     }
