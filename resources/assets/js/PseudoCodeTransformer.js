@@ -16,58 +16,37 @@ export default class PseudoCodeTransformer {
 
     define(segment) {
         var rows = segment.split(/\n/);
-        var model = rows[0];
+        var model = rows[0];        
 
-        /*
-        var fetch = function(model) {
+        if(Cache.get("plural-for-" + model) == null) {
             $.ajax({
                 url: "/stimpack/pluralize/" + model,
-                //data: "somedata more thiss as well?", 
                 success: function(modelPluralized){
-                    this.transformedModels.push({
-                        model: model.charAt(0).toUpperCase() + model.slice(1),
-                        table: modelPluralized,
-                        attributes: rows.slice(1).map((name) => { return new Attribute(name);})
-                    });
-                    if(this.finished()) {
-                        this.returnTransformedModels();        
-                    }
-                                        
+                    Cache.set("plural-for-" + model, modelPluralized);
+                    this.pushTransformedModel(rows, model, modelPluralized);                                        
                 }.bind(this)
             });
-        }.bind(this);
+        } else {
+            this.pushTransformedModel(rows, model, Cache.get("plural-for-" + model));    
+        }
+    }
 
-        var assembleTransformedModel = function() {
-
-        };
-
-        var plurals = Cache(fetch, after);
-        plurals.get("user");
-        */
-
-        // pluralize model
-        $.ajax({
-            url: "/stimpack/pluralize/" + model,
-            //data: "somedata more thiss as well?", 
-            success: function(modelPluralized){
-                this.transformedModels.push({
-                    model: model.charAt(0).toUpperCase() + model.slice(1),
-                    table: modelPluralized,
-                    attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
-                    migration: "placeholder",
-                    hasModel: true
-                });
-                this.transformedModels.sort(function(a, b){
-                    if(a.model < b.model) return -1;
-                    if(a.model > b.model) return 1;
-                    return 0;
-                });
-                if(this.finished()) {
-                    this.returnTransformedModels();        
-                }
-                                    
-            }.bind(this)
+    pushTransformedModel(rows, model, modelPluralized) {
+        this.transformedModels.push({
+            model: model.charAt(0).toUpperCase() + model.slice(1),
+            table: modelPluralized,
+            attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
+            migration: "placeholder",
+            hasModel: true
         });
+        this.transformedModels.sort(function(a, b){
+            if(a.model < b.model) return -1;
+            if(a.model > b.model) return 1;
+            return 0;
+        });                    
+        if(this.finished()) {
+            this.returnTransformedModels();        
+        }
     }
 
     loadPluralized() {

@@ -60608,7 +60608,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-//import PseudoCodeTransformer from '../../../PseudoCodeTransformer';
 
 
 
@@ -60887,54 +60886,38 @@ var PseudoCodeTransformer = function () {
             var rows = segment.split(/\n/);
             var model = rows[0];
 
-            /*
-            var fetch = function(model) {
+            if (__WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get("plural-for-" + model) == null) {
                 $.ajax({
                     url: "/stimpack/pluralize/" + model,
-                    //data: "somedata more thiss as well?", 
-                    success: function(modelPluralized){
-                        this.transformedModels.push({
-                            model: model.charAt(0).toUpperCase() + model.slice(1),
-                            table: modelPluralized,
-                            attributes: rows.slice(1).map((name) => { return new Attribute(name);})
-                        });
-                        if(this.finished()) {
-                            this.returnTransformedModels();        
-                        }
-                                            
+                    success: function (modelPluralized) {
+                        __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].set("plural-for-" + model, modelPluralized);
+                        this.pushTransformedModel(rows, model, modelPluralized);
                     }.bind(this)
                 });
-            }.bind(this);
-             var assembleTransformedModel = function() {
-             };
-             var plurals = Cache(fetch, after);
-            plurals.get("user");
-            */
-
-            // pluralize model
-            $.ajax({
-                url: "/stimpack/pluralize/" + model,
-                //data: "somedata more thiss as well?", 
-                success: function (modelPluralized) {
-                    this.transformedModels.push({
-                        model: model.charAt(0).toUpperCase() + model.slice(1),
-                        table: modelPluralized,
-                        attributes: rows.slice(1).map(function (name) {
-                            return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](name);
-                        }),
-                        migration: "placeholder",
-                        hasModel: true
-                    });
-                    this.transformedModels.sort(function (a, b) {
-                        if (a.model < b.model) return -1;
-                        if (a.model > b.model) return 1;
-                        return 0;
-                    });
-                    if (this.finished()) {
-                        this.returnTransformedModels();
-                    }
-                }.bind(this)
+            } else {
+                this.pushTransformedModel(rows, model, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get("plural-for-" + model));
+            }
+        }
+    }, {
+        key: 'pushTransformedModel',
+        value: function pushTransformedModel(rows, model, modelPluralized) {
+            this.transformedModels.push({
+                model: model.charAt(0).toUpperCase() + model.slice(1),
+                table: modelPluralized,
+                attributes: rows.slice(1).map(function (name) {
+                    return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](name);
+                }),
+                migration: "placeholder",
+                hasModel: true
             });
+            this.transformedModels.sort(function (a, b) {
+                if (a.model < b.model) return -1;
+                if (a.model > b.model) return 1;
+                return 0;
+            });
+            if (this.finished()) {
+                this.returnTransformedModels();
+            }
         }
     }, {
         key: 'loadPluralized',
@@ -61071,7 +61054,7 @@ plurals.get("Car"); // Second time no HTTP call
 */
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Cache);
+/* harmony default export */ __webpack_exports__["a"] = (Cache);
 
 /***/ }),
 /* 269 */
