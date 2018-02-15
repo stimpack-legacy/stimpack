@@ -10,7 +10,7 @@ class Task
     }
 
     public function projectPath() {
-        if($this->SetTargetProjectTask && $this->SetTargetProjectTask->enabled) {
+        if(isset($this->SetTargetProjectTask) && $this->SetTargetProjectTask->enabled) {
             return base_path() . $this->SetTargetProjectTask->projectPath . $this->SetTargetProjectTask->projectName;
         }
 
