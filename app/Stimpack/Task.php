@@ -9,7 +9,8 @@ class Task
         $this->tasks = collect($tasks);
         $this->transferParameters();
         // To be removed!!!
-        ini_set('max_execution_time', 300);        
+        ini_set('max_execution_time', 300);
+        usleep(500000);        
     }
 
     public function projectPath()

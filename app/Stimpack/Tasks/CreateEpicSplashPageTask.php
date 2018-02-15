@@ -12,7 +12,7 @@ class CreateEpicSplashPageTask extends Task
         $welcome=file_get_contents($this->projectPath() . '/resources/views/welcome.blade.php');
 
         $oldStyle = "background-color: #fff;";        
-        $newStyle = "background-image: url('https://img.wallpapersafari.com/desktop/1920/1080/16/65/JDGTWx.jpg');";
+        $newStyle = "background-image: url('https://www.wallpaperup.com/uploads/wallpapers/2012/12/15/24858/73fa050491f624b7408b70f61c77ce3b-1000.jpg');";
         $welcome=str_replace($oldStyle, $newStyle, $welcome);
 
         $oldStyle = "Laravel";        
@@ -23,19 +23,9 @@ class CreateEpicSplashPageTask extends Task
         $newStyle = "font-weight: 900;";
         $welcome=str_replace($oldStyle, $newStyle, $welcome);
         
-
-
-
-
-        
-        
         file_put_contents($this->projectPath() . '/resources/views/welcome.blade.php', $welcome);
 
         return "Created splash page!";
-        
-
-
-
 
     }
 }
