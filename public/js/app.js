@@ -61020,33 +61020,6 @@ var Cache = function () {
     return Cache;
 }();
 
-/*
-
-Old usage:
-name = pluralize("car"); // on demand AJAX takes long time
-name = pluralize("car"); // repeatedly
-
-New idea of usage:
-class Cache {
-    constructor(method) {
-        this.method = method;
-    }
-
-    get(params) {
-        return this.method(params);;
-    }    
-}
-
-var plurals = Cache(pluralize());
-plurals.get("Car"); // First time no gain
-plurals.get("Car"); // Second time no HTTP call
-
-
-
-
-*/
-
-
 /* harmony default export */ __webpack_exports__["a"] = (Cache);
 
 /***/ }),
@@ -61147,6 +61120,7 @@ var Attribute = function () {
                 "id": "$table->increments();",
                 "timestamps": "$table->timestamps();",
                 "timestamps()": "$table->timestamps();",
+                "created_at": "$table->timestamp('created_at')->nullable();",
                 "email": "$table->string('email')->unique();"
             };
             if (reservedNames.hasOwnProperty(name)) {

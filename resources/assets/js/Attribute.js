@@ -35,6 +35,7 @@ export default class Attribute {
             "id": "$table->increments();",
             "timestamps": "$table->timestamps();",
             "timestamps()": "$table->timestamps();",
+            "created_at": "$table->timestamp('created_at')->nullable();",
             "email": "$table->string('email')->unique();",
         }
         if(reservedNames.hasOwnProperty(name)) {
