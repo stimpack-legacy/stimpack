@@ -70,7 +70,7 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     renderPhpTabs() {        
-        return this.props.tasks.CreateMigrationsTask.transformedModels.map((model) => {
+        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map((model) => {
             return (
                 <li key={model.table} className="editor-tab">
                     <a onClick={this.clickTab.bind(this)} data-model={model.model} href="#">{model.model}</a>
@@ -92,7 +92,7 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     updateTransformedModelsAndMigrations(models) {        
-        this.props.tasks.CreateMigrationsTask.transformedModels = models;
+        this.props.tasks.CreateMigrationsTask.transformedPseudoCode = models;
         this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(models);
         this.props.updateTasks(this.props.tasks);        
     }

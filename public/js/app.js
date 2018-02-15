@@ -60727,7 +60727,7 @@ var CreateMigrationsTask = function (_BaseTask) {
         value: function renderPhpTabs() {
             var _this2 = this;
 
-            return this.props.tasks.CreateMigrationsTask.transformedModels.map(function (model) {
+            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: model.table, className: 'editor-tab' },
@@ -60755,7 +60755,7 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'updateTransformedModelsAndMigrations',
         value: function updateTransformedModelsAndMigrations(models) {
-            this.props.tasks.CreateMigrationsTask.transformedModels = models;
+            this.props.tasks.CreateMigrationsTask.transformedPseudoCode = models;
             this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(models);
             this.props.updateTasks(this.props.tasks);
         }
