@@ -61198,9 +61198,33 @@ var Attribute = function () {
                 return reservedNames[name];
             }
 
-            var rules = {
-                "bajs_id": "$table->integer('$NAME')->unsigned()->references('id')->on('*')->onDelete('cascade');"
-            };
+            var rules = [{
+                name: "Long names are mocked!",
+                test: function test(name) {
+                    return name.length > 10;
+                },
+                transform: function transform(name) {
+                    return name + " is a long name!";
+                }
+            }, {
+                name: "*_id",
+                test: function test(name) {
+                    return new RegExp("_id$").test(name);
+                },
+                transform: function transform(name) {
+                    return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
+                }
+            }];
+
+            var matchedRule = rules.find(function (rule) {
+                return rule.test(name);
+            });
+            if (typeof matchedRule !== "undefined") {
+                return matchedRule.transform(name);
+            }
+
+            //"bajs_id": "$table->integer('$NAME')->unsigned()->references('id')->on('*')->onDelete('cascade');"
+
             if (rules.hasOwnProperty(name)) {
                 return rules[name];
             }
