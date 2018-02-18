@@ -31,7 +31,7 @@ class Log extends Component {
 
     renderSiteUrl() {
         if(this.props.taskBatch.presentSiteUrl) {
-            return (<a className="siteUrlLink" href={this.props.taskBatch.presentSiteUrl}> {this.props.taskBatch.presentSiteUrl}</a>);
+            return (<a className="siteUrlLink" target="_blank" href={this.props.taskBatch.presentSiteUrl}> {this.props.taskBatch.presentSiteUrl}</a>);
         }
     }
 }

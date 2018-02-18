@@ -58950,7 +58950,7 @@ var Generator = function (_Component) {
 
             if (taskIndex >= this.props.taskBatch.tasks.length) {
                 this.props.taskBatch.busy = false;
-                this.props.taskBatch.presentSiteUrl = "http://epic-car-pool.test";
+                this.props.taskBatch.presentSiteUrl = "http://" + this.props.tasks.SetTargetProjectTask.projectName + ".test";
                 this.props.updateTaskBatch(this.props.taskBatch);
                 return;
             }
@@ -61685,7 +61685,7 @@ var Log = function (_Component) {
             if (this.props.taskBatch.presentSiteUrl) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'a',
-                    { className: 'siteUrlLink', href: this.props.taskBatch.presentSiteUrl },
+                    { className: 'siteUrlLink', target: '_blank', href: this.props.taskBatch.presentSiteUrl },
                     ' ',
                     this.props.taskBatch.presentSiteUrl
                 );
