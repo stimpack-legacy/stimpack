@@ -45,17 +45,21 @@ export default class Attribute {
     }
 
     ruled(name) {
-        rules = {
+        var rules = {
             // One to Many
             "_id$": function(name) {
                 return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
             },
+            // One to Many
+            "^owner$": function(name) {
+                return "$table->integer('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
+            },            
             // Time columns
             "(time|date|_at)$": function(name) {
                 return "$table->timestamp('" + name + "');";
             },
             // Boolean
-            "^(has_|is_)": function(name) {
+            "^(has_|is_|got_)": function(name) {
                 return "$table->boolean('" + name + "');";
             },                        
         }

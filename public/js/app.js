@@ -61216,17 +61216,21 @@ var Attribute = function () {
     }, {
         key: "ruled",
         value: function ruled(name) {
-            rules = {
+            var rules = {
                 // One to Many
                 "_id$": function _id$(name) {
                     return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
+                },
+                // One to Many
+                "^owner$": function owner$(name) {
+                    return "$table->integer('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
                 },
                 // Time columns
                 "(time|date|_at)$": function timeDate_at$(name) {
                     return "$table->timestamp('" + name + "');";
                 },
                 // Boolean
-                "^(has_|is_)": function has_Is_(name) {
+                "^(has_|is_|got_)": function has_Is_Got_(name) {
                     return "$table->boolean('" + name + "');";
                 }
             };
