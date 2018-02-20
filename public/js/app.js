@@ -61291,19 +61291,6 @@ var CreateModelsTask = function (_BaseTask) {
     _createClass(CreateModelsTask, [{
         key: 'render',
         value: function render() {
-            var cardBody = "";
-            if (this.props.tasks.CreateModelsTask.enabled) {
-                cardBody = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card-body' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'form',
-                        null,
-                        this.renderModels()
-                    )
-                );
-            }
-
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'container' },
@@ -61324,7 +61311,15 @@ var CreateModelsTask = function (_BaseTask) {
                             )
                         )
                     ),
-                    cardBody
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-body' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'form',
+                            null,
+                            this.renderModels()
+                        )
+                    )
                 )
             );
         }
@@ -61340,11 +61335,16 @@ var CreateModelsTask = function (_BaseTask) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
             });
+        }
+    }, {
+        key: 'shouldCheckModel',
+        value: function shouldCheckModel(modelName) {
+            return this.props.tasks.CreateModelsTask.enabled && !this.props.tasks.CreateModelsTask.disabledModels.includes(modelName);
         }
     }, {
         key: 'disableModel',
@@ -61364,7 +61364,7 @@ var CreateModelsTask = function (_BaseTask) {
             return {
                 taskName: "CreateModelsTask",
                 enabled: true,
-                disabledModels: []
+                disabledModels: ["Car"]
             };
         }
     }]);

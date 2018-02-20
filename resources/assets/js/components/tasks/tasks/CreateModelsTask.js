@@ -7,15 +7,6 @@ import BaseTask from '../BaseTask'
 
 class CreateModelsTask extends BaseTask {
     render() {
-        var cardBody = "";
-        if(this.props.tasks.CreateModelsTask.enabled) {
-            cardBody =  <div className="card-body">                    
-                            <form>
-                                {this.renderModels()}
-                            </form>                       
-                        </div>
-        }
-
         return (
             <div className="container">                              
                 <div className="card">
@@ -25,7 +16,11 @@ class CreateModelsTask extends BaseTask {
                             <label htmlFor="CreateModelsTask-switch">Create Models</label>                    
                         </span>
                     </div>
-                    {cardBody}
+                    <div className="card-body">                    
+                        <form>
+                            {this.renderModels()}
+                        </form>                       
+                    </div>
                 </div>                
             </div>
         );
@@ -36,10 +31,14 @@ class CreateModelsTask extends BaseTask {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
-                        <input onChange={this.disableModel} checked key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
+                        <input onChange={this.disableModel} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
                     </label>
                 </div>);
         });
+    }
+
+    shouldCheckModel(modelName) {        
+        return this.props.tasks.CreateModelsTask.enabled && !this.props.tasks.CreateModelsTask.disabledModels.includes(modelName);
     }
 
     disableModel() {
@@ -56,7 +55,7 @@ class CreateModelsTask extends BaseTask {
         return {
             taskName: "CreateModelsTask",
             enabled: true,
-            disabledModels: []
+            disabledModels: ["Car"]
         }
     }    
 }
