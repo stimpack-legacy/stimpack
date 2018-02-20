@@ -61628,10 +61628,20 @@ var CreateEpicSplashPageTask = function (_BaseTask) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('form', null)
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.updateBackgroundImage.bind(this), type: 'text', className: 'form-control', id: 'usr', placeholder: 'bg-image-url' })
+                        )
                     )
                 )
             );
+        }
+    }, {
+        key: 'updateBackgroundImage',
+        value: function updateBackgroundImage(event) {
+            this.props.tasks.CreateEpicSplashPageTask.imageUrl = event.target.value;
+            this.props.updateTasks(this.props.tasks);
         }
     }], [{
         key: 'getDefaultParameters',

@@ -17,13 +17,18 @@ class CreateEpicSplashPageTask extends BaseTask {
                         </span>
                     </div>
                     <div className="card-body">                    
-                        <form>
-
-                        </form>                       
+                        <div className="form-group">                            
+                            <input onChange={this.updateBackgroundImage.bind(this)} type="text" className="form-control" id="usr" placeholder="bg-image-url" />
+                        </div>
                     </div>
                 </div>                
             </div>
         );
+    }
+
+    updateBackgroundImage(event) {
+        this.props.tasks.CreateEpicSplashPageTask.imageUrl = event.target.value
+        this.props.updateTasks(this.props.tasks);
     }
     
     static getDefaultParameters() {
