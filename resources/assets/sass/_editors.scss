@@ -1,9 +1,9 @@
 #pseudo-wrapper {
     font-size: 1rem; 
-    background-color: #141518;    
+    //background-color: #141518;    
     float: left;
     margin-right: 20px;
-    width: 35%
+    width: 35%;
 }
 
 #pseudo-editor {
@@ -16,7 +16,7 @@
 
 #php-wrapper {
     font-size: 1rem;
-    background-color: #141518;
+    //background-color: #141518;
     display: inline-block;
     width: 60%;    
 }
@@ -30,34 +30,49 @@
 
 .editor-tabs {
     list-style-type: none;    
-    padding: 0;
-    //overflow: hidden;
-    background-color: #141518;
-    min-height:32px;
+    padding: 0;    
+    min-height:24px;    
+    background-color: darken($semi-dark, 5%) !important; // This should be $semi-dark @brainmaniac?? !;
+    margin-bottom: 0px !important;    
+    font-size: 0.9rem;
+    line-height: 2;
+
 }
 
 ul {
     width: 100%;
     list-style-type: none;
-        
 }
 
-ul > * {
-    margin-right: 2px;
-    background-color: orange;
-    
-    
-}
+//ul > * {}
 
 .editor-tab {
+    margin-right: 5px;
+    //background-color: #141518;
+    background-color: darken($semi-dark, 5%)    ;
     float: left;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    border-color: darken(white, 70%);
+    min-width: 60px;
+}
+
+.editor-tab-active {
+    border-color: darken(white, 50%);
+    background-color: #141518;
+}
+
+.input-tab {
+    background-color: #141518;    
 }
 
 li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
     text-decoration: none;
 }
 

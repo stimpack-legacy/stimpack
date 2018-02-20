@@ -23,39 +23,29 @@ class CreateMigrationsTask extends BaseTask {
     render() {
         return (
             <div className="container">                              
-            <div className="card">
-                <div className="card-header">
-                    <span className="switch switch-sm">
-                        <input type="checkbox" className="switch" id="CreateMigrationsTask-switch" checked={this.props.tasks.CreateMigrationsTask.enabled} onChange={this.enableTask.bind(this)} />
-                        <label htmlFor="CreateMigrationsTask-switch">Create Migrations</label>                    
-                    </span>
-                </div>
-                <div className="card-body">                    
-                    <div id="pseudo-wrapper">
-                        <div>
-                            <ul className="editor-tabs">
-                                <li className="editor-tab"><a href="#">Input</a></li>                                
-                            </ul>
-                        </div>
-                        
-                        <div id="pseudo-editor" />
-                       
+                <div className="card">
+                    <div className="card-header">
+                        <span className="switch switch-sm">
+                            <input type="checkbox" className="switch" id="CreateMigrationsTask-switch" checked={this.props.tasks.CreateMigrationsTask.enabled} onChange={this.enableTask.bind(this)} />
+                            <label htmlFor="CreateMigrationsTask-switch">Create Migrations</label>                    
+                        </span>
                     </div>
-                    <div id="php-wrapper">
-                        <div>
+                    <div className="card-body">                    
+                        <div id="pseudo-wrapper">
                             <ul className="editor-tabs">
-                                {this.renderPhpTabs()}
+                                <li className="editor-tab input-tab"><a href="#">Input</a></li>                                
                             </ul>
+                            <div id="pseudo-editor" />                       
                         </div>
-
-                        <div id="php-editor" />
-                    </div>                                
-                    
-                    <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
-                    
-                </div>
-                
-            </div>                
+                        <div id="php-wrapper">
+                                <ul className="editor-tabs">
+                                    {this.renderPhpTabs()}
+                                </ul>
+                            <div id="php-editor" />
+                        </div>
+                        <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
+                    </div>                
+                </div>                
             </div>
         );
     }
@@ -72,13 +62,22 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     renderPhpTabs() {        
+        
         return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
+            var tabClass = "editor-tab " + this.getClassForActiveTab(model.model); 
             return (
-                <li key={model.table} className="editor-tab">
+                <li key={model.table} className={tabClass}>
                     <a onClick={this.clickTab.bind(this)} data-model={model.model} href="#">{model.model}</a>
                 </li>
             );
         });
+    }
+
+    getClassForActiveTab(modelName) {
+        if(modelName == "Car") {
+            return "editor-tab-active";
+        }
+        return "";        
     }
     
     clickTab(e) {
@@ -126,6 +125,7 @@ class CreateMigrationsTask extends BaseTask {
         }.bind(this));
 
         this.pseudo.getSession().on('change', function() {
+            console.log("hej!");
             var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);
             var pseudoCodeTransformer = new PseudoCodeTransformer();

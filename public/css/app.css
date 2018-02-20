@@ -3195,7 +3195,6 @@
 
 #pseudo-wrapper {
   font-size: 1rem;
-  background-color: #141518;
   float: left;
   margin-right: 20px;
   width: 35%;
@@ -3211,7 +3210,6 @@
 
 #php-wrapper {
   font-size: 1rem;
-  background-color: #141518;
   display: inline-block;
   width: 60%;
 }
@@ -3226,8 +3224,11 @@
 .editor-tabs {
   list-style-type: none;
   padding: 0;
-  background-color: #141518;
-  min-height: 32px;
+  min-height: 24px;
+  background-color: #262a31 !important;
+  margin-bottom: 0px !important;
+  font-size: 0.9rem;
+  line-height: 2;
 }
 
 ul {
@@ -3235,20 +3236,32 @@ ul {
   list-style-type: none;
 }
 
-ul > * {
-  margin-right: 2px;
-  background-color: orange;
+.editor-tab {
+  margin-right: 5px;
+  background-color: #262a31;
+  float: left;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-top: 1px solid;
+  border-color: #4d4c4c;
+  min-width: 60px;
 }
 
-.editor-tab {
-  float: left;
+.editor-tab-active {
+  border-color: #807f7f;
+  background-color: #141518;
+}
+
+.input-tab {
+  background-color: #141518;
 }
 
 li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
   text-decoration: none;
 }
 

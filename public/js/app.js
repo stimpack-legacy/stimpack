@@ -60683,19 +60683,15 @@ var CreateMigrationsTask = function (_BaseTask) {
                             'div',
                             { id: 'pseudo-wrapper' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                null,
+                                'ul',
+                                { className: 'editor-tabs' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'ul',
-                                    { className: 'editor-tabs' },
+                                    'li',
+                                    { className: 'editor-tab input-tab' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'li',
-                                        { className: 'editor-tab' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'a',
-                                            { href: '#' },
-                                            'Input'
-                                        )
+                                        'a',
+                                        { href: '#' },
+                                        'Input'
                                     )
                                 )
                             ),
@@ -60705,13 +60701,9 @@ var CreateMigrationsTask = function (_BaseTask) {
                             'div',
                             { id: 'php-wrapper' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                null,
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'ul',
-                                    { className: 'editor-tabs' },
-                                    this.renderPhpTabs()
-                                )
+                                'ul',
+                                { className: 'editor-tabs' },
+                                this.renderPhpTabs()
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'php-editor' })
                         ),
@@ -60743,9 +60735,10 @@ var CreateMigrationsTask = function (_BaseTask) {
             var _this2 = this;
 
             return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
+                var tabClass = "editor-tab " + _this2.getClassForActiveTab(model.model);
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
-                    { key: model.table, className: 'editor-tab' },
+                    { key: model.table, className: tabClass },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'a',
                         { onClick: _this2.clickTab.bind(_this2), 'data-model': model.model, href: '#' },
@@ -60753,6 +60746,14 @@ var CreateMigrationsTask = function (_BaseTask) {
                     )
                 );
             });
+        }
+    }, {
+        key: 'getClassForActiveTab',
+        value: function getClassForActiveTab(modelName) {
+            if (modelName == "Car") {
+                return "editor-tab-active";
+            }
+            return "";
         }
     }, {
         key: 'clickTab',
@@ -60803,6 +60804,7 @@ var CreateMigrationsTask = function (_BaseTask) {
             }.bind(this));
 
             this.pseudo.getSession().on('change', function () {
+                console.log("hej!");
                 var pseudoCode = this.pseudo.getSession().getValue();
                 this.updatePseudoCode(pseudoCode);
                 var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
