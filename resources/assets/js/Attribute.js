@@ -45,7 +45,20 @@ export default class Attribute {
     }
 
     ruled(name) {
-        var rules = {
+        var matchedRuleKey = Object.keys(this.rules()).find((rule) => (new RegExp(rule)).test(name));
+        if(typeof matchedRuleKey !== "undefined") {
+            return this.rules()[matchedRuleKey](name);
+        }
+
+        return false;
+    }
+
+    default(name) {
+        return "$table->string('" + name + "');"
+    }
+
+    rules() { 
+        return {
             // One to Many explicit
             "_id$": function(name) {
                 return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
@@ -60,19 +73,8 @@ export default class Attribute {
             },
             // Boolean
             "^(has_|is_|got_)": function(name) {
-                return "$table->boolean('" + name + "');";
-            },                        
-        }
-
-        var matchedRuleKey = Object.keys(rules).find((rule) => (new RegExp(rule)).test(name));
-        if(typeof matchedRuleKey !== "undefined") {
-            return rules[matchedRuleKey](name);
-        }
-
-        return false;
-    }
-
-    default(name) {
-        return "$table->string('" + name + "');"
+                return "$table->boolean('" + name + "')->default(false);";
+            },
+        };                        
     }
 }

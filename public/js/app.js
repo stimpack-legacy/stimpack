@@ -61216,7 +61216,24 @@ var Attribute = function () {
     }, {
         key: "ruled",
         value: function ruled(name) {
-            var rules = {
+            var matchedRuleKey = Object.keys(this.rules()).find(function (rule) {
+                return new RegExp(rule).test(name);
+            });
+            if (typeof matchedRuleKey !== "undefined") {
+                return this.rules()[matchedRuleKey](name);
+            }
+
+            return false;
+        }
+    }, {
+        key: "default",
+        value: function _default(name) {
+            return "$table->string('" + name + "');";
+        }
+    }, {
+        key: "rules",
+        value: function rules() {
+            return {
                 // One to Many explicit
                 "_id$": function _id$(name) {
                     return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
@@ -61231,23 +61248,9 @@ var Attribute = function () {
                 },
                 // Boolean
                 "^(has_|is_|got_)": function has_Is_Got_(name) {
-                    return "$table->boolean('" + name + "');";
+                    return "$table->boolean('" + name + "')->default(false);";
                 }
             };
-
-            var matchedRuleKey = Object.keys(rules).find(function (rule) {
-                return new RegExp(rule).test(name);
-            });
-            if (typeof matchedRuleKey !== "undefined") {
-                return rules[matchedRuleKey](name);
-            }
-
-            return false;
-        }
-    }, {
-        key: "default",
-        value: function _default(name) {
-            return "$table->string('" + name + "');";
         }
     }]);
 
