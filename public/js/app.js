@@ -61317,7 +61317,15 @@ var CreateModelsTask = function (_BaseTask) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'form',
                             null,
-                            this.renderModels()
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'table',
+                                { className: 'table table-sm table-dark table-sm-width' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'tbody',
+                                    null,
+                                    this.renderModels()
+                                )
+                            )
                         )
                     )
                 )
@@ -61330,13 +61338,21 @@ var CreateModelsTask = function (_BaseTask) {
 
             return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { key: model.model, className: 'form-check' },
+                    'tr',
+                    { key: model.model },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'label',
-                        { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
-                        model.model
+                        'td',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { key: model.model, className: 'form-check' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: 'form-check-label' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                                model.model
+                            )
+                        )
                     )
                 );
             });
@@ -61460,7 +61476,15 @@ var CreateControllersTask = function (_BaseTask) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'form',
                             null,
-                            this.renderModels()
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'table',
+                                { className: 'table table-sm table-dark table-sm-width' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'tbody',
+                                    null,
+                                    this.renderModels()
+                                )
+                            )
                         )
                     )
                 )
@@ -61473,13 +61497,21 @@ var CreateControllersTask = function (_BaseTask) {
 
             return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { key: model.model, className: 'form-check' },
+                    'tr',
+                    { key: model.model },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'label',
-                        { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
-                        model.model
+                        'td',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { key: model.model, className: 'form-check' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { className: 'form-check-label' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                                model.model
+                            )
+                        )
                     )
                 );
             });

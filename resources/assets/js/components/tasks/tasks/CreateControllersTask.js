@@ -18,8 +18,12 @@ class CreateControllersTask extends BaseTask {
                     </div>
                     <div className="card-body">                    
                         <form>
-                            {this.renderModels()}
-                        </form>                       
+                            <table className="table table-sm table-dark table-sm-width">
+                                <tbody>
+                                    {this.renderModels()}
+                                </tbody>
+                            </table>                       
+                        </form>
                     </div>
                 </div>                
             </div>
@@ -29,11 +33,15 @@ class CreateControllersTask extends BaseTask {
     renderModels() {        
         return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
             return (
-                <div key={model.model} className="form-check">
-                    <label className="form-check-label">
-                        <input onChange={this.disableModel.bind(this, model.model)} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
-                    </label>
-                </div>);
+                <tr key={model.model}>
+                    <td>
+                        <div key={model.model} className="form-check">
+                            <label className="form-check-label">
+                                <input onChange={this.disableModel.bind(this, model.model)} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
+                            </label>
+                        </div>
+                    </td>
+                </tr>);
         });
     }
 
