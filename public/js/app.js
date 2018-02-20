@@ -61335,7 +61335,7 @@ var CreateModelsTask = function (_BaseTask) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
@@ -61348,8 +61348,16 @@ var CreateModelsTask = function (_BaseTask) {
         }
     }, {
         key: 'disableModel',
-        value: function disableModel() {
-            // todo
+        value: function disableModel(modelName, event) {
+            if (this.props.tasks.CreateModelsTask.disabledModels.indexOf(modelName) === -1) {
+                this.props.tasks.CreateModelsTask.disabledModels.push(modelName);
+            } else {
+                this.props.tasks.CreateModelsTask.disabledModels = this.props.tasks.CreateModelsTask.disabledModels.filter(function (value) {
+                    return value != modelName;
+                });
+            }
+
+            this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'enableTask',

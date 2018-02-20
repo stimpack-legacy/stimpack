@@ -26,12 +26,12 @@ class CreateModelsTask extends BaseTask {
         );
     }
 
-    renderModels() {
+    renderModels() {        
         return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
-                        <input onChange={this.disableModel} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
+                        <input onChange={this.disableModel.bind(this, model.model)} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
                     </label>
                 </div>);
         });
@@ -41,8 +41,16 @@ class CreateModelsTask extends BaseTask {
         return this.props.tasks.CreateModelsTask.enabled && !this.props.tasks.CreateModelsTask.disabledModels.includes(modelName);
     }
 
-    disableModel() {
-        // todo
+    disableModel(modelName, event) {        
+        if(this.props.tasks.CreateModelsTask.disabledModels.indexOf(modelName) === -1) {
+            this.props.tasks.CreateModelsTask.disabledModels.push(modelName);
+        } else {
+            this.props.tasks.CreateModelsTask.disabledModels = this.props.tasks.CreateModelsTask.disabledModels.filter((value) => {
+                return value != modelName;
+            });
+        }
+        
+        this.props.updateTasks(this.props.tasks);
     }
 
     enableTask() {
