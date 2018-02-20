@@ -3209,15 +3209,6 @@
   position: relative;
 }
 
-#pseudo-help {
-  font-size: 1rem;
-  background-color: orange;
-  width: 100%;
-  height: 600px;
-  position: relative;
-  z-index: 100;
-}
-
 #php-wrapper {
   font-size: 1rem;
   background-color: #141518;
@@ -3239,8 +3230,14 @@
   min-height: 32px;
 }
 
+ul {
+  width: 100%;
+  list-style-type: none;
+}
+
 ul > * {
   margin-right: 2px;
+  background-color: orange;
 }
 
 .editor-tab {
@@ -3271,10 +3268,6 @@ li a:hover {
 
 .log-error {
   color: DarkOrange;
-}
-
-ul {
-  list-style-type: none;
 }
 
 /*!
