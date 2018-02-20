@@ -32,7 +32,7 @@ class CreateModelsTask extends BaseTask {
     }
 
     renderModels() {
-        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
+        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
@@ -55,7 +55,8 @@ class CreateModelsTask extends BaseTask {
     static getDefaultParameters() {
         return {
             taskName: "CreateModelsTask",
-            enabled: true
+            enabled: true,
+            disabledModels: []
         }
     }    
 }

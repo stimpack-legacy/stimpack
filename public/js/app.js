@@ -61333,7 +61333,7 @@ var CreateModelsTask = function (_BaseTask) {
         value: function renderModels() {
             var _this2 = this;
 
-            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
+            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map(function (model) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { key: model.model, className: 'form-check' },
@@ -61363,7 +61363,8 @@ var CreateModelsTask = function (_BaseTask) {
         value: function getDefaultParameters() {
             return {
                 taskName: "CreateModelsTask",
-                enabled: true
+                enabled: true,
+                disabledModels: []
             };
         }
     }]);
