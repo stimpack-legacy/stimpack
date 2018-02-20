@@ -9,19 +9,19 @@ export default class Attribute {
             this.overridden(name), 
             this.reserved(name),
             this.ruled(name),
-            "$table->string('" + name + "');"
+            this.default(name)
         ].find((filter) => filter);
     }
        
     overridden(name) {
         // Handle overridden line starting with $
         if(name.charAt(0) == "$") {
-            // Save for future reference
+            // Save for future reference?
             return name;
         }
 
         // Load previous override rules
-        var overrided = {};
+        var overrided = {}; 
         if(overrided.hasOwnProperty(name)) {
             return overrided[name];
         }
@@ -46,11 +46,11 @@ export default class Attribute {
 
     ruled(name) {
         var rules = {
-            // One to Many
+            // One to Many explicit
             "_id$": function(name) {
                 return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
             },
-            // One to Many
+            // One to Many implicit guess owner is user
             "^owner$": function(name) {
                 return "$table->integer('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
             },            
@@ -70,5 +70,9 @@ export default class Attribute {
         }
 
         return false;
+    }
+
+    default(name) {
+        return "$table->string('" + name + "');"
     }
 }

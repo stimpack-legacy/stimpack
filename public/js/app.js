@@ -61176,7 +61176,7 @@ var Attribute = function () {
     _createClass(Attribute, [{
         key: "defineMigrationStatement",
         value: function defineMigrationStatement(name) {
-            return [this.overridden(name), this.reserved(name), this.ruled(name), "$table->string('" + name + "');"].find(function (filter) {
+            return [this.overridden(name), this.reserved(name), this.ruled(name), this.default(name)].find(function (filter) {
                 return filter;
             });
         }
@@ -61185,7 +61185,7 @@ var Attribute = function () {
         value: function overridden(name) {
             // Handle overridden line starting with $
             if (name.charAt(0) == "$") {
-                // Save for future reference
+                // Save for future reference?
                 return name;
             }
 
@@ -61217,11 +61217,11 @@ var Attribute = function () {
         key: "ruled",
         value: function ruled(name) {
             var rules = {
-                // One to Many
+                // One to Many explicit
                 "_id$": function _id$(name) {
                     return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
                 },
-                // One to Many
+                // One to Many implicit guess owner is user
                 "^owner$": function owner$(name) {
                     return "$table->integer('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
                 },
@@ -61243,6 +61243,11 @@ var Attribute = function () {
             }
 
             return false;
+        }
+    }, {
+        key: "default",
+        value: function _default(name) {
+            return "$table->string('" + name + "');";
         }
     }]);
 
