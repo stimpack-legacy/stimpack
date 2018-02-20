@@ -11,6 +11,10 @@ export default class Template {
     }
 
     static migration(transformedModel) {
+        if(!transformedModel) {
+            return false;
+        }
+
         var body = migration;
         body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
         body = Template.replace(body, {"$TABLE-NAME$": transformedModel.table});        

@@ -158,7 +158,12 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     renderPhpCode(transformedPseudoCode) {
-        var migration = Template.migrations(transformedPseudoCode.all()).pop();
+        var activeModel = transformedPseudoCode.all().find((model) => {
+            return model.model == this.props.tasks.CreateMigrationsTask.activeTab;
+        });
+
+        var migration = Template.migration(activeModel); //Template.migration();
+
         if(!migration) {
             this.php.setValue("", 1);
             return;

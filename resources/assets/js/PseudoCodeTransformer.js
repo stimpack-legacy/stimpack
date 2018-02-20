@@ -57,8 +57,9 @@ export default class PseudoCodeTransformer {
         var activeSegment = segments.find((value) => {
             return value.includes(cursorIdentifier);
         })
-        activeSegment = activeSegment.replace(cursorIdentifier,'');
-        return activeSegment.substr(0, activeSegment.indexOf("\n"));
+        activeSegment = activeSegment.replace(cursorIdentifier,'');       
+        var activeModel = activeSegment.split("\n")[0];
+        return activeModel;
         
 
         

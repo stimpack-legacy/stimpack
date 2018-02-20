@@ -22329,6 +22329,10 @@ var Template = function () {
     }, {
         key: 'migration',
         value: function migration(transformedModel) {
+            if (!transformedModel) {
+                return false;
+            }
+
             var body = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
             body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
             body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
@@ -60837,7 +60841,14 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'renderPhpCode',
         value: function renderPhpCode(transformedPseudoCode) {
-            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all()).pop();
+            var _this3 = this;
+
+            var activeModel = transformedPseudoCode.all().find(function (model) {
+                return model.model == _this3.props.tasks.CreateMigrationsTask.activeTab;
+            });
+
+            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(activeModel); //Template.migration();
+
             if (!migration) {
                 this.php.setValue("", 1);
                 return;
@@ -60848,12 +60859,12 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'getMigrationForActiveTab',
         value: function getMigrationForActiveTab() {
-            var _this3 = this;
+            var _this4 = this;
 
             var migration = "";
             this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
-                console.log(_this3.props.tasks.CreateMigrationsTask.activeTab);
-                if (model.model == _this3.props.tasks.CreateMigrationsTask.activeTab) {
+                console.log(_this4.props.tasks.CreateMigrationsTask.activeTab);
+                if (model.model == _this4.props.tasks.CreateMigrationsTask.activeTab) {
                     migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(model);
                 }
             });
@@ -60969,7 +60980,8 @@ var PseudoCodeTransformer = function () {
                 return value.includes(cursorIdentifier);
             });
             activeSegment = activeSegment.replace(cursorIdentifier, '');
-            return activeSegment.substr(0, activeSegment.indexOf("\n"));
+            var activeModel = activeSegment.split("\n")[0];
+            return activeModel;
         }
     }, {
         key: 'testActiveChunk',
