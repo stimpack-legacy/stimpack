@@ -45,31 +45,24 @@ export default class Attribute {
     }
 
     ruled(name) {
-        var rules = [
-            {
-                name: "*_id",
-                test: function(name) {
-                    return (new RegExp("_id$")).test(name);
-                },
-                transform: function(name) {
-                    return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
-                }
+        rules = {
+            // One to Many
+            "_id$": function(name) {
+                return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
             },
-            {
-                name: "many_to_many",
-                test: function(name) {
-                    return (new RegExp("(fluent|proficient|proficiency)[^.]*(chinese|mandarin|cantonese)")).test(name);
-                    // Above will match "fluent_chinese" - but how grab parts from the regex?
-                },
-                transform: function(name) {
-                    return "many to many is not implemented yet";
-                }
-            }
-        ]
+            // Time columns
+            "(time|date|_at)$": function(name) {
+                return "$table->timestamp('" + name + "');";
+            },
+            // Boolean
+            "^(has_|is_)": function(name) {
+                return "$table->boolean('" + name + "');";
+            },                        
+        }
 
-        var matchedRule = rules.find((rule) => rule.test(name));
-        if(typeof matchedRule !== "undefined") {
-            return matchedRule.transform(name);
+        var matchedRuleKey = Object.keys(rules).find((rule) => (new RegExp(rule)).test(name));
+        if(typeof matchedRuleKey !== "undefined") {
+            return rules[matchedRuleKey](name);
         }
 
         return false;

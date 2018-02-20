@@ -61216,30 +61216,26 @@ var Attribute = function () {
     }, {
         key: "ruled",
         value: function ruled(name) {
-            var rules = [{
-                name: "*_id",
-                test: function test(name) {
-                    return new RegExp("_id$").test(name);
-                },
-                transform: function transform(name) {
+            rules = {
+                // One to Many
+                "_id$": function _id$(name) {
                     return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
-                }
-            }, {
-                name: "many_to_many",
-                test: function test(name) {
-                    return new RegExp("(fluent|proficient|proficiency)[^.]*(chinese|mandarin|cantonese)").test(name);
-                    // Above will match "fluent_chinese" - but how grab parts from the regex?
                 },
-                transform: function transform(name) {
-                    return "many to many is not implemented yet";
+                // Time columns
+                "(time|date|_at)$": function timeDate_at$(name) {
+                    return "$table->timestamp('" + name + "');";
+                },
+                // Boolean
+                "^(has_|is_)": function has_Is_(name) {
+                    return "$table->boolean('" + name + "');";
                 }
-            }];
+            };
 
-            var matchedRule = rules.find(function (rule) {
-                return rule.test(name);
+            var matchedRuleKey = Object.keys(rules).find(function (rule) {
+                return new RegExp(rule).test(name);
             });
-            if (typeof matchedRule !== "undefined") {
-                return matchedRule.transform(name);
+            if (typeof matchedRuleKey !== "undefined") {
+                return rules[matchedRuleKey](name);
             }
 
             return false;
