@@ -74,7 +74,7 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     getClassForActiveTab(modelName) {
-        if(modelName == "Car") {
+        if(modelName == this.props.tasks.CreateMigrationsTask.activeTab) {
             return "editor-tab-active";
         }
         return "";        
@@ -92,7 +92,8 @@ class CreateMigrationsTask extends BaseTask {
         this.props.updateTasks(this.props.tasks);        
     }
 
-    updateTransformedPseudoCode(transformedPseudoCode) {        
+    updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
+        this.props.tasks.CreateMigrationsTask.activeTab = activeTab;        
         this.props.tasks.CreateMigrationsTask.transformedPseudoCode = transformedPseudoCode;
         this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(transformedPseudoCode.all());
         this.props.updateTasks(this.props.tasks);        
@@ -124,13 +125,13 @@ class CreateMigrationsTask extends BaseTask {
             }            
         }.bind(this));
 
-        this.pseudo.getSession().on('change', function() {
-            console.log("hej!");
+        this.pseudo.getSession().on('change', function() {            
             var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);
             var pseudoCodeTransformer = new PseudoCodeTransformer();
             pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
-                this.updateTransformedPseudoCode(transformedPseudoCode);                                
+                var activeTab = pseudoCodeTransformer.activeTab(pseudoCode, this.pseudo.getCursorPosition());
+                this.updateTransformedPseudoCode(transformedPseudoCode, activeTab);                                
                 this.renderPhpCode(transformedPseudoCode);                
             }.bind(this));
         }.bind(this));

@@ -60750,7 +60750,7 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'getClassForActiveTab',
         value: function getClassForActiveTab(modelName) {
-            if (modelName == "Car") {
+            if (modelName == this.props.tasks.CreateMigrationsTask.activeTab) {
                 return "editor-tab-active";
             }
             return "";
@@ -60770,7 +60770,8 @@ var CreateMigrationsTask = function (_BaseTask) {
         }
     }, {
         key: 'updateTransformedPseudoCode',
-        value: function updateTransformedPseudoCode(transformedPseudoCode) {
+        value: function updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
+            this.props.tasks.CreateMigrationsTask.activeTab = activeTab;
             this.props.tasks.CreateMigrationsTask.transformedPseudoCode = transformedPseudoCode;
             this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all());
             this.props.updateTasks(this.props.tasks);
@@ -60804,12 +60805,12 @@ var CreateMigrationsTask = function (_BaseTask) {
             }.bind(this));
 
             this.pseudo.getSession().on('change', function () {
-                console.log("hej!");
                 var pseudoCode = this.pseudo.getSession().getValue();
                 this.updatePseudoCode(pseudoCode);
                 var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
                 pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
-                    this.updateTransformedPseudoCode(transformedPseudoCode);
+                    var activeTab = pseudoCodeTransformer.activeTab(pseudoCode, this.pseudo.getCursorPosition());
+                    this.updateTransformedPseudoCode(transformedPseudoCode, activeTab);
                     this.renderPhpCode(transformedPseudoCode);
                 }.bind(this));
             }.bind(this));
@@ -60955,6 +60956,45 @@ var PseudoCodeTransformer = function () {
 
             // The segment was a Model with present cache for plural.
             this.pushTransformedModel(type, rows, heading, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get(heading, "plural"));
+        }
+    }, {
+        key: 'activeTab',
+        value: function activeTab(pseudoCode, cursorPosition) {
+            var position = this.getPosition(pseudoCode, "\n", cursorPosition.row) + cursorPosition.column;
+            var cursorIdentifier = "CURSOR_POSITION";
+            var pseudoCode = this.insertAt(pseudoCode, position + 1, cursorIdentifier);
+            var cleanedCode = this.prepare(pseudoCode);
+            var segments = this.segment(cleanedCode);
+            var activeSegment = segments.find(function (value) {
+                return value.includes(cursorIdentifier);
+            });
+            activeSegment = activeSegment.replace(cursorIdentifier, '');
+            return activeSegment.substr(0, activeSegment.indexOf("\n"));
+        }
+    }, {
+        key: 'testActiveChunk',
+        value: function testActiveChunk() {
+            var short = 'Friend\nname\nskill\n';
+
+            var long = 'Friend\nname\nskill\n\nEnemy\nname\nskill\n';
+
+            //this.activeChunk(short,{row: 2, column: 3});
+
+            //this.activeChunk(long,{row: 2, column: 3});
+
+            //this.activeChunk(long,{row: 2, column: 0});
+
+            this.activeChunk("", { row: 0, column: 0 });
+        }
+    }, {
+        key: 'getPosition',
+        value: function getPosition(string, subString, index) {
+            return string.split(subString, index).join(subString).length;
+        }
+    }, {
+        key: 'insertAt',
+        value: function insertAt(string, index, stringToInsert) {
+            return string.substr(0, index) + stringToInsert + string.substr(index);
         }
 
         // Return an array for instance ["car", "user"]]

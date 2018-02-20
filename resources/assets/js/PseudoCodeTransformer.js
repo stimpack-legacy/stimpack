@@ -48,6 +48,56 @@ export default class PseudoCodeTransformer {
         
     }
 
+    activeTab(pseudoCode, cursorPosition) {
+        var position = this.getPosition(pseudoCode, "\n", cursorPosition.row) + cursorPosition.column; 
+        var cursorIdentifier = "CURSOR_POSITION";
+        var pseudoCode = this.insertAt(pseudoCode, position+1, cursorIdentifier);
+        var cleanedCode = this.prepare(pseudoCode);
+        var segments = this.segment(cleanedCode);
+        var activeSegment = segments.find((value) => {
+            return value.includes(cursorIdentifier);
+        })
+        activeSegment = activeSegment.replace(cursorIdentifier,'');
+        return activeSegment.substr(0, activeSegment.indexOf("\n"));
+        
+
+        
+    }
+
+    testActiveChunk() {
+var short = 
+`Friend
+name
+skill
+`;
+
+var long = 
+`Friend
+name
+skill
+
+Enemy
+name
+skill
+`;
+
+        //this.activeChunk(short,{row: 2, column: 3});
+
+        //this.activeChunk(long,{row: 2, column: 3});
+
+        //this.activeChunk(long,{row: 2, column: 0});
+
+        this.activeChunk("",{row: 0, column: 0});
+    }
+
+    getPosition(string, subString, index) {
+        return string.split(subString, index).join(subString).length;
+    }
+
+    insertAt(string, index, stringToInsert) { 
+        return string.substr(0, index) + stringToInsert + string.substr(index);
+    }
+
     // Return an array for instance ["car", "user"]]
     manyToManyDefinition(heading) {
         var tables = this.transformedPseudoCode.map((item) => {
