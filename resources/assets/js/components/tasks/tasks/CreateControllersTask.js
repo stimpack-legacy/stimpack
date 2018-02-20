@@ -18,27 +18,39 @@ class CreateControllersTask extends BaseTask {
                     </div>
                     <div className="card-body">                    
                         <form>
-                                {this.renderControllers()}
-                            </form>                       
+                            {this.renderModels()}
+                        </form>                       
                     </div>
                 </div>                
             </div>
         );
     }
 
-    renderControllers() {
+    renderModels() {        
         return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
             return (
                 <div key={model.model} className="form-check">
                     <label className="form-check-label">
-                        <input onChange={this.disableModel} checked key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
+                        <input onChange={this.disableModel.bind(this, model.model)} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
                     </label>
                 </div>);
         });
     }
 
-    disableModel() {
-        // todo
+    shouldCheckModel(modelName) {        
+        return this.props.tasks.CreateControllersTask.enabled && !this.props.tasks.CreateControllersTask.disabledModels.includes(modelName);
+    }
+
+    disableModel(modelName, event) {        
+        if(this.props.tasks.CreateControllersTask.disabledModels.indexOf(modelName) === -1) {
+            this.props.tasks.CreateControllersTask.disabledModels.push(modelName);
+        } else {
+            this.props.tasks.CreateControllersTask.disabledModels = this.props.tasks.CreateControllersTask.disabledModels.filter((value) => {
+                return value != modelName;
+            });
+        }
+        
+        this.props.updateTasks(this.props.tasks);
     }
 
     enableTask() {
@@ -50,7 +62,8 @@ class CreateControllersTask extends BaseTask {
     static getDefaultParameters() {
         return {
             taskName: "CreateControllersTask",
-            enabled: true
+            enabled: true,
+            disabledModels: []
         }
     }    
 }

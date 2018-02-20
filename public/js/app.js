@@ -61372,7 +61372,7 @@ var CreateModelsTask = function (_BaseTask) {
             return {
                 taskName: "CreateModelsTask",
                 enabled: true,
-                disabledModels: ["Car"]
+                disabledModels: []
             };
         }
     }]);
@@ -61460,15 +61460,15 @@ var CreateControllersTask = function (_BaseTask) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'form',
                             null,
-                            this.renderControllers()
+                            this.renderModels()
                         )
                     )
                 )
             );
         }
     }, {
-        key: 'renderControllers',
-        value: function renderControllers() {
+        key: 'renderModels',
+        value: function renderModels() {
             var _this2 = this;
 
             return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map(function (model) {
@@ -61478,16 +61478,29 @@ var CreateControllersTask = function (_BaseTask) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'label',
                         { className: 'form-check-label' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel, checked: true, key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
                         model.model
                     )
                 );
             });
         }
     }, {
+        key: 'shouldCheckModel',
+        value: function shouldCheckModel(modelName) {
+            return this.props.tasks.CreateControllersTask.enabled && !this.props.tasks.CreateControllersTask.disabledModels.includes(modelName);
+        }
+    }, {
         key: 'disableModel',
-        value: function disableModel() {
-            // todo
+        value: function disableModel(modelName, event) {
+            if (this.props.tasks.CreateControllersTask.disabledModels.indexOf(modelName) === -1) {
+                this.props.tasks.CreateControllersTask.disabledModels.push(modelName);
+            } else {
+                this.props.tasks.CreateControllersTask.disabledModels = this.props.tasks.CreateControllersTask.disabledModels.filter(function (value) {
+                    return value != modelName;
+                });
+            }
+
+            this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'enableTask',
@@ -61501,7 +61514,8 @@ var CreateControllersTask = function (_BaseTask) {
         value: function getDefaultParameters() {
             return {
                 taskName: "CreateControllersTask",
-                enabled: true
+                enabled: true,
+                disabledModels: []
             };
         }
     }]);

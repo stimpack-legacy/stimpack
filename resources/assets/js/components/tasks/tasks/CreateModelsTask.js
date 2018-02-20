@@ -63,7 +63,7 @@ class CreateModelsTask extends BaseTask {
         return {
             taskName: "CreateModelsTask",
             enabled: true,
-            disabledModels: ["Car"]
+            disabledModels: []
         }
     }    
 }
