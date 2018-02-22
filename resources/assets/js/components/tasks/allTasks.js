@@ -9,7 +9,7 @@ export const allTasks = [
     SetTargetProjectTask,
     CreateDatabaseTask,
     CreateMigrationsTask,
-    //CreateModelsTask,
-    //CreateControllersTask,
-    //CreateEpicSplashPageTask
+    CreateModelsTask,
+    CreateControllersTask,
+    CreateEpicSplashPageTask
 ]
