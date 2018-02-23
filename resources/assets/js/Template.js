@@ -28,8 +28,14 @@ export default class Template {
         }
     }
 
-    static model() {
-        return Template.replace(model, {"Model": "Monkey"});
+    static model(transformedModel) {
+        if(!transformedModel) {
+            return false;
+        }        
+        return {
+            body: model,
+            table: transformedModel.table
+        }
     }
     
     static replace(template, replacementPairs) {        

@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PseudoCodeTransformer from '../../../PseudoCodeTransformer';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTasks} from '../../../actions/index'
+import {updateTasks} from '../../../actions/index';
+import Template from './../../../Template';
 import BaseTask from '../BaseTask'
 
 class CreateModelsTask extends BaseTask {
+    componentDidMount() {
+        this.setup();
+    }
+
+    test() {
+        var pseudoCodeTransformer = new PseudoCodeTransformer();        
+        pseudoCodeTransformer.transform("", function(phpCode) {
+            console.assert(phpCode == "", {"message": "failed empty string"});                
+        }.bind(this));                        
+    }
+
     render() {
         return (
             <div className="container">                              
@@ -17,68 +31,111 @@ class CreateModelsTask extends BaseTask {
                         </span>
                     </div>
                     <div className="card-body">                    
-                        <form>
-                            <table className="table table-sm table-dark table-sm-width">
-                                <tbody>
-                                    {this.renderModels()}
-                                </tbody>
-                            </table>                       
-                        </form>
-                    </div>
+                        <div id="php-wrapper">
+                                <ul className="editor-tabs">
+                                    {this.renderPhpTabs()}
+                                </ul>
+                            <div id="models-editor" />
+                        </div>
+                    </div>                
                 </div>                
             </div>
         );
     }
 
-    renderModels() {        
-        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
+    makeAuth() {        
+        this.pseudo.getSession().insert({
+           row: this.pseudo.getSession().getLength(),
+           column: 0
+        }, "\n" + Template.makeAuthPseudoCode());
+    }
+
+    toggleAutoIdAndTimestamps() {
+        console.log("Sure!");
+    }
+
+    renderPhpTabs() {        
+        
+        return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map((model) => {
+            var tabClass = "editor-tab " + this.getClassForActiveTab(model.model); 
             return (
-                <tr key={model.model}>
-                    <td>
-                        <div key={model.model} className="form-check">
-                            <label className="form-check-label">
-                                <input onChange={this.disableModel.bind(this, model.model)} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
-                            </label>
-                        </div>
-                    </td>
-                </tr>);
+                <li key={model.table} className={tabClass}>
+                    <a onClick={this.clickTab.bind(this)} data-model={model.model} href="#">{model.model}</a>
+                </li>
+            );
         });
     }
 
-    shouldCheckModel(modelName) {        
-        return this.props.tasks.CreateModelsTask.enabled && !this.props.tasks.CreateModelsTask.disabledModels.includes(modelName);
-    }
-
-    disableModel(modelName, event) {        
-        if(this.props.tasks.CreateModelsTask.disabledModels.indexOf(modelName) === -1) {
-            this.props.tasks.CreateModelsTask.disabledModels.push(modelName);
-        } else {
-            this.props.tasks.CreateModelsTask.disabledModels = this.props.tasks.CreateModelsTask.disabledModels.filter((value) => {
-                return value != modelName;
-            });
+    getClassForActiveTab(modelName) {
+        if(modelName == this.props.tasks.SetObjectModelTask.activeTab) {
+            return "editor-tab-active";
         }
-        
-        this.props.updateTasks(this.props.tasks);
-    }
-
-    enableTask() {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1
-        this.props.updateTasks(updatedTasks);
+        return "";        
     }
     
+    clickTab(e) {
+        e.preventDefault();
+        this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+        this.props.updateTasks(this.props.tasks);        
+    }
+
+    setup() {
+        this.php = ace.edit("models-editor");
+        this.php.$blockScrolling = Infinity;
+        this.php.setTheme("ace/theme/monokai");
+        this.php.getSession().setMode({
+            path: "ace/mode/php",
+            inline: true
+        });
+        this.php.setValue(Template.phpPlaceholder(), 0);
+        
+        this.php.setOptions({
+            readOnly: true,
+            highlightActiveLine: false,
+            highlightGutterLine: false
+        });        
+        this.php.renderer.$cursorLayer.element.style.opacity=0;        
+
+        this.php.setShowPrintMargin(false);
+        this.php.renderer.setShowGutter(false);        
+
+    }
+
+    renderPhpCode() {
+        var activeModel = this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find((model) => {
+            return model.model == this.props.tasks.SetObjectModelTask.activeTab;
+        });
+
+        var migration = Template.model(activeModel); //Template.migration();
+
+        if(!migration) {
+            this.php.setValue("", 1);
+            return;
+        }
+        this.php.setValue(migration.body, 1);
+    }
+
     static getDefaultParameters() {
         return {
             taskName: "CreateModelsTask",
             enabled: true,
-            disabledModels: []
+            pseudoCode: "",
+            transformedPseudoCode: new PseudoCodeTransformer(),
+            migrations: [],
+            activeTab: null
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.props.tasks != nextProps.tasks)
+            this.renderPhpCode();
     }    
+    
 }
 
 function mapStateToProps(state) {
     return {
-        tasks: state.tasks 
+        tasks: state.tasks        
     };
 }
 

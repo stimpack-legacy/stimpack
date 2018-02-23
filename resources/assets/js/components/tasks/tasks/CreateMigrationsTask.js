@@ -35,9 +35,8 @@ class CreateMigrationsTask extends BaseTask {
                                 <ul className="editor-tabs">
                                     {this.renderPhpTabs()}
                                 </ul>
-                            <div id="php-editor" />
+                            <div id="migrations-editor" />
                         </div>
-                        <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
                     </div>                
                 </div>                
             </div>
@@ -51,13 +50,8 @@ class CreateMigrationsTask extends BaseTask {
         }, "\n" + Template.makeAuthPseudoCode());
     }
 
-    toggleAutoIdAndTimestamps() {
-        console.log("Sure!");
-    }
-
-    renderPhpTabs() {        
-        
-        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
+    renderPhpTabs() {
+        return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map((model) => {
             var tabClass = "editor-tab " + this.getClassForActiveTab(model.model); 
             return (
                 <li key={model.table} className={tabClass}>
@@ -68,7 +62,7 @@ class CreateMigrationsTask extends BaseTask {
     }
 
     getClassForActiveTab(modelName) {
-        if(modelName == this.props.tasks.CreateMigrationsTask.activeTab) {
+        if(modelName == this.props.tasks.SetObjectModelTask.activeTab) {
             return "editor-tab-active";
         }
         return "";        
@@ -76,61 +70,12 @@ class CreateMigrationsTask extends BaseTask {
     
     clickTab(e) {
         e.preventDefault();
-        this.props.tasks.CreateMigrationsTask.activeTab = e.target.getAttribute("data-model");
-        this.props.updateTasks(this.props.tasks);        
-    }
-
-
-    updatePseudoCode(pseudoCode) {
-        this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
-        this.props.updateTasks(this.props.tasks);        
-    }
-
-    updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
-        this.props.tasks.CreateMigrationsTask.activeTab = activeTab;        
-        this.props.tasks.CreateMigrationsTask.transformedPseudoCode = transformedPseudoCode;
-        this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(transformedPseudoCode.all());
+        this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
         this.props.updateTasks(this.props.tasks);        
     }
 
     setup() {
-        this.pseudo = ace.edit("pseudo-editor");
-        this.pseudo.$blockScrolling = Infinity;
-        this.pseudo.setTheme("ace/theme/monokai");
-        this.pseudo.getSession().setMode({
-            path: "ace/mode/php",
-            inline: true
-        });
-
-        this.pseudo.setShowPrintMargin(false);
-        this.pseudo.renderer.setShowGutter(false);
-        
-        this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
-
-        this.pseudo.on("focus", function() {
-            if(this.pseudo.getSession().getValue() == Template.pseudoPlaceholder()) {                
-                this.pseudo.setValue("", 1);
-            }            
-        }.bind(this));
-        
-        this.pseudo.on("blur", function() {
-            if(this.pseudo.getSession().getValue() == "") {                
-                this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
-            }            
-        }.bind(this));
-
-        this.pseudo.getSession().on('change', function() {            
-            var pseudoCode = this.pseudo.getSession().getValue();            
-            this.updatePseudoCode(pseudoCode);
-            var pseudoCodeTransformer = new PseudoCodeTransformer();
-            pseudoCodeTransformer.transform(pseudoCode, function(transformedPseudoCode) {
-                var activeTab = pseudoCodeTransformer.activeTab(pseudoCode, this.pseudo.getCursorPosition());
-                this.updateTransformedPseudoCode(transformedPseudoCode, activeTab);                                
-                this.renderPhpCode(transformedPseudoCode);                
-            }.bind(this));
-        }.bind(this));
-        
-        this.php = ace.edit("php-editor");
+        this.php = ace.edit("migrations-editor");
         this.php.$blockScrolling = Infinity;
         this.php.setTheme("ace/theme/monokai");
         this.php.getSession().setMode({
@@ -151,9 +96,9 @@ class CreateMigrationsTask extends BaseTask {
 
     }
 
-    renderPhpCode(transformedPseudoCode) {
-        var activeModel = transformedPseudoCode.all().find((model) => {
-            return model.model == this.props.tasks.CreateMigrationsTask.activeTab;
+    renderPhpCode() {
+        var activeModel = this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find((model) => {
+            return model.model == this.props.tasks.SetObjectModelTask.activeTab;
         });
 
         var migration = Template.migration(activeModel); //Template.migration();
@@ -163,14 +108,13 @@ class CreateMigrationsTask extends BaseTask {
             return;
         }
         this.php.setValue(migration.body, 1);
-        //this.php.setValue(this.getMigrationForActiveTab(), 1);
     }
 
     getMigrationForActiveTab() {
         var migration = "";
-        this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map((model) => {
-            console.log(this.props.tasks.CreateMigrationsTask.activeTab);
-            if(model.model == this.props.tasks.CreateMigrationsTask.activeTab) {
+        this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map((model) => {
+            console.log(this.props.tasks.SetObjectModelTask.activeTab);
+            if(model.model == this.props.tasks.SetObjectModelTask.activeTab) {
                 migration = Template.migration(model);                
             }
         });
@@ -187,7 +131,11 @@ class CreateMigrationsTask extends BaseTask {
             activeTab: null
         }
     }
-    
+
+    componentWillReceiveProps(nextProps){
+        if(this.props.tasks != nextProps.tasks)
+            this.renderPhpCode();
+    }    
 }
 
 function mapStateToProps(state) {

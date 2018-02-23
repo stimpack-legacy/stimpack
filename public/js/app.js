@@ -22348,8 +22348,14 @@ var Template = function () {
         }
     }, {
         key: 'model',
-        value: function model() {
-            return Template.replace(__WEBPACK_IMPORTED_MODULE_1__templates_model__["a" /* default */], { "Model": "Monkey" });
+        value: function model(transformedModel) {
+            if (!transformedModel) {
+                return false;
+            }
+            return {
+                body: __WEBPACK_IMPORTED_MODULE_1__templates_model__["a" /* default */],
+                table: transformedModel.table
+            };
         }
     }, {
         key: 'replace',
@@ -60693,12 +60699,7 @@ var CreateMigrationsTask = function (_BaseTask) {
                                 { className: 'editor-tabs' },
                                 this.renderPhpTabs()
                             ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'php-editor' })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'button',
-                            { onClick: this.makeAuth.bind(this), className: 'btn btn-default btn-cool' },
-                            'make:auth'
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'migrations-editor' })
                         )
                     )
                 )
@@ -60713,16 +60714,11 @@ var CreateMigrationsTask = function (_BaseTask) {
             }, "\n" + __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].makeAuthPseudoCode());
         }
     }, {
-        key: 'toggleAutoIdAndTimestamps',
-        value: function toggleAutoIdAndTimestamps() {
-            console.log("Sure!");
-        }
-    }, {
         key: 'renderPhpTabs',
         value: function renderPhpTabs() {
             var _this2 = this;
 
-            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
+            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
                 var tabClass = "editor-tab " + _this2.getClassForActiveTab(model.model);
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
@@ -60738,7 +60734,7 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'getClassForActiveTab',
         value: function getClassForActiveTab(modelName) {
-            if (modelName == this.props.tasks.CreateMigrationsTask.activeTab) {
+            if (modelName == this.props.tasks.SetObjectModelTask.activeTab) {
                 return "editor-tab-active";
             }
             return "";
@@ -60747,63 +60743,13 @@ var CreateMigrationsTask = function (_BaseTask) {
         key: 'clickTab',
         value: function clickTab(e) {
             e.preventDefault();
-            this.props.tasks.CreateMigrationsTask.activeTab = e.target.getAttribute("data-model");
-            this.props.updateTasks(this.props.tasks);
-        }
-    }, {
-        key: 'updatePseudoCode',
-        value: function updatePseudoCode(pseudoCode) {
-            this.props.tasks.CreateMigrationsTask.pseudoCode = pseudoCode;
-            this.props.updateTasks(this.props.tasks);
-        }
-    }, {
-        key: 'updateTransformedPseudoCode',
-        value: function updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
-            this.props.tasks.CreateMigrationsTask.activeTab = activeTab;
-            this.props.tasks.CreateMigrationsTask.transformedPseudoCode = transformedPseudoCode;
-            this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all());
+            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
             this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'setup',
         value: function setup() {
-            this.pseudo = ace.edit("pseudo-editor");
-            this.pseudo.$blockScrolling = Infinity;
-            this.pseudo.setTheme("ace/theme/monokai");
-            this.pseudo.getSession().setMode({
-                path: "ace/mode/php",
-                inline: true
-            });
-
-            this.pseudo.setShowPrintMargin(false);
-            this.pseudo.renderer.setShowGutter(false);
-
-            this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
-
-            this.pseudo.on("focus", function () {
-                if (this.pseudo.getSession().getValue() == __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder()) {
-                    this.pseudo.setValue("", 1);
-                }
-            }.bind(this));
-
-            this.pseudo.on("blur", function () {
-                if (this.pseudo.getSession().getValue() == "") {
-                    this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
-                }
-            }.bind(this));
-
-            this.pseudo.getSession().on('change', function () {
-                var pseudoCode = this.pseudo.getSession().getValue();
-                this.updatePseudoCode(pseudoCode);
-                var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
-                pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
-                    var activeTab = pseudoCodeTransformer.activeTab(pseudoCode, this.pseudo.getCursorPosition());
-                    this.updateTransformedPseudoCode(transformedPseudoCode, activeTab);
-                    this.renderPhpCode(transformedPseudoCode);
-                }.bind(this));
-            }.bind(this));
-
-            this.php = ace.edit("php-editor");
+            this.php = ace.edit("migrations-editor");
             this.php.$blockScrolling = Infinity;
             this.php.setTheme("ace/theme/monokai");
             this.php.getSession().setMode({
@@ -60824,11 +60770,11 @@ var CreateMigrationsTask = function (_BaseTask) {
         }
     }, {
         key: 'renderPhpCode',
-        value: function renderPhpCode(transformedPseudoCode) {
+        value: function renderPhpCode() {
             var _this3 = this;
 
-            var activeModel = transformedPseudoCode.all().find(function (model) {
-                return model.model == _this3.props.tasks.CreateMigrationsTask.activeTab;
+            var activeModel = this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find(function (model) {
+                return model.model == _this3.props.tasks.SetObjectModelTask.activeTab;
             });
 
             var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(activeModel); //Template.migration();
@@ -60838,7 +60784,6 @@ var CreateMigrationsTask = function (_BaseTask) {
                 return;
             }
             this.php.setValue(migration.body, 1);
-            //this.php.setValue(this.getMigrationForActiveTab(), 1);
         }
     }, {
         key: 'getMigrationForActiveTab',
@@ -60846,13 +60791,18 @@ var CreateMigrationsTask = function (_BaseTask) {
             var _this4 = this;
 
             var migration = "";
-            this.props.tasks.CreateMigrationsTask.transformedPseudoCode.all().map(function (model) {
-                console.log(_this4.props.tasks.CreateMigrationsTask.activeTab);
-                if (model.model == _this4.props.tasks.CreateMigrationsTask.activeTab) {
+            this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
+                console.log(_this4.props.tasks.SetObjectModelTask.activeTab);
+                if (model.model == _this4.props.tasks.SetObjectModelTask.activeTab) {
                     migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(model);
                 }
             });
             return migration;
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.tasks != nextProps.tasks) this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
@@ -61306,10 +61256,12 @@ var Attribute = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__BaseTask__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Template__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__BaseTask__ = __webpack_require__(25);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61317,6 +61269,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -61335,6 +61290,19 @@ var CreateModelsTask = function (_BaseTask) {
     }
 
     _createClass(CreateModelsTask, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.setup();
+        }
+    }, {
+        key: 'test',
+        value: function test() {
+            var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
+            pseudoCodeTransformer.transform("", function (phpCode) {
+                console.assert(phpCode == "", { "message": "failed empty string" });
+            }.bind(this));
+        }
+    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -61361,72 +61329,108 @@ var CreateModelsTask = function (_BaseTask) {
                         'div',
                         { className: 'card-body' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'form',
-                            null,
+                            'div',
+                            { id: 'php-wrapper' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'table',
-                                { className: 'table table-sm table-dark table-sm-width' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'tbody',
-                                    null,
-                                    this.renderModels()
-                                )
-                            )
+                                'ul',
+                                { className: 'editor-tabs' },
+                                this.renderPhpTabs()
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'models-editor' })
                         )
                     )
                 )
             );
         }
     }, {
-        key: 'renderModels',
-        value: function renderModels() {
+        key: 'makeAuth',
+        value: function makeAuth() {
+            this.pseudo.getSession().insert({
+                row: this.pseudo.getSession().getLength(),
+                column: 0
+            }, "\n" + __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].makeAuthPseudoCode());
+        }
+    }, {
+        key: 'toggleAutoIdAndTimestamps',
+        value: function toggleAutoIdAndTimestamps() {
+            console.log("Sure!");
+        }
+    }, {
+        key: 'renderPhpTabs',
+        value: function renderPhpTabs() {
             var _this2 = this;
 
-            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map(function (model) {
+            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
+                var tabClass = "editor-tab " + _this2.getClassForActiveTab(model.model);
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'tr',
-                    { key: model.model },
+                    'li',
+                    { key: model.table, className: tabClass },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'td',
-                        null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { key: model.model, className: 'form-check' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { className: 'form-check-label' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
-                                model.model
-                            )
-                        )
+                        'a',
+                        { onClick: _this2.clickTab.bind(_this2), 'data-model': model.model, href: '#' },
+                        model.model
                     )
                 );
             });
         }
     }, {
-        key: 'shouldCheckModel',
-        value: function shouldCheckModel(modelName) {
-            return this.props.tasks.CreateModelsTask.enabled && !this.props.tasks.CreateModelsTask.disabledModels.includes(modelName);
+        key: 'getClassForActiveTab',
+        value: function getClassForActiveTab(modelName) {
+            if (modelName == this.props.tasks.SetObjectModelTask.activeTab) {
+                return "editor-tab-active";
+            }
+            return "";
         }
     }, {
-        key: 'disableModel',
-        value: function disableModel(modelName, event) {
-            if (this.props.tasks.CreateModelsTask.disabledModels.indexOf(modelName) === -1) {
-                this.props.tasks.CreateModelsTask.disabledModels.push(modelName);
-            } else {
-                this.props.tasks.CreateModelsTask.disabledModels = this.props.tasks.CreateModelsTask.disabledModels.filter(function (value) {
-                    return value != modelName;
-                });
-            }
-
+        key: 'clickTab',
+        value: function clickTab(e) {
+            e.preventDefault();
+            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
             this.props.updateTasks(this.props.tasks);
         }
     }, {
-        key: 'enableTask',
-        value: function enableTask() {
-            var updatedTasks = this.props.tasks;
-            updatedTasks.CreateModelsTask.enabled = !updatedTasks.CreateModelsTask.enabled; // ^= 1
-            this.props.updateTasks(updatedTasks);
+        key: 'setup',
+        value: function setup() {
+            this.php = ace.edit("models-editor");
+            this.php.$blockScrolling = Infinity;
+            this.php.setTheme("ace/theme/monokai");
+            this.php.getSession().setMode({
+                path: "ace/mode/php",
+                inline: true
+            });
+            this.php.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].phpPlaceholder(), 0);
+
+            this.php.setOptions({
+                readOnly: true,
+                highlightActiveLine: false,
+                highlightGutterLine: false
+            });
+            this.php.renderer.$cursorLayer.element.style.opacity = 0;
+
+            this.php.setShowPrintMargin(false);
+            this.php.renderer.setShowGutter(false);
+        }
+    }, {
+        key: 'renderPhpCode',
+        value: function renderPhpCode() {
+            var _this3 = this;
+
+            var activeModel = this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find(function (model) {
+                return model.model == _this3.props.tasks.SetObjectModelTask.activeTab;
+            });
+
+            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].model(activeModel); //Template.migration();
+
+            if (!migration) {
+                this.php.setValue("", 1);
+                return;
+            }
+            this.php.setValue(migration.body, 1);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.tasks != nextProps.tasks) this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
@@ -61434,13 +61438,16 @@ var CreateModelsTask = function (_BaseTask) {
             return {
                 taskName: "CreateModelsTask",
                 enabled: true,
-                disabledModels: []
+                pseudoCode: "",
+                transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
+                migrations: [],
+                activeTab: null
             };
         }
     }]);
 
     return CreateModelsTask;
-}(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
 function mapStateToProps(state) {
     return {
@@ -61449,12 +61456,12 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
+    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
+        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["d" /* updateTasks */]
     }, dispatch);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
 
 /***/ }),
 /* 277 */

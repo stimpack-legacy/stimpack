@@ -3214,7 +3214,14 @@
   width: 100%;
 }
 
-#php-editor {
+#migrations-editor {
+  font-size: 1rem;
+  background-color: #141518;
+  width: 100%;
+  height: 600px;
+}
+
+#models-editor {
   font-size: 1rem;
   background-color: #141518;
   width: 100%;
