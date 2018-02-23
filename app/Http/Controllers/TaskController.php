@@ -16,8 +16,8 @@ class TaskController extends Controller
             $taskClassName = '\\App\\Stimpack\\Tasks\\' . $task;
             $task = new $taskClassName( json_decode($tasks));
             $feedback = $task->perform();
-        } catch (\Exception $e) {            
-            $feedback = "THIS TASK FAILED!!!   --->   " . $e->getMessage();
+        } catch (\Exception $e) {
+            abort(500, $e->getMessage());
         }
         return $feedback;
     }

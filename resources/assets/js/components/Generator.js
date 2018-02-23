@@ -57,10 +57,9 @@ class Generator extends Component {
                 this.perform(taskIndex+1);
             }.bind(this),
             error: function(error) {
-                console.log("ERROR", error);
+                console.log("ERROR", error.responseText);
                 task.status = "failed";
                 this.props.updateTaskBatch(this.props.taskBatch);
-                //this.props.updateLog(error.responseJSON.message);
             }.bind(this)
         });
     }    

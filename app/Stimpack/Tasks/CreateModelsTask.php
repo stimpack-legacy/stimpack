@@ -10,8 +10,11 @@ class CreateModelsTask extends Task
 
     public function perform() {
         return "Not implemented";
+
+
+        
         $message = "";
-        foreach($this->tasks->CreateMigrationsTask->migrations as $migration) {
+        foreach($this->getTask("SetObjectModelTask")->migrations as $migration) {
             $migrationName = date("Y_m_d_hms",time()) . "_create_" . $migration->table . "_table.php";            
             $path = $this->projectPath() . "/database/migrations/" . $migrationName;
             file_put_contents($path, $migration->body);                

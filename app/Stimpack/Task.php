@@ -33,6 +33,12 @@ class Task
         return substr(base_path(), strrpos(base_path(), '/') + 1);
     }    
 
+    public function getTask($name) {
+        return $this->tasks->first(function ($value, $key) use($name) {
+            return $value->taskName == $name;
+        });
+    }
+
     private function transferParameters()
     {
         $taskClassName = class_basename(get_class($this));
