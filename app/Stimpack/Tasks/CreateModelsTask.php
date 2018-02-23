@@ -9,18 +9,10 @@ class CreateModelsTask extends Task
 {
 
     public function perform() {
-        return "Not implemented";
-
-
-        
         $message = "";
-        foreach($this->getTask("SetObjectModelTask")->migrations as $migration) {
-            $migrationName = date("Y_m_d_hms",time()) . "_create_" . $migration->table . "_table.php";            
-            $path = $this->projectPath() . "/database/migrations/" . $migrationName;
-            file_put_contents($path, $migration->body);                
-            $message = $message . "Created migration at '" . $path . "'";
-        }
-        
+        foreach($this->models as $model) {
+            $message = $message . "Created model NOT IMPLEMENTED...";
+        }        
         return $message;
     }
 }

@@ -134,6 +134,7 @@ class CreateMigrationsTask extends BaseTask {
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks)
+            this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
             this.renderPhpCode();
     }    
 }

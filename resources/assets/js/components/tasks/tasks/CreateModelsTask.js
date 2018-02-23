@@ -128,6 +128,7 @@ class CreateModelsTask extends BaseTask {
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks)
+            this.props.tasks.CreateModelsTask.models = Template.models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
             this.renderPhpCode();
     }    
     

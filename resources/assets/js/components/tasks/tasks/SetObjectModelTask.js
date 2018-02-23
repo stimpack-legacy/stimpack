@@ -88,8 +88,7 @@ class SetObjectModelTask extends BaseTask {
 
     updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
         this.props.tasks.SetObjectModelTask.activeTab = activeTab;        
-        this.props.tasks.SetObjectModelTask.transformedPseudoCode = transformedPseudoCode;
-        this.props.tasks.SetObjectModelTask.migrations = Template.migrations(transformedPseudoCode.all());
+        this.props.tasks.SetObjectModelTask.transformedPseudoCode = transformedPseudoCode;        
         this.props.updateTasks(this.props.tasks);        
     }
 

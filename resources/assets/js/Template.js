@@ -27,6 +27,9 @@ export default class Template {
             table: transformedModel.table
         }
     }
+    static models(transformedModels) {
+        return transformedModels.map(Template.model);
+    }
 
     static model(transformedModel) {
         if(!transformedModel) {

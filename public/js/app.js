@@ -22347,6 +22347,11 @@ var Template = function () {
             };
         }
     }, {
+        key: 'models',
+        value: function models(transformedModels) {
+            return transformedModels.map(Template.model);
+        }
+    }, {
         key: 'model',
         value: function model(transformedModel) {
             if (!transformedModel) {
@@ -60801,7 +60806,8 @@ var CreateMigrationsTask = function (_BaseTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.renderPhpCode();
+            if (this.props.tasks != nextProps.tasks) this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
+            this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
@@ -61429,7 +61435,8 @@ var CreateModelsTask = function (_BaseTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.renderPhpCode();
+            if (this.props.tasks != nextProps.tasks) this.props.tasks.CreateModelsTask.models = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
+            this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
@@ -62105,7 +62112,6 @@ var SetObjectModelTask = function (_BaseTask) {
         value: function updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
             this.props.tasks.SetObjectModelTask.activeTab = activeTab;
             this.props.tasks.SetObjectModelTask.transformedPseudoCode = transformedPseudoCode;
-            this.props.tasks.SetObjectModelTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all());
             this.props.updateTasks(this.props.tasks);
         }
     }, {
