@@ -21487,9 +21487,10 @@ module.exports = getHostComponentFromComposite;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__ = __webpack_require__(266);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_CreateModelsTask__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateControllersTask__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateEpicSplashPageTask__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateControllersTask__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateEpicSplashPageTask__ = __webpack_require__(278);
 
 
 
@@ -21497,7 +21498,8 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateEpicSplashPageTask__["a" /* default */]];
+
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateEpicSplashPageTask__["a" /* default */]];
 
 /***/ }),
 /* 101 */
@@ -60685,24 +60687,6 @@ var CreateMigrationsTask = function (_BaseTask) {
                         { className: 'card-body' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { id: 'pseudo-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'ul',
-                                { className: 'editor-tabs' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    { className: 'editor-tab input-tab' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'a',
-                                        { href: '#' },
-                                        'Input'
-                                    )
-                                )
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'pseudo-editor' })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
                             { id: 'php-wrapper' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'ul',
@@ -61939,6 +61923,253 @@ var initialState = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Template__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__BaseTask__ = __webpack_require__(25);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+
+var SetObjectModelTask = function (_BaseTask) {
+    _inherits(SetObjectModelTask, _BaseTask);
+
+    function SetObjectModelTask() {
+        _classCallCheck(this, SetObjectModelTask);
+
+        return _possibleConstructorReturn(this, (SetObjectModelTask.__proto__ || Object.getPrototypeOf(SetObjectModelTask)).apply(this, arguments));
+    }
+
+    _createClass(SetObjectModelTask, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.setup();
+        }
+    }, {
+        key: 'test',
+        value: function test() {
+            var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
+            pseudoCodeTransformer.transform("", function (phpCode) {
+                console.assert(phpCode == "", { "message": "failed empty string" });
+            }.bind(this));
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'container' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-header' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            { className: 'switch switch-sm' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'SetObjectModelTask-switch', checked: this.props.tasks.SetObjectModelTask.enabled, onChange: this.enableTask.bind(this) }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { htmlFor: 'SetObjectModelTask-switch' },
+                                'Set project object model'
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-body' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { id: 'pseudo-wrapper' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'ul',
+                                { className: 'editor-tabs' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    { className: 'editor-tab input-tab' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'a',
+                                        { href: '#' },
+                                        'Input'
+                                    )
+                                )
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'pseudo-editor' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { onClick: this.makeAuth.bind(this), className: 'btn btn-default btn-cool' },
+                            'make:auth'
+                        )
+                    )
+                )
+            );
+        }
+    }, {
+        key: 'makeAuth',
+        value: function makeAuth() {
+            this.pseudo.getSession().insert({
+                row: this.pseudo.getSession().getLength(),
+                column: 0
+            }, "\n" + __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].makeAuthPseudoCode());
+        }
+    }, {
+        key: 'toggleAutoIdAndTimestamps',
+        value: function toggleAutoIdAndTimestamps() {
+            console.log("Sure!");
+        }
+    }, {
+        key: 'renderPhpTabs',
+        value: function renderPhpTabs() {
+            var _this2 = this;
+
+            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
+                var tabClass = "editor-tab " + _this2.getClassForActiveTab(model.model);
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: model.table, className: tabClass },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { onClick: _this2.clickTab.bind(_this2), 'data-model': model.model, href: '#' },
+                        model.model
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'getClassForActiveTab',
+        value: function getClassForActiveTab(modelName) {
+            if (modelName == this.props.tasks.SetObjectModelTask.activeTab) {
+                return "editor-tab-active";
+            }
+            return "";
+        }
+    }, {
+        key: 'clickTab',
+        value: function clickTab(e) {
+            e.preventDefault();
+            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+            this.props.updateTasks(this.props.tasks);
+        }
+    }, {
+        key: 'updatePseudoCode',
+        value: function updatePseudoCode(pseudoCode) {
+            this.props.tasks.SetObjectModelTask.pseudoCode = pseudoCode;
+            this.props.updateTasks(this.props.tasks);
+        }
+    }, {
+        key: 'updateTransformedPseudoCode',
+        value: function updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
+            this.props.tasks.SetObjectModelTask.activeTab = activeTab;
+            this.props.tasks.SetObjectModelTask.transformedPseudoCode = transformedPseudoCode;
+            this.props.tasks.SetObjectModelTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(transformedPseudoCode.all());
+            this.props.updateTasks(this.props.tasks);
+        }
+    }, {
+        key: 'setup',
+        value: function setup() {
+            this.pseudo = ace.edit("pseudo-editor");
+            this.pseudo.$blockScrolling = Infinity;
+            this.pseudo.setTheme("ace/theme/monokai");
+            this.pseudo.getSession().setMode({
+                path: "ace/mode/php",
+                inline: true
+            });
+
+            this.pseudo.setShowPrintMargin(false);
+            this.pseudo.renderer.setShowGutter(false);
+
+            this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
+
+            this.pseudo.on("focus", function () {
+                if (this.pseudo.getSession().getValue() == __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder()) {
+                    this.pseudo.setValue("", 1);
+                }
+            }.bind(this));
+
+            this.pseudo.on("blur", function () {
+                if (this.pseudo.getSession().getValue() == "") {
+                    this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
+                }
+            }.bind(this));
+
+            this.pseudo.getSession().on('change', function () {
+                var pseudoCode = this.pseudo.getSession().getValue();
+                this.updatePseudoCode(pseudoCode);
+                var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
+                pseudoCodeTransformer.transform(pseudoCode, function (transformedPseudoCode) {
+                    var activeTab = pseudoCodeTransformer.activeTab(pseudoCode, this.pseudo.getCursorPosition());
+                    this.updateTransformedPseudoCode(transformedPseudoCode, activeTab);
+                }.bind(this));
+            }.bind(this));
+        }
+    }], [{
+        key: 'getDefaultParameters',
+        value: function getDefaultParameters() {
+            return {
+                taskName: "SetObjectModelTask",
+                enabled: true,
+                pseudoCode: "",
+                transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
+                migrations: [],
+                activeTab: null
+            };
+        }
+    }]);
+
+    return SetObjectModelTask;
+}(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
+
+function mapStateToProps(state) {
+    return {
+        tasks: state.tasks
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
+        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["d" /* updateTasks */]
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(SetObjectModelTask));
 
 /***/ })
 /******/ ]);

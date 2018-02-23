@@ -3197,7 +3197,7 @@
   font-size: 1rem;
   float: left;
   margin-right: 20px;
-  width: 35%;
+  width: 100%;
 }
 
 #pseudo-editor {
@@ -3211,7 +3211,7 @@
 #php-wrapper {
   font-size: 1rem;
   display: inline-block;
-  width: 60%;
+  width: 100%;
 }
 
 #php-editor {

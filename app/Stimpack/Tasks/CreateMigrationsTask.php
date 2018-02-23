@@ -6,7 +6,7 @@ use App\Stimpack\Task;
 
 class CreateMigrationsTask extends Task
 {
-    public function perform() {
+    public function perform() {        
         $message = "";
         Log::info(json_encode($this->migrations));
         foreach($this->migrations as $migration) {        
