@@ -3197,7 +3197,13 @@
   font-size: 1rem;
   float: left;
   margin-right: 20px;
-  width: 100%;
+  width: 50%;
+}
+
+#help-wrapper {
+  font-size: 1rem;
+  display: inline-block;
+  width: 40%;
 }
 
 #pseudo-editor {

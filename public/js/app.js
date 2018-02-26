@@ -61335,21 +61335,35 @@ var SetObjectModelTask = function (_BaseTask) {
                         { className: 'card-body' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'div',
-                            { id: 'pseudo-wrapper' },
+                            null,
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'ul',
-                                { className: 'editor-tabs' },
+                                'div',
+                                { id: 'pseudo-wrapper' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    { className: 'editor-tab input-tab' },
+                                    'ul',
+                                    { className: 'editor-tabs' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'a',
-                                        { href: '#' },
-                                        'Input'
+                                        'li',
+                                        { className: 'editor-tab input-tab' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'a',
+                                            { href: '#' },
+                                            'Input'
+                                        )
                                     )
-                                )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'pseudo-editor' })
                             ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'pseudo-editor' })
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { id: 'help-wrapper' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'h4',
+                                    null,
+                                    'Help'
+                                ),
+                                '// Use uppercase for Model Car model color ... // Use Lower case for table only statistics type value ... // Use trailing _id for one to many Rental car_id ... // use table1_table2 for many to many car_user // Use $* to overide best guess Marine $table->integer(\'hp\')->default(1337); // Notes id and timestamps are added by default'
+                            )
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',

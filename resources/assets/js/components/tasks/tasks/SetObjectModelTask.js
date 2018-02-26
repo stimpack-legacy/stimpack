@@ -30,13 +30,44 @@ class SetObjectModelTask extends BaseTask {
                             <label htmlFor="SetObjectModelTask-switch">Set project object model</label>                    
                         </span>
                     </div>
-                    <div className="card-body">                    
-                        <div id="pseudo-wrapper">
-                            <ul className="editor-tabs">
-                                <li className="editor-tab input-tab"><a href="#">Input</a></li>                                
-                            </ul>
-                            <div id="pseudo-editor" />                       
-                        </div>
+                    <div className="card-body">
+                        <div>                    
+                            <div id="pseudo-wrapper">
+                                <ul className="editor-tabs">
+                                    <li className="editor-tab input-tab"><a href="#">Input</a></li>                                
+                                </ul>
+                                <div id="pseudo-editor" />                       
+                            </div>
+                            <div id="help-wrapper">
+                                <h4>Help</h4>
+// Use uppercase for Model
+Car
+model
+color
+...
+
+// Use Lower case for table only
+statistics
+type
+value
+...
+
+// Use trailing _id for one to many
+Rental
+car_id
+...
+
+// use table1_table2 for many to many
+car_user
+
+// Use $* to overide best guess
+Marine
+$table->integer('hp')->default(1337);
+
+// Notes
+id and timestamps are added by default                       
+                            </div>
+                        </div>                        
                         <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
                     </div>                
                 </div>                
