@@ -100,7 +100,8 @@ class CreateMigrationsTask extends BaseTask {
             enabled: true,
             transformedPseudoCode: new PseudoCodeTransformer(),
             migrations: [],
-            activeTab: null
+            activeTab: null,
+            shouldDisplayFilesOfType: "migration"
         }
     }
 

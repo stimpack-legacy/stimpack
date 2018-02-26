@@ -60973,7 +60973,8 @@ var CreateMigrationsTask = function (_BaseTask) {
                 enabled: true,
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
                 migrations: [],
-                activeTab: null
+                activeTab: null,
+                shouldDisplayFilesOfType: "migration"
             };
         }
     }]);
