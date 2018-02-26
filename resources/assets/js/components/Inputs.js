@@ -13,7 +13,7 @@ export default class Inputs extends Component {
         return (
             <div className="inputs">
                 {
-                    allTasks.map((Task)=>{return (<Task key={Task.getDefaultParameters().taskName} />)})
+                    allTasks.map((Task)=>{return (<Task key={Task.getDefaultParameters().name} />)})
                 }
             </div>
         );

@@ -2706,8 +2706,68 @@ var BaseTask = function (_Component) {
     _createClass(BaseTask, [{
         key: 'enableTask',
         value: function enableTask() {
-            this.props.tasks[this.constructor.name].enabled ^= 1;
+            this.task().enabled ^= 1;
             this.props.updateTasks(this.props.tasks);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return this.renderTask();
+        }
+    }, {
+        key: 'renderTask',
+        value: function renderTask() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'container' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'card' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-header' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            { className: 'switch switch-sm' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: this.switch(), checked: this.task().enabled, onChange: this.enableTask.bind(this) }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'label',
+                                { htmlFor: this.switch() },
+                                this.task().name
+                            )
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'card-body' },
+                        this.body()
+                    )
+                )
+            );
+        }
+    }, {
+        key: 'task',
+        value: function task() {
+            return this.props.tasks[this.constructor.name];
+        }
+    }, {
+        key: 'switch',
+        value: function _switch() {
+            return this.task().name + '-switch';
+        }
+    }], [{
+        key: 'mapStateToProps',
+        value: function mapStateToProps(state) {
+            return {
+                tasks: state.tasks
+            };
+        }
+    }, {
+        key: 'matchDispatchToProps',
+        value: function matchDispatchToProps(dispatch) {
+            return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+                updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
+            }, dispatch);
         }
     }]);
 
@@ -59193,12 +59253,12 @@ var Generator = function (_Component) {
 
             $.ajax({
                 type: "POST",
-                url: "/stimpack/perform/" + task.taskName,
+                url: "/stimpack/perform/" + task.name,
                 data: {
                     tasks: JSON.stringify(this.props.taskBatch.tasks)
                 },
                 success: function (result) {
-                    console.log("Finished " + task.taskName, result);
+                    console.log("Finished " + task.name, result);
                     task.status = "succeded";
                     this.props.updateTaskBatch(this.props.taskBatch);
                     this.perform(taskIndex + 1);
@@ -59295,7 +59355,7 @@ var Inputs = function (_Component) {
                 'div',
                 { className: 'inputs' },
                 __WEBPACK_IMPORTED_MODULE_2__tasks_allTasks__["a" /* allTasks */].map(function (Task) {
-                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Task, { key: Task.getDefaultParameters().taskName });
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Task, { key: Task.getDefaultParameters().name });
                 })
             );
         }
@@ -59344,50 +59404,24 @@ var SetTargetProjectTask = function (_BaseTask) {
     }
 
     _createClass(SetTargetProjectTask, [{
-        key: 'render',
-        value: function render() {
+        key: 'body',
+        value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container' },
+                'form',
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'card' },
+                    { className: 'form-group' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'SetTargetProjectTask-switch', checked: this.props.tasks.SetTargetProjectTask.enabled, onChange: this.enableTask.bind(this) }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: 'SetTargetProjectTask-switch' },
-                                'Set target project'
-                            )
-                        )
+                        'p',
+                        null,
+                        'Select an existing project, or type a new name to create a fresh project.'
                     ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.setProjectName.bind(this), type: 'text', list: 'projects' }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'form',
-                            null,
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'form-group' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'p',
-                                    null,
-                                    'Select an existing project, or type a new name to create a fresh project.'
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.setProjectName.bind(this), type: 'text', list: 'projects' }),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'datalist',
-                                    { id: 'projects', placeholder: 'my-new-project' },
-                                    this.renderAvailableProjects()
-                                )
-                            )
-                        )
+                        'datalist',
+                        { id: 'projects', placeholder: 'my-new-project' },
+                        this.renderAvailableProjects()
                     )
                 )
             );
@@ -59414,8 +59448,7 @@ var SetTargetProjectTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                mandatory: true,
-                taskName: "SetTargetProjectTask",
+                name: "SetTargetProjectTask",
                 enabled: true,
                 projectPath: "/../",
                 projectName: "my-new-project"
@@ -59426,19 +59459,7 @@ var SetTargetProjectTask = function (_BaseTask) {
     return SetTargetProjectTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
-    }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(SetTargetProjectTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProjectTask));
 
 /***/ }),
 /* 241 */
@@ -60746,54 +60767,25 @@ var CreateDatabaseTask = function (_BaseTask) {
     }
 
     _createClass(CreateDatabaseTask, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
-        key: 'render',
-        value: function render() {
+        key: 'body',
+        value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container' },
+                'select',
+                { value: this.props.tasks.CreateDatabaseTask.type, onChange: this.changeDatabaseType.bind(this), className: 'form-control', id: 'inputGroupSelect01' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateDatabaseTask-switch', checked: this.props.tasks.CreateDatabaseTask.enabled, onChange: this.enableTask.bind(this) }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: 'CreateDatabaseTask-switch' },
-                                'Create Database'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'select',
-                            { value: this.props.tasks.CreateDatabaseTask.type, onChange: this.changeDatabaseType.bind(this), className: 'form-control', id: 'inputGroupSelect01' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'option',
-                                { value: 'mysql' },
-                                'MySQL'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'option',
-                                { value: 'sqlite' },
-                                'Sqlite'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'option',
-                                { value: 'postgres' },
-                                'PostgreSQL'
-                            )
-                        )
-                    )
+                    'option',
+                    { value: 'mysql', disabled: true },
+                    'MySQL'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { value: 'sqlite' },
+                    'Sqlite'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'option',
+                    { value: 'postgres', disabled: true },
+                    'PostgreSQL'
                 )
             );
         }
@@ -60808,7 +60800,7 @@ var CreateDatabaseTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                taskName: "CreateDatabaseTask",
+                name: "CreateDatabaseTask",
                 enabled: true,
                 type: "sqlite"
             };
@@ -60818,17 +60810,7 @@ var CreateDatabaseTask = function (_BaseTask) {
     return CreateDatabaseTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({ updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */] }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabaseTask));
 
 /***/ }),
 /* 267 */
@@ -60878,60 +60860,18 @@ var CreateMigrationsTask = function (_BaseTask) {
             this.setup();
         }
     }, {
-        key: 'test',
-        value: function test() {
-            var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
-            pseudoCodeTransformer.transform("", function (phpCode) {
-                console.assert(phpCode == "", { "message": "failed empty string" });
-            }.bind(this));
-        }
-    }, {
-        key: 'render',
-        value: function render() {
+        key: 'body',
+        value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'container' },
+                { id: 'php-wrapper' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateMigrationsTask-switch', checked: this.props.tasks.CreateMigrationsTask.enabled, onChange: this.enableTask.bind(this) }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: 'CreateMigrationsTask-switch' },
-                                'Create Migrations'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { id: 'php-wrapper' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'ul',
-                                { className: 'editor-tabs' },
-                                this.renderPhpTabs()
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'migrations-editor' })
-                        )
-                    )
-                )
+                    'ul',
+                    { className: 'editor-tabs' },
+                    this.renderPhpTabs()
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'migrations-editor' })
             );
-        }
-    }, {
-        key: 'makeAuth',
-        value: function makeAuth() {
-            this.pseudo.getSession().insert({
-                row: this.pseudo.getSession().getLength(),
-                column: 0
-            }, "\n" + __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].makeAuthPseudoCode());
         }
     }, {
         key: 'renderPhpTabs',
@@ -61029,9 +60969,8 @@ var CreateMigrationsTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                taskName: "CreateMigrationsTask",
+                name: "CreateMigrationsTask",
                 enabled: true,
-                pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
                 migrations: [],
                 activeTab: null
@@ -61042,19 +60981,7 @@ var CreateMigrationsTask = function (_BaseTask) {
     return CreateMigrationsTask;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["d" /* updateTasks */]
-    }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateMigrationsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrationsTask));
 
 /***/ }),
 /* 268 */
@@ -61300,187 +61227,153 @@ var SetObjectModelTask = function (_BaseTask) {
             this.setup();
         }
     }, {
-        key: 'test',
-        value: function test() {
-            var pseudoCodeTransformer = new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */]();
-            pseudoCodeTransformer.transform("", function (phpCode) {
-                console.assert(phpCode == "", { "message": "failed empty string" });
-            }.bind(this));
-        }
-    }, {
-        key: 'render',
-        value: function render() {
+        key: 'body',
+        value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'container' },
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'card' },
+                    { id: 'pseudo-wrapper' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
+                        'ul',
+                        { className: 'editor-tabs' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'SetObjectModelTask-switch', checked: this.props.tasks.SetObjectModelTask.enabled, onChange: this.enableTask.bind(this) }),
+                            'li',
+                            { className: 'editor-tab input-tab' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: 'SetObjectModelTask-switch' },
-                                'Set project object model'
+                                'a',
+                                { href: '#' },
+                                'Input'
                             )
                         )
                     ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'pseudo-editor' })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { id: 'help-wrapper' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('ul', { className: 'editor-tabs' }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'card-body' },
+                        { id: 'help-content' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
+                            'h6',
                             null,
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { id: 'pseudo-wrapper' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'ul',
-                                    { className: 'editor-tabs' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'li',
-                                        { className: 'editor-tab input-tab' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'a',
-                                            { href: '#' },
-                                            'Input'
-                                        )
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'pseudo-editor' })
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { id: 'help-wrapper' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('ul', { className: 'editor-tabs' }),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { id: 'help-content' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'h6',
-                                        null,
-                                        'Use newline separated Models with Initial Caps'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'Car'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute1'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute2'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'Garage'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute1'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute2'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'h6',
-                                        null,
-                                        'Use lowercase for table only'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'statistics'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute1'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute2'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'h6',
-                                        null,
-                                        'Use trailing _id for one to many'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'Car'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'garage_id'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'h6',
-                                        null,
-                                        'Use table1_table2 for many to many'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'car_user'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute1'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'attribute2'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'h6',
-                                        null,
-                                        'Use $* to overide best guess'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        'Marine'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'p',
-                                        null,
-                                        '$table->integer(\'hitpoints\')->default(1337);'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
-                                )
-                            )
+                            'Use newline separated Models with Initial Caps'
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'button',
-                            { onClick: this.makeAuth.bind(this), className: 'btn btn-default btn-cool' },
-                            'make:auth'
-                        )
+                            'p',
+                            null,
+                            'Car'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute1'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute2'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'Garage'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute1'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute2'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h6',
+                            null,
+                            'Use lowercase for table only'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'statistics'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute1'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute2'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h6',
+                            null,
+                            'Use trailing _id for one to many'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'Car'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'garage_id'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h6',
+                            null,
+                            'Use table1_table2 for many to many'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'car_user'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute1'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'attribute2'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h6',
+                            null,
+                            'Use $* to overide best guess'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            'Marine'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            null,
+                            '$table->integer(\'hitpoints\')->default(1337);'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
                     )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { onClick: this.makeAuth.bind(this), className: 'btn btn-default btn-cool' },
+                    'make:auth'
                 )
             );
         }
@@ -61557,20 +61450,6 @@ var SetObjectModelTask = function (_BaseTask) {
             this.pseudo.setShowPrintMargin(false);
             this.pseudo.renderer.setShowGutter(false);
 
-            this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
-
-            this.pseudo.on("focus", function () {
-                if (this.pseudo.getSession().getValue() == __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder()) {
-                    this.pseudo.setValue("", 1);
-                }
-            }.bind(this));
-
-            this.pseudo.on("blur", function () {
-                if (this.pseudo.getSession().getValue() == "") {
-                    this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].pseudoPlaceholder(), 1);
-                }
-            }.bind(this));
-
             this.pseudo.getSession().on('change', function () {
                 var pseudoCode = this.pseudo.getSession().getValue();
                 this.updatePseudoCode(pseudoCode);
@@ -61585,7 +61464,7 @@ var SetObjectModelTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                taskName: "SetObjectModelTask",
+                name: "SetObjectModelTask",
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
@@ -61598,19 +61477,7 @@ var SetObjectModelTask = function (_BaseTask) {
     return SetObjectModelTask;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["d" /* updateTasks */]
-    }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(SetObjectModelTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModelTask));
 
 /***/ }),
 /* 277 */
@@ -61802,7 +61669,7 @@ var CreateModelsTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                taskName: "CreateModelsTask",
+                name: "CreateModelsTask",
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
@@ -61815,19 +61682,7 @@ var CreateModelsTask = function (_BaseTask) {
     return CreateModelsTask;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_5__actions_index__["d" /* updateTasks */]
-    }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateModelsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModelsTask));
 
 /***/ }),
 /* 278 */
@@ -61867,44 +61722,18 @@ var CreateControllersTask = function (_BaseTask) {
     }
 
     _createClass(CreateControllersTask, [{
-        key: 'render',
-        value: function render() {
+        key: 'body',
+        value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container' },
+                'form',
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card' },
+                    'table',
+                    { className: 'table table-sm table-dark table-sm-width' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateControllersTask-switch', checked: this.props.tasks.CreateControllersTask.enabled, onChange: this.enableTask.bind(this) }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: 'CreateControllersTask-switch' },
-                                'Create Controllers'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'form',
-                            null,
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'table',
-                                { className: 'table table-sm table-dark table-sm-width' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'tbody',
-                                    null,
-                                    this.renderModels()
-                                )
-                            )
-                        )
+                        'tbody',
+                        null,
+                        this.renderModels()
                     )
                 )
             );
@@ -61964,7 +61793,7 @@ var CreateControllersTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                taskName: "CreateControllersTask",
+                name: "CreateControllersTask",
                 enabled: true,
                 disabledModels: []
             };
@@ -61974,19 +61803,7 @@ var CreateControllersTask = function (_BaseTask) {
     return CreateControllersTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
-    }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateControllersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllersTask));
 
 /***/ }),
 /* 279 */
@@ -62026,38 +61843,12 @@ var CreateEpicSplashPageTask = function (_BaseTask) {
     }
 
     _createClass(CreateEpicSplashPageTask, [{
-        key: 'render',
-        value: function render() {
+        key: 'body',
+        value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'container' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'card' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: 'CreateEpicSplashPageTask-switch', checked: this.props.tasks.CreateEpicSplashPageTask.enabled, onChange: this.enableTask.bind(this) }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: 'CreateEpicSplashPageTask-switch' },
-                                'Create Epic Splash Page'
-                            )
-                        )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-body' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.updateBackgroundImage.bind(this), type: 'text', className: 'form-control', id: 'usr', placeholder: 'bg-image-url' })
-                        )
-                    )
-                )
+                { className: 'form-group' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.updateBackgroundImage.bind(this), type: 'text', className: 'form-control', id: 'usr', placeholder: 'bg-image-url' })
             );
         }
     }, {
@@ -62070,7 +61861,7 @@ var CreateEpicSplashPageTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                taskName: "CreateEpicSplashPageTask",
+                name: "CreateEpicSplashPageTask",
                 enabled: true,
                 imageUrl: "https://img.wallpapersafari.com/desktop/1920/1080/16/65/JDGTWx.jpg"
             };
@@ -62080,19 +61871,7 @@ var CreateEpicSplashPageTask = function (_BaseTask) {
     return CreateEpicSplashPageTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateTasks */]
-    }, dispatch);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateEpicSplashPageTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPageTask));
 
 /***/ }),
 /* 280 */
@@ -62156,10 +61935,10 @@ var Log = function (_Component) {
             }).map(function (task) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
-                    { key: task.taskName },
+                    { key: task.name },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + icons[task.status] }),
                     ' ',
-                    task.taskName
+                    task.name
                 );
             });
         }
@@ -62226,7 +62005,7 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 var initialState = {};
 
 __WEBPACK_IMPORTED_MODULE_0__components_tasks_allTasks__["a" /* allTasks */].forEach(function (task) {
-    initialState[task.getDefaultParameters().taskName] = task.getDefaultParameters();
+    initialState[task.getDefaultParameters().name] = task.getDefaultParameters();
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {

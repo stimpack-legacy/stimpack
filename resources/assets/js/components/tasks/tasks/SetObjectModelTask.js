@@ -13,70 +13,52 @@ class SetObjectModelTask extends BaseTask {
         this.setup();
     }
 
-    test() {
-        var pseudoCodeTransformer = new PseudoCodeTransformer();        
-        pseudoCodeTransformer.transform("", function(phpCode) {
-            console.assert(phpCode == "", {"message": "failed empty string"});                
-        }.bind(this));                        
-    }
 
-    render() {
+    body() {
         return (
-            <div className="container">                              
-                <div className="card">
-                    <div className="card-header">
-                        <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="SetObjectModelTask-switch" checked={this.props.tasks.SetObjectModelTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="SetObjectModelTask-switch">Set project object model</label>                    
-                        </span>
-                    </div>
-                    <div className="card-body">
-                        <div>                    
-                            <div id="pseudo-wrapper">
-                                <ul className="editor-tabs">
-                                    <li className="editor-tab input-tab"><a href="#">Input</a></li>                                
-                                </ul>
-                                <div id="pseudo-editor" />                       
-                            </div>
-                            <div id="help-wrapper">
-                                <ul className="editor-tabs" />
-                                <div id="help-content">
-                                    <h6>Use newline separated Models with Initial Caps</h6>
-                                    <p>Car</p>
-                                    <p>attribute1</p>
-                                    <p>attribute2</p>
-                                    <br/>
-                                    <p>Garage</p>
-                                    <p>attribute1</p>
-                                    <p>attribute2</p>
-                                    <br />
-                                    <h6>Use lowercase for table only</h6>
-                                    <p>statistics</p>
-                                    <p>attribute1</p>
-                                    <p>attribute2</p>
-                                    <br />
-                                    <h6>Use trailing _id for one to many</h6>
-                                    <p>Car</p>
-                                    <p>garage_id</p>
-                                    <br />
-                                    <h6>Use table1_table2 for many to many</h6>
-                                    <p>car_user</p>
-                                    <p>attribute1</p>
-                                    <p>attribute2</p>
-                                    <br />
-                                    <h6>Use $* to overide best guess</h6>
-                                    <p>Marine</p>
-                                    <p>$table->integer('hitpoints')->default(1337);</p>                                    
-                                    <br />
+            <div>                    
+                <div id="pseudo-wrapper">
+                    <ul className="editor-tabs">
+                        <li className="editor-tab input-tab"><a href="#">Input</a></li>                                
+                    </ul>
+                    <div id="pseudo-editor" />                       
+                </div>
+                <div id="help-wrapper">
+                    <ul className="editor-tabs" />
+                    <div id="help-content">
+                        <h6>Use newline separated Models with Initial Caps</h6>
+                        <p>Car</p>
+                        <p>attribute1</p>
+                        <p>attribute2</p>
+                        <br/>
+                        <p>Garage</p>
+                        <p>attribute1</p>
+                        <p>attribute2</p>
+                        <br />
+                        <h6>Use lowercase for table only</h6>
+                        <p>statistics</p>
+                        <p>attribute1</p>
+                        <p>attribute2</p>
+                        <br />
+                        <h6>Use trailing _id for one to many</h6>
+                        <p>Car</p>
+                        <p>garage_id</p>
+                        <br />
+                        <h6>Use table1_table2 for many to many</h6>
+                        <p>car_user</p>
+                        <p>attribute1</p>
+                        <p>attribute2</p>
+                        <br />
+                        <h6>Use $* to overide best guess</h6>
+                        <p>Marine</p>
+                        <p>$table->integer('hitpoints')->default(1337);</p>                                    
+                        <br />
 
-                                                                        
-                                </div>                                
-                       
-                            </div>
-                        </div>                        
-                        <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
-                    </div>                
-                </div>                
+                                                            
+                    </div>                                
+        
+                </div>
+                <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
             </div>
         );
     }
@@ -140,20 +122,6 @@ class SetObjectModelTask extends BaseTask {
 
         this.pseudo.setShowPrintMargin(false);
         this.pseudo.renderer.setShowGutter(false);
-        
-        this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
-
-        this.pseudo.on("focus", function() {
-            if(this.pseudo.getSession().getValue() == Template.pseudoPlaceholder()) {                
-                this.pseudo.setValue("", 1);
-            }            
-        }.bind(this));
-        
-        this.pseudo.on("blur", function() {
-            if(this.pseudo.getSession().getValue() == "") {                
-                this.pseudo.setValue(Template.pseudoPlaceholder(), 1);
-            }            
-        }.bind(this));
 
         this.pseudo.getSession().on('change', function() {            
             var pseudoCode = this.pseudo.getSession().getValue();            
@@ -168,7 +136,7 @@ class SetObjectModelTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
-            taskName: "SetObjectModelTask",
+            name: "SetObjectModelTask",
             enabled: true,
             pseudoCode: "",
             transformedPseudoCode: new PseudoCodeTransformer(),
@@ -179,20 +147,7 @@ class SetObjectModelTask extends BaseTask {
     
 }
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks        
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            updateTasks: updateTasks
-        }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(SetObjectModelTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(SetObjectModelTask);
 
 
 

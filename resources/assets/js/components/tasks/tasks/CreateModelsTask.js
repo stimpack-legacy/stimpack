@@ -117,7 +117,7 @@ class CreateModelsTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
-            taskName: "CreateModelsTask",
+            name: "CreateModelsTask",
             enabled: true,
             pseudoCode: "",
             transformedPseudoCode: new PseudoCodeTransformer(),
@@ -134,17 +134,4 @@ class CreateModelsTask extends BaseTask {
     
 }
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks        
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            updateTasks: updateTasks
-        }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(CreateModelsTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateModelsTask);

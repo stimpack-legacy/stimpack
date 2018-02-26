@@ -35,7 +35,7 @@ class Task
 
     public function getTask($name) {
         return $this->tasks->first(function ($value, $key) use($name) {
-            return $value->taskName == $name;
+            return $value->name == $name;
         });
     }
 
@@ -43,7 +43,7 @@ class Task
     {
         $taskClassName = class_basename(get_class($this));
         $thisTask = $this->tasks->first(function($value) use($taskClassName) {
-            return $value->taskName == $taskClassName;
+            return $value->name == $taskClassName;
         });
 
         // Transfer the current task directly onto this
@@ -54,8 +54,8 @@ class Task
 
         // Transfer all task to this so they can be called by name
         foreach ($this->tasks as $key => $value) {
-            $taskName = $value->taskName;
-            $this->$taskName = $value;
+            $name = $value->name;
+            $this->$name = $value;
         }
 
     }

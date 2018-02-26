@@ -6,28 +6,14 @@ import {updateTasks} from '../../../actions/index'
 import BaseTask from '../BaseTask'
 
 class CreateDatabaseTask extends BaseTask {
-    componentDidMount() {
-    }
 
-    render() {
+    body() {
         return (
-            <div className="container">                              
-                <div className="card">
-                    <div className="card-header">
-                        <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="CreateDatabaseTask-switch" checked={this.props.tasks.CreateDatabaseTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="CreateDatabaseTask-switch">Create Database</label>                    
-                        </span>
-                    </div>
-                    <div className="card-body">                                            
-                        <select value={this.props.tasks.CreateDatabaseTask.type} onChange={this.changeDatabaseType.bind(this)} className="form-control" id="inputGroupSelect01">                                                  
-                            <option value="mysql" >MySQL</option>
-                            <option value="sqlite">Sqlite</option>
-                            <option value="postgres">PostgreSQL</option>
-                        </select>                       
-                        </div>
-                </div>                
-            </div>
+            <select value={this.props.tasks.CreateDatabaseTask.type} onChange={this.changeDatabaseType.bind(this)} className="form-control" id="inputGroupSelect01">                                                  
+            <option value="mysql" disabled>MySQL</option>
+            <option value="sqlite">Sqlite</option>
+            <option value="postgres" disabled>PostgreSQL</option>
+            </select>
         );
     }
 
@@ -39,21 +25,11 @@ class CreateDatabaseTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
-            taskName: "CreateDatabaseTask",
+            name: "CreateDatabaseTask",
             enabled: true,
             type: "sqlite"
         };        
     }    
 }
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({updateTasks: updateTasks}, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(CreateDatabaseTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateDatabaseTask);

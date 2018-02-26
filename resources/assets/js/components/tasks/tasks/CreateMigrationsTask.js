@@ -13,41 +13,15 @@ class CreateMigrationsTask extends BaseTask {
         this.setup();
     }
 
-    test() {
-        var pseudoCodeTransformer = new PseudoCodeTransformer();        
-        pseudoCodeTransformer.transform("", function(phpCode) {
-            console.assert(phpCode == "", {"message": "failed empty string"});                
-        }.bind(this));                        
-    }
-
-    render() {
+    body() {
         return (
-            <div className="container">                              
-                <div className="card">
-                    <div className="card-header">
-                        <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="CreateMigrationsTask-switch" checked={this.props.tasks.CreateMigrationsTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="CreateMigrationsTask-switch">Create Migrations</label>                    
-                        </span>
-                    </div>
-                    <div className="card-body">                    
-                        <div id="php-wrapper">
-                                <ul className="editor-tabs">
-                                    {this.renderPhpTabs()}
-                                </ul>
-                            <div id="migrations-editor" />
-                        </div>
-                    </div>                
-                </div>                
-            </div>
+            <div id="php-wrapper">
+                    <ul className="editor-tabs">
+                        {this.renderPhpTabs()}
+                    </ul>
+                <div id="migrations-editor" />
+            </div>            
         );
-    }
-
-    makeAuth() {        
-        this.pseudo.getSession().insert({
-           row: this.pseudo.getSession().getLength(),
-           column: 0
-        }, "\n" + Template.makeAuthPseudoCode());
     }
 
     renderPhpTabs() {
@@ -92,8 +66,7 @@ class CreateMigrationsTask extends BaseTask {
         this.php.renderer.$cursorLayer.element.style.opacity=0;        
 
         this.php.setShowPrintMargin(false);
-        this.php.renderer.setShowGutter(false);        
-
+        this.php.renderer.setShowGutter(false);
     }
 
     renderPhpCode() {
@@ -123,9 +96,8 @@ class CreateMigrationsTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
-            taskName: "CreateMigrationsTask",
+            name: "CreateMigrationsTask",
             enabled: true,
-            pseudoCode: "",
             transformedPseudoCode: new PseudoCodeTransformer(),
             migrations: [],
             activeTab: null
@@ -139,20 +111,7 @@ class CreateMigrationsTask extends BaseTask {
     }    
 }
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks        
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            updateTasks: updateTasks
-        }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(CreateMigrationsTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateMigrationsTask);
 
 
 

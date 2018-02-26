@@ -6,27 +6,16 @@ import {updateTasks} from '../../../actions/index'
 import BaseTask from '../BaseTask'
 
 class CreateControllersTask extends BaseTask {
-    render() {
+
+    body() {
         return (
-            <div className="container">                              
-                <div className="card">
-                    <div className="card-header">
-                        <span className="switch switch-sm">
-                            <input type="checkbox" className="switch" id="CreateControllersTask-switch" checked={this.props.tasks.CreateControllersTask.enabled} onChange={this.enableTask.bind(this)} />
-                            <label htmlFor="CreateControllersTask-switch">Create Controllers</label>                    
-                        </span>
-                    </div>
-                    <div className="card-body">                    
-                        <form>
-                            <table className="table table-sm table-dark table-sm-width">
-                                <tbody>
-                                    {this.renderModels()}
-                                </tbody>
-                            </table>                       
-                        </form>
-                    </div>
-                </div>                
-            </div>
+            <form>
+            <table className="table table-sm table-dark table-sm-width">
+                <tbody>
+                    {this.renderModels()}
+                </tbody>
+            </table>                       
+        </form>
         );
     }
 
@@ -69,24 +58,11 @@ class CreateControllersTask extends BaseTask {
     
     static getDefaultParameters() {
         return {
-            taskName: "CreateControllersTask",
+            name: "CreateControllersTask",
             enabled: true,
             disabledModels: []
         }
     }    
 }
 
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks 
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            updateTasks: updateTasks
-        }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(CreateControllersTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateControllersTask);

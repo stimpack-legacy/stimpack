@@ -25,7 +25,7 @@ class Log extends Component {
         }
 
         return this.props.taskBatch.tasks.filter(task => task.status != "queued" ).map((task) => {
-            return (<li key={task.taskName}><i className={`fa ${icons[task.status]}`}></i> {task.taskName}</li>)
+            return (<li key={task.name}><i className={`fa ${icons[task.status]}`}></i> {task.name}</li>)
         })
     }
 

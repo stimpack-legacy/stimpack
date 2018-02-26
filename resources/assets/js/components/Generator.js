@@ -46,12 +46,12 @@ class Generator extends Component {
 
         $.ajax({
             type: "POST",
-            url: "/stimpack/perform/" + task.taskName,
+            url: "/stimpack/perform/" + task.name,
             data: {
                 tasks: JSON.stringify(this.props.taskBatch.tasks)
             },
             success: function(result){
-                console.log("Finished " + task.taskName, result);
+                console.log("Finished " + task.name, result);
                 task.status = "succeded";
                 this.props.updateTaskBatch(this.props.taskBatch);
                 this.perform(taskIndex+1);
