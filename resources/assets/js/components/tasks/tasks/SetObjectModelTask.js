@@ -39,33 +39,39 @@ class SetObjectModelTask extends BaseTask {
                                 <div id="pseudo-editor" />                       
                             </div>
                             <div id="help-wrapper">
-                                <h4>Help</h4>
-// Use uppercase for Model
-Car
-model
-color
-...
+                                <ul className="editor-tabs" />
+                                <div id="help-content">
+                                    <h6>Use newline separated Models with Initial Caps</h6>
+                                    <p>Car</p>
+                                    <p>attribute1</p>
+                                    <p>attribute2</p>
+                                    <br/>
+                                    <p>Garage</p>
+                                    <p>attribute1</p>
+                                    <p>attribute2</p>
+                                    <br />
+                                    <h6>Use lowercase for table only</h6>
+                                    <p>statistics</p>
+                                    <p>attribute1</p>
+                                    <p>attribute2</p>
+                                    <br />
+                                    <h6>Use trailing _id for one to many</h6>
+                                    <p>Car</p>
+                                    <p>garage_id</p>
+                                    <br />
+                                    <h6>Use table1_table2 for many to many</h6>
+                                    <p>car_user</p>
+                                    <p>attribute1</p>
+                                    <p>attribute2</p>
+                                    <br />
+                                    <h6>Use $* to overide best guess</h6>
+                                    <p>Marine</p>
+                                    <p>$table->integer('hitpoints')->default(1337);</p>                                    
+                                    <br />
 
-// Use Lower case for table only
-statistics
-type
-value
-...
-
-// Use trailing _id for one to many
-Rental
-car_id
-...
-
-// use table1_table2 for many to many
-car_user
-
-// Use $* to overide best guess
-Marine
-$table->integer('hp')->default(1337);
-
-// Notes
-id and timestamps are added by default                       
+                                                                        
+                                </div>                                
+                       
                             </div>
                         </div>                        
                         <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
