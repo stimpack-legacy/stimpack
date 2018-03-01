@@ -44,6 +44,21 @@ export default class Template {
         }
     }
 
+    static controllers(transformedModels) {
+        return transformedModels.map(Template.controller);
+    }
+
+    static controller(transformedModel) {
+        if(!transformedModel) {
+            return false;
+        }        
+        return {
+            body: controller,
+            table: transformedModel.table,
+            tabName: transformedModel.name
+        }
+    }
+
     static file(type, transformedModel) {
         return this[type](transformedModel);
     }

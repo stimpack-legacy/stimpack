@@ -5225,6 +5225,23 @@ var Template = function () {
             };
         }
     }, {
+        key: 'controllers',
+        value: function controllers(transformedModels) {
+            return transformedModels.map(Template.controller);
+        }
+    }, {
+        key: 'controller',
+        value: function controller(transformedModel) {
+            if (!transformedModel) {
+                return false;
+            }
+            return {
+                body: __WEBPACK_IMPORTED_MODULE_0__templates_controller__["a" /* default */],
+                table: transformedModel.table,
+                tabName: transformedModel.name
+            };
+        }
+    }, {
         key: 'file',
         value: function file(type, transformedModel) {
             return this[type](transformedModel);
@@ -21896,9 +21913,7 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */],
-//CreateControllersTask,
-__WEBPACK_IMPORTED_MODULE_6__tasks_CreateEpicSplashPageTask__["a" /* default */]];
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateEpicSplashPageTask__["a" /* default */]];
 
 /***/ }),
 /* 103 */
@@ -61512,10 +61527,13 @@ var CreateModelsTask = function (_CreateFilesTask) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__BaseTask__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Template__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__BaseTask__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__ = __webpack_require__(296);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61531,8 +61549,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateControllersTask = function (_BaseTask) {
-    _inherits(CreateControllersTask, _BaseTask);
+
+
+
+
+var CreateControllersTask = function (_CreateFilesTask) {
+    _inherits(CreateControllersTask, _CreateFilesTask);
 
     function CreateControllersTask() {
         _classCallCheck(this, CreateControllersTask);
@@ -61541,72 +61563,29 @@ var CreateControllersTask = function (_BaseTask) {
     }
 
     _createClass(CreateControllersTask, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.setupEditor();
+        }
+    }, {
         key: 'body',
         value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'form',
-                null,
+                'div',
+                { id: 'php-wrapper' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'table',
-                    { className: 'table table-sm table-dark table-sm-width' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'tbody',
-                        null,
-                        this.renderModels()
-                    )
-                )
+                    'ul',
+                    { className: 'editor-tabs' },
+                    this.renderPhpTabs()
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: this.editorName(), className: 'result-editor' })
             );
         }
     }, {
-        key: 'renderModels',
-        value: function renderModels() {
-            var _this2 = this;
-
-            return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map(function (model) {
-                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'tr',
-                    { key: model.model },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'td',
-                        null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { key: model.model, className: 'form-check' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { className: 'form-check-label' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: _this2.disableModel.bind(_this2, model.model), checked: _this2.shouldCheckModel(model.model), key: model.model, type: 'checkbox', className: 'form-check-input', value: '' }),
-                                model.model
-                            )
-                        )
-                    )
-                );
-            });
-        }
-    }, {
-        key: 'shouldCheckModel',
-        value: function shouldCheckModel(modelName) {
-            return this.props.tasks.CreateControllersTask.enabled && !this.props.tasks.CreateControllersTask.disabledModels.includes(modelName);
-        }
-    }, {
-        key: 'disableModel',
-        value: function disableModel(modelName, event) {
-            if (this.props.tasks.CreateControllersTask.disabledModels.indexOf(modelName) === -1) {
-                this.props.tasks.CreateControllersTask.disabledModels.push(modelName);
-            } else {
-                this.props.tasks.CreateControllersTask.disabledModels = this.props.tasks.CreateControllersTask.disabledModels.filter(function (value) {
-                    return value != modelName;
-                });
-            }
-
-            this.props.updateTasks(this.props.tasks);
-        }
-    }, {
-        key: 'enableTask',
-        value: function enableTask() {
-            var updatedTasks = this.props.tasks;
-            updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
-            this.props.updateTasks(updatedTasks);
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.tasks != nextProps.tasks) this.task().controllers = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].controllers(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
@@ -61614,15 +61593,20 @@ var CreateControllersTask = function (_BaseTask) {
             return {
                 name: "CreateControllersTask",
                 enabled: true,
-                disabledModels: []
+                pseudoCode: "",
+                transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
+                models: [],
+                activeTab: null,
+                shouldDisplayFilesOfType: ["MODEL"],
+                fileTypeToGenerate: "controller"
             };
         }
     }]);
 
     return CreateControllersTask;
-}(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllersTask));
 
 /***/ }),
 /* 279 */
@@ -62059,7 +62043,7 @@ var CreateFilesTask = function (_BaseTask) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = ("<?php\n\nnamespace AppHttpControllers;\n\nuse AppTask;\n\nuse IlluminateHttpRequest;\n\nuse IlluminateSupportFacadesAuth;\n\n\n\nclass TaskController extends Controller\n\n{\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Display a listing of the resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\n\n\xA0\xA0\xA0public function index()\n\n\xA0\xA0\xA0{\n\n\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0$tasks = Task::where(['user_id' => Auth::user()->id])->get();\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0return response()->json([\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0'tasks' \xA0\xA0\xA0=> $tasks,\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0], 200);\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Show the form for creating a new resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function create()\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0//\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Store a newly created resource in storage.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0IlluminateHttpRequest \xA0$request\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function store(Request $request)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Display the specified resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function show(Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0//\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Show the form for editing the specified resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function edit(Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0//\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Update the specified resource in storage.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0IlluminateHttpRequest \xA0$request\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function update(Request $request, Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Remove the specified resource from storage.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function destroy(Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0}\n\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace AppHttpControllers;\n\nuse AppREMOVE;\nuse IlluminateHttpRequest;\n\nclass REMOVEController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return IlluminateHttpResponse\n     */\n    public function index()\n    {\n        //\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return IlluminateHttpResponse\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  IlluminateHttpRequest  $request\n     * @return IlluminateHttpResponse\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function show(REMOVE $rEMOVE)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function edit(REMOVE $rEMOVE)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  IlluminateHttpRequest  $request\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function update(Request $request, REMOVE $rEMOVE)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function destroy(REMOVE $rEMOVE)\n    {\n        //\n    }\n}\n");
 
 /***/ })
 /******/ ]);

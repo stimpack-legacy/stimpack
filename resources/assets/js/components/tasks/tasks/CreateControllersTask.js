@@ -1,68 +1,49 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PseudoCodeTransformer from '../../../PseudoCodeTransformer';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTasks} from '../../../actions/index'
+import {updateTasks} from '../../../actions/index';
+import Template from './../../../Template';
 import BaseTask from '../BaseTask'
+import CreateFilesTask from '../CreateFilesTask'
 
-class CreateControllersTask extends BaseTask {
+class CreateControllersTask extends CreateFilesTask {
+    componentDidMount() {
+        this.setupEditor();
+    }
 
     body() {
         return (
-            <form>
-            <table className="table table-sm table-dark table-sm-width">
-                <tbody>
-                    {this.renderModels()}
-                </tbody>
-            </table>                       
-        </form>
+            <div id="php-wrapper">
+                    <ul className="editor-tabs">
+                        {this.renderPhpTabs()}
+                    </ul>
+                <div id={this.editorName()} className="result-editor" />
+            </div>            
         );
     }
 
-    renderModels() {        
-        return this.props.tasks.CreateMigrationsTask.transformedPseudoCode.models().map((model) => {
-            return (
-                <tr key={model.model}>
-                    <td>
-                        <div key={model.model} className="form-check">
-                            <label className="form-check-label">
-                                <input onChange={this.disableModel.bind(this, model.model)} checked={this.shouldCheckModel(model.model)} key={model.model} type="checkbox" className="form-check-input" value="" />{model.model}
-                            </label>
-                        </div>
-                    </td>
-                </tr>);
-        });
-    }
 
-    shouldCheckModel(modelName) {        
-        return this.props.tasks.CreateControllersTask.enabled && !this.props.tasks.CreateControllersTask.disabledModels.includes(modelName);
-    }
-
-    disableModel(modelName, event) {        
-        if(this.props.tasks.CreateControllersTask.disabledModels.indexOf(modelName) === -1) {
-            this.props.tasks.CreateControllersTask.disabledModels.push(modelName);
-        } else {
-            this.props.tasks.CreateControllersTask.disabledModels = this.props.tasks.CreateControllersTask.disabledModels.filter((value) => {
-                return value != modelName;
-            });
-        }
-        
-        this.props.updateTasks(this.props.tasks);
-    }
-
-    enableTask() {
-        var updatedTasks = this.props.tasks;
-        updatedTasks.CreateControllersTask.enabled = !updatedTasks.CreateControllersTask.enabled; // ^= 1
-        this.props.updateTasks(updatedTasks);
-    }
-    
     static getDefaultParameters() {
         return {
             name: "CreateControllersTask",
             enabled: true,
-            disabledModels: []
+            pseudoCode: "",
+            transformedPseudoCode: new PseudoCodeTransformer(),
+            models: [],
+            activeTab: null,
+            shouldDisplayFilesOfType: ["MODEL"],
+            fileTypeToGenerate: "controller"
         }
-    }    
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(this.props.tasks != nextProps.tasks)
+            this.task().controllers = Template.controllers(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            this.renderPhpCode();
+    }      
 }
 
 export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateControllersTask);
