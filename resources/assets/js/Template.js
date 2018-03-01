@@ -1,3 +1,4 @@
+import controller from './templates/controller';
 import migration from './templates/migration';
 import model from './templates/model';
 import pseudoPlaceholder from './templates/pseudoPlaceholder';

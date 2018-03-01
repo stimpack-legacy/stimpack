@@ -5159,15 +5159,17 @@ module.exports = ReactBrowserEventEmitter;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_migration__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_model__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_phpPlaceholder__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_helpPlaceholder__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_makeAuthPseudoCode__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_controller__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_migration__ = __webpack_require__(269);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_model__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_pseudoPlaceholder__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_phpPlaceholder__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_helpPlaceholder__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_makeAuthPseudoCode__ = __webpack_require__(274);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -5193,7 +5195,7 @@ var Template = function () {
                 return false;
             }
 
-            var body = __WEBPACK_IMPORTED_MODULE_0__templates_migration__["a" /* default */];
+            var body = __WEBPACK_IMPORTED_MODULE_1__templates_migration__["a" /* default */];
             body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
             body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
             body = Template.blockReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
@@ -5217,7 +5219,7 @@ var Template = function () {
                 return false;
             }
             return {
-                body: __WEBPACK_IMPORTED_MODULE_1__templates_model__["a" /* default */],
+                body: __WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */],
                 table: transformedModel.table,
                 tabName: transformedModel.name
             };
@@ -5249,17 +5251,17 @@ var Template = function () {
     }, {
         key: 'pseudoPlaceholder',
         value: function pseudoPlaceholder() {
-            return __WEBPACK_IMPORTED_MODULE_2__templates_pseudoPlaceholder__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_3__templates_pseudoPlaceholder__["a" /* default */];
         }
     }, {
         key: 'phpPlaceholder',
         value: function phpPlaceholder() {
-            return __WEBPACK_IMPORTED_MODULE_3__templates_phpPlaceholder__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_4__templates_phpPlaceholder__["a" /* default */];
         }
     }, {
         key: 'makeAuthPseudoCode',
         value: function makeAuthPseudoCode() {
-            return __WEBPACK_IMPORTED_MODULE_5__templates_makeAuthPseudoCode__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_6__templates_makeAuthPseudoCode__["a" /* default */];
         }
     }]);
 
@@ -62051,6 +62053,13 @@ var CreateFilesTask = function (_BaseTask) {
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (CreateFilesTask);
+
+/***/ }),
+/* 297 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony default export */ var _unused_webpack_default_export = ("<?php\n\nnamespace AppHttpControllers;\n\nuse AppTask;\n\nuse IlluminateHttpRequest;\n\nuse IlluminateSupportFacadesAuth;\n\n\n\nclass TaskController extends Controller\n\n{\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Display a listing of the resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\n\n\xA0\xA0\xA0public function index()\n\n\xA0\xA0\xA0{\n\n\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0$tasks = Task::where(['user_id' => Auth::user()->id])->get();\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0return response()->json([\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0'tasks' \xA0\xA0\xA0=> $tasks,\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0], 200);\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Show the form for creating a new resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function create()\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0//\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Store a newly created resource in storage.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0IlluminateHttpRequest \xA0$request\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function store(Request $request)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Display the specified resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function show(Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0//\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Show the form for editing the specified resource.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function edit(Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0//\n\n\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Update the specified resource in storage.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0IlluminateHttpRequest \xA0$request\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function update(Request $request, Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0\xA0\xA0\xA0\xA0\xA0}\n\n\n\n\xA0\xA0\xA0/**\n\n\xA0\xA0\xA0\xA0* Remove the specified resource from storage.\n\n\xA0\xA0\xA0\xA0*\n\n\xA0\xA0\xA0\xA0* @param \xA0AppTask \xA0$task\n\n\xA0\xA0\xA0\xA0* @return IlluminateHttpResponse\n\n\xA0\xA0\xA0\xA0*/\n\n\xA0\xA0\xA0public function destroy(Task $task)\n\n\xA0\xA0\xA0{\n\n\xA0\xA0\xA0}\n\n}");
 
 /***/ })
 /******/ ]);
