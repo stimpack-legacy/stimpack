@@ -12,6 +12,6 @@ export const allTasks = [
     SetObjectModelTask,
     CreateMigrationsTask,
     CreateModelsTask,
-    CreateControllersTask,
+    //CreateControllersTask,
     CreateEpicSplashPageTask
 ]

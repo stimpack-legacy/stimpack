@@ -7,8 +7,9 @@ import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../../actions/index';
 import Template from './../../../Template';
 import BaseTask from '../BaseTask'
+import CreateFilesTask from '../CreateFilesTask'
 
-class CreateMigrationsTask extends BaseTask {
+class CreateMigrationsTask extends CreateFilesTask {
     componentDidMount() {
         this.setupEditor();
     }
@@ -31,7 +32,8 @@ class CreateMigrationsTask extends BaseTask {
             transformedPseudoCode: new PseudoCodeTransformer(),
             migrations: [],
             activeTab: null,
-            shouldDisplayFilesOfType: "migration"
+            shouldDisplayFilesOfType: ["MODEL", "TABLE_ONLY", "MANY_TO_MANY"],
+            fileTypeToGenerate: "migration"
         }
     }
 

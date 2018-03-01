@@ -24,7 +24,8 @@ export default class Template {
             }),3);
         return {
             body: body,
-            table: transformedModel.table
+            table: transformedModel.table,
+            tabName: transformedModel.name
         }
     }
     static models(transformedModels) {
@@ -37,8 +38,13 @@ export default class Template {
         }        
         return {
             body: model,
-            table: transformedModel.table
+            table: transformedModel.table,
+            tabName: transformedModel.name
         }
+    }
+
+    static file(type, transformedModel) {
+        return this[type](transformedModel);
     }
     
     static replace(template, replacementPairs) {        

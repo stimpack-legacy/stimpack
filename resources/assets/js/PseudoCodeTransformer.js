@@ -77,19 +77,18 @@ export default class PseudoCodeTransformer {
 
     // Return an array for instance ["car", "user"]]
     possibleManyToManyDefinition(heading) {
-        var tables = this.transformedPseudoCode.map((item) => {
-            return item.table;
+        var models = this.transformedPseudoCode.map((item) => {
+            return item.name.toLowerCase();
         }).join("|");
-        
-        var manyToManyRegExp = new RegExp("^(" + tables + ")_(" + tables + ")$");        
-        var matches;
-        if(matches = manyToManyRegExp.exec(heading)) {
+        var manyToManyRegExp = new RegExp("^(" + models + ")_(" + models + ")$");        
+        var matches = manyToManyRegExp.exec(heading);
+        if(matches) {
             return [matches[1], matches[2]];
         }
     }
 
     getTypeForNonModel(heading) {
-        if (this.possibleManyToManyDefinitionheading()) {
+        if (this.possibleManyToManyDefinition(heading)) {
             return MANY_TO_MANY;
         }
 
@@ -125,6 +124,12 @@ export default class PseudoCodeTransformer {
 
     all() {
         return this.transformedPseudoCode;
+    }
+
+    filter(types) {
+        return this.transformedPseudoCode.filter((item) => {
+            return types.includes(item.type);
+        });        
     }
 
     models() {
