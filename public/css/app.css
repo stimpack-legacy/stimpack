@@ -3321,6 +3321,10 @@ li a:hover {
   text-decoration: none;
 }
 
+#tools > * {
+  margin-left: 10px;
+}
+
 .log-ok {
   color: #AFE418;
 }

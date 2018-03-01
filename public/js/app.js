@@ -5166,9 +5166,13 @@ module.exports = ReactBrowserEventEmitter;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_phpPlaceholder__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_helpPlaceholder__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_makeAuthPseudoCode__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__templates_sampleProject__ = __webpack_require__(298);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
 
 
 
@@ -5218,8 +5222,14 @@ var Template = function () {
             if (!transformedModel) {
                 return false;
             }
+            var body = __WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */];
+            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
+            body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
+            body = Template.blockReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
+                return attribute.migrationDefinition;
+            }), 3);
             return {
-                body: __WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */],
+                body: body,
                 table: transformedModel.table,
                 tabName: transformedModel.name
             };
@@ -5279,6 +5289,11 @@ var Template = function () {
         key: 'makeAuthPseudoCode',
         value: function makeAuthPseudoCode() {
             return __WEBPACK_IMPORTED_MODULE_6__templates_makeAuthPseudoCode__["a" /* default */];
+        }
+    }, {
+        key: 'sampleProject',
+        value: function sampleProject() {
+            return __WEBPACK_IMPORTED_MODULE_7__templates_sampleProject__["a" /* default */];
         }
     }]);
 
@@ -60980,7 +60995,7 @@ var Cache = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $Model$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n        $MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n        $HIDDEN-ATTRIBUTES$\n    ];\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse IlluminateDatabaseEloquentModel;\n\nclass $MODEL$ extends Model\n{\n    //\n}");
 
 /***/ }),
 /* 271 */
@@ -61320,9 +61335,18 @@ var SetObjectModelTask = function (_BaseTask) {
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { onClick: this.makeAuth.bind(this), className: 'btn btn-default btn-cool' },
-                    'make:auth'
+                    'div',
+                    { id: 'tools' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.makeAuth.bind(this), className: 'btn btn-default btn-cool' },
+                        'make:auth'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.addSampleProject.bind(this), className: 'btn btn-default btn-cool' },
+                        'sample project'
+                    )
                 )
             );
         }
@@ -61333,6 +61357,11 @@ var SetObjectModelTask = function (_BaseTask) {
                 row: this.pseudo.getSession().getLength(),
                 column: 0
             }, "\n" + __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].makeAuthPseudoCode());
+        }
+    }, {
+        key: 'addSampleProject',
+        value: function addSampleProject() {
+            this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].sampleProject(), 0);
         }
     }, {
         key: 'toggleAutoIdAndTimestamps',
@@ -62044,6 +62073,13 @@ var CreateFilesTask = function (_BaseTask) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace AppHttpControllers;\n\nuse AppREMOVE;\nuse IlluminateHttpRequest;\n\nclass REMOVEController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return IlluminateHttpResponse\n     */\n    public function index()\n    {\n        //\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return IlluminateHttpResponse\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  IlluminateHttpRequest  $request\n     * @return IlluminateHttpResponse\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function show(REMOVE $rEMOVE)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function edit(REMOVE $rEMOVE)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  IlluminateHttpRequest  $request\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function update(Request $request, REMOVE $rEMOVE)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  AppREMOVE  $rEMOVE\n     * @return IlluminateHttpResponse\n     */\n    public function destroy(REMOVE $rEMOVE)\n    {\n        //\n    }\n}\n");
+
+/***/ }),
+/* 298 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("User\nname\nemail\npassword\nrememberToken\n\npassword_resets\nemail\ntoken\ntimestamp\n\nProduct\nname\ndescription\nprice\n\nOrder\nuser_id\npayment_completed\n\norder_product");
 
 /***/ })
 /******/ ]);

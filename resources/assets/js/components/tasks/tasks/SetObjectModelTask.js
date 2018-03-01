@@ -55,10 +55,12 @@ class SetObjectModelTask extends BaseTask {
                         <br />
 
                                                             
-                    </div>                                
-        
+                    </div>                                        
                 </div>
-                <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>                  
+                <div id="tools">
+                    <button onClick={this.makeAuth.bind(this)} className="btn btn-default btn-cool">make:auth</button>
+                    <button onClick={this.addSampleProject.bind(this)} className="btn btn-default btn-cool">sample project</button>                  
+                </div>
             </div>
         );
     }
@@ -68,6 +70,10 @@ class SetObjectModelTask extends BaseTask {
            row: this.pseudo.getSession().getLength(),
            column: 0
         }, "\n" + Template.makeAuthPseudoCode());
+    }
+
+    addSampleProject() {
+        this.pseudo.setValue(Template.sampleProject(), 0);       
     }
 
     toggleAutoIdAndTimestamps() {

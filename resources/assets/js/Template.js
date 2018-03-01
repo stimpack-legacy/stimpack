@@ -1,10 +1,13 @@
 import controller from './templates/controller';
 import migration from './templates/migration';
 import model from './templates/model';
+
 import pseudoPlaceholder from './templates/pseudoPlaceholder';
 import phpPlaceholder from './templates/phpPlaceholder';
 import helpPlaceholder from './templates/helpPlaceholder';
+
 import makeAuthPseudoCode from './templates/makeAuthPseudoCode';
+import sampleProject from './templates/sampleProject';
 
 export default class Template {
     static migrations(transformedModels) {
@@ -22,7 +25,7 @@ export default class Template {
         body = Template.blockReplace(body, "$COLUMNS$",
             transformedModel.attributes.map((attribute) => {
                 return attribute.migrationDefinition;
-            }),3);
+        }),3);
         return {
             body: body,
             table: transformedModel.table,
@@ -36,9 +39,16 @@ export default class Template {
     static model(transformedModel) {
         if(!transformedModel) {
             return false;
-        }        
+        }
+        var body = model;
+        body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
+        body = Template.replace(body, {"$TABLE-NAME$": transformedModel.table});        
+        body = Template.blockReplace(body, "$COLUMNS$",
+            transformedModel.attributes.map((attribute) => {
+                return attribute.migrationDefinition;
+        }),3);                
         return {
-            body: model,
+            body: body,
             table: transformedModel.table,
             tabName: transformedModel.name
         }
@@ -92,5 +102,8 @@ export default class Template {
         return makeAuthPseudoCode;
     }
 
+    static sampleProject() {
+        return sampleProject;
+    }
 
 }
