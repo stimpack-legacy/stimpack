@@ -77,4 +77,21 @@ export default class Attribute {
             },
         };                        
     }
+
+    fillable() {
+        return ![
+            "created_at",
+            "updated_at",
+            "id"
+        ].includes(name);
+    }
+
+    hidden() {
+        return [
+            "password",
+            "remember_token"
+        ].includes(name);
+    }
+
+
 }

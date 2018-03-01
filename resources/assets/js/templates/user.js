@@ -16,7 +16,7 @@ class $MODEL$ extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        $MASS-ASSIGNABLE-ATTRIBUTES$
+$MASS-ASSIGNABLE-ATTRIBUTES$
     ];
 
     /**
@@ -25,6 +25,6 @@ class $MODEL$ extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        $HIDDEN-ATTRIBUTES$
+$HIDDEN-ATTRIBUTES$
     ];
 }`;

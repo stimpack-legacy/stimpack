@@ -1,6 +1,7 @@
 import controller from './templates/controller';
 import migration from './templates/migration';
 import model from './templates/model';
+import user from './templates/user';
 
 import pseudoPlaceholder from './templates/pseudoPlaceholder';
 import phpPlaceholder from './templates/phpPlaceholder';
@@ -36,17 +37,34 @@ export default class Template {
         return transformedModels.map(Template.model);
     }
 
+    static modelTemplate(modelName) {
+        if(modelName == "User") return user;
+        
+        return model;
+
+    }
+
     static model(transformedModel) {
         if(!transformedModel) {
             return false;
         }
-        var body = model;
-        body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
-        body = Template.replace(body, {"$TABLE-NAME$": transformedModel.table});        
-        body = Template.blockReplace(body, "$COLUMNS$",
-            transformedModel.attributes.map((attribute) => {
-                return attribute.migrationDefinition;
-        }),3);                
+        var body = Template.modelTemplate(transformedModel.name);
+        body = Template.replace(body, {"$MODEL$": transformedModel.name});
+        
+        body = Template.blockReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$",
+        transformedModel.attributes.filter((attribute) => {
+            return attribute.fillable();
+        }).map((attribute) => {
+            return "'" + attribute.name + "',";
+        }),2);        
+
+        body = Template.blockReplace(body, "$HIDDEN-ATTRIBUTES$",
+        transformedModel.attributes.filter((attribute) => {
+            return attribute.hidden();
+        }).map((attribute) => {
+            return "'" + attribute.name + "',";
+        }),2);        
+
         return {
             body: body,
             table: transformedModel.table,

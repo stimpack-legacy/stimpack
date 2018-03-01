@@ -74,6 +74,9 @@ class SetObjectModelTask extends BaseTask {
 
     addSampleProject() {
         this.pseudo.setValue(Template.sampleProject(), 0);       
+        var row = this.pseudo.session.getLength() - 1
+        var column = this.pseudo.session.getLine(row).length // or simply Infinity
+        this.pseudo.selection.moveTo(row, column);
     }
 
     toggleAutoIdAndTimestamps() {

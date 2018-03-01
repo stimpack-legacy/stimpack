@@ -5162,14 +5162,16 @@ module.exports = ReactBrowserEventEmitter;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_controller__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_migration__ = __webpack_require__(269);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_model__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_pseudoPlaceholder__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_phpPlaceholder__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_helpPlaceholder__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_makeAuthPseudoCode__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__templates_sampleProject__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_user__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_pseudoPlaceholder__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_phpPlaceholder__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_helpPlaceholder__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__templates_makeAuthPseudoCode__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__templates_sampleProject__ = __webpack_require__(298);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -5217,17 +5219,33 @@ var Template = function () {
             return transformedModels.map(Template.model);
         }
     }, {
+        key: 'modelTemplate',
+        value: function modelTemplate(modelName) {
+            if (modelName == "User") return __WEBPACK_IMPORTED_MODULE_3__templates_user__["a" /* default */];
+
+            return __WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */];
+        }
+    }, {
         key: 'model',
         value: function model(transformedModel) {
             if (!transformedModel) {
                 return false;
             }
-            var body = __WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */];
-            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
-            body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
-            body = Template.blockReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
-                return attribute.migrationDefinition;
-            }), 3);
+            var body = Template.modelTemplate(transformedModel.name);
+            body = Template.replace(body, { "$MODEL$": transformedModel.name });
+
+            body = Template.blockReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
+                return attribute.fillable();
+            }).map(function (attribute) {
+                return "'" + attribute.name + "',";
+            }), 2);
+
+            body = Template.blockReplace(body, "$HIDDEN-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
+                return attribute.hidden();
+            }).map(function (attribute) {
+                return "'" + attribute.name + "',";
+            }), 2);
+
             return {
                 body: body,
                 table: transformedModel.table,
@@ -5278,22 +5296,22 @@ var Template = function () {
     }, {
         key: 'pseudoPlaceholder',
         value: function pseudoPlaceholder() {
-            return __WEBPACK_IMPORTED_MODULE_3__templates_pseudoPlaceholder__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_4__templates_pseudoPlaceholder__["a" /* default */];
         }
     }, {
         key: 'phpPlaceholder',
         value: function phpPlaceholder() {
-            return __WEBPACK_IMPORTED_MODULE_4__templates_phpPlaceholder__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_5__templates_phpPlaceholder__["a" /* default */];
         }
     }, {
         key: 'makeAuthPseudoCode',
         value: function makeAuthPseudoCode() {
-            return __WEBPACK_IMPORTED_MODULE_6__templates_makeAuthPseudoCode__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_7__templates_makeAuthPseudoCode__["a" /* default */];
         }
     }, {
         key: 'sampleProject',
         value: function sampleProject() {
-            return __WEBPACK_IMPORTED_MODULE_7__templates_sampleProject__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_8__templates_sampleProject__["a" /* default */];
         }
     }]);
 
@@ -60995,7 +61013,7 @@ var Cache = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse IlluminateDatabaseEloquentModel;\n\nclass $MODEL$ extends Model\n{\n    //\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n}");
 
 /***/ }),
 /* 271 */
@@ -61135,6 +61153,16 @@ var Attribute = function () {
                     return "$table->boolean('" + name + "')->default(false);";
                 }
             };
+        }
+    }, {
+        key: "fillable",
+        value: function fillable() {
+            return !["created_at", "updated_at", "id"].includes(name);
+        }
+    }, {
+        key: "hidden",
+        value: function hidden() {
+            return ["password", "remember_token"].includes(name);
         }
     }]);
 
@@ -61362,6 +61390,9 @@ var SetObjectModelTask = function (_BaseTask) {
         key: 'addSampleProject',
         value: function addSampleProject() {
             this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].sampleProject(), 0);
+            var row = this.pseudo.session.getLength() - 1;
+            var column = this.pseudo.session.getLine(row).length; // or simply Infinity
+            this.pseudo.selection.moveTo(row, column);
         }
     }, {
         key: 'toggleAutoIdAndTimestamps',
@@ -62080,6 +62111,13 @@ var CreateFilesTask = function (_BaseTask) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ("User\nname\nemail\npassword\nrememberToken\n\npassword_resets\nemail\ntoken\ntimestamp\n\nProduct\nname\ndescription\nprice\n\nOrder\nuser_id\npayment_completed\n\norder_product");
+
+/***/ }),
+/* 299 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n}");
 
 /***/ })
 /******/ ]);
