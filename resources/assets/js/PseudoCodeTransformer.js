@@ -173,4 +173,30 @@ export default class PseudoCodeTransformer {
         }
         return code.split(/\n\s*\n/);        
     }
+
+    relationships(model) {
+        var candidateModels = this.models().filter((candidate) => {
+            return model != candidate;
+        });
+
+        // HAS ONE
+        var hasOnes = model.attributes.filter((attribute) => {
+            return (new RegExp("_id$")).test(attribute.name);
+        }); // chain map to format as we wish!
+
+         
+
+        // BELONGS TO
+
+        // HAS MANY
+
+        // BELONGS TO MANY
+
+
+        this.models().map((block) => {
+            return;
+        })
+
+        return [];
+    }
 }

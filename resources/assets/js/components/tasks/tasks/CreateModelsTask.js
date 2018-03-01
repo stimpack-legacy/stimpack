@@ -40,9 +40,11 @@ class CreateModelsTask extends CreateFilesTask {
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.tasks != nextProps.tasks)
+        if(this.props.tasks != nextProps.tasks) {
             this.task().models = Template.models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
             this.renderPhpCode();
+        }
+        
     }      
 }
 

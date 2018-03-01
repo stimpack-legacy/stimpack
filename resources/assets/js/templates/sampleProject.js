@@ -4,6 +4,7 @@ name
 email
 password
 rememberToken
+product_id
 
 password_resets
 email

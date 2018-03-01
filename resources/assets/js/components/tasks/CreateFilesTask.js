@@ -40,14 +40,17 @@ export default class CreateFilesTask extends BaseTask {
         return tabs.map(this.renderPhpTab.bind(this));
     }
 
+    transformedPseudoCode() {
+        return this.props.tasks.SetObjectModelTask.transformedPseudoCode;
+    }
+
     tabsToRender() {
         return this.constructor.getDefaultParameters().shouldDisplayFilesOfType
     }
 
     renderPhpTab(block) {
         var tabName = Template.file(this.fileTypeToGenerate(), block).tabName;
-        var tabClass = "editor-tab" + this.getClassForActiveTab(block.name);        
-
+        var tabClass = "editor-tab" + this.getClassForActiveTab(block.name);                
         return (
             <li key={block.table} className={tabClass}>
                 <a onClick={this.clickTab.bind(this)} data-model={block.name} href="#">{tabName}</a>
@@ -84,7 +87,7 @@ export default class CreateFilesTask extends BaseTask {
 
     renderPhpCode() {
         var file = Template.file(this.fileTypeToGenerate(), this.activeBlock());
-
+        this.props.tasks.SetObjectModelTask.transformedPseudoCode.relationships(this.activeBlock());
         if(!file) {
             this.php.setValue("", 1);
             return;
