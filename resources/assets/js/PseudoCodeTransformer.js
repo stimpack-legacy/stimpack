@@ -2,6 +2,10 @@ import Cache from './Cache'; // Instead of constantly doing HTTP request to serv
 import Template from './Template';
 import Attribute from './Attribute';
 
+const MODEL = "MODEL";
+const TABLE_ONLY = "TABLE_ONLY";
+const MANY_TO_MANY = "MANY_TO_MANY";
+
 export default class PseudoCodeTransformer {
     constructor() {
         this.transformedPseudoCode = [];        
@@ -22,12 +26,11 @@ export default class PseudoCodeTransformer {
     define(segment) {
         var rows = segment.split(/\n/);
         var heading = rows[0];
-        var type = "model";
         
         // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
         // But "word" is just a table "word" without an associated model. Note - potentially relationship table
         if(heading.charAt(0) == heading.charAt(0).toLowerCase()) {
-            this.pushTransformedModel("table", rows, heading, heading, this.manyToManyDefinition());
+            this.pushTransformedPseudoCode(this.getTypeForNonModel(heading), rows, heading, heading, this.possibleManyToManyDefinition());
             return;
         }        
 
@@ -37,15 +40,14 @@ export default class PseudoCodeTransformer {
                 url: "/stimpack/pluralize/" + heading,
                 success: function(modelPluralized){
                     Cache.set(heading, "plural", modelPluralized);
-                    this.pushTransformedModel(type, rows, heading, modelPluralized);                                        
+                    this.pushTransformedPseudoCode(MODEL, rows, heading, modelPluralized);                                        
                 }.bind(this)
             });
             return;
         }
 
         // The segment was a Model with present cache for plural.
-        this.pushTransformedModel(type, rows, heading, Cache.get(heading, "plural"));    
-        
+        this.pushTransformedPseudoCode(MODEL, rows, heading, Cache.get(heading, "plural"));
     }
 
     activeTab(pseudoCode, cursorPosition) {
@@ -58,37 +60,11 @@ export default class PseudoCodeTransformer {
             return value.includes(cursorIdentifier);
         })
         activeSegment = activeSegment.replace(cursorIdentifier,'');       
-        var activeModel = activeSegment.split("\n")[0];
-        return activeModel;
+        var activeBlockHeading = activeSegment.split("\n")[0];
+        return activeBlockHeading;
         
 
         
-    }
-
-    testActiveChunk() {
-var short = 
-`Friend
-name
-skill
-`;
-
-var long = 
-`Friend
-name
-skill
-
-Enemy
-name
-skill
-`;
-
-        //this.activeChunk(short,{row: 2, column: 3});
-
-        //this.activeChunk(long,{row: 2, column: 3});
-
-        //this.activeChunk(long,{row: 2, column: 0});
-
-        this.activeChunk("",{row: 0, column: 0});
     }
 
     getPosition(string, subString, index) {
@@ -100,7 +76,7 @@ skill
     }
 
     // Return an array for instance ["car", "user"]]
-    manyToManyDefinition(heading) {
+    possibleManyToManyDefinition(heading) {
         var tables = this.transformedPseudoCode.map((item) => {
             return item.table;
         }).join("|");
@@ -112,22 +88,30 @@ skill
         }
     }
 
-    pushTransformedModel(type, rows, model, table, manyToManyTables) {
+    getTypeForNonModel(heading) {
+        if (this.possibleManyToManyDefinitionheading()) {
+            return MANY_TO_MANY;
+        }
+
+        return TABLE_ONLY;
+    }
+
+    pushTransformedPseudoCode(type, rows, name, table, manyToManyTables) {
         this.transformedPseudoCode.push({
             type: type,
-            model: model,
+            name: name,
             table: table,
-            attributes: rows.slice(1).map((name) => { return new Attribute(name);}),
+            attributes: rows.slice(1).map((attribute) => { return new Attribute(attribute);}),
             migration: "placeholder",
             manyToManyTables: manyToManyTables
         });
         this.transformedPseudoCode.sort(function(a, b){
-            if(a.model < b.model) return -1;
-            if(a.model > b.model) return 1;
+            if(a.name < b.name) return -1;
+            if(a.name > b.name) return 1;
             return 0;
         });                    
         if(this.finished()) {            
-            this.returnTransformedModels();        
+            this.returnTransformedPseudoCode();        
         }
     }
 
@@ -135,7 +119,7 @@ skill
         return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
     }
 
-    returnTransformedModels() {
+    returnTransformedPseudoCode() {
         typeof this.callback === 'function' && this.callback(this);
     }
 
@@ -145,13 +129,13 @@ skill
 
     models() {
         return this.transformedPseudoCode.filter((item) => {
-            return item.type == "model";
+            return item.type == MODEL;
         });
     }
     
     pureTables() {
         return this.transformedPseudoCode.filter((item) => {
-            return item.type == "table";
+            return item.type == TABLE_ONLY;
         });
     }
 
@@ -160,7 +144,7 @@ skill
             this.define(segment);            
         });
         if(this.finished()) {
-            this.returnTransformedModels();
+            this.returnTransformedPseudoCode();
         }
     }
 

@@ -2680,6 +2680,7 @@ module.exports = PooledClass;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Template__ = __webpack_require__(40);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2687,6 +2688,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -2754,6 +2756,98 @@ var BaseTask = function (_Component) {
         key: 'switch',
         value: function _switch() {
             return this.task().name + '-switch';
+        }
+    }, {
+        key: 'setupEditor',
+        value: function setupEditor() {
+            this.php = ace.edit(this.editorName());
+            this.php.$blockScrolling = Infinity;
+            this.php.setTheme("ace/theme/monokai");
+            this.php.getSession().setMode({
+                path: "ace/mode/php",
+                inline: true
+            });
+
+            this.php.setValue(__WEBPACK_IMPORTED_MODULE_5__Template__["a" /* default */].phpPlaceholder(), 0);
+
+            this.php.setOptions({
+                readOnly: true,
+                highlightActiveLine: false,
+                highlightGutterLine: false
+            });
+            this.php.renderer.$cursorLayer.element.style.opacity = 0;
+
+            this.php.setShowPrintMargin(false);
+            this.php.renderer.setShowGutter(false);
+        }
+    }, {
+        key: 'editorName',
+        value: function editorName() {
+            return this.task().name + '-editor';
+        }
+    }, {
+        key: 'renderPhpTabs',
+        value: function renderPhpTabs() {
+            var _this2 = this;
+
+            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (block) {
+                var tabClass = "editor-tab " + _this2.getClassForActiveTab(block.name);
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: block.table, className: tabClass },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { onClick: _this2.clickTab.bind(_this2), 'data-model': block.name, href: '#' },
+                        block.name
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'getClassForActiveTab',
+        value: function getClassForActiveTab(blockName) {
+            if (blockName == this.props.tasks.SetObjectModelTask.activeTab) {
+                return "editor-tab-active";
+            }
+            return "";
+        }
+    }, {
+        key: 'clickTab',
+        value: function clickTab(e) {
+            e.preventDefault();
+            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+            this.props.updateTasks(this.props.tasks);
+        }
+    }, {
+        key: 'renderPhpCode',
+        value: function renderPhpCode() {
+            var _this3 = this;
+
+            var activeModel = this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find(function (model) {
+                return model.name == _this3.props.tasks.SetObjectModelTask.activeTab;
+            });
+
+            var migration = __WEBPACK_IMPORTED_MODULE_5__Template__["a" /* default */].migration(activeModel); //Template.migration();
+
+            if (!migration) {
+                this.php.setValue("", 1);
+                return;
+            }
+            this.php.setValue(migration.body, 1);
+        }
+    }, {
+        key: 'getMigrationForActiveTab',
+        value: function getMigrationForActiveTab() {
+            var _this4 = this;
+
+            var migration = "";
+            this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
+                console.log(_this4.props.tasks.SetObjectModelTask.activeTab);
+                if (model.model == _this4.props.tasks.SetObjectModelTask.activeTab) {
+                    migration = __WEBPACK_IMPORTED_MODULE_5__Template__["a" /* default */].migration(model);
+                }
+            });
+            return migration;
         }
     }], [{
         key: 'mapStateToProps',
@@ -7317,6 +7411,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
+var MODEL = "MODEL";
+var TABLE_ONLY = "TABLE_ONLY";
+var MANY_TO_MANY = "MANY_TO_MANY";
+
 var PseudoCodeTransformer = function () {
     function PseudoCodeTransformer() {
         _classCallCheck(this, PseudoCodeTransformer);
@@ -7344,12 +7442,11 @@ var PseudoCodeTransformer = function () {
         value: function define(segment) {
             var rows = segment.split(/\n/);
             var heading = rows[0];
-            var type = "model";
 
             // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
             // But "word" is just a table "word" without an associated model. Note - potentially relationship table
             if (heading.charAt(0) == heading.charAt(0).toLowerCase()) {
-                this.pushTransformedModel("table", rows, heading, heading, this.manyToManyDefinition());
+                this.pushTransformedPseudoCode(this.getTypeForNonModel(heading), rows, heading, heading, this.possibleManyToManyDefinition());
                 return;
             }
 
@@ -7359,14 +7456,14 @@ var PseudoCodeTransformer = function () {
                     url: "/stimpack/pluralize/" + heading,
                     success: function (modelPluralized) {
                         __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].set(heading, "plural", modelPluralized);
-                        this.pushTransformedModel(type, rows, heading, modelPluralized);
+                        this.pushTransformedPseudoCode(MODEL, rows, heading, modelPluralized);
                     }.bind(this)
                 });
                 return;
             }
 
             // The segment was a Model with present cache for plural.
-            this.pushTransformedModel(type, rows, heading, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get(heading, "plural"));
+            this.pushTransformedPseudoCode(MODEL, rows, heading, __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].get(heading, "plural"));
         }
     }, {
         key: 'activeTab',
@@ -7380,23 +7477,8 @@ var PseudoCodeTransformer = function () {
                 return value.includes(cursorIdentifier);
             });
             activeSegment = activeSegment.replace(cursorIdentifier, '');
-            var activeModel = activeSegment.split("\n")[0];
-            return activeModel;
-        }
-    }, {
-        key: 'testActiveChunk',
-        value: function testActiveChunk() {
-            var short = 'Friend\nname\nskill\n';
-
-            var long = 'Friend\nname\nskill\n\nEnemy\nname\nskill\n';
-
-            //this.activeChunk(short,{row: 2, column: 3});
-
-            //this.activeChunk(long,{row: 2, column: 3});
-
-            //this.activeChunk(long,{row: 2, column: 0});
-
-            this.activeChunk("", { row: 0, column: 0 });
+            var activeBlockHeading = activeSegment.split("\n")[0];
+            return activeBlockHeading;
         }
     }, {
         key: 'getPosition',
@@ -7412,8 +7494,8 @@ var PseudoCodeTransformer = function () {
         // Return an array for instance ["car", "user"]]
 
     }, {
-        key: 'manyToManyDefinition',
-        value: function manyToManyDefinition(heading) {
+        key: 'possibleManyToManyDefinition',
+        value: function possibleManyToManyDefinition(heading) {
             var tables = this.transformedPseudoCode.map(function (item) {
                 return item.table;
             }).join("|");
@@ -7425,25 +7507,34 @@ var PseudoCodeTransformer = function () {
             }
         }
     }, {
-        key: 'pushTransformedModel',
-        value: function pushTransformedModel(type, rows, model, table, manyToManyTables) {
+        key: 'getTypeForNonModel',
+        value: function getTypeForNonModel(heading) {
+            if (this.possibleManyToManyDefinitionheading()) {
+                return MANY_TO_MANY;
+            }
+
+            return TABLE_ONLY;
+        }
+    }, {
+        key: 'pushTransformedPseudoCode',
+        value: function pushTransformedPseudoCode(type, rows, name, table, manyToManyTables) {
             this.transformedPseudoCode.push({
                 type: type,
-                model: model,
+                name: name,
                 table: table,
-                attributes: rows.slice(1).map(function (name) {
-                    return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](name);
+                attributes: rows.slice(1).map(function (attribute) {
+                    return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](attribute);
                 }),
                 migration: "placeholder",
                 manyToManyTables: manyToManyTables
             });
             this.transformedPseudoCode.sort(function (a, b) {
-                if (a.model < b.model) return -1;
-                if (a.model > b.model) return 1;
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
                 return 0;
             });
             if (this.finished()) {
-                this.returnTransformedModels();
+                this.returnTransformedPseudoCode();
             }
         }
     }, {
@@ -7452,8 +7543,8 @@ var PseudoCodeTransformer = function () {
             return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
         }
     }, {
-        key: 'returnTransformedModels',
-        value: function returnTransformedModels() {
+        key: 'returnTransformedPseudoCode',
+        value: function returnTransformedPseudoCode() {
             typeof this.callback === 'function' && this.callback(this);
         }
     }, {
@@ -7465,14 +7556,14 @@ var PseudoCodeTransformer = function () {
         key: 'models',
         value: function models() {
             return this.transformedPseudoCode.filter(function (item) {
-                return item.type == "model";
+                return item.type == MODEL;
             });
         }
     }, {
         key: 'pureTables',
         value: function pureTables() {
             return this.transformedPseudoCode.filter(function (item) {
-                return item.type == "table";
+                return item.type == TABLE_ONLY;
             });
         }
     }, {
@@ -7484,7 +7575,7 @@ var PseudoCodeTransformer = function () {
                 _this.define(segment);
             });
             if (this.finished()) {
-                this.returnTransformedModels();
+                this.returnTransformedPseudoCode();
             }
         }
     }, {
@@ -60857,7 +60948,7 @@ var CreateMigrationsTask = function (_BaseTask) {
     _createClass(CreateMigrationsTask, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.setup();
+            this.setupEditor();
         }
     }, {
         key: 'body',
@@ -60870,94 +60961,8 @@ var CreateMigrationsTask = function (_BaseTask) {
                     { className: 'editor-tabs' },
                     this.renderPhpTabs()
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'migrations-editor' })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: this.editorName(), className: 'result-editor' })
             );
-        }
-    }, {
-        key: 'renderPhpTabs',
-        value: function renderPhpTabs() {
-            var _this2 = this;
-
-            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
-                var tabClass = "editor-tab " + _this2.getClassForActiveTab(model.model);
-                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'li',
-                    { key: model.table, className: tabClass },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'a',
-                        { onClick: _this2.clickTab.bind(_this2), 'data-model': model.model, href: '#' },
-                        model.model
-                    )
-                );
-            });
-        }
-    }, {
-        key: 'getClassForActiveTab',
-        value: function getClassForActiveTab(modelName) {
-            if (modelName == this.props.tasks.SetObjectModelTask.activeTab) {
-                return "editor-tab-active";
-            }
-            return "";
-        }
-    }, {
-        key: 'clickTab',
-        value: function clickTab(e) {
-            e.preventDefault();
-            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
-            this.props.updateTasks(this.props.tasks);
-        }
-    }, {
-        key: 'setup',
-        value: function setup() {
-            this.php = ace.edit("migrations-editor");
-            this.php.$blockScrolling = Infinity;
-            this.php.setTheme("ace/theme/monokai");
-            this.php.getSession().setMode({
-                path: "ace/mode/php",
-                inline: true
-            });
-            this.php.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].phpPlaceholder(), 0);
-
-            this.php.setOptions({
-                readOnly: true,
-                highlightActiveLine: false,
-                highlightGutterLine: false
-            });
-            this.php.renderer.$cursorLayer.element.style.opacity = 0;
-
-            this.php.setShowPrintMargin(false);
-            this.php.renderer.setShowGutter(false);
-        }
-    }, {
-        key: 'renderPhpCode',
-        value: function renderPhpCode() {
-            var _this3 = this;
-
-            var activeModel = this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find(function (model) {
-                return model.model == _this3.props.tasks.SetObjectModelTask.activeTab;
-            });
-
-            var migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(activeModel); //Template.migration();
-
-            if (!migration) {
-                this.php.setValue("", 1);
-                return;
-            }
-            this.php.setValue(migration.body, 1);
-        }
-    }, {
-        key: 'getMigrationForActiveTab',
-        value: function getMigrationForActiveTab() {
-            var _this4 = this;
-
-            var migration = "";
-            this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
-                console.log(_this4.props.tasks.SetObjectModelTask.activeTab);
-                if (model.model == _this4.props.tasks.SetObjectModelTask.activeTab) {
-                    migration = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migration(model);
-                }
-            });
-            return migration;
         }
     }, {
         key: 'componentWillReceiveProps',
@@ -61569,7 +61574,7 @@ var CreateModelsTask = function (_BaseTask) {
                                 { className: 'editor-tabs' },
                                 this.renderPhpTabs()
                             ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'models-editor' })
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: 'models-editor', className: 'result-editor' })
                         )
                     )
                 )

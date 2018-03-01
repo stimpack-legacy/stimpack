@@ -35,7 +35,7 @@ class CreateModelsTask extends BaseTask {
                                 <ul className="editor-tabs">
                                     {this.renderPhpTabs()}
                                 </ul>
-                            <div id="models-editor" />
+                            <div id="models-editor" className="result-editor" />
                         </div>
                     </div>                
                 </div>                
