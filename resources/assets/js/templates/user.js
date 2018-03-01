@@ -27,4 +27,7 @@ $MASS-ASSIGNABLE-ATTRIBUTES$
     protected $hidden = [
 $HIDDEN-ATTRIBUTES$
     ];
+
+$RELATIONSHIPS$
+    
 }`;

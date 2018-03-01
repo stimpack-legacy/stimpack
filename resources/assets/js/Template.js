@@ -49,8 +49,11 @@ export default class Template {
             return false;
         }
         var body = Template.modelTemplate(transformedModel.name);
+        
+        // Add Class name
         body = Template.replace(body, {"$MODEL$": transformedModel.name});
         
+        // Add fillable array
         body = Template.blockReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$",
         transformedModel.attributes.filter((attribute) => {
             return attribute.fillable();
@@ -58,6 +61,7 @@ export default class Template {
             return "'" + attribute.name + "',";
         }),2);        
 
+        // Add hidden array
         body = Template.blockReplace(body, "$HIDDEN-ATTRIBUTES$",
         transformedModel.attributes.filter((attribute) => {
             return attribute.hidden();

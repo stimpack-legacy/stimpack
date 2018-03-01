@@ -5232,14 +5232,18 @@ var Template = function () {
                 return false;
             }
             var body = Template.modelTemplate(transformedModel.name);
+
+            // Add Class name
             body = Template.replace(body, { "$MODEL$": transformedModel.name });
 
+            // Add fillable array
             body = Template.blockReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
                 return attribute.fillable();
             }).map(function (attribute) {
                 return "'" + attribute.name + "',";
             }), 2);
 
+            // Add hidden array
             body = Template.blockReplace(body, "$HIDDEN-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
                 return attribute.hidden();
             }).map(function (attribute) {
@@ -61013,7 +61017,7 @@ var Cache = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$RELATIONSHIPS$\n\n}");
 
 /***/ }),
 /* 271 */
@@ -62117,7 +62121,7 @@ var CreateFilesTask = function (_BaseTask) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$RELATIONSHIPS$\n    \n}");
 
 /***/ })
 /******/ ]);
