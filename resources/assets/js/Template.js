@@ -10,6 +10,10 @@ import helpPlaceholder from './templates/helpPlaceholder';
 import makeAuthPseudoCode from './templates/makeAuthPseudoCode';
 import sampleProject from './templates/sampleProject';
 
+import belongsToRelationship from './templates/belongsToRelationship';
+import belongsToManyRelationship from './templates/belongsToManyRelationship';
+import hasManyRelationship from './templates/hasManyRelationship';
+
 export default class Template {
     static migrations(transformedModels) {
         return transformedModels.map(Template.migration);
@@ -67,7 +71,22 @@ export default class Template {
             return attribute.hidden();
         }).map((attribute) => {
             return "'" + attribute.name + "',";
-        }),2);        
+        }),2);
+        
+        // Add relationships        
+        body = Template.blockReplace(body, "$BELONGS-TO-RELATIONSHIPS$",
+            transformedModel.belongsToRelationships.map((relationshipModel) => {
+                return belongsToRelationship.replace("$OWNER$", relationshipModel.name)
+                                            .replace("$CLASS$", relationshipModel.name);
+            }),2
+        );        
+        
+        //$HAS-MANY-RELATIONSHIPS$
+        
+        //$BELONGS-TO-MANY-RELATIONSHIPS$
+
+
+
 
         return {
             body: body,

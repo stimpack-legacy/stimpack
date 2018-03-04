@@ -8,7 +8,8 @@ const MANY_TO_MANY = "MANY_TO_MANY";
 
 export default class PseudoCodeTransformer {
     constructor() {
-        this.transformedPseudoCode = [];        
+        this.transformedPseudoCode = [];
+        this.shouldReturn = true;        
     }
 
     transform(pseudoCode, callback) {
@@ -109,16 +110,18 @@ export default class PseudoCodeTransformer {
             if(a.name > b.name) return 1;
             return 0;
         });                    
-        if(this.finished()) {            
+        if(this.allBlocksFound() && this.shouldReturn) {                        
             this.returnTransformedPseudoCode();        
         }
     }
 
-    finished() {        
+    allBlocksFound() {        
         return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
     }
 
     returnTransformedPseudoCode() {
+        this.shouldReturn = false;
+        this.addRelationships();
         typeof this.callback === 'function' && this.callback(this);
     }
 
@@ -138,6 +141,12 @@ export default class PseudoCodeTransformer {
         });
     }
     
+    manyToMany() {
+        return this.transformedPseudoCode.filter((block) => {
+            return this.possibleManyToManyDefinition(block.name);
+        });
+    }
+
     pureTables() {
         return this.transformedPseudoCode.filter((item) => {
             return item.type == TABLE_ONLY;
@@ -148,7 +157,7 @@ export default class PseudoCodeTransformer {
         segments.map((segment) => {
             this.define(segment);            
         });
-        if(this.finished()) {
+        if(this.allBlocksFound() && this.shouldReturn) {            
             this.returnTransformedPseudoCode();
         }
     }
@@ -174,25 +183,64 @@ export default class PseudoCodeTransformer {
         return code.split(/\n\s*\n/);        
     }
 
-    relationships(model) {
-        var candidateModels = this.models().filter((candidate) => {
-            return model != candidate;
+    relationshipAttributeToModel(attribute) {        
+        var match = this.models().find((model) => {
+            return model.name.toLowerCase() == attribute.name.replace("_id", "").toLowerCase()
         });
 
-        // HAS ONE
-        var hasOnes = model.attributes.filter((attribute) => {
-            return (new RegExp("_id$")).test(attribute.name);
-        }); // chain map to format as we wish!
+        if(match) return match;
+        
+        return { name: "NO_SUCH_MODEL_FOUND"};
+    }
 
-         
+    modelNameStringToModel(modelNameString) {
+        var match = this.models().find((model) => {
+            return model.name.toLowerCase() == modelNameString.toLowerCase()
+        });
+
+        if(match) return match;
+        
+        return { name: "NO_SUCH_MODEL_FOUND"};        
+    }
+
+    isRelationshipAttribute(attribute) {
+        return !!(new RegExp("_id$")).test(attribute.name);
+    }
+
+    addRelationships() {
+        this.all().forEach((item) => {            
+            item.belongsToRelationships = [];
+            item.hasManyRelationships = [];
+            item.belongsToManyRelationships = [];            
+        });
+
+        this.models().map(this.addOneToManyRelationships.bind(this));
+        this.manyToMany().map(this.addManyToManyRelationships.bind(this));
+    }
+
+    addManyToManyRelationships(manyToManyPair) {
+        var involvedModels = this.possibleManyToManyDefinition(manyToManyPair.name);
+        var first = this.modelNameStringToModel(involvedModels[0]);
+        var last = this.modelNameStringToModel(involvedModels[1]);
+        first.belongsToManyRelationships.push(last);
+        last.belongsToManyRelationships.push(first);        
+    }
+
+    addOneToManyRelationships(model) {
 
         // BELONGS TO
+        model.belongsToRelationships = model.attributes.filter((attribute) => {
+            return this.isRelationshipAttribute(attribute);
+        }).map((attribute) => {
+            return this.relationshipAttributeToModel(attribute);
+        });
 
         // HAS MANY
+        model.belongsToRelationships.forEach((owner) => {
+            owner.hasManyRelationships.push(model);
+        });
 
         // BELONGS TO MANY
-
-
         this.models().map((block) => {
             return;
         })

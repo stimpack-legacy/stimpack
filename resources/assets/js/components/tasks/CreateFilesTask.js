@@ -87,7 +87,6 @@ export default class CreateFilesTask extends BaseTask {
 
     renderPhpCode() {
         var file = Template.file(this.fileTypeToGenerate(), this.activeBlock());
-        this.props.tasks.SetObjectModelTask.transformedPseudoCode.relationships(this.activeBlock());
         if(!file) {
             this.php.setValue("", 1);
             return;

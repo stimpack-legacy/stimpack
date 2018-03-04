@@ -2792,9 +2792,16 @@ module.exports = PooledClass;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_helpPlaceholder__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__templates_makeAuthPseudoCode__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__templates_sampleProject__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__templates_belongsToManyRelationship__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__templates_hasManyRelationship__ = __webpack_require__(302);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
 
 
 
@@ -2873,6 +2880,16 @@ var Template = function () {
             }).map(function (attribute) {
                 return "'" + attribute.name + "',";
             }), 2);
+
+            // Add relationships        
+            body = Template.blockReplace(body, "$BELONGS-TO-RELATIONSHIPS$", transformedModel.belongsToRelationships.map(function (relationshipModel) {
+                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("$OWNER$", relationshipModel.name).replace("$CLASS$", relationshipModel.name);
+            }), 2);
+
+            //$HAS-MANY-RELATIONSHIPS$
+
+            //$BELONGS-TO-MANY-RELATIONSHIPS$
+
 
             return {
                 body: body,
@@ -4155,6 +4172,7 @@ var PseudoCodeTransformer = function () {
         _classCallCheck(this, PseudoCodeTransformer);
 
         this.transformedPseudoCode = [];
+        this.shouldReturn = true;
     }
 
     _createClass(PseudoCodeTransformer, [{
@@ -4267,18 +4285,20 @@ var PseudoCodeTransformer = function () {
                 if (a.name > b.name) return 1;
                 return 0;
             });
-            if (this.finished()) {
+            if (this.allBlocksFound() && this.shouldReturn) {
                 this.returnTransformedPseudoCode();
             }
         }
     }, {
-        key: 'finished',
-        value: function finished() {
+        key: 'allBlocksFound',
+        value: function allBlocksFound() {
             return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
         }
     }, {
         key: 'returnTransformedPseudoCode',
         value: function returnTransformedPseudoCode() {
+            this.shouldReturn = false;
+            this.addRelationships();
             typeof this.callback === 'function' && this.callback(this);
         }
     }, {
@@ -4301,6 +4321,15 @@ var PseudoCodeTransformer = function () {
             });
         }
     }, {
+        key: 'manyToMany',
+        value: function manyToMany() {
+            var _this = this;
+
+            return this.transformedPseudoCode.filter(function (block) {
+                return _this.possibleManyToManyDefinition(block.name);
+            });
+        }
+    }, {
         key: 'pureTables',
         value: function pureTables() {
             return this.transformedPseudoCode.filter(function (item) {
@@ -4310,12 +4339,12 @@ var PseudoCodeTransformer = function () {
     }, {
         key: 'definitions',
         value: function definitions(segments) {
-            var _this = this;
+            var _this2 = this;
 
             segments.map(function (segment) {
-                _this.define(segment);
+                _this2.define(segment);
             });
-            if (this.finished()) {
+            if (this.allBlocksFound() && this.shouldReturn) {
                 this.returnTransformedPseudoCode();
             }
         }
@@ -4343,25 +4372,71 @@ var PseudoCodeTransformer = function () {
             return code.split(/\n\s*\n/);
         }
     }, {
-        key: 'relationships',
-        value: function relationships(model) {
-            var candidateModels = this.models().filter(function (candidate) {
-                return model != candidate;
+        key: 'relationshipAttributeToModel',
+        value: function relationshipAttributeToModel(attribute) {
+            var match = this.models().find(function (model) {
+                return model.name.toLowerCase() == attribute.name.replace("_id", "").toLowerCase();
             });
 
-            // HAS ONE
-            var hasOnes = model.attributes.filter(function (attribute) {
-                return new RegExp("_id$").test(attribute.name);
-            }); // chain map to format as we wish!
+            if (match) return match;
 
+            return { name: "NO_SUCH_MODEL_FOUND" };
+        }
+    }, {
+        key: 'modelNameStringToModel',
+        value: function modelNameStringToModel(modelNameString) {
+            var match = this.models().find(function (model) {
+                return model.name.toLowerCase() == modelNameString.toLowerCase();
+            });
+
+            if (match) return match;
+
+            return { name: "NO_SUCH_MODEL_FOUND" };
+        }
+    }, {
+        key: 'isRelationshipAttribute',
+        value: function isRelationshipAttribute(attribute) {
+            return !!new RegExp("_id$").test(attribute.name);
+        }
+    }, {
+        key: 'addRelationships',
+        value: function addRelationships() {
+            this.all().forEach(function (item) {
+                item.belongsToRelationships = [];
+                item.hasManyRelationships = [];
+                item.belongsToManyRelationships = [];
+            });
+
+            this.models().map(this.addOneToManyRelationships.bind(this));
+            this.manyToMany().map(this.addManyToManyRelationships.bind(this));
+        }
+    }, {
+        key: 'addManyToManyRelationships',
+        value: function addManyToManyRelationships(manyToManyPair) {
+            var involvedModels = this.possibleManyToManyDefinition(manyToManyPair.name);
+            var first = this.modelNameStringToModel(involvedModels[0]);
+            var last = this.modelNameStringToModel(involvedModels[1]);
+            first.belongsToManyRelationships.push(last);
+            last.belongsToManyRelationships.push(first);
+        }
+    }, {
+        key: 'addOneToManyRelationships',
+        value: function addOneToManyRelationships(model) {
+            var _this3 = this;
 
             // BELONGS TO
+            model.belongsToRelationships = model.attributes.filter(function (attribute) {
+                return _this3.isRelationshipAttribute(attribute);
+            }).map(function (attribute) {
+                return _this3.relationshipAttributeToModel(attribute);
+            });
 
             // HAS MANY
+            model.belongsToRelationships.forEach(function (owner) {
+                owner.hasManyRelationships.push(model);
+            });
 
             // BELONGS TO MANY
-
-
             this.models().map(function (block) {
                 return;
             });
@@ -7750,7 +7825,6 @@ var CreateFilesTask = function (_BaseTask) {
         key: 'renderPhpCode',
         value: function renderPhpCode() {
             var file = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].file(this.fileTypeToGenerate(), this.activeBlock());
-            this.props.tasks.SetObjectModelTask.transformedPseudoCode.relationships(this.activeBlock());
             if (!file) {
                 this.php.setValue("", 1);
                 return;
@@ -60995,7 +61069,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$RELATIONSHIPS$\n\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$BELONGS-TO-RELATIONSHIPS$\n\n$HAS-MANY-RELATIONSHIPS$\n\n$BELONGS-TO-MANY-RELATIONSHIPS$\n\n}");
 
 /***/ }),
 /* 270 */
@@ -62144,6 +62218,37 @@ var initialState = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("public function $OWNER$()\n{\n    return $this->belongsTo(App\\$CLASS$::class);\n}");
+
+/***/ }),
+/* 301 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony default export */ var _unused_webpack_default_export = ("public function $OWNER$()\n{\n    return $this->belongsTo(App\\$CLASS$::class);\n}");
+
+/***/ }),
+/* 302 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony default export */ var _unused_webpack_default_export = ("public function $OWNED-OBJECT$()\n{\n   return $this->hasMany(App\\$CLASS$::class);\n}");
 
 /***/ })
 /******/ ]);
