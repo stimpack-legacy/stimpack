@@ -4383,6 +4383,11 @@ var PseudoCodeTransformer = function () {
             return { name: "NO_SUCH_MODEL_FOUND" };
         }
     }, {
+        key: 'isValidRelationshipAttribute',
+        value: function isValidRelationshipAttribute(attribute) {
+            // Needs to be done
+        }
+    }, {
         key: 'modelNameStringToModel',
         value: function modelNameStringToModel(modelNameString) {
             var match = this.models().find(function (model) {

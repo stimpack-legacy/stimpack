@@ -193,6 +193,10 @@ export default class PseudoCodeTransformer {
         return { name: "NO_SUCH_MODEL_FOUND"};
     }
 
+    isValidRelationshipAttribute(attribute) {
+        // Needs to be done
+    }
+
     modelNameStringToModel(modelNameString) {
         var match = this.models().find((model) => {
             return model.name.toLowerCase() == modelNameString.toLowerCase()
