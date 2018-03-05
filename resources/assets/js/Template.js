@@ -81,6 +81,8 @@ export default class Template {
             }),2
         );        
         
+        //Template.newReplace(body, "$BELONGS-TO-RELATIONSHIPS$", belongsToRelationship);
+
         //$HAS-MANY-RELATIONSHIPS$
         
         //$BELONGS-TO-MANY-RELATIONSHIPS$
@@ -146,5 +148,27 @@ export default class Template {
     static sampleProject() {
         return sampleProject;
     }
+
+    static newReplace(body, marker, content) {
+        // content == array
+            // WAIT
+        
+        if(typeof content == 'string') {
+            body = body.replace(marker, content);
+            body = body.replace("\n", "\n\t\t");
+        }    
+        return body;
+        // content == string
+            // content is multiline
+                // insert tabs at beggining of each new line
+    }
+
+
+
+
+
+
+
+
 
 }
