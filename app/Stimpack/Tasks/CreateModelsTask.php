@@ -10,9 +10,14 @@ class CreateModelsTask extends Task
 
     public function perform() {
         $message = "";
-        foreach($this->models as $model) {
-            $message = $message . "Created model NOT IMPLEMENTED...";
-        }        
-        return $message;
+        foreach($this->models as $model) {        
+            $fileName = $model->name . ".php";            
+            $path = $this->projectPath() . "/app/" . $fileName;
+            file_put_contents($path, $model->body);                
+            $message = $message . "Created model at ";
+            $message = $message . $path . "\n";
+        }
+        
+        return $message;         
     }
 }

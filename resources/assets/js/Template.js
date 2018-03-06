@@ -104,7 +104,7 @@ export default class Template {
 
         return {
             body: body,
-            table: transformedModel.table,
+            name: transformedModel.name,
             tabName: transformedModel.name
         }
     }
