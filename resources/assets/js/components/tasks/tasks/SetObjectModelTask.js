@@ -132,8 +132,6 @@ class SetObjectModelTask extends BaseTask {
         this.pseudo.setShowPrintMargin(false);
         this.pseudo.renderer.setShowGutter(false);
 
-        this.pseudo.setValue(Template.test(), 1);
-
         this.pseudo.getSession().on('change', function() {            
             var pseudoCode = this.pseudo.getSession().getValue();            
             this.updatePseudoCode(pseudoCode);

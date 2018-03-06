@@ -16,7 +16,7 @@ class $MODEL$ extends Authenticatable
      * @var array
      */
     protected $fillable = [
-$MASS-ASSIGNABLE-ATTRIBUTES$
+MASS_ASSIGNABLE_ATTRIBUTES
     ];
 
     /**
@@ -25,13 +25,13 @@ $MASS-ASSIGNABLE-ATTRIBUTES$
      * @var array
      */
     protected $hidden = [
-$HIDDEN-ATTRIBUTES$
+HIDDEN_ATTRIBUTES
     ];
 
-$BELONGS-TO-RELATIONSHIPS$
+    BELONGS_TO_RELATIONSHIPS
 
-$HAS-MANY-RELATIONSHIPS$
+    HAS_MANY_RELATIONSHIPS
 
-$BELONGS-TO-MANY-RELATIONSHIPS$
+    BELONGS_TO_MANY_RELATIONSHIPS
     
 }`;

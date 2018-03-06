@@ -58,7 +58,7 @@ export default class Template {
         body = Template.replace(body, {"$MODEL$": transformedModel.name});
         
         // Add fillable array
-        body = Template.listReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$",
+        body = Template.listReplace(body, "MASS_ASSIGNABLE_ATTRIBUTES",
         transformedModel.attributes.filter((attribute) => {
             return attribute.fillable();
         }).map((attribute) => {
@@ -66,45 +66,57 @@ export default class Template {
         }),2);        
 
         // Add hidden array
-        body = Template.listReplace(body, "$HIDDEN-ATTRIBUTES$",
+        body = Template.listReplace(body, "HIDDEN_ATTRIBUTES",
         transformedModel.attributes.filter((attribute) => {
             return attribute.hidden();
         }).map((attribute) => {
             return "'" + attribute.name + "',";
         }),2);
         
-        //$BELONGS-TO-RELATIONSHIPS$        
-        body = Template.listReplace(body, "$BELONGS-TO-RELATIONSHIPS$",
-            transformedModel.belongsToRelationships.map((relationshipModel) => {
-                return belongsToRelationship.replace("$METHOD-NAME$", relationshipModel.name)
-                                            .replace("$CLASS-NAME$", relationshipModel.name);
-            }),0
-        );        
 
-        //$HAS-MANY-RELATIONSHIPS$
-        body = Template.listReplace(body, "$HAS-MANY-RELATIONSHIPS$",
+        body = Template.blockReplace(body, "BELONGS_TO_RELATIONSHIPS",
             transformedModel.belongsToRelationships.map((relationshipModel) => {
-                return belongsToRelationship.replace("$METHOD-NAME$", relationshipModel.name)
-                                            .replace("$CLASS-NAME$", relationshipModel.name);
-            }),0
-        );        
-
-        //$BELONGS-TO-MANY-RELATIONSHIPS$
-        body = Template.listReplace(body, "$BELONGS-TO-MANY-RELATIONSHIPS$",
-            transformedModel.belongsToRelationships.map((relationshipModel) => {
-                return belongsToRelationship.replace("$METHOD-NAME$", relationshipModel.name)
-                                            .replace("$CLASS-NAME$", relationshipModel.name);
-            }),0
+                return belongsToRelationship.replace("METHOD_NAME", relationshipModel.name)
+                                            .replace("CLASS_NAME", relationshipModel.name);
+            })
         );
 
-        //Template.newReplace(body, "$BELONGS-TO-RELATIONSHIPS$", belongsToRelationship);
+        body = Template.blockReplace(body, "HAS_MANY_RELATIONSHIPS",
+            transformedModel.hasManyRelationships.map((relationshipModel) => {
+                return hasManyRelationship.replace("METHOD_NAME", relationshipModel.name)
+                                            .replace("CLASS_NAME", relationshipModel.name);
+            })
+        );        
+        
+        body = Template.blockReplace(body, "BELONGS_TO_MANY_RELATIONSHIPS",
+            transformedModel.belongsToManyRelationships.map((relationshipModel) => {
+                return belongsToManyRelationship.replace("METHOD_NAME", relationshipModel.name)
+                                            .replace("CLASS_NAME", relationshipModel.name);
+            })
+        );
 
+        body = Template.removeEmptyPlaceHolders(body, [
+            "BELONGS_TO_RELATIONSHIPS",        
+            "HAS_MANY_RELATIONSHIPS",        
+            "BELONGS_TO_MANY_RELATIONSHIPS"            
+        ]);
+
+        // Fix empty space... lots of newlines where placeholders was sitting
+        
 
         return {
             body: body,
             table: transformedModel.table,
             tabName: transformedModel.name
         }
+    }
+
+    static removeEmptyPlaceHolders(template, placeholders) {
+        placeholders.forEach((placeholder) => {
+            template = template.replace(RegExp('([ ]*)(' + placeholder + ')'), "");
+        });
+
+        return template;
     }
 
     static controllers(transformedModels) {
@@ -159,26 +171,12 @@ export default class Template {
         return sampleProject;
     }
 
-    static blockReplace(body, marker, content) {
-        // content == array
-            // WAIT
-        
-        if(typeof content == 'string') {
-            body = body.replace(marker, content);
-            body = body.replace("\n", "\n\t\t");
-        }    
-        return body;
-        // content == string
-            // content is multiline
-                // insert tabs at beggining of each new line
-    }
-
     static test() {
-        var body = Template.blockReplace(model, "BELONGS_TO_RELATIONSHIPS",[belongsToRelationship, belongsToRelationship],1);        
+        var body = Template.blockReplace(model, "BELONGS_TO_RELATIONSHIPS", [belongsToRelationship, belongsToRelationship]);        
         return body;
     }
 
-    static blockReplace(template, marker, items, tabsBeforeItem) {
+    static blockReplace(template, marker, items) {
         var matches = RegExp('([ ]*)(' + marker + ')').exec(model)
         var tabsBeforeItem = matches[1].length/4;
         var fullMarker = matches[0];
