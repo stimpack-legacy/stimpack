@@ -61102,7 +61102,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$RELATIONSHIPS$\n    \n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$BELONGS-TO-RELATIONSHIPS$\n\n$HAS-MANY-RELATIONSHIPS$\n\n$BELONGS-TO-MANY-RELATIONSHIPS$\n    \n}");
 
 /***/ }),
 /* 271 */
