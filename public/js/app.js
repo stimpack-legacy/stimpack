@@ -2917,9 +2917,11 @@ var Template = function () {
             if (!transformedModel) {
                 return false;
             }
+            var body = __WEBPACK_IMPORTED_MODULE_0__templates_controller__["a" /* default */];
+            body = Template.replace(body, { "$MODEL$": transformedModel.name });
             return {
                 body: __WEBPACK_IMPORTED_MODULE_0__templates_controller__["a" /* default */],
-                table: transformedModel.table,
+                name: transformedModel.name,
                 tabName: transformedModel.name
             };
         }

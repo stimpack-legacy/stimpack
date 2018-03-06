@@ -8,6 +8,15 @@ use App\Stimpack\Task;
 class CreateControllersTask extends Task
 {
     public function perform() {
-        return "Not implemented";
+        $message = "";
+        foreach($this->controllers as $controller) {        
+            $fileName = $controller->name . "Controller.php";            
+            $path = $this->projectPath() . "/app/Http/Controllers/" . $fileName;
+            file_put_contents($path, $controller->body);                
+            $message = $message . "Created controller at ";
+            $message = $message . $path . "\n";
+        }
+        
+        return $message;         
     }
 }

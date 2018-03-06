@@ -116,10 +116,12 @@ export default class Template {
     static controller(transformedModel) {
         if(!transformedModel) {
             return false;
-        }        
+        }
+        var body = controller;
+        body = Template.replace(body, {"$MODEL$": transformedModel.name});
         return {
             body: controller,
-            table: transformedModel.table,
+            name: transformedModel.name,
             tabName: transformedModel.name
         }
     }
