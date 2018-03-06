@@ -31,7 +31,7 @@ export default class PseudoCodeTransformer {
         // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
         // But "word" is just a table "word" without an associated model. Note - potentially relationship table
         if(heading.charAt(0) == heading.charAt(0).toLowerCase()) {
-            this.pushTransformedPseudoCode(this.getTypeForNonModel(heading), rows, heading, heading, this.possibleManyToManyDefinition());
+            this.pushTransformedPseudoCode(this.getTypeForNonModel(heading), rows, heading, heading);
             return;
         }        
 
@@ -96,14 +96,15 @@ export default class PseudoCodeTransformer {
         return TABLE_ONLY;
     }
 
-    pushTransformedPseudoCode(type, rows, name, table, manyToManyTables) {
+    pushTransformedPseudoCode(type, rows, name, table) {
         this.transformedPseudoCode.push({
             type: type,
             name: name,
             table: table,
+            class: name,
+            one: name.toLowerCase(),
+            many: this.snakeCaseToCamelCase(table),
             attributes: rows.slice(1).map((attribute) => { return new Attribute(attribute);}),
-            migration: "placeholder",
-            manyToManyTables: manyToManyTables
         });
         this.transformedPseudoCode.sort(function(a, b){
             if(a.name < b.name) return -1;
@@ -117,6 +118,10 @@ export default class PseudoCodeTransformer {
 
     allBlocksFound() {        
         return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
+    }
+
+    snakeCaseToCamelCase(s){
+        return s.replace(/(\_\w)/g, function(m){return m[1].toUpperCase();});
     }
 
     returnTransformedPseudoCode() {

@@ -83,14 +83,14 @@ export default class Attribute {
             "created_at",
             "updated_at",
             "id"
-        ].includes(name);
+        ].includes(this.name);
     }
 
     hidden() {
         return [
             "password",
             "remember_token"
-        ].includes(name);
+        ].includes(this.name);
     }
 
 

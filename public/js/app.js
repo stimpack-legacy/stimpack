@@ -2882,36 +2882,29 @@ var Template = function () {
             }), 2);
 
             body = Template.blockReplace(body, "BELONGS_TO_RELATIONSHIPS", transformedModel.belongsToRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.name).replace("CLASS_NAME", relationshipModel.name);
+                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.one).replace("CLASS_NAME", relationshipModel.class);
             }));
 
             body = Template.blockReplace(body, "HAS_MANY_RELATIONSHIPS", transformedModel.hasManyRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_11__templates_hasManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.name).replace("CLASS_NAME", relationshipModel.name);
+                return __WEBPACK_IMPORTED_MODULE_11__templates_hasManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.many).replace("CLASS_NAME", relationshipModel.class);
             }));
 
             body = Template.blockReplace(body, "BELONGS_TO_MANY_RELATIONSHIPS", transformedModel.belongsToManyRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_10__templates_belongsToManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.name).replace("CLASS_NAME", relationshipModel.name);
+                return __WEBPACK_IMPORTED_MODULE_10__templates_belongsToManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.many).replace("CLASS_NAME", relationshipModel.class);
             }));
 
-            body = Template.removeEmptyPlaceHolders(body, ["BELONGS_TO_RELATIONSHIPS", "HAS_MANY_RELATIONSHIPS", "BELONGS_TO_MANY_RELATIONSHIPS"]);
-
-            // Fix empty space... lots of newlines where placeholders was sitting
-
+            // Clean up blank spaces on empty rows
+            body = body.replace(new RegExp("^ *\n", "gm"), "\n");
+            // Replace > 3 newlines
+            body = body.replace(new RegExp("([\n]{3,})", "g"), "\n\n");
+            // Pretty file ending
+            body = body.replace(new RegExp("\n\n}$", "g"), "\n}");
 
             return {
                 body: body,
                 table: transformedModel.table,
                 tabName: transformedModel.name
             };
-        }
-    }, {
-        key: 'removeEmptyPlaceHolders',
-        value: function removeEmptyPlaceHolders(template, placeholders) {
-            placeholders.forEach(function (placeholder) {
-                template = template.replace(RegExp('([ ]*)(' + placeholder + ')'), "");
-            });
-
-            return template;
         }
     }, {
         key: 'controllers',
@@ -4238,7 +4231,7 @@ var PseudoCodeTransformer = function () {
             // By convention "Word" with capital starting char corresponds to a model "Word" with table "words". 
             // But "word" is just a table "word" without an associated model. Note - potentially relationship table
             if (heading.charAt(0) == heading.charAt(0).toLowerCase()) {
-                this.pushTransformedPseudoCode(this.getTypeForNonModel(heading), rows, heading, heading, this.possibleManyToManyDefinition());
+                this.pushTransformedPseudoCode(this.getTypeForNonModel(heading), rows, heading, heading);
                 return;
             }
 
@@ -4308,16 +4301,17 @@ var PseudoCodeTransformer = function () {
         }
     }, {
         key: 'pushTransformedPseudoCode',
-        value: function pushTransformedPseudoCode(type, rows, name, table, manyToManyTables) {
+        value: function pushTransformedPseudoCode(type, rows, name, table) {
             this.transformedPseudoCode.push({
                 type: type,
                 name: name,
                 table: table,
+                class: name,
+                one: name.toLowerCase(),
+                many: this.snakeCaseToCamelCase(table),
                 attributes: rows.slice(1).map(function (attribute) {
                     return new __WEBPACK_IMPORTED_MODULE_2__Attribute__["a" /* default */](attribute);
-                }),
-                migration: "placeholder",
-                manyToManyTables: manyToManyTables
+                })
             });
             this.transformedPseudoCode.sort(function (a, b) {
                 if (a.name < b.name) return -1;
@@ -4332,6 +4326,13 @@ var PseudoCodeTransformer = function () {
         key: 'allBlocksFound',
         value: function allBlocksFound() {
             return this.transformedPseudoCode.length == this.segments.length || this.segments.length == 0;
+        }
+    }, {
+        key: 'snakeCaseToCamelCase',
+        value: function snakeCaseToCamelCase(s) {
+            return s.replace(/(\_\w)/g, function (m) {
+                return m[1].toUpperCase();
+            });
         }
     }, {
         key: 'returnTransformedPseudoCode',
@@ -61117,14 +61118,14 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\nMASS_ASSIGNABLE_ATTRIBUTES\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\nHIDDEN_ATTRIBUTES\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n\n    HAS_MANY_RELATIONSHIPS\n\n    BELONGS_TO_MANY_RELATIONSHIPS\n\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\nMASS_ASSIGNABLE_ATTRIBUTES\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\nHIDDEN_ATTRIBUTES\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n    HAS_MANY_RELATIONSHIPS\n    BELONGS_TO_MANY_RELATIONSHIPS\n}");
 
 /***/ }),
 /* 270 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\nMASS_ASSIGNABLE_ATTRIBUTES\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\nHIDDEN_ATTRIBUTES\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n\n    HAS_MANY_RELATIONSHIPS\n\n    BELONGS_TO_MANY_RELATIONSHIPS\n    \n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Notifications\\Notifiable;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\n\nclass $MODEL$ extends Authenticatable\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\nMASS_ASSIGNABLE_ATTRIBUTES\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\nHIDDEN_ATTRIBUTES\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n    HAS_MANY_RELATIONSHIPS\n    BELONGS_TO_MANY_RELATIONSHIPS    \n}");
 
 /***/ }),
 /* 271 */
@@ -61181,21 +61182,21 @@ Schema::create('password_resets', function (Blueprint $table) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("public function METHOD_NAME()\n{\n    return $this->belongsTo(App\\CLASS_NAME::class);\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("public function METHOD_NAME()\n{\n    return $this->belongsTo('App\\CLASS_NAME');\n}");
 
 /***/ }),
 /* 277 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("public function $METHOD-NAME$()\n{\n    return $this->belongsTo(App\\$CLASS-NAME$::class);\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("public function METHOD_NAME()\n{\n    return $this->belongsToMany('App\\CLASS_NAME');\n}");
 
 /***/ }),
 /* 278 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("public function $METHOD-NAME$()\n{\n   return $this->hasMany(App\\$CLASS-NAME$::class);\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("public function METHOD_NAME()\n{\n   return $this->hasMany('App\\CLASS_NAME');\n}");
 
 /***/ }),
 /* 279 */
@@ -61504,12 +61505,12 @@ var Attribute = function () {
     }, {
         key: "fillable",
         value: function fillable() {
-            return !["created_at", "updated_at", "id"].includes(name);
+            return !["created_at", "updated_at", "id"].includes(this.name);
         }
     }, {
         key: "hidden",
         value: function hidden() {
-            return ["password", "remember_token"].includes(name);
+            return ["password", "remember_token"].includes(this.name);
         }
     }]);
 

@@ -1,5 +1,5 @@
 export default 
-`public function $METHOD-NAME$()
+`public function METHOD_NAME()
 {
-   return $this->hasMany(App\\$CLASS-NAME$::class);
+   return $this->hasMany('App\\CLASS_NAME');
 }`;

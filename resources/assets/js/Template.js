@@ -76,47 +76,37 @@ export default class Template {
 
         body = Template.blockReplace(body, "BELONGS_TO_RELATIONSHIPS",
             transformedModel.belongsToRelationships.map((relationshipModel) => {
-                return belongsToRelationship.replace("METHOD_NAME", relationshipModel.name)
-                                            .replace("CLASS_NAME", relationshipModel.name);
+                return belongsToRelationship.replace("METHOD_NAME", relationshipModel.one)
+                                            .replace("CLASS_NAME", relationshipModel.class);
             })
         );
 
         body = Template.blockReplace(body, "HAS_MANY_RELATIONSHIPS",
             transformedModel.hasManyRelationships.map((relationshipModel) => {
-                return hasManyRelationship.replace("METHOD_NAME", relationshipModel.name)
-                                            .replace("CLASS_NAME", relationshipModel.name);
+                return hasManyRelationship.replace("METHOD_NAME", relationshipModel.many)
+                                            .replace("CLASS_NAME", relationshipModel.class);
             })
         );        
         
         body = Template.blockReplace(body, "BELONGS_TO_MANY_RELATIONSHIPS",
             transformedModel.belongsToManyRelationships.map((relationshipModel) => {
-                return belongsToManyRelationship.replace("METHOD_NAME", relationshipModel.name)
-                                            .replace("CLASS_NAME", relationshipModel.name);
+                return belongsToManyRelationship.replace("METHOD_NAME", relationshipModel.many)
+                                            .replace("CLASS_NAME", relationshipModel.class);
             })
         );
 
-        body = Template.removeEmptyPlaceHolders(body, [
-            "BELONGS_TO_RELATIONSHIPS",        
-            "HAS_MANY_RELATIONSHIPS",        
-            "BELONGS_TO_MANY_RELATIONSHIPS"            
-        ]);
-
-        // Fix empty space... lots of newlines where placeholders was sitting
-        
+        // Clean up blank spaces on empty rows
+        body = body.replace(new RegExp("^ *\n", "gm"), "\n"); 
+        // Replace > 3 newlines
+        body = body.replace(new RegExp("([\n]{3,})", "g"), "\n\n");
+        // Pretty file ending
+        body = body.replace(new RegExp("\n\n}$", "g"), "\n}");
 
         return {
             body: body,
             table: transformedModel.table,
             tabName: transformedModel.name
         }
-    }
-
-    static removeEmptyPlaceHolders(template, placeholders) {
-        placeholders.forEach((placeholder) => {
-            template = template.replace(RegExp('([ ]*)(' + placeholder + ')'), "");
-        });
-
-        return template;
     }
 
     static controllers(transformedModels) {
