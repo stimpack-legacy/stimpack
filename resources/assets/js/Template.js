@@ -25,7 +25,7 @@ export default class Template {
         }
 
         var body = migration;
-        body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
+        body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.name + "Table"});
         body = Template.replace(body, {"$TABLE-NAME$": transformedModel.table});        
         body = Template.listReplace(body, "$COLUMNS$",
             transformedModel.attributes.map((attribute) => {

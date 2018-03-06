@@ -2833,7 +2833,7 @@ var Template = function () {
             }
 
             var body = __WEBPACK_IMPORTED_MODULE_1__templates_migration__["a" /* default */];
-            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
+            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.name + "Table" });
             body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
             body = Template.listReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
                 return attribute.migrationDefinition;
