@@ -198,10 +198,6 @@ export default class PseudoCodeTransformer {
         return { name: "NO_SUCH_MODEL_FOUND"};
     }
 
-    isValidRelationshipAttribute(attribute) {
-        // Needs to be done
-    }
-
     modelNameStringToModel(modelNameString) {
         var match = this.models().find((model) => {
             return model.name.toLowerCase() == modelNameString.toLowerCase()
@@ -213,7 +209,9 @@ export default class PseudoCodeTransformer {
     }
 
     isRelationshipAttribute(attribute) {
-        return !!(new RegExp("_id$")).test(attribute.name);
+        return !!(new RegExp("_id$")).test(attribute.name) && this.all().find((model) => {            
+            return model.name.toLowerCase() == attribute.name.slice(0, attribute.name.length - 3).toLowerCase();
+        });
     }
 
     addRelationships() {

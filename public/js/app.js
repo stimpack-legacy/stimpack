@@ -4423,11 +4423,6 @@ var PseudoCodeTransformer = function () {
             return { name: "NO_SUCH_MODEL_FOUND" };
         }
     }, {
-        key: 'isValidRelationshipAttribute',
-        value: function isValidRelationshipAttribute(attribute) {
-            // Needs to be done
-        }
-    }, {
         key: 'modelNameStringToModel',
         value: function modelNameStringToModel(modelNameString) {
             var match = this.models().find(function (model) {
@@ -4441,7 +4436,9 @@ var PseudoCodeTransformer = function () {
     }, {
         key: 'isRelationshipAttribute',
         value: function isRelationshipAttribute(attribute) {
-            return !!new RegExp("_id$").test(attribute.name);
+            return !!new RegExp("_id$").test(attribute.name) && this.all().find(function (model) {
+                return model.name.toLowerCase() == attribute.name.slice(0, attribute.name.length - 3).toLowerCase();
+            });
         }
     }, {
         key: 'addRelationships',
