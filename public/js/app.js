@@ -61354,7 +61354,7 @@ var CreateMigrationsTask = function (_CreateFilesTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.props.tasks.CreateMigrationsTask.migrations = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
             this.renderPhpCode();
         }
     }], [{
@@ -61364,7 +61364,7 @@ var CreateMigrationsTask = function (_CreateFilesTask) {
                 name: "CreateMigrationsTask",
                 enabled: true,
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
-                migrations: [],
+                files: [],
                 activeTab: null,
                 shouldDisplayFilesOfType: ["MODEL", "TABLE_ONLY", "MANY_TO_MANY"],
                 fileTypeToGenerate: "migration"
@@ -61910,7 +61910,7 @@ var CreateModelsTask = function (_CreateFilesTask) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.tasks != nextProps.tasks) {
-                this.task().models = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+                this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
                 this.renderPhpCode();
             }
         }
@@ -61922,7 +61922,7 @@ var CreateModelsTask = function (_CreateFilesTask) {
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
-                models: [],
+                files: [],
                 activeTab: null,
                 shouldDisplayFilesOfType: ["MODEL"],
                 fileTypeToGenerate: "model"
@@ -62001,7 +62001,7 @@ var CreateControllersTask = function (_CreateFilesTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.task().controllers = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].controllers(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].controllers(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
             this.renderPhpCode();
         }
     }], [{
@@ -62012,7 +62012,7 @@ var CreateControllersTask = function (_CreateFilesTask) {
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
-                models: [],
+                files: [],
                 activeTab: null,
                 shouldDisplayFilesOfType: ["MODEL"],
                 fileTypeToGenerate: "controller"

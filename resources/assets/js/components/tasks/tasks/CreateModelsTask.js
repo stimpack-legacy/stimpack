@@ -32,7 +32,7 @@ class CreateModelsTask extends CreateFilesTask {
             enabled: true,
             pseudoCode: "",
             transformedPseudoCode: new PseudoCodeTransformer(),
-            models: [],
+            files: [],
             activeTab: null,
             shouldDisplayFilesOfType: ["MODEL"],
             fileTypeToGenerate: "model"
@@ -41,7 +41,7 @@ class CreateModelsTask extends CreateFilesTask {
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks) {
-            this.task().models = Template.models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            this.task().files = Template.models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
             this.renderPhpCode();
         }
         

@@ -8,11 +8,10 @@ class CreateMigrationsTask extends Task
 {
     public function perform() {        
         $message = "";
-        Log::info(json_encode($this->migrations));
-        foreach($this->migrations as $migration) {        
-            $migrationName = date("Y_m_d_hms",time()) . "_create_" . $migration->table . "_table.php";            
-            $path = $this->projectPath() . "/database/migrations/" . $migrationName;
-            file_put_contents($path, $migration->body);                
+        foreach($this->files as $file) {        
+            $fileName = date("Y_m_d_hms",time()) . "_create_" . $file->table . "_table.php";            
+            $path = $this->projectPath() . "/database/migrations/" . $fileName;
+            file_put_contents($path, $file->body);                
             $message = $message . "Created migration at '" . $path . "'";
         }
         

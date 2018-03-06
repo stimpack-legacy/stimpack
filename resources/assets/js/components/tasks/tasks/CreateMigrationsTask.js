@@ -30,7 +30,7 @@ class CreateMigrationsTask extends CreateFilesTask {
             name: "CreateMigrationsTask",
             enabled: true,
             transformedPseudoCode: new PseudoCodeTransformer(),
-            migrations: [],
+            files: [],
             activeTab: null,
             shouldDisplayFilesOfType: ["MODEL", "TABLE_ONLY", "MANY_TO_MANY"],
             fileTypeToGenerate: "migration"
@@ -39,7 +39,7 @@ class CreateMigrationsTask extends CreateFilesTask {
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks)
-            this.props.tasks.CreateMigrationsTask.migrations = Template.migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
+            this.task().files = Template.migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
             this.renderPhpCode();
     }    
 }

@@ -9,10 +9,10 @@ class CreateControllersTask extends Task
 {
     public function perform() {
         $message = "";
-        foreach($this->controllers as $controller) {        
-            $fileName = $controller->name . "Controller.php";            
+        foreach($this->files as $file) {        
+            $fileName = $file->name . "Controller.php";            
             $path = $this->projectPath() . "/app/Http/Controllers/" . $fileName;
-            file_put_contents($path, $controller->body);                
+            file_put_contents($path, $file->body);                
             $message = $message . "Created controller at ";
             $message = $message . $path . "\n";
         }
