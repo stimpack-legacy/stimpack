@@ -118,9 +118,9 @@ export default class Template {
             return false;
         }
         var body = controller;
-        body = Template.replace(body, {"$MODEL$": transformedModel.name});
+        body = Template.replace(body, {"MODEL": transformedModel.name});
         return {
-            body: controller,
+            body: body,
             name: transformedModel.name,
             tabName: transformedModel.name
         }

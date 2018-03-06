@@ -1,17 +1,17 @@
 export default 
 `<?php
 
-namespace App\Http\Controllers;
+namespace App\\Http\\Controllers;
 
-use App\REMOVE;
-use Illuminate\Http\Request;
+use App\\MODEL;
+use Illuminate\\Http\\Request;
 
-class REMOVEController extends Controller
+class MODELController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \\Illuminate\\Http\\Response
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class REMOVEController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \\Illuminate\\Http\\Response
      */
     public function create()
     {
@@ -31,8 +31,8 @@ class REMOVEController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \\Illuminate\\Http\\Request  $request
+     * @return \\Illuminate\\Http\\Response
      */
     public function store(Request $request)
     {
@@ -42,8 +42,8 @@ class REMOVEController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\REMOVE  $rEMOVE
-     * @return \Illuminate\Http\Response
+     * @param  \\App\\REMOVE  $rEMOVE
+     * @return \\Illuminate\\Http\\Response
      */
     public function show(REMOVE $rEMOVE)
     {
@@ -53,8 +53,8 @@ class REMOVEController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\REMOVE  $rEMOVE
-     * @return \Illuminate\Http\Response
+     * @param  \\App\\REMOVE  $rEMOVE
+     * @return \\Illuminate\\Http\\Response
      */
     public function edit(REMOVE $rEMOVE)
     {
@@ -64,9 +64,9 @@ class REMOVEController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\REMOVE  $rEMOVE
-     * @return \Illuminate\Http\Response
+     * @param  \\Illuminate\\Http\\Request  $request
+     * @param  \\App\\REMOVE  $rEMOVE
+     * @return \\Illuminate\\Http\\Response
      */
     public function update(Request $request, REMOVE $rEMOVE)
     {
@@ -76,8 +76,8 @@ class REMOVEController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\REMOVE  $rEMOVE
-     * @return \Illuminate\Http\Response
+     * @param  \\App\\REMOVE  $rEMOVE
+     * @return \\Illuminate\\Http\\Response
      */
     public function destroy(REMOVE $rEMOVE)
     {
