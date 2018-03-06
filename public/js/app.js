@@ -2835,7 +2835,7 @@ var Template = function () {
             var body = __WEBPACK_IMPORTED_MODULE_1__templates_migration__["a" /* default */];
             body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table" });
             body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
-            body = Template.blockReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
+            body = Template.listReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
                 return attribute.migrationDefinition;
             }), 3);
             return {
@@ -2868,29 +2868,35 @@ var Template = function () {
             body = Template.replace(body, { "$MODEL$": transformedModel.name });
 
             // Add fillable array
-            body = Template.blockReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
+            body = Template.listReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
                 return attribute.fillable();
             }).map(function (attribute) {
                 return "'" + attribute.name + "',";
             }), 2);
 
             // Add hidden array
-            body = Template.blockReplace(body, "$HIDDEN-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
+            body = Template.listReplace(body, "$HIDDEN-ATTRIBUTES$", transformedModel.attributes.filter(function (attribute) {
                 return attribute.hidden();
             }).map(function (attribute) {
                 return "'" + attribute.name + "',";
             }), 2);
 
-            // Add relationships        
-            body = Template.blockReplace(body, "$BELONGS-TO-RELATIONSHIPS$", transformedModel.belongsToRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("$OWNER$", relationshipModel.name).replace("$CLASS$", relationshipModel.name);
-            }), 2);
-
-            //Template.newReplace(body, "$BELONGS-TO-RELATIONSHIPS$", belongsToRelationship);
+            //$BELONGS-TO-RELATIONSHIPS$        
+            body = Template.listReplace(body, "$BELONGS-TO-RELATIONSHIPS$", transformedModel.belongsToRelationships.map(function (relationshipModel) {
+                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("$METHOD-NAME$", relationshipModel.name).replace("$CLASS-NAME$", relationshipModel.name);
+            }), 0);
 
             //$HAS-MANY-RELATIONSHIPS$
+            body = Template.listReplace(body, "$HAS-MANY-RELATIONSHIPS$", transformedModel.belongsToRelationships.map(function (relationshipModel) {
+                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("$METHOD-NAME$", relationshipModel.name).replace("$CLASS-NAME$", relationshipModel.name);
+            }), 0);
 
             //$BELONGS-TO-MANY-RELATIONSHIPS$
+            body = Template.listReplace(body, "$BELONGS-TO-MANY-RELATIONSHIPS$", transformedModel.belongsToRelationships.map(function (relationshipModel) {
+                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("$METHOD-NAME$", relationshipModel.name).replace("$CLASS-NAME$", relationshipModel.name);
+            }), 0);
+
+            //Template.newReplace(body, "$BELONGS-TO-RELATIONSHIPS$", belongsToRelationship);
 
 
             return {
@@ -2930,14 +2936,14 @@ var Template = function () {
             return template;
         }
     }, {
-        key: 'blockReplace',
-        value: function blockReplace(template, marker, items, tabsBeforeItem) {
-            var block = "";
+        key: 'listReplace',
+        value: function listReplace(template, marker, items, tabsBeforeItem) {
+            var list = "";
             items.forEach(function (item) {
-                block += " ".repeat(tabsBeforeItem * 4) + item + "\n";
+                list += " ".repeat(tabsBeforeItem * 4) + item + "\n";
             });
             var replacementPairs = {};
-            replacementPairs[marker] = block.replace(/\n$/, "");
+            replacementPairs[marker] = list.replace(/\n$/, "");
             return Template.replace(template, replacementPairs);
         }
     }, {
@@ -2961,8 +2967,8 @@ var Template = function () {
             return __WEBPACK_IMPORTED_MODULE_8__templates_sampleProject__["a" /* default */];
         }
     }, {
-        key: 'newReplace',
-        value: function newReplace(body, marker, content) {
+        key: 'blockReplace',
+        value: function blockReplace(body, marker, content) {
             // content == array
             // WAIT
 
@@ -2974,6 +2980,29 @@ var Template = function () {
             // content == string
             // content is multiline
             // insert tabs at beggining of each new line
+        }
+    }, {
+        key: 'test',
+        value: function test() {
+            var body = Template.blockReplace(__WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */], "BELONGS_TO_RELATIONSHIPS", [__WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */], __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */]], 1);
+            return body;
+        }
+    }, {
+        key: 'blockReplace',
+        value: function blockReplace(template, marker, items, tabsBeforeItem) {
+            var matches = RegExp('([ ]*)(' + marker + ')').exec(__WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */]);
+            var tabsBeforeItem = matches[1].length / 4;
+            var fullMarker = matches[0];
+
+            var list = "";
+            items.forEach(function (item) {
+                list += " ".repeat(tabsBeforeItem * 4) // Initial tabs before block
+                + item.replace(RegExp('\n', 'g'), "\n" + " ".repeat(tabsBeforeItem * 4)) // Add block indentation zero point
+                + "\n\n"; // spacing to next method
+            });
+            var replacementPairs = {};
+            replacementPairs[fullMarker] = list.replace(/\n$/, "");
+            return Template.replace(template, replacementPairs);
         }
     }]);
 
@@ -61095,7 +61124,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n$BELONGS-TO-RELATIONSHIPS$\n\n$HAS-MANY-RELATIONSHIPS$\n\n$BELONGS-TO-MANY-RELATIONSHIPS$\n\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\n$MASS-ASSIGNABLE-ATTRIBUTES$\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\n$HIDDEN-ATTRIBUTES$\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n\n    HAS_MANY_RELATIONSHIPS\n\n    BELONGS_TO_MANY_RELATIONSHIPS\n\n}");
 
 /***/ }),
 /* 270 */
@@ -61159,21 +61188,21 @@ Schema::create('password_resets', function (Blueprint $table) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("public function $OWNER$()\n{\n    return $this->belongsTo(App\\$CLASS$::class);\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("public function $METHOD-NAME$()\n{\n    return $this->belongsTo(App\\$CLASS-NAME$::class);\n}");
 
 /***/ }),
 /* 277 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = ("public function $OWNER$()\n{\n    return $this->belongsTo(App\\$CLASS$::class);\n}");
+/* unused harmony default export */ var _unused_webpack_default_export = ("public function $METHOD-NAME$()\n{\n    return $this->belongsTo(App\\$CLASS-NAME$::class);\n}");
 
 /***/ }),
 /* 278 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = ("public function $OWNED-OBJECT$()\n{\n   return $this->hasMany(App\\$CLASS$::class);\n}");
+/* unused harmony default export */ var _unused_webpack_default_export = ("public function $METHOD-NAME$()\n{\n   return $this->hasMany(App\\$CLASS-NAME$::class);\n}");
 
 /***/ }),
 /* 279 */
@@ -61783,6 +61812,8 @@ var SetObjectModelTask = function (_BaseTask) {
 
             this.pseudo.setShowPrintMargin(false);
             this.pseudo.renderer.setShowGutter(false);
+
+            this.pseudo.setValue(__WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].test(), 1);
 
             this.pseudo.getSession().on('change', function () {
                 var pseudoCode = this.pseudo.getSession().getValue();

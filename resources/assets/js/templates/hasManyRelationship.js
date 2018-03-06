@@ -1,5 +1,5 @@
 export default 
-`public function $OWNED-OBJECT$()
+`public function $METHOD-NAME$()
 {
-   return $this->hasMany(App\\$CLASS$::class);
+   return $this->hasMany(App\\$CLASS-NAME$::class);
 }`;

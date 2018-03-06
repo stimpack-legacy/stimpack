@@ -1,5 +1,5 @@
 export default 
-`public function $OWNER$()
+`public function $METHOD-NAME$()
 {
-    return $this->belongsTo(App\\$CLASS$::class);
+    return $this->belongsTo(App\\$CLASS-NAME$::class);
 }`;

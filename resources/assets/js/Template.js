@@ -27,7 +27,7 @@ export default class Template {
         var body = migration;
         body = Template.replace(body, {"$MIGRATION-CLASS-NAME$": "Create" + transformedModel.table.charAt(0).toUpperCase() + transformedModel.table.slice(1) + "Table"});
         body = Template.replace(body, {"$TABLE-NAME$": transformedModel.table});        
-        body = Template.blockReplace(body, "$COLUMNS$",
+        body = Template.listReplace(body, "$COLUMNS$",
             transformedModel.attributes.map((attribute) => {
                 return attribute.migrationDefinition;
         }),3);
@@ -58,7 +58,7 @@ export default class Template {
         body = Template.replace(body, {"$MODEL$": transformedModel.name});
         
         // Add fillable array
-        body = Template.blockReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$",
+        body = Template.listReplace(body, "$MASS-ASSIGNABLE-ATTRIBUTES$",
         transformedModel.attributes.filter((attribute) => {
             return attribute.fillable();
         }).map((attribute) => {
@@ -66,28 +66,38 @@ export default class Template {
         }),2);        
 
         // Add hidden array
-        body = Template.blockReplace(body, "$HIDDEN-ATTRIBUTES$",
+        body = Template.listReplace(body, "$HIDDEN-ATTRIBUTES$",
         transformedModel.attributes.filter((attribute) => {
             return attribute.hidden();
         }).map((attribute) => {
             return "'" + attribute.name + "',";
         }),2);
         
-        // Add relationships        
-        body = Template.blockReplace(body, "$BELONGS-TO-RELATIONSHIPS$",
+        //$BELONGS-TO-RELATIONSHIPS$        
+        body = Template.listReplace(body, "$BELONGS-TO-RELATIONSHIPS$",
             transformedModel.belongsToRelationships.map((relationshipModel) => {
-                return belongsToRelationship.replace("$OWNER$", relationshipModel.name)
-                                            .replace("$CLASS$", relationshipModel.name);
-            }),2
+                return belongsToRelationship.replace("$METHOD-NAME$", relationshipModel.name)
+                                            .replace("$CLASS-NAME$", relationshipModel.name);
+            }),0
         );        
-        
-        //Template.newReplace(body, "$BELONGS-TO-RELATIONSHIPS$", belongsToRelationship);
 
         //$HAS-MANY-RELATIONSHIPS$
-        
+        body = Template.listReplace(body, "$HAS-MANY-RELATIONSHIPS$",
+            transformedModel.belongsToRelationships.map((relationshipModel) => {
+                return belongsToRelationship.replace("$METHOD-NAME$", relationshipModel.name)
+                                            .replace("$CLASS-NAME$", relationshipModel.name);
+            }),0
+        );        
+
         //$BELONGS-TO-MANY-RELATIONSHIPS$
+        body = Template.listReplace(body, "$BELONGS-TO-MANY-RELATIONSHIPS$",
+            transformedModel.belongsToRelationships.map((relationshipModel) => {
+                return belongsToRelationship.replace("$METHOD-NAME$", relationshipModel.name)
+                                            .replace("$CLASS-NAME$", relationshipModel.name);
+            }),0
+        );
 
-
+        //Template.newReplace(body, "$BELONGS-TO-RELATIONSHIPS$", belongsToRelationship);
 
 
         return {
@@ -123,13 +133,13 @@ export default class Template {
         return template;
     }
 
-    static blockReplace(template, marker, items, tabsBeforeItem) {      
-        var block = "";
+    static listReplace(template, marker, items, tabsBeforeItem) {      
+        var list = "";
         items.forEach((item) => {
-            block += " ".repeat(tabsBeforeItem*4) + item + "\n";
+            list += " ".repeat(tabsBeforeItem*4) + item + "\n";
         })
         var replacementPairs = {};
-        replacementPairs[marker] = block.replace(/\n$/, "");
+        replacementPairs[marker] = list.replace(/\n$/, "");
         return Template.replace(template, replacementPairs);
     }
 
@@ -149,7 +159,7 @@ export default class Template {
         return sampleProject;
     }
 
-    static newReplace(body, marker, content) {
+    static blockReplace(body, marker, content) {
         // content == array
             // WAIT
         
@@ -163,7 +173,26 @@ export default class Template {
                 // insert tabs at beggining of each new line
     }
 
+    static test() {
+        var body = Template.blockReplace(model, "BELONGS_TO_RELATIONSHIPS",[belongsToRelationship, belongsToRelationship],1);        
+        return body;
+    }
 
+    static blockReplace(template, marker, items, tabsBeforeItem) {
+        var matches = RegExp('([ ]*)(' + marker + ')').exec(model)
+        var tabsBeforeItem = matches[1].length/4;
+        var fullMarker = matches[0];
+
+        var list = "";
+        items.forEach((item) => {
+            list += " ".repeat(tabsBeforeItem*4) // Initial tabs before block
+                 +  item.replace(RegExp('\n','g'), "\n" + " ".repeat(tabsBeforeItem*4)) // Add block indentation zero point
+                 + "\n\n"; // spacing to next method
+        })
+        var replacementPairs = {};
+        replacementPairs[fullMarker] = list.replace(/\n$/, "");
+        return Template.replace(template, replacementPairs);
+    }    
 
 
 
