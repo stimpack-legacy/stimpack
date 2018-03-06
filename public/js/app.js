@@ -4478,12 +4478,7 @@ var PseudoCodeTransformer = function () {
                 owner.hasManyRelationships.push(model);
             });
 
-            // BELONGS TO MANY
-            this.models().map(function (block) {
-                return;
-            });
-
-            return [];
+            return model;
         }
     }]);
 
@@ -59529,6 +59524,8 @@ var Header = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_redux__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_index__ = __webpack_require__(13);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59613,12 +59610,22 @@ var Generator = function (_Component) {
             var task = this.props.taskBatch.tasks[taskIndex];
             task.status = "pending";
             this.props.updateTaskBatch(this.props.taskBatch);
-
+            var cache = [];
             $.ajax({
                 type: "POST",
                 url: "/stimpack/perform/" + task.name,
                 data: {
-                    tasks: JSON.stringify(this.props.taskBatch.tasks)
+                    tasks: JSON.stringify(this.props.taskBatch.tasks, function (key, value) {
+                        if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value !== null) {
+                            if (cache.indexOf(value) !== -1) {
+                                // Circular reference found, discard key
+                                return;
+                            }
+                            // Store value in our collection
+                            cache.push(value);
+                        }
+                        return value;
+                    })
                 },
                 success: function (result) {
                     console.log("Finished " + task.name, result);
@@ -59632,6 +59639,7 @@ var Generator = function (_Component) {
                     this.props.updateTaskBatch(this.props.taskBatch);
                 }.bind(this)
             });
+            cache = null; // Enable garbage collection
         }
     }, {
         key: 'stim',

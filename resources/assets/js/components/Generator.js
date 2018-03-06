@@ -43,12 +43,22 @@ class Generator extends Component {
         var task = this.props.taskBatch.tasks[taskIndex];
         task.status = "pending";        
         this.props.updateTaskBatch(this.props.taskBatch);
-
+        var cache = [];
         $.ajax({
             type: "POST",
             url: "/stimpack/perform/" + task.name,
             data: {
-                tasks: JSON.stringify(this.props.taskBatch.tasks)
+                tasks: JSON.stringify(this.props.taskBatch.tasks, function(key, value) {
+                    if (typeof value === 'object' && value !== null) {
+                        if (cache.indexOf(value) !== -1) {
+                            // Circular reference found, discard key
+                            return;
+                        }
+                        // Store value in our collection
+                        cache.push(value);
+                    }
+                    return value;
+                })
             },
             success: function(result){
                 console.log("Finished " + task.name, result);
@@ -62,7 +72,10 @@ class Generator extends Component {
                 this.props.updateTaskBatch(this.props.taskBatch);
             }.bind(this)
         });
+        cache = null; // Enable garbage collection
     }    
+
+    
 
     stim() {
         this.props.resetTaskBatch({

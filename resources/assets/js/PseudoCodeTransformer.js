@@ -247,11 +247,6 @@ export default class PseudoCodeTransformer {
             owner.hasManyRelationships.push(model);
         });
 
-        // BELONGS TO MANY
-        this.models().map((block) => {
-            return;
-        })
-
-        return [];
-    }
+        return model;
+    }    
 }
