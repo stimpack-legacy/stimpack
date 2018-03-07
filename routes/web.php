@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Str;
-
+use App\Jobs\ProcessTask;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +23,9 @@ Route::prefix('stimpack')->group(function () {
     Route::post('perform/{task}', 'TaskController@perform');
     Route::get('pluralize/{word}', function ($word){    
         return Str::plural(Str::snake(class_basename($word)));
-    });    
+    });
+});
+
+Route::get('/queue', function () {
+    ProcessTask::dispatch();
 });
