@@ -4199,7 +4199,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
- // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
+
+
 
 
 
@@ -61429,6 +61430,15 @@ var Cache = function () {
             return JSON.parse(localStorage.getItem(prefix + name));
         }
     }, {
+        key: "getLike",
+        value: function getLike(name) {
+            var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+
+            for (var key in localStorage) {
+                if ((prefix + name).toLowerCase() == key.toLowerCase()) return Cache.get(key);
+            }
+        }
+    }, {
         key: "set",
         value: function set(name) {
             var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
@@ -61448,9 +61458,12 @@ var Cache = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Cache__ = __webpack_require__(281);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 var Attribute = function () {
     function Attribute(name) {
@@ -61490,6 +61503,7 @@ var Attribute = function () {
             var reservedNames = {
                 "id": "$table->increments();",
                 "timestamps": "$table->timestamps();",
+                "rememberToken": "$table->rememberToken();",
                 "timestamps()": "$table->timestamps();",
                 "created_at": "$table->timestamp('created_at')->nullable();",
                 "email": "$table->string('email')->unique();"
@@ -61523,8 +61537,10 @@ var Attribute = function () {
             return {
                 // One to Many explicit
                 "_id$": function _id$(name) {
+                    var cleanedSingular = name.slice(0, name.length - 3).replace(/_/g, "");
+                    var plural = __WEBPACK_IMPORTED_MODULE_0__Cache__["a" /* default */].getLike(cleanedSingular, 'plural');
                     var definition = "$table->integer('" + name + "')->unsigned();";
-                    definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + name.slice(0, name.length - 3) + "s')->onDelete('cascade');";
+                    definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + plural + "')->onDelete('cascade');";
                     return definition;
                 },
                 // Time columns

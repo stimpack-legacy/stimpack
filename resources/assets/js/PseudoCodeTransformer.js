@@ -1,4 +1,5 @@
-import Cache from './Cache'; // Instead of constantly doing HTTP request to server, cache pluralization etc to localStorage?
+import Cache from './Cache';
+
 import Template from './Template';
 import Attribute from './Attribute';
 

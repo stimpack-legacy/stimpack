@@ -1,3 +1,5 @@
+import Cache from './Cache';
+
 export default class Attribute {
     constructor(name) {
         this.name = name;
@@ -33,6 +35,7 @@ export default class Attribute {
         var reservedNames = {
             "id": "$table->increments();",
             "timestamps": "$table->timestamps();",
+            "rememberToken": "$table->rememberToken();",
             "timestamps()": "$table->timestamps();",
             "created_at": "$table->timestamp('created_at')->nullable();",
             "email": "$table->string('email')->unique();",
@@ -61,8 +64,10 @@ export default class Attribute {
         return {
             // One to Many explicit
             "_id$": function(name) {
+                var cleanedSingular = name.slice(0, name.length-3).replace(/_/g,"");
+                var plural = Cache.getLike(cleanedSingular,'plural');
                 var definition = "$table->integer('" + name + "')->unsigned();";
-                definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + name.slice(0, name.length -3) + "s')->onDelete('cascade');";
+                definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + plural + "')->onDelete('cascade');";
                 return definition
             },            
             // Time columns
