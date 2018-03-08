@@ -15,11 +15,6 @@ class CreateSeedersTask extends Task
             file_put_contents($path, $file->body);                
             $message = $message . "Created seed at ";
             $message = $message . $path . "\n";
-        
-            //$str=file_get_contents($this->projectPath() . "/database/seeds/DatabaseSeeder.php");
-            //$str=str_replace("}\n}", '    $this->call(' . $file->name . '::class);\n    }\n}"',$str);
-            //file_put_contents($this->projectPath() . "/database/seeds/DatabaseSeeder.php", $str);
-        
         }
         
         return $message;         
