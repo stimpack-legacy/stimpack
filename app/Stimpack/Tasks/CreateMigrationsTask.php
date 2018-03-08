@@ -17,8 +17,8 @@ class CreateMigrationsTask extends Task
 
         // Place new files
         foreach($this->files as $key=>$file) {        
-            $fileName = str_pad(($key+1), 3, "0", STR_PAD_LEFT) . "_create_" . $file->table . "_table.php";            
-            $fileName = (1000 + $key+1) . "____create_" . $file->table . "_table.php";            
+            $fileName = str_pad((100+$key+1), 3, "0", STR_PAD_LEFT) . "_create_" . $file->table . "_table.php";            
+            $fileName = (100 + $key+1) . "____create_" . $file->table . "_table.php";            
             $path = $this->projectPath() . "/database/migrations/" . $fileName;
             file_put_contents($path, $file->body);                
             $message = $message . "Created migration at '" . $path . "'";

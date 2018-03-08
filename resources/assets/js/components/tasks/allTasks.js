@@ -5,12 +5,14 @@ import SetObjectModelTask from './tasks/SetObjectModelTask'
 import CreateModelsTask from './tasks/CreateModelsTask'
 import CreateControllersTask from './tasks/CreateControllersTask'
 import CreateEpicSplashPageTask from './tasks/CreateEpicSplashPageTask'
+import MigrateTask from './tasks/MigrateTask'
 
 export const allTasks = [
     SetTargetProjectTask,
     CreateDatabaseTask,
     SetObjectModelTask,
     CreateMigrationsTask,
+    MigrateTask,
     CreateModelsTask,
     CreateControllersTask,
     CreateEpicSplashPageTask
