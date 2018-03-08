@@ -80,6 +80,12 @@ body {
     background-color: $dark;
 }
 
+.card-body-hidden {
+    background-color: $dark;
+    display:none;
+    transition: display 1.5s, linear;
+}
+
 p, .form-group label{
     font-size: 14px;
 }

@@ -2253,6 +2253,12 @@ var BaseTask = function (_Component) {
             this.props.updateTasks(this.props.tasks);
         }
     }, {
+        key: 'checkIfHidden',
+        value: function checkIfHidden(enabled) {
+            if (enabled) return "";
+            return " card-body-hidden";
+        }
+    }, {
         key: 'render',
         value: function render() {
             return this.renderTask();
@@ -2282,7 +2288,7 @@ var BaseTask = function (_Component) {
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'card-body' },
+                        { className: "card-body " + this.checkIfHidden(this.task().enabled) },
                         this.body()
                     )
                 )

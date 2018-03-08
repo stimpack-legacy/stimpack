@@ -9,6 +9,12 @@ export default class BaseTask extends Component {
     enableTask() {
         this.task().enabled ^= 1;
         this.props.updateTasks(this.props.tasks);
+        
+    }
+
+    checkIfHidden(enabled) {
+        if (enabled) return "";
+        return " card-body-hidden";
     }
 
     render() {
@@ -25,7 +31,7 @@ export default class BaseTask extends Component {
                             <label htmlFor={this.switch()}>{this.task().name}</label>                    
                         </span>
                     </div>
-                    <div className="card-body">                    
+                    <div className={"card-body " + this.checkIfHidden(this.task().enabled)}>                    
                         {this.body()}
                     </div>                
                 </div>                
