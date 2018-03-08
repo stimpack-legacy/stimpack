@@ -2,6 +2,7 @@ import controller from './templates/controller';
 import migration from './templates/migration';
 import model from './templates/model';
 import user from './templates/user';
+import seeder from './templates/seeder';
 
 import pseudoPlaceholder from './templates/pseudoPlaceholder';
 import phpPlaceholder from './templates/phpPlaceholder';
@@ -125,6 +126,23 @@ export default class Template {
             tabName: transformedModel.name
         }
     }
+
+    static seeders(transformedModels) {
+        return transformedModels.map(Template.seeder);
+    }
+    
+    static seeder(transformedModel) {
+        if(!transformedModel) {
+            return false;
+        }
+        var body = seeder;
+        body = Template.replace(body, {"MODEL": transformedModel.name});
+        return {
+            body: body,
+            name: transformedModel.name,
+            tabName: transformedModel.name
+        }
+    }    
 
     static file(type, transformedModel) {
         return this[type](transformedModel);

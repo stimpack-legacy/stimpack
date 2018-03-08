@@ -2793,17 +2793,19 @@ module.exports = PooledClass;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_migration__ = __webpack_require__(268);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_model__ = __webpack_require__(269);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_user__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_pseudoPlaceholder__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_phpPlaceholder__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_helpPlaceholder__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__templates_makeAuthPseudoCode__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__templates_sampleProject__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__templates_belongsToManyRelationship__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__templates_hasManyRelationship__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_seeder__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_pseudoPlaceholder__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_phpPlaceholder__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__templates_helpPlaceholder__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__templates_makeAuthPseudoCode__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__templates_sampleProject__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__templates_belongsToRelationship__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__templates_belongsToManyRelationship__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__templates_hasManyRelationship__ = __webpack_require__(278);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -2888,15 +2890,15 @@ var Template = function () {
             }), 2);
 
             body = Template.blockReplace(body, "BELONGS_TO_RELATIONSHIPS", transformedModel.belongsToRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.one).replace("CLASS_NAME", relationshipModel.class);
+                return __WEBPACK_IMPORTED_MODULE_10__templates_belongsToRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.one).replace("CLASS_NAME", relationshipModel.class);
             }));
 
             body = Template.blockReplace(body, "HAS_MANY_RELATIONSHIPS", transformedModel.hasManyRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_11__templates_hasManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.many).replace("CLASS_NAME", relationshipModel.class);
+                return __WEBPACK_IMPORTED_MODULE_12__templates_hasManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.many).replace("CLASS_NAME", relationshipModel.class);
             }));
 
             body = Template.blockReplace(body, "BELONGS_TO_MANY_RELATIONSHIPS", transformedModel.belongsToManyRelationships.map(function (relationshipModel) {
-                return __WEBPACK_IMPORTED_MODULE_10__templates_belongsToManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.many).replace("CLASS_NAME", relationshipModel.class);
+                return __WEBPACK_IMPORTED_MODULE_11__templates_belongsToManyRelationship__["a" /* default */].replace("METHOD_NAME", relationshipModel.many).replace("CLASS_NAME", relationshipModel.class);
             }));
 
             // Clean up blank spaces on empty rows
@@ -2932,6 +2934,25 @@ var Template = function () {
             };
         }
     }, {
+        key: 'seeders',
+        value: function seeders(transformedModels) {
+            return transformedModels.map(Template.seeder);
+        }
+    }, {
+        key: 'seeder',
+        value: function seeder(transformedModel) {
+            if (!transformedModel) {
+                return false;
+            }
+            var body = __WEBPACK_IMPORTED_MODULE_4__templates_seeder__["a" /* default */];
+            body = Template.replace(body, { "MODEL": transformedModel.name });
+            return {
+                body: body,
+                name: transformedModel.name,
+                tabName: transformedModel.name
+            };
+        }
+    }, {
         key: 'file',
         value: function file(type, transformedModel) {
             return this[type](transformedModel);
@@ -2958,27 +2979,27 @@ var Template = function () {
     }, {
         key: 'pseudoPlaceholder',
         value: function pseudoPlaceholder() {
-            return __WEBPACK_IMPORTED_MODULE_4__templates_pseudoPlaceholder__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_5__templates_pseudoPlaceholder__["a" /* default */];
         }
     }, {
         key: 'phpPlaceholder',
         value: function phpPlaceholder() {
-            return __WEBPACK_IMPORTED_MODULE_5__templates_phpPlaceholder__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_6__templates_phpPlaceholder__["a" /* default */];
         }
     }, {
         key: 'makeAuthPseudoCode',
         value: function makeAuthPseudoCode() {
-            return __WEBPACK_IMPORTED_MODULE_7__templates_makeAuthPseudoCode__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_8__templates_makeAuthPseudoCode__["a" /* default */];
         }
     }, {
         key: 'sampleProject',
         value: function sampleProject() {
-            return __WEBPACK_IMPORTED_MODULE_8__templates_sampleProject__["a" /* default */];
+            return __WEBPACK_IMPORTED_MODULE_9__templates_sampleProject__["a" /* default */];
         }
     }, {
         key: 'test',
         value: function test() {
-            var body = Template.blockReplace(__WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */], "BELONGS_TO_RELATIONSHIPS", [__WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */], __WEBPACK_IMPORTED_MODULE_9__templates_belongsToRelationship__["a" /* default */]]);
+            var body = Template.blockReplace(__WEBPACK_IMPORTED_MODULE_2__templates_model__["a" /* default */], "BELONGS_TO_RELATIONSHIPS", [__WEBPACK_IMPORTED_MODULE_10__templates_belongsToRelationship__["a" /* default */], __WEBPACK_IMPORTED_MODULE_10__templates_belongsToRelationship__["a" /* default */]]);
             return body;
         }
     }, {
@@ -22260,9 +22281,10 @@ module.exports = getHostComponentFromComposite;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateControllersTask__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateEpicSplashPageTask__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_MigrateTask__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__ = __webpack_require__(303);
 
 
 
@@ -22272,7 +22294,8 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_MigrateTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateEpicSplashPageTask__["a" /* default */]];
+
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */]];
 
 /***/ }),
 /* 104 */
@@ -62406,6 +62429,102 @@ var MigrateTask = function (_BaseTask) {
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(MigrateTask));
+
+/***/ }),
+/* 304 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Template__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__BaseTask__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__ = __webpack_require__(62);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+
+
+var CreateSeedersTask = function (_CreateFilesTask) {
+    _inherits(CreateSeedersTask, _CreateFilesTask);
+
+    function CreateSeedersTask() {
+        _classCallCheck(this, CreateSeedersTask);
+
+        return _possibleConstructorReturn(this, (CreateSeedersTask.__proto__ || Object.getPrototypeOf(CreateSeedersTask)).apply(this, arguments));
+    }
+
+    _createClass(CreateSeedersTask, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.setupEditor();
+        }
+    }, {
+        key: 'body',
+        value: function body() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { id: 'php-wrapper' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    { className: 'editor-tabs' },
+                    this.renderPhpTabs()
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { id: this.editorName(), className: 'result-editor' })
+            );
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].seeders(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            this.renderPhpCode();
+        }
+    }], [{
+        key: 'getDefaultParameters',
+        value: function getDefaultParameters() {
+            return {
+                name: "CreateSeedersTask",
+                enabled: true,
+                transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
+                files: [],
+                activeTab: null,
+                shouldDisplayFilesOfType: ["MODEL"],
+                fileTypeToGenerate: "seeder"
+            };
+        }
+    }]);
+
+    return CreateSeedersTask;
+}(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeedersTask));
+
+/***/ }),
+/* 305 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse IlluminateDatabaseSeeder;\n\nclass MODELSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        //\n    }\n}");
 
 /***/ })
 /******/ ]);
