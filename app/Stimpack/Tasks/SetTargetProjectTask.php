@@ -4,21 +4,32 @@ namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 use App\Stimpack\Templates;
+use ZipArchive;
 
 class SetTargetProjectTask extends Task
 {
     public function perform() {
-        //return json_encode($this);
         // if project exist, do nothing
         if(Task::projects()->contains($this->projectName())) {
             return "Project folder identified";
         }
 
-        // Create new laravel project with composer
-        exec("composer create-project --prefer-dist -n laravel/laravel ../../" . $this->projectName() ." 2>&1", $outputAndErrors);    
-        // Laravels key:generate does not work in shell, lets do it manually for now
+        // Get the file from github
+        $start = microtime(true);
+        file_put_contents($this->projectPath() . "laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
+        
+        // Unzip    
+        $zip = new ZipArchive;
+        $res = $zip->open($this->projectPath() . "laravel.zip");
+        if ($res === TRUE) {
+            $zip->extractTo($this->projectPath());
+            $zip->close();
+        } else {
+            return "some Error?";
+        }
+
         file_put_contents($this->projectPath()."/.env", Templates::ENV);
-        // Return output and errors
-        return $this->projectPath()."/.env"; //$outputAndErrors;
+        
+        return "Installed application successfully. Time elapsed: " . $time_elapsed_secs = microtime(true) - $start;
     }
 }

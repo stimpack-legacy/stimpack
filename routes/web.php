@@ -81,7 +81,7 @@ Route::get('test', function() {
     $zip = new ZipArchive;
     $res = $zip->open("/home/anders/Code/newProject2.zip");
     if ($res === TRUE) {
-      $zip->extractTo('/home/anders/Code/new_project_indeed2');
+      $zip->extractTo('/home/anders/Code/new_project_indeed');
       $zip->close();
     } else {
       return "some Error?";
