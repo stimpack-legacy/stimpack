@@ -8,8 +8,16 @@ class CreateMigrationsTask extends Task
 {
     public function perform() {        
         $message = "";
-        foreach($this->files as $file) {        
-            $fileName = date("Y_m_d_hms",time()) . "_create_" . $file->table . "_table.php";            
+
+        // Delete old files        
+        foreach(glob($this->projectPath() . "/database/migrations/*") as $oldFile){
+          if(is_file($oldFile))
+            unlink($oldFile);
+        }        
+
+        // Place new files
+        foreach($this->files as $key=>$file) {        
+            $fileName = str_pad(($key+1), 3, "0", STR_PAD_LEFT) . "_create_" . $file->table . "_table.php";            
             $path = $this->projectPath() . "/database/migrations/" . $fileName;
             file_put_contents($path, $file->body);                
             $message = $message . "Created migration at '" . $path . "'";

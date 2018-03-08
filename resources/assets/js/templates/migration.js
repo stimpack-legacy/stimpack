@@ -18,6 +18,7 @@ class $MIGRATION-CLASS-NAME$ extends Migration
             $table->increments('id');            
 $COLUMNS$
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

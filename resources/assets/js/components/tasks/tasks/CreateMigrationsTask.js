@@ -39,7 +39,8 @@ class CreateMigrationsTask extends CreateFilesTask {
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks)
-            this.task().files = Template.migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
+            this.task().files = Template.migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort());
+            //this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort()
             this.renderPhpCode();
     }    
 }

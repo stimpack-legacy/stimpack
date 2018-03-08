@@ -2833,7 +2833,7 @@ var Template = function () {
             }
 
             var body = __WEBPACK_IMPORTED_MODULE_1__templates_migration__["a" /* default */];
-            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.name + "Table" });
+            body = Template.replace(body, { "$MIGRATION-CLASS-NAME$": "Create" + transformedModel.many.slice(0, 1).toUpperCase() + transformedModel.many.slice(1) + "Table" });
             body = Template.replace(body, { "$TABLE-NAME$": transformedModel.table });
             body = Template.listReplace(body, "$COLUMNS$", transformedModel.attributes.map(function (attribute) {
                 return attribute.migrationDefinition;
@@ -4481,6 +4481,27 @@ var PseudoCodeTransformer = function () {
             });
 
             return model;
+        }
+    }, {
+        key: 'safeSort',
+        value: function safeSort() {
+            return this.all().sort(function (a, b) {
+                if (a.type == MANY_TO_MANY && b.type != MANY_TO_MANY) {
+                    return 1;
+                }
+                if (a.type != MANY_TO_MANY && b.type == MANY_TO_MANY) {
+                    return -1;
+                }
+                if (a.belongsToRelationships.length > b.belongsToRelationships.length) {
+                    return 1;
+                }
+                if (a.belongsToRelationships.length < b.belongsToRelationships.length) {
+                    return -1;
+                }
+                return 0;
+            });
+
+            return sorted;
         }
     }]);
 
@@ -61118,14 +61139,14 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n            $table->increments('id');            \n$COLUMNS$\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Support\\Facades\\Schema;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Database\\Migrations\\Migration;\n\nclass $MIGRATION-CLASS-NAME$ extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('$TABLE-NAME$', function (Blueprint $table) {\n            $table->increments('id');            \n$COLUMNS$\n            $table->timestamps();\n            $table->softDeletes();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('$TABLE-NAME$');\n    }\n}\n");
 
 /***/ }),
 /* 269 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    use Notifiable;\n\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\nMASS_ASSIGNABLE_ATTRIBUTES\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\nHIDDEN_ATTRIBUTES\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n    HAS_MANY_RELATIONSHIPS\n    BELONGS_TO_MANY_RELATIONSHIPS\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nnamespace App;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass $MODEL$ extends Model\n{\n    /**\n     * The attributes that are mass assignable.\n     *\n     * @var array\n     */\n    protected $fillable = [\nMASS_ASSIGNABLE_ATTRIBUTES\n    ];\n\n    /**\n     * The attributes that should be hidden for arrays.\n     *\n     * @var array\n     */\n    protected $hidden = [\nHIDDEN_ATTRIBUTES\n    ];\n\n    BELONGS_TO_RELATIONSHIPS\n    HAS_MANY_RELATIONSHIPS\n    BELONGS_TO_MANY_RELATIONSHIPS\n}");
 
 /***/ }),
 /* 270 */
@@ -61354,7 +61375,8 @@ var CreateMigrationsTask = function (_CreateFilesTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.all());
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort());
+            //this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort()
             this.renderPhpCode();
         }
     }], [{
@@ -61493,11 +61515,9 @@ var Attribute = function () {
             return {
                 // One to Many explicit
                 "_id$": function _id$(name) {
-                    return "$table->foreign('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
-                },
-                // One to Many implicit guess owner is user
-                "^owner$": function owner$(name) {
-                    return "$table->foreign('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
+                    var definition = "$table->integer('" + name + "')->unsigned();";
+                    definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + name.slice(0, name.length - 3) + "s')->onDelete('cascade');";
+                    return definition;
                 },
                 // Time columns
                 "(time|date|_at)$": function timeDate_at$(name) {

@@ -248,5 +248,25 @@ export default class PseudoCodeTransformer {
         });
 
         return model;
-    }    
+    }
+
+    safeSort() {
+        return this.all().sort(function(a, b){
+            if(a.type == MANY_TO_MANY && b.type != MANY_TO_MANY) {
+                return 1;
+            }
+            if(a.type != MANY_TO_MANY && b.type == MANY_TO_MANY) {
+                return -1;
+            }            
+            if(a.belongsToRelationships.length > b.belongsToRelationships.length) {
+                return 1;
+            }
+            if(a.belongsToRelationships.length < b.belongsToRelationships.length) {
+                return -1;
+            }            
+            return 0;
+        });
+        
+        return sorted;
+    }        
 }

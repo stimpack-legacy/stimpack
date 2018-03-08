@@ -61,11 +61,9 @@ export default class Attribute {
         return {
             // One to Many explicit
             "_id$": function(name) {
-                return "$table->foreign('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
-            },
-            // One to Many implicit guess owner is user
-            "^owner$": function(name) {
-                return "$table->foreign('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
+                var definition = "$table->integer('" + name + "')->unsigned();";
+                definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + name.slice(0, name.length -3) + "s')->onDelete('cascade');";
+                return definition
             },            
             // Time columns
             "(time|date|_at)$": function(name) {
