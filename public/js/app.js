@@ -61493,11 +61493,11 @@ var Attribute = function () {
             return {
                 // One to Many explicit
                 "_id$": function _id$(name) {
-                    return "$table->integer('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
+                    return "$table->foreign('" + name + "')->unsigned()->references('id')->on('" + name.slice(0, -3) + "')->onDelete('cascade');";
                 },
                 // One to Many implicit guess owner is user
                 "^owner$": function owner$(name) {
-                    return "$table->integer('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
+                    return "$table->foreign('" + name + "')->unsigned()->references('id')->on('users')->onDelete('cascade');";
                 },
                 // Time columns
                 "(time|date|_at)$": function timeDate_at$(name) {
