@@ -23,7 +23,6 @@ Laravel Stimpack is a task runner for speedy boilerplate generation. It sets the
     npm install
     npm run dev
     npm run watch-poll
-<hr>
 
 ## CLI
 
