@@ -10,7 +10,7 @@ class Task
         $this->transferParameters();
         // To be removed!!!
         ini_set('max_execution_time', 300);
-        usleep(500000);        
+        usleep(200000);        
     }
 
     public function projectPath()

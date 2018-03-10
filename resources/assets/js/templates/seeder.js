@@ -1,7 +1,7 @@
 export default 
 `<?php
 
-use Illuminate\Database\Seeder;
+use Illuminate\\Database\\Seeder;
 
 class MODELSeeder extends Seeder
 {

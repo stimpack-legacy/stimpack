@@ -16,6 +16,14 @@ class CreateSeedersTask extends Task
             $message = $message . "Created seed at ";
             $message = $message . $path . "\n";
         }
+
+        copy(
+            app_path() . "/Stimpack/Templates/DatabaseSeeder.php",
+            $this->projectPath() . "/database/seeds/DatabaseSeeder.php"
+        );
+
+        chdir($this->projectPath());
+        exec('composer dump-autoload');
         
         return $message;         
     }

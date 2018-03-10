@@ -16,11 +16,11 @@ class SetTargetProjectTask extends Task
 
         // Get the file from github
         $start = microtime(true);
-        file_put_contents($this->projectPath() . "laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
+        //file_put_contents("../storage/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
         
         // Unzip    
         $zip = new ZipArchive;
-        $res = $zip->open($this->projectPath() . "laravel.zip");
+        $res = $zip->open("../storage/laravel.zip");
         if ($res === TRUE) {
             $zip->extractTo($this->projectPath());
             $zip->close();

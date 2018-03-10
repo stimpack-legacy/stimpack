@@ -10,15 +10,21 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        // $this->call(UsersTableSeeder::class);
-        collect(scandir(dirname(__FILE__)))->foreach(function($file) {
-            if ($file == "." || $file == "..") {
-                return;
-            }
-            
-            $withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
-            $this->call($withoutExt::call);
+    {        
+        $this->runAll();
+    }
+
+    /**
+     * Run all of the database seeds.
+     *
+     * @return void
+     */
+    public function runAll()
+    {        
+        collect(scandir(dirname(__FILE__)))->filter(function($file) {
+            return !collect([".", "..", basename(__FILE__)])->contains($file); 
+        })->each(function($file) {
+            $this->call(basename($file, ".php"));
         });
     }
 }

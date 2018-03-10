@@ -11,6 +11,6 @@ class ExampleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        //echo("Seeding this file\n");
     }
 }
