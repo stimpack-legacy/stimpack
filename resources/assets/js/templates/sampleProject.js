@@ -3,7 +3,7 @@ export default
 name
 email
 password
-rememberToken
+remember_token
 product_id
 
 password_resets

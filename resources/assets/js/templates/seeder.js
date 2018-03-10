@@ -12,6 +12,10 @@ class MODELSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \DB::table('TABLE')->insert([
+            [
+ATTRIBUTES
+            ],
+        ]);
     }
 }`

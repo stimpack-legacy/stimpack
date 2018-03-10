@@ -137,12 +137,35 @@ export default class Template {
         }
         var body = seeder;
         body = Template.replace(body, {"MODEL": transformedModel.name});
+        body = Template.insertSeederMethod(body, transformedModel);
+        
         return {
             body: body,
             name: transformedModel.name,
             tabName: transformedModel.name
         }
-    }    
+    }
+    
+    static insertSeederMethod(body, transformedModel) {
+        body = body.replace("TABLE", transformedModel.table);
+        body = Template.listReplace(body, "ATTRIBUTES",
+            transformedModel.attributes.map((attribute) => {
+                return "'" + attribute.name + "' => " + Template.seedValue(attribute) + ",";
+            }),4);        
+        return body;
+    }
+
+    static seedValue(attribute) {        
+        if(/^\$table->string/.test(attribute.migrationDefinition)) {
+            return "'" + Math.random().toString(36).substring(7) + "'";
+        }
+
+        if(/^\$table->integer/.test(attribute.migrationDefinition)) {
+            return 1;
+        }
+
+        return "'didnt match anything!!!'";
+    }
 
     static file(type, transformedModel) {
         return this[type](transformedModel);

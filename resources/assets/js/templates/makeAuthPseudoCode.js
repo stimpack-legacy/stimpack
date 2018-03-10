@@ -2,7 +2,7 @@ export default `User
 name
 email
 password
-rememberToken
+remember_token
 
 password_resets
 email

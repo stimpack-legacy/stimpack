@@ -16,11 +16,11 @@ class SetTargetProjectTask extends Task
 
         // Get the file from github
         $start = microtime(true);
-        //file_put_contents("../storage/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
+        //file_put_contents("../storage/stimpack/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
         
         // Unzip    
         $zip = new ZipArchive;
-        $res = $zip->open("../storage/laravel.zip");
+        $res = $zip->open("../storage/stimpack/laravel.zip");
         if ($res === TRUE) {
             $zip->extractTo($this->projectPath());
             $zip->close();
@@ -28,7 +28,7 @@ class SetTargetProjectTask extends Task
             return "some Error?";
         }
 
-        file_put_contents($this->projectPath()."/.env", Templates::ENV);
+        file_put_contents($this->projectPath()."/.env", str_replace("DATABASE_PATH", $this->projectPath() . "/storage/database.sqlite" ,Templates::ENV));
         
         return "Installed application successfully. Time elapsed: " . $time_elapsed_secs = microtime(true) - $start;
     }

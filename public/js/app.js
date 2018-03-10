@@ -2487,11 +2487,35 @@ var Template = function () {
             }
             var body = __WEBPACK_IMPORTED_MODULE_4__templates_seeder__["a" /* default */];
             body = Template.replace(body, { "MODEL": transformedModel.name });
+            body = Template.insertSeederMethod(body, transformedModel);
+
             return {
                 body: body,
                 name: transformedModel.name,
                 tabName: transformedModel.name
             };
+        }
+    }, {
+        key: 'insertSeederMethod',
+        value: function insertSeederMethod(body, transformedModel) {
+            body = body.replace("TABLE", transformedModel.table);
+            body = Template.listReplace(body, "ATTRIBUTES", transformedModel.attributes.map(function (attribute) {
+                return "'" + attribute.name + "' => " + Template.seedValue(attribute) + ",";
+            }), 4);
+            return body;
+        }
+    }, {
+        key: 'seedValue',
+        value: function seedValue(attribute) {
+            if (/^\$table->string/.test(attribute.migrationDefinition)) {
+                return "'" + Math.random().toString(36).substring(7) + "'";
+            }
+
+            if (/^\$table->integer/.test(attribute.migrationDefinition)) {
+                return 1;
+            }
+
+            return "'didnt match anything!!!'";
         }
     }, {
         key: 'file',
@@ -22295,7 +22319,7 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */]];
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */]];
 
 /***/ }),
 /* 104 */
@@ -61237,7 +61261,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass MODELSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        //\n    }\n}");
+/* harmony default export */ __webpack_exports__["a"] = ("<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass MODELSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        DB::table('TABLE')->insert([\n            [\nATTRIBUTES\n            ],\n        ]);\n    }\n}");
 
 /***/ }),
 /* 273 */
@@ -61265,7 +61289,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("User\nname\nemail\npassword\nrememberToken\n\npassword_resets\nemail\ntoken\n$table->timestamp('created_at');\n");
+/* harmony default export */ __webpack_exports__["a"] = ("User\nname\nemail\npassword\nremember_token\n\npassword_resets\nemail\ntoken\n$table->timestamp('created_at');\n");
 
 /* REFERENCE:
 Schema::create('users', function (Blueprint $table) {
@@ -61287,7 +61311,7 @@ Schema::create('password_resets', function (Blueprint $table) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ("User\nname\nemail\npassword\nrememberToken\nproduct_id\n\npassword_resets\nemail\ntoken\ntimestamp\n\nProduct\nname\ndescription\nprice\n\nOrder\nuser_id\npayment_completed\n\norder_product");
+/* harmony default export */ __webpack_exports__["a"] = ("User\nname\nemail\npassword\nremember_token\nproduct_id\n\npassword_resets\nemail\ntoken\ntimestamp\n\nProduct\nname\ndescription\nprice\n\nOrder\nuser_id\npayment_completed\n\norder_product");
 
 /***/ }),
 /* 278 */
