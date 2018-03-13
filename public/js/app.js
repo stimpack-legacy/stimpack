@@ -59723,6 +59723,12 @@ var Generator = function (_Component) {
         value: function perform() {
             var taskIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
+
+            if (taskIndex == 0) {
+                console.log("DOWN");
+                console.log(this.props.taskBatch.tasks);
+                console.log("UP");
+            }
             this.props.taskBatch.startRequested = false;
 
             if (taskIndex >= this.props.taskBatch.tasks.length) {

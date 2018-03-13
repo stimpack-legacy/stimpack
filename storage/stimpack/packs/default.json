@@ -1,0 +1,15 @@
+[
+    {
+        "name": "SetTargetProjectTask",
+        "enabled": true,
+        "projectPath": "/../",
+        "projectName": "sample",
+        "status": "succeded"
+    },
+    {
+        "name": "CreateDatabaseTask",
+        "enabled": true,
+        "type": "sqlite",
+        "status": "succeded"
+    }
+]

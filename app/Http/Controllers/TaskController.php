@@ -20,20 +20,6 @@ class TaskController extends Controller
             abort(500, $e->getMessage());
         }
         return $feedback;
-    }
-
-    private function array_to_object($array) {
-        $obj = new \stdClass;
-        foreach($array as $k => $v) {
-           if(strlen($k)) {
-              if(is_array($v) && $v != []) {
-                 $obj->{$k} = $this->array_to_object($v); //RECURSION
-              } else {
-                 $obj->{$k} = $v;
-              }
-           }
-        }
-        return $obj;
-      }     
+    }     
 }
 

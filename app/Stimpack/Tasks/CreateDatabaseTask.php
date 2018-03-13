@@ -8,8 +8,14 @@ class CreateDatabaseTask extends Task
 {
     public function perform() {
         $path = "/home/anders/Code/" . $this->projectName() . "/storage/database.sqlite";        
-        file_put_contents($path, "");
-        $message = "Created database at '" . $path . "'";
-        return $message;
+        file_put_contents($path, "");       
+        
+        return [
+            "name" => $this->name,
+            "status" => "succeded!",
+            "messages" => [
+                "Created database at '" . $path . "'"
+            ]
+        ];        
     }
 }

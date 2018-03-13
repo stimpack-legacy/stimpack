@@ -13,7 +13,7 @@ class SetTargetProjectTask extends Task
         if(Task::projects()->contains($this->projectName())) {
             return "Project folder identified";
         }
-
+        $z[1];
         // Get the file from github
         $start = microtime(true);
         //file_put_contents("../storage/stimpack/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
@@ -26,10 +26,19 @@ class SetTargetProjectTask extends Task
             $zip->close();
         } else {
             return "some Error?";
-        }
-
+        }        
+        
+        // Update .env
         file_put_contents($this->projectPath()."/.env", str_replace("DATABASE_PATH", $this->projectPath() . "/storage/database.sqlite" ,Templates::ENV));
         
-        return "Installed application successfully. Time elapsed: " . $time_elapsed_secs = microtime(true) - $start;
+        //return "Success: http://" . $this->projectName() . ".test . Time elapsed: " . $time_elapsed_secs = microtime(true) - $start;
+        return [
+            "name" => $this->name,
+            "status" => "succeded!",
+            "messages" => [
+                "http://" . $this->projectName() . ".test",
+                "Time elapsed: " . (microtime(true) - $start)
+            ]
+        ];
     }
 }

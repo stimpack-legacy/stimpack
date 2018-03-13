@@ -31,8 +31,15 @@ class Generator extends Component {
         );
     }
 
-    perform(taskIndex = 0) {        
+    perform(taskIndex = 0) {
+        
+        if(taskIndex == 0) {
+            console.log("DOWN");
+            console.log(this.props.taskBatch.tasks);        
+            console.log("UP");
+        }
         this.props.taskBatch.startRequested = false;
+        
         
         if(taskIndex >= this.props.taskBatch.tasks.length) {
             this.props.taskBatch.busy = false;
