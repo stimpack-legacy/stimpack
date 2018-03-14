@@ -13,7 +13,7 @@ class SetTargetProjectTask extends Task
         if(Task::projects()->contains($this->projectName())) {
             return "Project folder identified";
         }
-        $z[1];
+                
         // Get the file from github
         $start = microtime(true);
         //file_put_contents("../storage/stimpack/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));

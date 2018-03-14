@@ -21,7 +21,7 @@ class TaskController
             $task = new $taskClassName( $tasks);
             $feedback = $task->perform();
         } catch (\Exception $e) {
-            abort(500, $e->getMessage());
+            dd($e);
         }
         return $feedback;
     }     
