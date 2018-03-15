@@ -23,7 +23,7 @@ export default class BaseTask extends Component {
     
     renderTask() {
         return (
-            <div className="container">                              
+            
                 <div className="card">
                     <div className="card-header">
                         <span className="switch switch-sm">
@@ -35,7 +35,7 @@ export default class BaseTask extends Component {
                         {this.body()}
                     </div>                
                 </div>                
-            </div>
+            
         );        
     }
 

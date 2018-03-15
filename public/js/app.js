@@ -1782,29 +1782,25 @@ var BaseTask = function (_Component) {
         value: function renderTask() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'container' },
+                { className: 'card' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'card' },
+                    { className: 'card-header' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'card-header' },
+                        'span',
+                        { className: 'switch switch-sm' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: this.switch(), checked: this.task().enabled, onChange: this.enableTask.bind(this) }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'span',
-                            { className: 'switch switch-sm' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox', className: 'switch', id: this.switch(), checked: this.task().enabled, onChange: this.enableTask.bind(this) }),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'label',
-                                { htmlFor: this.switch() },
-                                this.task().name
-                            )
+                            'label',
+                            { htmlFor: this.switch() },
+                            this.task().name
                         )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: "card-body " + this.checkIfHidden(this.task().enabled) },
-                        this.body()
                     )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: "card-body " + this.checkIfHidden(this.task().enabled) },
+                    this.body()
                 )
             );
         }

@@ -13368,18 +13368,21 @@ body {
 }
 
 .card {
-  margin-top: 25px;
+  margin: 0px;
   border-style: none;
   background: none;
 }
 
 .card-header {
   background-color: rgba(0, 0, 0, 0.45);
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .card-header span label {
   font-weight: 600;
   font-size: 19px;
+  margin: 0px;
 }
 
 .card-body {
