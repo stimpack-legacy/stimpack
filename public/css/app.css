@@ -3325,8 +3325,16 @@ li a:hover {
   margin-left: 10px;
 }
 
-.icon {
+.icon-control-bar {
   color: #AFE418;
+  font-size: 165%;
+  margin-right: 10px;
+}
+
+.icon-close-task {
+  float: right;
+  color: #31363F;
+  font-size: 165%;
 }
 
 .log-ok {
@@ -3342,29 +3350,33 @@ li a:hover {
 }
 
 .controlBar {
-  padding-left: 100px;
+  padding-left: 20px;
   padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: rgba(0, 0, 0, 0.2);
+  padding-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.45);
 }
 
-.controlItem {
+.controlBarItem {
   display: inline;
   margin-right: 10px;
 }
 
-.controlForm {
+.controlBarForm {
   display: inline;
 }
 
-p {
-  display: inline;
-  margin-right: 10px;
-}
-
-input {
-  width: 160px;
+.controlBarInput {
   background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  border-radius: 5px;
+}
+
+.controlBarDataList {
+  display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 100;
 }
 
 /*!
@@ -13365,7 +13377,11 @@ a.text-dark:focus {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #31363F;
+  background: #31363F;
+  /* fallback for old browsers */
+  background: -webkit-gradient(linear, right top, left top, from(#333842), color-stop(#4a515f), color-stop(#5b6576), to(#383d48));
+  background: linear-gradient(to left, #333842, #4a515f, #5b6576, #383d48);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
 }
 
@@ -13374,6 +13390,16 @@ body {
   padding-bottom: 15px;
   background-color: rgba(0, 0, 0, 0.45);
   text-align: center;
+}
+
+.heading-app-name {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 100%;
+  letter-spacing: 2px;
+  color: #AFE418;
+  margin-right: 50px;
 }
 
 .generator {
@@ -13390,15 +13416,6 @@ body {
 
 .buttons > * {
   margin: 10px 0;
-}
-
-.heading-app-name {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 500;
-  font-style: italic;
-  font-size: 170%;
-  letter-spacing: 5px;
-  color: #AFE418;
 }
 
 .card {

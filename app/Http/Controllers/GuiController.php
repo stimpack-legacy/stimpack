@@ -10,6 +10,7 @@ class GuiController extends Controller
 
         $data = [
             'projects' => $this->projects(), 
+            'packs' => $this->packs()
         ];
 
         if($projectName) $data["projectName"] = $projectName;
@@ -20,6 +21,11 @@ class GuiController extends Controller
     private function projects() {
         chdir("../../");
         return collect(array_filter(glob("*"), 'is_dir'));        
+    }
+
+    private function packs() {
+        chdir("/home/anders/Code/stimpack/storage/stimpack/packs");
+        return collect(array_filter(glob("*"), 'is_file'));        
     }
 
 }

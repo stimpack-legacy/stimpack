@@ -5,42 +5,64 @@ export default class ControlBar extends Component {
     render() {
         return (
             <div className="controlBar">            
-                <p>Target project:</p>                
-                <form className="controlItem">
-                    <div className="form-group controlItem">                        
-                        <input type="text" list="projects" className="controlItem" />
-                        <datalist  id="projects" placeholder="my-new-project" className="controlItem">
+                <span className="heading-app-name">LARAVEL STIMPACK</span>                
+                
+
+                
+                <form className="controlBarItem">
+                    <div className="form-group controlBarItem">                        
+                        <p className="controlBarItem">Target project:</p>                
+                        <input defaultValue={data.projectName} type="text" list="projects" className="controlBarItem controlBarInput" />
+                        <datalist id="projects" placeholder="my-new-project" className="controlBarDataList">
+                            {this.renderAvailableProjects()}
                         </datalist>                            
                     </div>
                 </form>
-
-                <p>Using pack:</p>                
-                <form className="controlItem">
-                    <div className="form-group controlItem">                        
-                        <input type="text" list="projects" className="controlItem" />
-                        <datalist  id="projects" placeholder="my-new-project" className="controlItem">
+                                
+                <form className="controlBarItem">
+                    <div className="form-group controlBarItem">
+                        <p className="controlBarItem">Using pack:</p>                        
+                        <input type="text" list="packs" className="controlBarItem controlBarInput" />
+                        <datalist id="packs" placeholder="my-new-project" className="controlBarDataList">
+                        {this.renderAvailablePacks()}
                         </datalist>                            
                     </div>
-
-                    <p>Add Task</p>                
-                    <p>Run All!</p>
-                    <p>Save</p>
-                    <p>Share</p>
-                    <p>Help</p>
+                    <i className="fa fa-play icon-control-bar"></i>
                 </form>
-
-                <i className="fa fa-syringe icon controlItem"></i>
-                <i className="fa fa-refresh fa-spin log-pending icon controlItem"></i>
-                <i className="fa fa-save icon controlItem"></i>
-                <i className="fa fa-play icon controlItem"></i>
-                <i className="fa fa-syringe icon controlItem"></i>
-                <i className="fas fa-cloud-upload-alt icon controlItem"></i>
+                
+                
+                {/* <i className="fa fa-refresh fa-spin log-pending icon"></i> */}
+                
+                <i className="fa fa-save icon-control-bar"></i>
+                
+                <i className="fa fa-syringe icon-control-bar"></i>
+                <i className="fa fa-upload icon-control-bar"></i>                
             </div>
         );
     }
+
+    renderAvailableProjects() {
+        console.log(data.projectName);
+        // The data variable is injected into welcome.blade.php
+        return data.projects.map(function(project) {
+            return (<option key={project}>{project}</option>);
+        })        
+    }
+    
+    renderAvailablePacks() {
+        // The data variable is injected into welcome.blade.php
+        return data.packs.map(function(pack) {
+            return (<option key={pack}>{pack}</option>);
+        })        
+    }    
 }
 
 /*
+REALLY COOL ICONS I NEED v5 for
+<i className="fa fa-2x fa-syringe icon controlBarItem"></i>
+<i className="fa fa-plus icon-control-bar"></i>
+
+
             <div className="controlBar">
                 <form>
                     <div className="form-group">                        

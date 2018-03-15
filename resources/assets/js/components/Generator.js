@@ -13,6 +13,7 @@ class Generator extends Component {
         return (
             <div className="generator container">
                 <Inputs />
+                {/*
                 <div className="buttons">
                     <div className="container">
                         <hr />
@@ -27,6 +28,7 @@ class Generator extends Component {
                         </div>
                     </div>
                 </div>
+                */}
             </div>
         );
     }

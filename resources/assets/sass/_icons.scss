@@ -1,5 +1,13 @@
-.icon {
+.icon-control-bar {
     color: $neon-green;    
+    font-size: 165%;
+    margin-right: 10px;
+}
+
+.icon-close-task{
+    float:right;
+    color: $semi-dark;
+    font-size: 165%;
 }
 
 .log-ok {

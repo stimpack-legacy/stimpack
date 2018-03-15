@@ -29,6 +29,7 @@ export default class BaseTask extends Component {
                         <span className="switch switch-sm">
                             <input type="checkbox" className="switch" id={this.switch()} checked={this.task().enabled} onChange={this.enableTask.bind(this)} />
                             <label htmlFor={this.switch()}>{this.task().name}</label>                    
+                            <i className="fa fa-times icon-close-task"></i>
                         </span>
                     </div>
                     <div className={"card-body " + this.checkIfHidden(this.task().enabled)}>                    

@@ -1,26 +1,31 @@
 .controlBar {
-    padding-left: 100px;
+    padding-left: 20px;
     padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: $dark;
+    padding-bottom: 8px;
+    background-color: $darkest;
 
 }
 
-.controlItem {
+.controlBarItem {
     display: inline;
     margin-right: 10px;
 }
 
-.controlForm {
+.controlBarForm {
     display: inline;
 }
 
-p {
-    display: inline;
-    margin-right: 10px;
-}
-
-input {
-    width: 160px;
+.controlBarInput {
+    //width: 160px;
     background-color: $dark;
+    color: white;
+    border-radius: 5px;
 }
+
+.controlBarDataList {
+    display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+    opacity: 100;
+ }

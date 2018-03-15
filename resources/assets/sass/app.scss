@@ -6,12 +6,14 @@
 @import "editors";
 @import "icons";
 @import "controlBar";
+@import "_gradient";
 
 @import "~bootstrap/scss/bootstrap.scss";
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: $semi-dark;
+    background: $semi-dark;  /* fallback for old browsers */
+    background: linear-gradient(to left, lighten($semi-dark, 1%), lighten($semi-dark, 11%), lighten($semi-dark, 19%), lighten($semi-dark, 3%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
 }
 
@@ -20,6 +22,16 @@ body {
     padding-bottom: 15px;
     background-color: $darkest;
     text-align: center;
+}
+
+.heading-app-name {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 100%;
+    letter-spacing: 2px;
+    color: $neon-green;
+    margin-right: 50px;
 }
 
 .generator {
@@ -36,15 +48,6 @@ body {
 
 .buttons > * {
     margin: 10px 0;
-}
-
-.heading-app-name {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 170%;
-    letter-spacing: 5px;
-    color: $neon-green;
 }
 
 .card {
