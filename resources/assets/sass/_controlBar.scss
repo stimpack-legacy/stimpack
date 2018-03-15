@@ -1,0 +1,26 @@
+.controlBar {
+    padding-left: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: $dark;
+
+}
+
+.controlItem {
+    display: inline;
+    margin-right: 10px;
+}
+
+.controlForm {
+    display: inline;
+}
+
+p {
+    display: inline;
+    margin-right: 10px;
+}
+
+input {
+    width: 160px;
+    background-color: $dark;
+}

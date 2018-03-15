@@ -3325,6 +3325,10 @@ li a:hover {
   margin-left: 10px;
 }
 
+.icon {
+  color: #AFE418;
+}
+
 .log-ok {
   color: #AFE418;
 }
@@ -3335,6 +3339,32 @@ li a:hover {
 
 .log-error {
   color: DarkOrange;
+}
+
+.controlBar {
+  padding-left: 100px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.controlItem {
+  display: inline;
+  margin-right: 10px;
+}
+
+.controlForm {
+  display: inline;
+}
+
+p {
+  display: inline;
+  margin-right: 10px;
+}
+
+input {
+  width: 160px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /*!
@@ -13350,6 +13380,10 @@ body {
   margin-top: 20px;
 }
 
+.inputs {
+  margin-top: 60px;
+}
+
 .inputs > * {
   margin: 10px 0;
 }
@@ -13421,10 +13455,6 @@ p,
 }
 
 select {
-  width: 30% !important;
-}
-
-input {
   width: 30% !important;
 }
 

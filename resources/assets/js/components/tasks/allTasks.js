@@ -9,7 +9,7 @@ import CreateEpicSplashPageTask from './tasks/CreateEpicSplashPageTask'
 import MigrateTask from './tasks/MigrateTask'
 
 export const allTasks = [
-    SetTargetProjectTask,
+    //SetTargetProjectTask,
     CreateDatabaseTask,
     SetObjectModelTask,
     CreateMigrationsTask,

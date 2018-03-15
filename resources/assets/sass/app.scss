@@ -1,26 +1,12 @@
-
-// Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
-
-// Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome.scss";
-
-// Variables
 @import "variables";
-
-// Switch
 @import "switch";
-
-// Code editors
 @import "editors";
+@import "icons";
+@import "controlBar";
 
-// Code editors
-@import "log";
-
-
-// Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
 body {
@@ -38,6 +24,10 @@ body {
 
 .generator {
     margin-top: 20px;
+}
+
+.inputs {
+    margin-top: 60px;
 }
 
 .inputs > * {
@@ -112,10 +102,6 @@ p, .form-group label{
 
   // Select box width
 select {
-    width:30% !important;
-}
-
-input {
     width:30% !important;
 }
 
