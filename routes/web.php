@@ -16,7 +16,10 @@ use App\Jobs\ProcessTask;
 Route::get('/', function () {
     chdir("../../");
     $projects = array_filter(glob("*"), 'is_dir');
-    return view('welcome')->with('projects', collect($projects));
+    return view('welcome')->with([
+        'projects' => collect($projects),
+        'projectName' => "advent" 
+    ]);
 });
 
 Route::prefix('stimpack')->group(function () {

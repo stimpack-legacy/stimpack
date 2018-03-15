@@ -15,6 +15,8 @@
         <div id="main"></div>
         <script>
             let projects = Object.values({!! $projects !!});
+            let projectName = "{{ $projectName }}";
+            console.log(projectName);
         </script>
         <script src="{{asset('js/app.js')}}" ></script>                
     </body>

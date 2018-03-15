@@ -39,13 +39,18 @@ class StimpackCommand extends Command
      */
     public function handle()
     {
-        if ($this->args()->isEmpty()) return $this->homeHandler();
-        if ($this->args()->first() == "help") return $this->helpHandler();
-        if ($this->args()->first() == "park") return $this->parkHandler();
-        if ($this->args()->first() == "new") return $this->newHandler();
-        if ($this->args()->first() == "open") return $this->openHandler();
-        
-        $this->commandNotRecognizedHandler();
+        $handler = collect([
+            'stimpack' => "homeHandler",
+            'stimpack help' => "helpHandler",
+            "stimpack new [\w-]+( from [\w-\/]+)?( in gui)?" => "newHandler",
+            "stimpack open [\w-]+" => "openHandler",            
+            // default
+            '.*?' => "commandNotRecognizedHandler"
+        ])->first(function($handler, $regex) {                        
+            return preg_match('/^' . $regex . '$/', $this->fullCommand());
+        });
+
+        $this->$handler();
     }
 
 
@@ -53,11 +58,8 @@ class StimpackCommand extends Command
         return collect($this->argument('parameters'));
     }
 
-    private function commandNotRecognizedHandler() {
-        $this->error("\nStimpack could not parse parameters!");
-        $this->info("\nPlease confirm you are using correct syntax:\n");
-        $this->helpHandler();
-        $this->info("");
+    private function fullCommand() {
+        return collect(["stimpack"])->concat($this->args())->implode(" ");
     }
 
     private function homeHandler() {
@@ -86,45 +88,33 @@ class StimpackCommand extends Command
         
     }
 
-    private function parkHandler() {
-        $this->info("Im about to park your stimpack installation rigth here.");
-    }
-
     private function openHandler() {
-        $this->info("Woh! Det funkar att ö.");
+        $this->info("Woh! Nu ska vi öppna ett project!");
+        $project = "advent";
+        exec("xdg-open http://stimpack.test?" . $project);
     }
 
     private function newHandler() {
-        if($this->args()->count() == 2) {
-            $projectName = $this->args()[1];
+        $tasks = collect(json_decode(
+            file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/default.json")
+        ));
 
+        $tasks->firstWhere('name', 'SetTargetProjectTask')->projectName = $projectName;
 
-            $tasks = collect(json_decode(
-                file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/default.json")
-            ));
-
-            $tasks->firstWhere('name', 'SetTargetProjectTask')->projectName = $projectName;
-
-            TaskController::make()->performAll($tasks)->each(function($taskFeedback) {
-                $this->comment($taskFeedback["name"] . " " . $taskFeedback["status"]);
-                collect($taskFeedback["messages"])->each(function($message) {
-                    $this->info($message);
-                });
-                $this->line("");                
+        TaskController::make()->performAll($tasks)->each(function($taskFeedback) {
+            $this->comment($taskFeedback["name"] . " " . $taskFeedback["status"]);
+            collect($taskFeedback["messages"])->each(function($message) {
+                $this->info($message);
             });
-            $this->line("");
-            
-            return;
-        }
-
-        if($this->args()->count() == 4) {
-            return $this->info("Creating new application");
-        }
-
-        if($this->args()->count() == 6) {
-            return $this->info("Creating new application");
-        }
-        
-        $this->commandNotRecognizedHandler();
+            $this->line("");                
+        });
+        $this->line("");
+    }
+    
+    private function commandNotRecognizedHandler() {
+        $this->error("\nStimpack could not parse parameters!");
+        $this->info("\nPlease confirm you are using correct syntax:\n");
+        $this->helpHandler();
+        $this->info("");
     }    
 }
