@@ -59926,7 +59926,8 @@ var SetTargetProjectTask = function (_BaseTask) {
     }, {
         key: 'renderAvailableProjects',
         value: function renderAvailableProjects() {
-            return projects.map(function (project) {
+            // The data variable is injected into welcome.blade.php
+            return data.projects.map(function (project) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'option',
                     { key: project },

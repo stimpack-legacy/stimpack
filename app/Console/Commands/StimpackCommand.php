@@ -91,7 +91,7 @@ class StimpackCommand extends Command
     private function openHandler() {
         $this->info("Woh! Nu ska vi öppna ett project!");
         $project = "advent";
-        exec("xdg-open http://stimpack.test?" . $project);
+        exec("xdg-open http://stimpack.test/" . $project);
     }
 
     private function newHandler() {

@@ -13,14 +13,8 @@ use App\Jobs\ProcessTask;
 |
 */
 
-Route::get('/', function () {
-    chdir("../../");
-    $projects = array_filter(glob("*"), 'is_dir');
-    return view('welcome')->with([
-        'projects' => collect($projects),
-        'projectName' => "advent" 
-    ]);
-});
+Route::get('/{projectName?}', 'GuiController@index');
+
 
 Route::prefix('stimpack')->group(function () {
     Route::post('perform/{task}', 'TaskController@perform');    
@@ -33,3 +27,20 @@ Route::prefix('stimpack')->group(function () {
 Route::get('/queue', function () {
     ProcessTask::dispatch();
 });
+
+
+/*
+HOW SHOULD THINGS WORK?
+
+stimack.test ********************************************
+// default pack loaded and injected into tasks
+
+stimpack.test/<existing-project> ************************
+// default pack loaded and injected into tasks
+// existing projects name overrides SetTargetProjectTask
+
+stimpack.test/<non-existing-project> ************************
+// default pack loaded and injected into tasks
+// non existing projects name overrides SetTargetProjectTask
+
+*/

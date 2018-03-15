@@ -22,7 +22,8 @@ class SetTargetProjectTask extends BaseTask {
     }
 
     renderAvailableProjects() {
-        return projects.map(function(project) {
+        // The data variable is injected into welcome.blade.php
+        return data.projects.map(function(project) {
             return (<option key={project}>{project}</option>);
         })
         
