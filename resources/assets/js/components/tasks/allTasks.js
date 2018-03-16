@@ -9,13 +9,13 @@ import CreateEpicSplashPageTask from './tasks/CreateEpicSplashPageTask'
 import MigrateTask from './tasks/MigrateTask'
 
 export const allTasks = [
-    //SetTargetProjectTask,
-    //CreateDatabaseTask,
-    //SetObjectModelTask,
-    //CreateMigrationsTask,
-    //CreateModelsTask,
-    //CreateSeedersTask,    
-    //CreateControllersTask,
-    //CreateEpicSplashPageTask,
-    //MigrateTask
+    SetTargetProjectTask,
+    CreateDatabaseTask,
+    SetObjectModelTask,
+    CreateMigrationsTask,
+    CreateModelsTask,
+    CreateSeedersTask,    
+    CreateControllersTask,
+    CreateEpicSplashPageTask,
+    MigrateTask
 ]

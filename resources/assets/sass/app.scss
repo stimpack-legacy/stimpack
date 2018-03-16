@@ -10,11 +10,21 @@
 
 @import "~bootstrap/scss/bootstrap.scss";
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     background: $semi-dark;  /* fallback for old browsers */
     background: linear-gradient(to left, lighten($semi-dark, 1%), lighten($semi-dark, 11%), lighten($semi-dark, 19%), lighten($semi-dark, 3%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
+    height: 100%;
+}
+
+#main {
+    height: 100%;
+    position: relative;   
 }
 
 .header {
@@ -22,6 +32,27 @@ body {
     padding-bottom: 15px;
     background-color: $darkest;
     text-align: center;
+}
+
+.invisible {
+    display: none;
+}
+
+.footer {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    background: $darkest;  /* fallback for old browsers */
+    background: linear-gradient(to left, lighten($darkest, 1%), lighten($darkest, 11%), lighten($darkest, 29%), lighten($darkest, 30%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    text-align: center;
+    margin-top: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;    
+}
+
+.bottom {
+    position: relative;
+    bottom: 0;
 }
 
 .heading-app-name {
@@ -40,6 +71,7 @@ body {
 
 .inputs {
     margin-top: 60px;
+    margin-bottom: 100px;
 }
 
 .inputs > * {
@@ -53,10 +85,11 @@ body {
 .card {
     margin: 0px;
     border-style: none;
-    background: none;
+    background: none;    
 }
 
 .card-header {
+    border-radius: 10px;
     background-color: $darkest;
     padding-top: 5px;
     padding-bottom: 5px;    

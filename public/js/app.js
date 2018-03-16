@@ -18597,8 +18597,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Header__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ControlBar__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Generator__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Footer__ = __webpack_require__(307);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ControlBar__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Generator__ = __webpack_require__(241);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18606,6 +18607,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -18629,9 +18631,48 @@ var Main = function (_Component) {
                 'div',
                 { className: 'app' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Header__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ControlBar__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Generator__["a" /* default */], null)
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ControlBar__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Generator__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Footer__["a" /* default */], null)
             );
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+
+            window.onscroll = function () {
+                handleControls();
+                handleFooter();
+            };
+
+            // Get the navbar
+            var navbar = document.getElementById("controlBar");
+            var footer = document.getElementById("footer");
+            handleFooter();
+
+            // Get the offset position of the navbar
+            var stickyControls = navbar.offsetTop;
+
+            // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+            function handleControls() {
+                if (window.pageYOffset >= stickyControls + 250) {
+                    navbar.classList.add("sticky");
+                } else {
+                    navbar.classList.remove("sticky");
+                }
+            }
+
+            function handleFooter() {
+                var body = document.body;
+                var html = document.documentElement;
+
+                var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+                if (height > window.innerHeight) {
+                    footer.classList.add("bottom");
+                } else {
+                    footer.classList.remove("bottom");
+                }
+            }
         }
     }]);
 
@@ -22319,17 +22360,7 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var allTasks = [
-    //SetTargetProjectTask,
-    //CreateDatabaseTask,
-    //SetObjectModelTask,
-    //CreateMigrationsTask,
-    //CreateModelsTask,
-    //CreateSeedersTask,    
-    //CreateControllersTask,
-    //CreateEpicSplashPageTask,
-    //MigrateTask
-];
+var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */]];
 
 /***/ }),
 /* 104 */
@@ -59660,7 +59691,7 @@ var ControlBar = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'controlBar' },
+                { id: 'controlBar', className: 'controlBar' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { className: 'heading-app-name' },
@@ -59702,12 +59733,13 @@ var ControlBar = function (_Component) {
                             { id: 'packs', placeholder: 'my-new-project', className: 'controlBarDataList' },
                             this.renderAvailablePacks()
                         )
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-play icon-control-bar' })
+                    )
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-save icon-control-bar' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-syringe icon-control-bar' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-upload icon-control-bar' })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Run all tasks', className: 'fa fa-play icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Add task', className: 'fa fa-plus icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Remove all tasks', className: 'fa fa-trash icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Save this pack', className: 'fa fa-save icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Share this pack to stimpack.io', className: 'fa fa-upload icon-control-bar' })
             );
         }
     }, {
@@ -60063,7 +60095,7 @@ var SetTargetProjectTask = function (_BaseTask) {
     return SetTargetProjectTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProjectTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProjectTask));
 
 /***/ }),
 /* 244 */
@@ -61524,7 +61556,7 @@ var CreateDatabaseTask = function (_BaseTask) {
     return CreateDatabaseTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabaseTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabaseTask));
 
 /***/ }),
 /* 283 */
@@ -61614,7 +61646,7 @@ var CreateMigrationsTask = function (_CreateFilesTask) {
     return CreateMigrationsTask;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrationsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrationsTask));
 
 /***/ }),
 /* 284 */
@@ -62048,7 +62080,7 @@ var SetObjectModelTask = function (_BaseTask) {
     return SetObjectModelTask;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModelTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModelTask));
 
 /***/ }),
 /* 286 */
@@ -62140,7 +62172,7 @@ var CreateModelsTask = function (_CreateFilesTask) {
     return CreateModelsTask;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModelsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModelsTask));
 
 /***/ }),
 /* 287 */
@@ -62229,7 +62261,7 @@ var CreateSeedersTask = function (_CreateFilesTask) {
     return CreateSeedersTask;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeedersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeedersTask));
 
 /***/ }),
 /* 288 */
@@ -62319,7 +62351,7 @@ var CreateControllersTask = function (_CreateFilesTask) {
     return CreateControllersTask;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllersTask));
 
 /***/ }),
 /* 289 */
@@ -62387,7 +62419,7 @@ var CreateEpicSplashPageTask = function (_BaseTask) {
     return CreateEpicSplashPageTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPageTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPageTask));
 
 /***/ }),
 /* 290 */
@@ -62444,7 +62476,7 @@ var MigrateTask = function (_BaseTask) {
     return MigrateTask;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(MigrateTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(MigrateTask));
 
 /***/ }),
 /* 291 */
@@ -62648,6 +62680,64 @@ var initialState = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var Footer = function (_Component) {
+    _inherits(Footer, _Component);
+
+    function Footer() {
+        _classCallCheck(this, Footer);
+
+        return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+    }
+
+    _createClass(Footer, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { id: 'footer', className: 'footer' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'github', className: 'fa fa-2x fa-github icon-footer' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'github', className: 'fa fa-2x fa-twitter icon-footer' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'github', className: 'fa fa-2x fa-facebook icon-footer' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'github', className: 'fa fa-2x fa-kickstarter icon-footer' })
+            );
+        }
+    }]);
+
+    return Footer;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Footer);
 
 /***/ })
 /******/ ]);

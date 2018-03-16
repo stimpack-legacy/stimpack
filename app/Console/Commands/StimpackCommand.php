@@ -90,7 +90,7 @@ class StimpackCommand extends Command
 
     private function openHandler() {
         $this->info("Woh! Nu ska vi öppna ett project!");
-        $project = "advent";
+        $project = $this->args()[1]; // Does not feal clean. Assign stuff at parsing instead?
         exec("xdg-open http://stimpack.test/" . $project);
     }
 
@@ -99,8 +99,10 @@ class StimpackCommand extends Command
             file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/default.json")
         ));
 
-        $tasks->firstWhere('name', 'SetTargetProjectTask')->projectName = $projectName;
+        $projectName = $this->args()[1]; // Does not feal clean. Assign stuff at parsing instead?
 
+        $tasks->firstWhere('name', 'SetTargetProjectTask')->projectName = $projectName;
+        return;
         TaskController::make()->performAll($tasks)->each(function($taskFeedback) {
             $this->comment($taskFeedback["name"] . " " . $taskFeedback["status"]);
             collect($taskFeedback["messages"])->each(function($message) {

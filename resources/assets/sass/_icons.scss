@@ -1,13 +1,25 @@
 .icon-control-bar {
     color: $neon-green;    
     font-size: 165%;
-    margin-right: 10px;
+    margin-right: 10px;    
+} .icon-control-bar:hover {
+    color: white;
+    transform: scale(1.2,1.2);    
 }
 
 .icon-close-task{
     float:right;
     color: $semi-dark;
     font-size: 165%;
+}
+
+.icon-footer{
+    font-size: 165%;
+    margin-left: 10px;
+}
+
+.icon-right {
+    float:right;    
 }
 
 .log-ok {

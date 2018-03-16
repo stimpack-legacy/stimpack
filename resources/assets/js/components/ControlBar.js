@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 export default class ControlBar extends Component {
     render() {
         return (
-            <div className="controlBar">            
+            <div id="controlBar" className="controlBar">            
                 <span className="heading-app-name">LARAVEL STIMPACK</span>                
                 
 
@@ -26,17 +26,20 @@ export default class ControlBar extends Component {
                         <datalist id="packs" placeholder="my-new-project" className="controlBarDataList">
                         {this.renderAvailablePacks()}
                         </datalist>                            
-                    </div>
-                    <i className="fa fa-play icon-control-bar"></i>
+                    </div>                    
                 </form>
                 
                 
                 {/* <i className="fa fa-refresh fa-spin log-pending icon"></i> */}
+                <i title="Run all tasks" className="fa fa-play icon-control-bar"></i>
+                <i title="Add task" className="fa fa-plus icon-control-bar"></i>
+                <i title="Remove all tasks" className="fa fa-trash icon-control-bar"></i>
+
+                <i title="Save this pack" className="fa fa-save icon-control-bar"></i>
+                <i title="Share this pack to stimpack.io"className="fa fa-upload icon-control-bar"></i>
+
                 
-                <i className="fa fa-save icon-control-bar"></i>
-                
-                <i className="fa fa-syringe icon-control-bar"></i>
-                <i className="fa fa-upload icon-control-bar"></i>                
+                                
             </div>
         );
     }

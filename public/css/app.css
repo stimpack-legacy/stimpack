@@ -3331,10 +3331,25 @@ li a:hover {
   margin-right: 10px;
 }
 
+.icon-control-bar:hover {
+  color: white;
+  -webkit-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
+}
+
 .icon-close-task {
   float: right;
   color: #31363F;
   font-size: 165%;
+}
+
+.icon-footer {
+  font-size: 165%;
+  margin-left: 10px;
+}
+
+.icon-right {
+  float: right;
 }
 
 .log-ok {
@@ -3351,9 +3366,26 @@ li a:hover {
 
 .controlBar {
   padding-left: 20px;
+  padding-right: 20px;
   padding-top: 5px;
   padding-bottom: 8px;
   background-color: rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid white;
+  -webkit-transition: opacity 1.0s ease-in;
+  -moz-transition: opacity 1.0s ease-in;
+  -o-transition: opacity 1.0s ease-in;
+  opacity: .8;
+}
+
+.sticky:after {
+  opacity: 0.5;
 }
 
 .controlBarItem {
@@ -13375,6 +13407,10 @@ a.text-dark:focus {
   }
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   background: #31363F;
@@ -13383,6 +13419,12 @@ body {
   background: linear-gradient(to left, #333842, #4a515f, #5b6576, #383d48);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
+  height: 100%;
+}
+
+#main {
+  height: 100%;
+  position: relative;
 }
 
 .header {
@@ -13390,6 +13432,30 @@ body {
   padding-bottom: 15px;
   background-color: rgba(0, 0, 0, 0.45);
   text-align: center;
+}
+
+.invisible {
+  display: none;
+}
+
+.footer {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  background: rgba(0, 0, 0, 0.45);
+  /* fallback for old browsers */
+  background: -webkit-gradient(linear, right top, left top, from(rgba(3, 3, 3, 0.45)), color-stop(rgba(28, 28, 28, 0.45)), color-stop(rgba(74, 74, 74, 0.45)), to(rgba(77, 76, 76, 0.45)));
+  background: linear-gradient(to left, rgba(3, 3, 3, 0.45), rgba(28, 28, 28, 0.45), rgba(74, 74, 74, 0.45), rgba(77, 76, 76, 0.45));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  text-align: center;
+  margin-top: 50px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.bottom {
+  position: relative;
+  bottom: 0;
 }
 
 .heading-app-name {
@@ -13408,6 +13474,7 @@ body {
 
 .inputs {
   margin-top: 60px;
+  margin-bottom: 100px;
 }
 
 .inputs > * {
@@ -13425,6 +13492,7 @@ body {
 }
 
 .card-header {
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.45);
   padding-top: 5px;
   padding-bottom: 5px;
