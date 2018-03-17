@@ -312,17 +312,17 @@ li a:hover {
 .controlBar {
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 5px;
-  padding-bottom: 8px;
+  padding-top: 10px;
+  padding-bottom: 13px;
   background-color: rgba(0, 0, 0, 0.45);
   overflow: hidden;
+  border-bottom: 1px solid darkgrey;
 }
 
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
-  border-bottom: 1px solid white;
   -webkit-transition: opacity 1.0s ease-in;
   -moz-transition: opacity 1.0s ease-in;
   -o-transition: opacity 1.0s ease-in;
@@ -10375,8 +10375,8 @@ body {
 .header {
   padding-top: 20px;
   padding-bottom: 15px;
+  padding-left: 20px;
   background-color: rgba(0, 0, 0, 0.45);
-  text-align: center;
 }
 
 .invisible {

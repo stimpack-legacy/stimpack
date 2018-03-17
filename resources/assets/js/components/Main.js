@@ -9,7 +9,7 @@ export default class Main extends Component {
     render() {
         return (
             <div className="app">
-                <Header />                
+                {/* <Header /> */}                
                 <ControlBar />
                 <Generator />                                 
                 <Footer />
@@ -35,7 +35,7 @@ export default class Main extends Component {
 
         // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
         function handleControls() {
-            if (window.pageYOffset >= stickyControls + 250) {
+            if (window.pageYOffset >= stickyControls+100) {
                 navbar.classList.add("sticky")
             } else {
                 navbar.classList.remove("sticky");
