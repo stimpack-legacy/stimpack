@@ -13,6 +13,7 @@ class File
     private $handle;
     private $uses;
     private $namespace;
+    private $context;
 
     const regexes = [
         "class" => "/(?<=^class )([\w]*)/m",
@@ -20,7 +21,8 @@ class File
         "classDefinition" => '/^class [\s\S]*/m',
         "uses" => '/(?<=^use )(.*);$/m',
         "useLine" => '/(^use .*[\r\n|\r|\n]{1})/m',
-        "fileHeader" => '/<\?php[\r\n|\r|\n]*namespace .*[\r\n|\r|\n]*(?:use? .*[\r\n|\r|\n]*)*/'
+        "fileHeader" => '/<\?php[\r\n|\r|\n]*(?:namespace .*)*[\r\n|\r|\n]*(?:use? .*[\r\n|\r|\n]*)*/',
+        "methodInjectionSpot" => '/(\n)}[\s\n\r]*$/',
     ];
 
     public function __construct($path) {
@@ -161,12 +163,17 @@ class File
         return [];
     }
 
-    public function use($uses) {
+    public function onlyUse($uses) {
         $this->uses = $uses;
         $this->renderFileHeader();        
         return $this;
     }
 
+    public function use($uses) {
+        $this->uses = array_merge($this->uses(), $uses);
+        $this->renderFileHeader();        
+        return $this;
+    }    
 
     /**
      * Assume we are following PSR-2
@@ -181,7 +188,7 @@ class File
      */    
     private function renderFileHeader() {
         $header = "<?php\n\n";
-        if($this->namespace) $header .= "namespace " . $this->namespace . "\n\n";
+        if($this->namespace) $header .= "namespace " . $this->namespace . ";\n\n";
         if($this->uses) $header .= $this->renderUses() . "\n\n";
         
         $this->content = preg_replace(self::regexes["fileHeader"], $header, $this->content, 1);
@@ -192,5 +199,10 @@ class File
         return collect($this->uses)->map(function($useStatement) {
             return "use " . $useStatement . ";";
         })->implode("\n");
+    }
+
+    public function addMethod($method) {
+        $this->content = preg_replace(self::regexes["methodInjectionSpot"], $method, $this->content, 1);
+        return $this;
     }
 }

@@ -204,7 +204,25 @@ class FileTest extends TestCase
         $uses = File::load($this->sample_app_path("app/Console/Kernel.php"))->use(["App\Foo\Bar", "App\EpicAndGrand as Grand"])->uses();                
         
         $this->assertTrue(
-            $uses == ["App\Foo\Bar", "App\EpicAndGrand as Grand"]
+            $uses == [
+                "Illuminate\Console\Scheduling\Schedule",
+                "Illuminate\Foundation\Console\Kernel as ConsoleKernel",
+                "App\Foo\Bar",
+                 "App\EpicAndGrand as Grand"
+            ]
+        );        
+    }
+
+    /** @test */
+    public function it_can_reset_uses_using_onlyUse()
+    {        
+        $uses = File::load($this->sample_app_path("app/Console/Kernel.php"))->onlyUse(["App\Foo\Bar", "App\EpicAndGrand as Grand"])->uses();                
+        
+        $this->assertTrue(
+            $uses == [
+                "App\Foo\Bar",
+                 "App\EpicAndGrand as Grand"
+            ]
         );        
     }
 
@@ -218,6 +236,46 @@ class FileTest extends TestCase
             ]
         );
     }
+    /** @test */
+    public function it_formats_header_according_to_psr2_case_untouched_file() {
+        $content = File::load($this->sample_app_path("public/index.php"))->content();
+                
+        $this->assertTrue(
+            starts_with($content, "<?php\n\n")
+        );
+    }
+    
+    /** @test */
+    public function it_formats_header_according_to_psr2_case_modified_uses() {
+        $content = File::load($this->sample_app_path("public/index.php"))->onlyUse(["Dummy\Test"])->content();
+                
+        $this->assertTrue(
+            starts_with($content, "<?php\n\nuse Dummy\Test;\n\n")
+        );
+    }
+    
+    /** @test */
+    public function it_formats_header_according_to_psr2_case_modified_uses_and_namespace() {
+        $content = File::load($this->sample_app_path("public/index.php"))
+            ->onlyUse(["Dummy\Test"])
+            ->namespace("App\Epic\Namespace\FTW")->content();
+        
+        $this->assertTrue(
+            starts_with($content, "<?php\n\nnamespace App\Epic\Namespace\FTW;\n\nuse Dummy\Test;\n\n")
+        );
+    }
+    
+    /** @test */
+    public function it_can_inject_class_methods() {
+        $function = "\n\n    function()\n    {\n        return 1337;\n    }\n}";
+
+        $content = File::load($this->sample_app_path("app/User.php"))
+            ->addMethod($function)->content();
+        
+        $this->assertTrue(
+            str_contains($content, $function)
+        );
+    }    
 }
 
 
