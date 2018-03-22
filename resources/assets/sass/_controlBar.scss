@@ -4,8 +4,17 @@
     padding-top: 10px;
     padding-bottom: 13px;
     background-color: $darkest;
-    overflow: hidden;
     border-bottom: 1px solid darkgrey;
+}
+
+.packBar {
+    background-color: lighten(grey, 10%);
+    //min-height: 100px;
+    display: none;
+}
+
+.run-icon {
+    margin-right: 250px;
 }
 
 .sticky {

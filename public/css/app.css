@@ -315,8 +315,16 @@ li a:hover {
   padding-top: 10px;
   padding-bottom: 13px;
   background-color: rgba(0, 0, 0, 0.45);
-  overflow: hidden;
   border-bottom: 1px solid darkgrey;
+}
+
+.packBar {
+  background-color: #9a9999;
+  display: none;
+}
+
+.run-icon {
+  margin-right: 250px;
 }
 
 .sticky {
@@ -10394,7 +10402,6 @@ body {
   text-align: center;
   margin-top: 50px;
   width: 100%;
-  position: absolute;
   bottom: 0;
 }
 

@@ -18599,7 +18599,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Header__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Footer__ = __webpack_require__(307);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ControlBar__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Generator__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PackBar__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Generator__ = __webpack_require__(241);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18607,6 +18608,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -18631,47 +18633,10 @@ var Main = function (_Component) {
                 'div',
                 { className: 'app' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ControlBar__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Generator__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__PackBar__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__Generator__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Footer__["a" /* default */], null)
             );
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-
-            window.onscroll = function () {
-                handleControls();
-                handleFooter();
-            };
-
-            // Get the navbar
-            var navbar = document.getElementById("controlBar");
-            var footer = document.getElementById("footer");
-            handleFooter();
-
-            // Get the offset position of the navbar
-            var stickyControls = navbar.offsetTop;
-
-            // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-            function handleControls() {
-                if (window.pageYOffset >= stickyControls + 100) {
-                    navbar.classList.add("sticky");
-                } else {
-                    navbar.classList.remove("sticky");
-                }
-            }
-
-            function handleFooter() {
-                var body = document.body;
-                var html = document.documentElement;
-
-                var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-                if (height > window.innerHeight) {
-                    footer.classList.add("bottom");
-                } else {
-                    footer.classList.remove("bottom");
-                }
-            }
         }
     }]);
 
@@ -22335,33 +22300,7 @@ function getHostComponentFromComposite(inst) {
 module.exports = getHostComponentFromComposite;
 
 /***/ }),
-/* 103 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return allTasks; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__ = __webpack_require__(290);
-
-
-
-
-
-
-
-
-
-
-var allTasks = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */]];
-
-/***/ }),
+/* 103 */,
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -59741,25 +59680,25 @@ var ControlBar = function (_Component) {
                             { className: 'controlBarItem' },
                             'Using pack:'
                         ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', list: 'packs', className: 'controlBarItem controlBarInput' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { onChange: this.selectPack, type: 'text', list: 'packs', className: 'controlBarItem controlBarInput' }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'datalist',
-                            { id: 'packs', placeholder: 'my-new-project', className: 'controlBarDataList' },
+                            { id: 'packs', placeholder: 'my-new-project', className: 'controlBarDataList pack-names' },
                             this.renderAvailablePacks()
                         )
                     )
                 ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Run all tasks', className: 'fa fa-play icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Run all tasks', className: 'fa fa-play icon-control-bar run-icon' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Add task', className: 'fa fa-plus icon-control-bar' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Remove all tasks', className: 'far fa-trash-alt icon-control-bar' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Save this pack', className: 'far fa-save icon-control-bar' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Share this pack to stimpack.io', className: 'fa fa-upload icon-control-bar' })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Share this pack to stimpack.io', className: 'fa fa-upload icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Explore packs on stimpack.io', className: 'fas fa-search icon-control-bar' })
             );
         }
     }, {
         key: 'renderAvailableProjects',
         value: function renderAvailableProjects() {
-            console.log(data.projectName);
             // The data variable is injected into welcome.blade.php
             return data.projects.map(function (project) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -59773,13 +59712,19 @@ var ControlBar = function (_Component) {
         key: 'renderAvailablePacks',
         value: function renderAvailablePacks() {
             // The data variable is injected into welcome.blade.php
+
             return data.packs.map(function (pack) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'option',
-                    { key: pack },
-                    pack
+                    { key: pack.name },
+                    pack.name
                 );
             });
+        }
+    }, {
+        key: 'selectPack',
+        value: function selectPack() {
+            document.getElementById('packBar').style.display = "block";
         }
     }]);
 
@@ -59790,7 +59735,7 @@ var ControlBar = function (_Component) {
 REALLY COOL ICONS I NEED v5 for
 <i className="fa fa-2x fa-syringe icon controlBarItem"></i>
 <i className="fa fa-plus icon-control-bar"></i>
-
+<i title="Share this pack to stimpack.io" className="fab fa-5x fa-laravel"></i>
 
             <div className="controlBar">
                 <form>
@@ -59972,7 +59917,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_allTasks__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_taskPool__ = __webpack_require__(312);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60000,18 +59945,43 @@ var Inputs = function (_Component) {
     _createClass(Inputs, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            console.log(data.packs);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'inputs' },
-                __WEBPACK_IMPORTED_MODULE_2__tasks_allTasks__["a" /* allTasks */].map(function (Task) {
+                data.packs[0].tasks.map(function (task) {
+                    var Task = _this2.get(task);
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Task, { key: Task.getDefaultParameters().name });
                 })
             );
+        }
+    }, {
+        key: 'renderOld',
+        value: function renderOld() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'inputs' },
+                __WEBPACK_IMPORTED_MODULE_2__tasks_taskPool__["a" /* taskPool */].map(function (Task) {
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Task, { key: Task.getDefaultParameters().name });
+                })
+            );
+        }
+    }, {
+        key: 'get',
+        value: function get(task) {
+            return __WEBPACK_IMPORTED_MODULE_2__tasks_taskPool__["a" /* taskPool */].find(function (t) {
+                return t.getDefaultParameters().name == task.name;
+            });
         }
     }]);
 
     return Inputs;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+//taskPool.map((Task)=>{return (<Task key={Task.getDefaultParameters().name} />)})
+
 
 /* harmony default export */ __webpack_exports__["a"] = (Inputs);
 
@@ -62618,12 +62588,12 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_tasks_allTasks__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_tasks_taskPool__ = __webpack_require__(312);
 
 
 var initialState = {};
 
-__WEBPACK_IMPORTED_MODULE_0__components_tasks_allTasks__["a" /* allTasks */].forEach(function (task) {
+__WEBPACK_IMPORTED_MODULE_0__components_tasks_taskPool__["a" /* taskPool */].forEach(function (task) {
     initialState[task.getDefaultParameters().name] = task.getDefaultParameters();
 });
 
@@ -67801,6 +67771,87 @@ bunker(function () {
 
 /* harmony default export */ __webpack_exports__["a"] = (icons$1);
 
+
+/***/ }),
+/* 312 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return taskPool; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__ = __webpack_require__(290);
+
+
+
+
+
+
+
+
+
+
+var taskPool = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */]];
+
+/***/ }),
+/* 313 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var PackBar = function (_Component) {
+    _inherits(PackBar, _Component);
+
+    function PackBar() {
+        _classCallCheck(this, PackBar);
+
+        return _possibleConstructorReturn(this, (PackBar.__proto__ || Object.getPrototypeOf(PackBar)).apply(this, arguments));
+    }
+
+    _createClass(PackBar, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { id: 'packBar', className: 'packBar' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'b',
+                    null,
+                    'Create new task'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    null,
+                    'Here we try to describe the pack and give hints. We will also display metadata about the pack such as creator stats, likes and latest update.'
+                )
+            );
+        }
+    }]);
+
+    return PackBar;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (PackBar);
 
 /***/ })
 /******/ ]);

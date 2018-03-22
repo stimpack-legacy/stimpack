@@ -1,8 +1,8 @@
-import {allTasks} from '../components/tasks/allTasks'
+import {taskPool} from '../components/tasks/taskPool'
 
 var initialState = {}
 
-allTasks.forEach(function(task) {    
+taskPool.forEach(function(task) {    
     initialState[task.getDefaultParameters().name] = task.getDefaultParameters();    
 });
 

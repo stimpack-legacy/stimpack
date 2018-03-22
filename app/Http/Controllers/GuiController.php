@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class GuiController extends Controller
 {
@@ -10,8 +12,8 @@ class GuiController extends Controller
 
         $data = [
             'projects' => $this->projects(), 
-            'packs' => $this->packs()
-        ];
+            'packs' => $this->localPacks()->concat($this->onlinePacks()),
+        ];        
 
         if($projectName) $data["projectName"] = $projectName;
 
@@ -23,9 +25,17 @@ class GuiController extends Controller
         return collect(array_filter(glob("*"), 'is_dir'));        
     }
 
-    private function packs() {
+    private function localPacks() {
         chdir("/home/anders/Code/stimpack/storage/stimpack/packs");
-        return collect(array_filter(glob("*"), 'is_file'));        
+        return collect(array_filter(glob("*"), 'is_file'))->map(function($filename) {
+            return json_decode(file_get_contents($filename));
+        });
+    }
+
+    private function onlinePacks() {
+        $client = new Client();
+        $result = $client->get('http://stimpack-data.test/api/packs');
+        return json_decode($result->getBody()->getContents(), true);
     }
 
 }

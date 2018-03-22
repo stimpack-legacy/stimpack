@@ -13,22 +13,6 @@ class Generator extends Component {
         return (
             <div className="generator container">
                 <Inputs />
-                {/*
-                <div className="buttons">
-                    <div className="container">
-                        <hr />
-                        <div className="card ready-to-roll-out">
-                            <div className="card-header">
-                                <h4 className="ready-to-roll-out">Ready to roll out?</h4>
-                            </div>
-                            <div className="card-body ready-to-roll-out">
-                                <Log />
-                                <button onClick={this.stim.bind(this)} className="btn btn-primary btn-cool">Stim!</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                */}
             </div>
         );
     }

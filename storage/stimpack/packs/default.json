@@ -1,15 +1,13 @@
-[
-    {
-        "name": "SetTargetProjectTask",
-        "enabled": true,
-        "projectPath": "/../",
-        "projectName": "sample",
-        "status": "succeded"
-    },
-    {
-        "name": "CreateDatabaseTask",
-        "enabled": true,
-        "type": "sqlite",
-        "status": "succeded"
-    }
-]
+{
+    "id": 1337,
+    "name": "local/Project-w-db",
+    "description": "Create a new project with a sqlite database",
+    "tasks": [
+        {
+            "name": "CreateDatabaseTask",
+            "enabled": true,
+            "type": "sqlite",
+            "status": "succeded"
+        }
+    ]
+}

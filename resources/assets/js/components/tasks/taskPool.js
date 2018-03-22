@@ -8,7 +8,7 @@ import CreateControllersTask from './tasks/CreateControllersTask'
 import CreateEpicSplashPageTask from './tasks/CreateEpicSplashPageTask'
 import MigrateTask from './tasks/MigrateTask'
 
-export const allTasks = [
+export const taskPool = [
     SetTargetProjectTask,
     CreateDatabaseTask,
     SetObjectModelTask,

@@ -9,9 +9,9 @@
         <link rel="icon" href="img/favicon.ico" type="image/x-icon">
         <title>Laravel Stimpack</title>
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
-        <script src="https://ajaxorg.github.io/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajaxorg.github.io/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>        
     </head>
-    <body>        
+    <body>            
         <div id="main"></div>
         <script>
             let data = {!! $data->toJson() !!};
