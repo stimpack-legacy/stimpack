@@ -4,6 +4,7 @@ namespace App\Stimpack\Manipulators;
 
 use Exception;
 use ZipArchive;
+use App\Stimpack\Manipulators\File;
 
 class Project
 {
@@ -38,12 +39,24 @@ class Project
         return $project;
     }
 
-    public function database($config)
+    public function root()
     {
-
+        $this->context = "ROOT";
+        return $this;        
     }
 
-    public function enviroment($config)
+    public function database()
+    {
+        $this->context = "DATABASE-CONTEXT";
+        return $this; 
+    }
+
+    public static function custom(File $file)
+    {
+
+    }    
+
+    public function enviroment()
     {
         
     }
@@ -57,6 +70,8 @@ class Project
     {
         
     }
+
+    // ...
 
     // END OF API. Private methods below *****************************************
 
