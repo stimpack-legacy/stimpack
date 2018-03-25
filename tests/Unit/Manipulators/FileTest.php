@@ -66,13 +66,11 @@ class FileTest extends TestCase
         $this->expectException(\Exception::class); 
         $file = File::load($this->sample_app_path("composer.json") . "foobar");
     }
-    
-    /* MAKE *************************************************************** */
 
     /** @test */
-    public function it_can_save_make_to_non_taken_names()
+    public function it_can_save_create_to_non_taken_names()
     {
-        $file = File::make($this->sample_app_path("a_file_name_thats_not_taken"))->save();
+        $file = File::create($this->sample_app_path("a_file_name_thats_not_taken"))->save();
         $this->assertTrue(
             is_file($file->path())
         );        
@@ -81,23 +79,23 @@ class FileTest extends TestCase
     /** @test */
     public function it_does_not_put_file_before_save()
     {
-        $file = File::make($this->sample_app_path("a_file_name_thats_not_taken"));
+        $file = File::create($this->sample_app_path("a_file_name_thats_not_taken"));
         $this->assertTrue(
             !is_file($file->path())
         );        
     }    
 
     /** @test */
-    public function it_cant_make_to_taken_names()
+    public function it_cant_create_to_taken_names()
     {
         $this->expectException(\Exception::class); 
-        $file = File::make($this->sample_app_path("composer.json"));
+        $file = File::create($this->sample_app_path("composer.json"));
     }
     
     /** @test */
-    public function it_can_make_to_non_taken_names()
+    public function it_can_create_to_non_taken_names()
     {
-        $file = File::make($this->sample_app_path("a_file_name_thats_not_taken"))->save();
+        $file = File::create($this->sample_app_path("a_file_name_thats_not_taken"))->save();
         $this->assertTrue(
             is_file($file->path())
         );        

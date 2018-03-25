@@ -58,7 +58,7 @@ class File
         return $file;
     }
 
-    public static function make($path)
+    public static function create($path)
     {
         if(file_exists($path))
         {
