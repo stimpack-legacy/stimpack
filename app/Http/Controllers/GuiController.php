@@ -9,20 +9,20 @@ use GuzzleHttp\Client;
 class GuiController extends Controller
 {
     public function index($projectName = false) {
-
+        
         $data = [
             'projects' => $this->projects(), 
             'packs' => $this->localPacks()->concat($this->onlinePacks()),
-        ];        
-
+        ];
+        
         if($projectName) $data["projectName"] = $projectName;
-
+        
         return view('welcome')->with(["data" => collect($data)]);
     }
 
     private function projects() {
         chdir("../../");
-        return collect(array_filter(glob("*"), 'is_dir'));        
+        return collect(array_filter(glob("*"), 'is_dir'))->values();        
     }
 
     private function localPacks() {
@@ -35,7 +35,7 @@ class GuiController extends Controller
     private function onlinePacks() {
         $client = new Client();
         $result = $client->get('http://stimpack-data.test/api/packs');
-        return json_decode($result->getBody()->getContents(), true);
+        return collect(json_decode($result->getBody()->getContents(), true));
     }
 
 }
