@@ -50,5 +50,26 @@ class ProjectTest extends ManipulatorTestCase
     {        
         $this->expectException(\Exception::class);
         Project::create($this->sample_app_path());
+    }
+    
+    /** @test */
+    public function it_can_add_files()
+    {        
+        Project::load($this->sample_app_path())->add([
+            $this->sample_app_path("story.json")  => '{ "of": "my life" }',
+            $this->sample_app_path("bbox.txt") => 'Around the world'
+        ]);
+
+        $this->assertTrue( 
+            file_exists($this->sample_app_path("story.json"))
+        );
+
+        $this->assertTrue( 
+            file_exists($this->sample_app_path("bbox.txt"))
+        );
+        
+        $this->assertTrue( 
+            File::load($this->sample_app_path("bbox.txt"))->content() == 'Around the world'
+        );        
     }    
 }

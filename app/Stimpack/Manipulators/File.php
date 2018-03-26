@@ -62,7 +62,7 @@ class File
     {
         if(file_exists($path))
         {
-            throw new Exception("File already exists!");
+            throw new Exception("File already exists at " . $path . "!");
         }
 
         return new File($path);

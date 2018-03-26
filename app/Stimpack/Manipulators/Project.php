@@ -39,10 +39,22 @@ class Project
         return $project;
     }
 
-    public function root()
+    public function add($files)
     {
-        $this->context = "ROOT";
+        collect($files)->each(function($content, $name) {
+            File::create($name)->content($content)->save();
+        });
+
         return $this;        
+    }
+
+    public function env($query = false, $clear = false)
+    {
+        if(!$query) return File::load($this->path(".env"))->content();
+        if(is_string($query) && !$clear) return "I should fetch from env file";
+        if(is_string($query) && $clear) return "I should delete from env file";
+        if(is_array($query) && !$clear) return "I should ADD the values according to array";
+        if(is_array($query) && $clear) return "I should WIPE AND RESET all the values according to array";
     }
 
     public function database()
@@ -56,10 +68,7 @@ class Project
 
     }    
 
-    public function enviroment()
-    {
-        
-    }
+
 
     public function models($models)
     {
@@ -74,6 +83,11 @@ class Project
     // ...
 
     // END OF API. Private methods below *****************************************
+
+    private function path($to)
+    {
+        return collect($this->path)->concat(collect($to))->implode("/");
+    }
 
     private function addProjectFilesFromZip()
     {

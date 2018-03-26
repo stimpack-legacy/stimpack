@@ -12,6 +12,8 @@ abstract class ManipulatorTestCase extends BaseTestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->tearDown();
+
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/sample-app-without-vendors.zip"));
         if ($res === TRUE) {
