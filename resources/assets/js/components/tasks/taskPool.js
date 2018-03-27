@@ -7,7 +7,9 @@ import CreateSeeders from './tasks/CreateSeeders'
 import CreateControllers from './tasks/CreateControllers'
 import CreateEpicSplashPage from './tasks/CreateEpicSplashPage'
 import Migrate from './tasks/Migrate'
+import Create from './tasks/Create'
 
+/*
 export const taskPool = [
     SetTargetProject,
     CreateDatabase,
@@ -18,4 +20,9 @@ export const taskPool = [
     CreateControllers,
     CreateEpicSplashPage,
     Migrate
+]
+*/
+
+export const taskPool = [
+    Create
 ]

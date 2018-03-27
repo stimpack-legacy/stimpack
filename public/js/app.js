@@ -22314,6 +22314,7 @@ module.exports = getHostComponentFromComposite;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllers__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPage__ = __webpack_require__(291);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_Migrate__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__tasks_Create__ = __webpack_require__(307);
 
 
 
@@ -22324,7 +22325,22 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var taskPool = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProject__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabase__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModel__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrations__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModels__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeeders__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllers__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPage__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_Migrate__["a" /* default */]];
+
+/*
+export const taskPool = [
+    SetTargetProject,
+    CreateDatabase,
+    SetObjectModel,
+    CreateMigrations,
+    CreateModels,
+    CreateSeeders,    
+    CreateControllers,
+    CreateEpicSplashPage,
+    Migrate
+]
+*/
+
+var taskPool = [__WEBPACK_IMPORTED_MODULE_9__tasks_Create__["a" /* default */]];
 
 /***/ }),
 /* 104 */
@@ -60047,13 +60063,11 @@ var Inputs = function (_Component) {
     _createClass(Inputs, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'inputs' },
-                data.packs[0].tasks.map(function (task) {
-                    var Task = _this2.get(task);
+                __WEBPACK_IMPORTED_MODULE_2__tasks_taskPool__["a" /* taskPool */].map(function (task) {
+                    var Task = task;
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Task, { key: Task.getDefaultParameters().name });
                 })
             );
@@ -60180,7 +60194,7 @@ var SetTargetProject = function (_BaseTask) {
     return SetTargetProject;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProject));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProject));
 
 /***/ }),
 /* 246 */
@@ -61641,7 +61655,7 @@ var CreateDatabase = function (_BaseTask) {
     return CreateDatabase;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabase));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabase));
 
 /***/ }),
 /* 285 */
@@ -61730,7 +61744,7 @@ var CreateMigrations = function (_CreateFilesTask) {
     return CreateMigrations;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrations));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrations));
 
 /***/ }),
 /* 286 */
@@ -62164,7 +62178,7 @@ var SetObjectModel = function (_BaseTask) {
     return SetObjectModel;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModel));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModel));
 
 /***/ }),
 /* 288 */
@@ -62256,7 +62270,7 @@ var CreateModels = function (_CreateFilesTask) {
     return CreateModels;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModels));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModels));
 
 /***/ }),
 /* 289 */
@@ -62345,7 +62359,7 @@ var CreateSeeders = function (_CreateFilesTask) {
     return CreateSeeders;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeeders));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeeders));
 
 /***/ }),
 /* 290 */
@@ -62435,7 +62449,7 @@ var CreateControllers = function (_CreateFilesTask) {
     return CreateControllers;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllers));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllers));
 
 /***/ }),
 /* 291 */
@@ -62503,7 +62517,7 @@ var CreateEpicSplashPage = function (_BaseTask) {
     return CreateEpicSplashPage;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPage));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPage));
 
 /***/ }),
 /* 292 */
@@ -62560,7 +62574,7 @@ var Migrate = function (_BaseTask) {
     return Migrate;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(Migrate));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(Migrate));
 
 /***/ }),
 /* 293 */
@@ -67813,6 +67827,67 @@ bunker(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__BaseTask__ = __webpack_require__(17);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var Create = function (_BaseTask) {
+    _inherits(Create, _BaseTask);
+
+    function Create() {
+        _classCallCheck(this, Create);
+
+        return _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).apply(this, arguments));
+    }
+
+    _createClass(Create, [{
+        key: 'body',
+        value: function body() {
+            return "";
+        }
+    }], [{
+        key: 'getDefaultParameters',
+        value: function getDefaultParameters() {
+            return {
+                name: "Create",
+                enabled: true
+            };
+        }
+    }]);
+
+    return Create;
+}(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(Create));
 
 /***/ })
 /******/ ]);

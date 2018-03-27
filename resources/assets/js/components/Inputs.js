@@ -13,8 +13,8 @@ export default class Inputs extends Component {
         return (
             <div className="inputs">
                 {
-                    data.packs[0].tasks.map((task)=>{
-                        var Task = this.get(task);
+                    taskPool.map((task)=>{
+                        var Task = task;
                         return (<Task key={Task.getDefaultParameters().name} />)
                     })
                 }
