@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../../actions/index'
 import BaseTask from '../BaseTask'
 
-class SetTargetProjectTask extends BaseTask {
+class SetTargetProject extends BaseTask {
 
     body() {
         return (
@@ -31,13 +31,13 @@ class SetTargetProjectTask extends BaseTask {
 
     setProjectName(e) {        
         var updatedTasks = this.props.tasks;
-        updatedTasks.SetTargetProjectTask.projectName = e.target.value;
+        updatedTasks.SetTargetProject.projectName = e.target.value;
         this.props.updateTasks(updatedTasks);        
     }
 
     static getDefaultParameters() {
         return {
-            name: "SetTargetProjectTask",
+            name: "SetTargetProject",
             enabled: true,
             projectPath: "/../",
             projectName: "my-new-project"
@@ -45,4 +45,4 @@ class SetTargetProjectTask extends BaseTask {
     }
 }
 
-export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(SetTargetProjectTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(SetTargetProject);

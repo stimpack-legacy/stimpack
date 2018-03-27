@@ -8,7 +8,7 @@ use Config;
 use Artisan;
 use Illuminate\Support\Composer;
 
-class MigrateTask extends Task
+class Migrate extends Task
 {
 
     public function perform() {

@@ -4,7 +4,7 @@ namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 
-class GitInitTask implements Task
+class GitInit implements Task
 {
 
     public function __construct($tasks) {

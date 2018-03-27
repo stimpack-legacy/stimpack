@@ -29,7 +29,7 @@ class Generator extends Component {
         
         if(taskIndex >= this.props.taskBatch.tasks.length) {
             this.props.taskBatch.busy = false;
-            this.props.taskBatch.presentSiteUrl = "http://" + this.props.tasks.SetTargetProjectTask.projectName + ".test";
+            this.props.taskBatch.presentSiteUrl = "http://" + this.props.tasks.SetTargetProject.projectName + ".test";
             this.props.updateTaskBatch(this.props.taskBatch);            
             return;
         }        

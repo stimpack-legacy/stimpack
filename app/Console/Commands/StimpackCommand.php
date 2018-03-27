@@ -101,7 +101,7 @@ class StimpackCommand extends Command
 
         $projectName = $this->args()[1]; // Does not feal clean. Assign stuff at parsing instead?
 
-        $tasks->firstWhere('name', 'SetTargetProjectTask')->projectName = $projectName;
+        $tasks->firstWhere('name', 'SetTargetProject')->projectName = $projectName;
         return;
         TaskController::make()->performAll($tasks)->each(function($taskFeedback) {
             $this->comment($taskFeedback["name"] . " " . $taskFeedback["status"]);

@@ -36,12 +36,12 @@ export default class CreateFilesTask extends BaseTask {
     }
 
     renderPhpTabs() {
-        var tabs = this.props.tasks.SetObjectModelTask.transformedPseudoCode.filter(this.tabsToRender());
+        var tabs = this.props.tasks.SetObjectModel.transformedPseudoCode.filter(this.tabsToRender());
         return tabs.map(this.renderPhpTab.bind(this));
     }
 
     transformedPseudoCode() {
-        return this.props.tasks.SetObjectModelTask.transformedPseudoCode;
+        return this.props.tasks.SetObjectModel.transformedPseudoCode;
     }
 
     tabsToRender() {
@@ -63,7 +63,7 @@ export default class CreateFilesTask extends BaseTask {
     }
 
     getClassForActiveTab(blockName) {
-        if(blockName == this.props.tasks.SetObjectModelTask.activeTab) {
+        if(blockName == this.props.tasks.SetObjectModel.activeTab) {
             return " " + "editor-tab-active"; // Space to separate classes
         }
         return "";        
@@ -71,17 +71,17 @@ export default class CreateFilesTask extends BaseTask {
 
     clickTab(e) {
         e.preventDefault();
-        this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+        this.props.tasks.SetObjectModel.activeTab = e.target.getAttribute("data-model");
         this.props.updateTasks(this.props.tasks);        
     }
 
     activeTab() {
-        return this.props.tasks.SetObjectModelTask.activeTab;
+        return this.props.tasks.SetObjectModel.activeTab;
     }
 
     activeBlock() {
-        return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find((model) => {
-            return model.name == this.props.tasks.SetObjectModelTask.activeTab;
+        return this.props.tasks.SetObjectModel.transformedPseudoCode.all().find((model) => {
+            return model.name == this.props.tasks.SetObjectModel.activeTab;
         });
     }
 

@@ -5826,13 +5826,13 @@ var CreateFilesTask = function (_BaseTask) {
     }, {
         key: 'renderPhpTabs',
         value: function renderPhpTabs() {
-            var tabs = this.props.tasks.SetObjectModelTask.transformedPseudoCode.filter(this.tabsToRender());
+            var tabs = this.props.tasks.SetObjectModel.transformedPseudoCode.filter(this.tabsToRender());
             return tabs.map(this.renderPhpTab.bind(this));
         }
     }, {
         key: 'transformedPseudoCode',
         value: function transformedPseudoCode() {
-            return this.props.tasks.SetObjectModelTask.transformedPseudoCode;
+            return this.props.tasks.SetObjectModel.transformedPseudoCode;
         }
     }, {
         key: 'tabsToRender',
@@ -5862,7 +5862,7 @@ var CreateFilesTask = function (_BaseTask) {
     }, {
         key: 'getClassForActiveTab',
         value: function getClassForActiveTab(blockName) {
-            if (blockName == this.props.tasks.SetObjectModelTask.activeTab) {
+            if (blockName == this.props.tasks.SetObjectModel.activeTab) {
                 return " " + "editor-tab-active"; // Space to separate classes
             }
             return "";
@@ -5871,21 +5871,21 @@ var CreateFilesTask = function (_BaseTask) {
         key: 'clickTab',
         value: function clickTab(e) {
             e.preventDefault();
-            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+            this.props.tasks.SetObjectModel.activeTab = e.target.getAttribute("data-model");
             this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'activeTab',
         value: function activeTab() {
-            return this.props.tasks.SetObjectModelTask.activeTab;
+            return this.props.tasks.SetObjectModel.activeTab;
         }
     }, {
         key: 'activeBlock',
         value: function activeBlock() {
             var _this2 = this;
 
-            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().find(function (model) {
-                return model.name == _this2.props.tasks.SetObjectModelTask.activeTab;
+            return this.props.tasks.SetObjectModel.transformedPseudoCode.all().find(function (model) {
+                return model.name == _this2.props.tasks.SetObjectModel.activeTab;
             });
         }
     }, {
@@ -22305,15 +22305,15 @@ module.exports = getHostComponentFromComposite;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return taskPool; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__ = __webpack_require__(245);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProject__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabase__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrations__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModel__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModels__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeeders__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllers__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPage__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tasks_Migrate__ = __webpack_require__(292);
 
 
 
@@ -22324,7 +22324,7 @@ module.exports = getHostComponentFromComposite;
 
 
 
-var taskPool = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProjectTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabaseTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModelTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrationsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModelsTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeedersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllersTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPageTask__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_MigrateTask__["a" /* default */]];
+var taskPool = [__WEBPACK_IMPORTED_MODULE_0__tasks_SetTargetProject__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__tasks_CreateDatabase__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__tasks_SetObjectModel__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__tasks_CreateMigrations__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4__tasks_CreateModels__["a" /* default */], __WEBPACK_IMPORTED_MODULE_5__tasks_CreateSeeders__["a" /* default */], __WEBPACK_IMPORTED_MODULE_6__tasks_CreateControllers__["a" /* default */], __WEBPACK_IMPORTED_MODULE_7__tasks_CreateEpicSplashPage__["a" /* default */], __WEBPACK_IMPORTED_MODULE_8__tasks_Migrate__["a" /* default */]];
 
 /***/ }),
 /* 104 */
@@ -59805,32 +59805,6 @@ var ControlBar = function (_Component) {
     return ControlBar;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/*
-REALLY COOL ICONS I NEED v5 for
-<i className="fa fa-2x fa-syringe icon controlBarItem"></i>
-<i className="fa fa-plus icon-control-bar"></i>
-<i title="Share this pack to stimpack.io" className="fab fa-5x fa-laravel"></i>
-
-            <div className="controlBar">
-                <form>
-                    <div className="form-group">                        
-                        <input type="text" list="projects" />
-                        <datalist  id="projects" placeholder="my-new-project">
-                        </datalist>                            
-                    </div>
-                </form>
-
-                <form>
-                    <div className="form-group">                        
-                        <input type="text" list="projects2" />
-                        <datalist  id="projects2" placeholder="my-new-project">
-                        </datalist>                            
-                    </div>
-                </form>                
-            </div>
-*/
-
-
 /* harmony default export */ __webpack_exports__["a"] = (ControlBar);
 
 /***/ }),
@@ -59954,7 +59928,7 @@ var Generator = function (_Component) {
 
             if (taskIndex >= this.props.taskBatch.tasks.length) {
                 this.props.taskBatch.busy = false;
-                this.props.taskBatch.presentSiteUrl = "http://" + this.props.tasks.SetTargetProjectTask.projectName + ".test";
+                this.props.taskBatch.presentSiteUrl = "http://" + this.props.tasks.SetTargetProject.projectName + ".test";
                 this.props.updateTaskBatch(this.props.taskBatch);
                 return;
             }
@@ -60075,7 +60049,6 @@ var Inputs = function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            console.log(data.packs);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'inputs' },
@@ -60141,16 +60114,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var SetTargetProjectTask = function (_BaseTask) {
-    _inherits(SetTargetProjectTask, _BaseTask);
+var SetTargetProject = function (_BaseTask) {
+    _inherits(SetTargetProject, _BaseTask);
 
-    function SetTargetProjectTask() {
-        _classCallCheck(this, SetTargetProjectTask);
+    function SetTargetProject() {
+        _classCallCheck(this, SetTargetProject);
 
-        return _possibleConstructorReturn(this, (SetTargetProjectTask.__proto__ || Object.getPrototypeOf(SetTargetProjectTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (SetTargetProject.__proto__ || Object.getPrototypeOf(SetTargetProject)).apply(this, arguments));
     }
 
-    _createClass(SetTargetProjectTask, [{
+    _createClass(SetTargetProject, [{
         key: 'body',
         value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -60189,14 +60162,14 @@ var SetTargetProjectTask = function (_BaseTask) {
         key: 'setProjectName',
         value: function setProjectName(e) {
             var updatedTasks = this.props.tasks;
-            updatedTasks.SetTargetProjectTask.projectName = e.target.value;
+            updatedTasks.SetTargetProject.projectName = e.target.value;
             this.props.updateTasks(updatedTasks);
         }
     }], [{
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "SetTargetProjectTask",
+                name: "SetTargetProject",
                 enabled: true,
                 projectPath: "/../",
                 projectName: "my-new-project"
@@ -60204,10 +60177,10 @@ var SetTargetProjectTask = function (_BaseTask) {
         }
     }]);
 
-    return SetTargetProjectTask;
+    return SetTargetProject;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProjectTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(SetTargetProject));
 
 /***/ }),
 /* 246 */
@@ -61615,21 +61588,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateDatabaseTask = function (_BaseTask) {
-    _inherits(CreateDatabaseTask, _BaseTask);
+var CreateDatabase = function (_BaseTask) {
+    _inherits(CreateDatabase, _BaseTask);
 
-    function CreateDatabaseTask() {
-        _classCallCheck(this, CreateDatabaseTask);
+    function CreateDatabase() {
+        _classCallCheck(this, CreateDatabase);
 
-        return _possibleConstructorReturn(this, (CreateDatabaseTask.__proto__ || Object.getPrototypeOf(CreateDatabaseTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (CreateDatabase.__proto__ || Object.getPrototypeOf(CreateDatabase)).apply(this, arguments));
     }
 
-    _createClass(CreateDatabaseTask, [{
+    _createClass(CreateDatabase, [{
         key: 'body',
         value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'select',
-                { value: this.props.tasks.CreateDatabaseTask.type, onChange: this.changeDatabaseType.bind(this), className: 'form-control', id: 'inputGroupSelect01' },
+                { value: this.props.tasks.CreateDatabase.type, onChange: this.changeDatabaseType.bind(this), className: 'form-control', id: 'inputGroupSelect01' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'option',
                     { value: 'mysql', disabled: true },
@@ -61658,17 +61631,17 @@ var CreateDatabaseTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "CreateDatabaseTask",
+                name: "CreateDatabase",
                 enabled: true,
                 type: "sqlite"
             };
         }
     }]);
 
-    return CreateDatabaseTask;
+    return CreateDatabase;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabaseTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateDatabase));
 
 /***/ }),
 /* 285 */
@@ -61705,16 +61678,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateMigrationsTask = function (_CreateFilesTask) {
-    _inherits(CreateMigrationsTask, _CreateFilesTask);
+var CreateMigrations = function (_CreateFilesTask) {
+    _inherits(CreateMigrations, _CreateFilesTask);
 
-    function CreateMigrationsTask() {
-        _classCallCheck(this, CreateMigrationsTask);
+    function CreateMigrations() {
+        _classCallCheck(this, CreateMigrations);
 
-        return _possibleConstructorReturn(this, (CreateMigrationsTask.__proto__ || Object.getPrototypeOf(CreateMigrationsTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (CreateMigrations.__proto__ || Object.getPrototypeOf(CreateMigrations)).apply(this, arguments));
     }
 
-    _createClass(CreateMigrationsTask, [{
+    _createClass(CreateMigrations, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setupEditor();
@@ -61736,15 +61709,14 @@ var CreateMigrationsTask = function (_CreateFilesTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort());
-            //this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort()
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].migrations(this.props.tasks.SetObjectModel.transformedPseudoCode.safeSort());
             this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "CreateMigrationsTask",
+                name: "CreateMigrations",
                 enabled: true,
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
                 files: [],
@@ -61755,10 +61727,10 @@ var CreateMigrationsTask = function (_CreateFilesTask) {
         }
     }]);
 
-    return CreateMigrationsTask;
+    return CreateMigrations;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrationsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateMigrations));
 
 /***/ }),
 /* 286 */
@@ -61910,16 +61882,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var SetObjectModelTask = function (_BaseTask) {
-    _inherits(SetObjectModelTask, _BaseTask);
+var SetObjectModel = function (_BaseTask) {
+    _inherits(SetObjectModel, _BaseTask);
 
-    function SetObjectModelTask() {
-        _classCallCheck(this, SetObjectModelTask);
+    function SetObjectModel() {
+        _classCallCheck(this, SetObjectModel);
 
-        return _possibleConstructorReturn(this, (SetObjectModelTask.__proto__ || Object.getPrototypeOf(SetObjectModelTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (SetObjectModel.__proto__ || Object.getPrototypeOf(SetObjectModel)).apply(this, arguments));
     }
 
-    _createClass(SetObjectModelTask, [{
+    _createClass(SetObjectModel, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setup();
@@ -62110,7 +62082,7 @@ var SetObjectModelTask = function (_BaseTask) {
         value: function renderPhpTabs() {
             var _this2 = this;
 
-            return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map(function (model) {
+            return this.props.tasks.SetObjectModel.transformedPseudoCode.all().map(function (model) {
                 var tabClass = "editor-tab " + _this2.getClassForActiveTab(model.model);
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
@@ -62126,7 +62098,7 @@ var SetObjectModelTask = function (_BaseTask) {
     }, {
         key: 'getClassForActiveTab',
         value: function getClassForActiveTab(modelName) {
-            if (modelName == this.props.tasks.SetObjectModelTask.activeTab) {
+            if (modelName == this.props.tasks.SetObjectModel.activeTab) {
                 return "editor-tab-active";
             }
             return "";
@@ -62135,20 +62107,20 @@ var SetObjectModelTask = function (_BaseTask) {
         key: 'clickTab',
         value: function clickTab(e) {
             e.preventDefault();
-            this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+            this.props.tasks.SetObjectModel.activeTab = e.target.getAttribute("data-model");
             this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'updatePseudoCode',
         value: function updatePseudoCode(pseudoCode) {
-            this.props.tasks.SetObjectModelTask.pseudoCode = pseudoCode;
+            this.props.tasks.SetObjectModel.pseudoCode = pseudoCode;
             this.props.updateTasks(this.props.tasks);
         }
     }, {
         key: 'updateTransformedPseudoCode',
         value: function updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
-            this.props.tasks.SetObjectModelTask.activeTab = activeTab;
-            this.props.tasks.SetObjectModelTask.transformedPseudoCode = transformedPseudoCode;
+            this.props.tasks.SetObjectModel.activeTab = activeTab;
+            this.props.tasks.SetObjectModel.transformedPseudoCode = transformedPseudoCode;
             this.props.updateTasks(this.props.tasks);
         }
     }, {
@@ -62179,7 +62151,7 @@ var SetObjectModelTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "SetObjectModelTask",
+                name: "SetObjectModel",
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
@@ -62189,10 +62161,10 @@ var SetObjectModelTask = function (_BaseTask) {
         }
     }]);
 
-    return SetObjectModelTask;
+    return SetObjectModel;
 }(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModelTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(SetObjectModel));
 
 /***/ }),
 /* 288 */
@@ -62229,16 +62201,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateModelsTask = function (_CreateFilesTask) {
-    _inherits(CreateModelsTask, _CreateFilesTask);
+var CreateModels = function (_CreateFilesTask) {
+    _inherits(CreateModels, _CreateFilesTask);
 
-    function CreateModelsTask() {
-        _classCallCheck(this, CreateModelsTask);
+    function CreateModels() {
+        _classCallCheck(this, CreateModels);
 
-        return _possibleConstructorReturn(this, (CreateModelsTask.__proto__ || Object.getPrototypeOf(CreateModelsTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (CreateModels.__proto__ || Object.getPrototypeOf(CreateModels)).apply(this, arguments));
     }
 
-    _createClass(CreateModelsTask, [{
+    _createClass(CreateModels, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setupEditor();
@@ -62261,7 +62233,7 @@ var CreateModelsTask = function (_CreateFilesTask) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.tasks != nextProps.tasks) {
-                this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].models(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+                this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].models(this.props.tasks.SetObjectModel.transformedPseudoCode.models());
                 this.renderPhpCode();
             }
         }
@@ -62269,7 +62241,7 @@ var CreateModelsTask = function (_CreateFilesTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "CreateModelsTask",
+                name: "CreateModels",
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
@@ -62281,10 +62253,10 @@ var CreateModelsTask = function (_CreateFilesTask) {
         }
     }]);
 
-    return CreateModelsTask;
+    return CreateModels;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModelsTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateModels));
 
 /***/ }),
 /* 289 */
@@ -62321,16 +62293,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateSeedersTask = function (_CreateFilesTask) {
-    _inherits(CreateSeedersTask, _CreateFilesTask);
+var CreateSeeders = function (_CreateFilesTask) {
+    _inherits(CreateSeeders, _CreateFilesTask);
 
-    function CreateSeedersTask() {
-        _classCallCheck(this, CreateSeedersTask);
+    function CreateSeeders() {
+        _classCallCheck(this, CreateSeeders);
 
-        return _possibleConstructorReturn(this, (CreateSeedersTask.__proto__ || Object.getPrototypeOf(CreateSeedersTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (CreateSeeders.__proto__ || Object.getPrototypeOf(CreateSeeders)).apply(this, arguments));
     }
 
-    _createClass(CreateSeedersTask, [{
+    _createClass(CreateSeeders, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setupEditor();
@@ -62352,14 +62324,14 @@ var CreateSeedersTask = function (_CreateFilesTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].seeders(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].seeders(this.props.tasks.SetObjectModel.transformedPseudoCode.models());
             this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "CreateSeedersTask",
+                name: "CreateSeeders",
                 enabled: true,
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
                 files: [],
@@ -62370,10 +62342,10 @@ var CreateSeedersTask = function (_CreateFilesTask) {
         }
     }]);
 
-    return CreateSeedersTask;
+    return CreateSeeders;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeedersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateSeeders));
 
 /***/ }),
 /* 290 */
@@ -62410,16 +62382,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateControllersTask = function (_CreateFilesTask) {
-    _inherits(CreateControllersTask, _CreateFilesTask);
+var CreateControllers = function (_CreateFilesTask) {
+    _inherits(CreateControllers, _CreateFilesTask);
 
-    function CreateControllersTask() {
-        _classCallCheck(this, CreateControllersTask);
+    function CreateControllers() {
+        _classCallCheck(this, CreateControllers);
 
-        return _possibleConstructorReturn(this, (CreateControllersTask.__proto__ || Object.getPrototypeOf(CreateControllersTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (CreateControllers.__proto__ || Object.getPrototypeOf(CreateControllers)).apply(this, arguments));
     }
 
-    _createClass(CreateControllersTask, [{
+    _createClass(CreateControllers, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setupEditor();
@@ -62441,14 +62413,14 @@ var CreateControllersTask = function (_CreateFilesTask) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].controllers(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            if (this.props.tasks != nextProps.tasks) this.task().files = __WEBPACK_IMPORTED_MODULE_6__Template__["a" /* default */].controllers(this.props.tasks.SetObjectModel.transformedPseudoCode.models());
             this.renderPhpCode();
         }
     }], [{
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "CreateControllersTask",
+                name: "CreateControllers",
                 enabled: true,
                 pseudoCode: "",
                 transformedPseudoCode: new __WEBPACK_IMPORTED_MODULE_2__PseudoCodeTransformer__["a" /* default */](),
@@ -62460,10 +62432,10 @@ var CreateControllersTask = function (_CreateFilesTask) {
         }
     }]);
 
-    return CreateControllersTask;
+    return CreateControllers;
 }(__WEBPACK_IMPORTED_MODULE_8__CreateFilesTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllersTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_7__BaseTask__["a" /* default */].matchDispatchToProps)(CreateControllers));
 
 /***/ }),
 /* 291 */
@@ -62493,16 +62465,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CreateEpicSplashPageTask = function (_BaseTask) {
-    _inherits(CreateEpicSplashPageTask, _BaseTask);
+var CreateEpicSplashPage = function (_BaseTask) {
+    _inherits(CreateEpicSplashPage, _BaseTask);
 
-    function CreateEpicSplashPageTask() {
-        _classCallCheck(this, CreateEpicSplashPageTask);
+    function CreateEpicSplashPage() {
+        _classCallCheck(this, CreateEpicSplashPage);
 
-        return _possibleConstructorReturn(this, (CreateEpicSplashPageTask.__proto__ || Object.getPrototypeOf(CreateEpicSplashPageTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (CreateEpicSplashPage.__proto__ || Object.getPrototypeOf(CreateEpicSplashPage)).apply(this, arguments));
     }
 
-    _createClass(CreateEpicSplashPageTask, [{
+    _createClass(CreateEpicSplashPage, [{
         key: 'body',
         value: function body() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -62514,24 +62486,24 @@ var CreateEpicSplashPageTask = function (_BaseTask) {
     }, {
         key: 'updateBackgroundImage',
         value: function updateBackgroundImage(event) {
-            this.props.tasks.CreateEpicSplashPageTask.imageUrl = event.target.value;
+            this.props.tasks.CreateEpicSplashPage.imageUrl = event.target.value;
             this.props.updateTasks(this.props.tasks);
         }
     }], [{
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "CreateEpicSplashPageTask",
+                name: "CreateEpicSplashPage",
                 enabled: true,
                 imageUrl: "https://img.wallpapersafari.com/desktop/1920/1080/16/65/JDGTWx.jpg"
             };
         }
     }]);
 
-    return CreateEpicSplashPageTask;
+    return CreateEpicSplashPage;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPageTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(CreateEpicSplashPage));
 
 /***/ }),
 /* 292 */
@@ -62561,16 +62533,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var MigrateTask = function (_BaseTask) {
-    _inherits(MigrateTask, _BaseTask);
+var Migrate = function (_BaseTask) {
+    _inherits(Migrate, _BaseTask);
 
-    function MigrateTask() {
-        _classCallCheck(this, MigrateTask);
+    function Migrate() {
+        _classCallCheck(this, Migrate);
 
-        return _possibleConstructorReturn(this, (MigrateTask.__proto__ || Object.getPrototypeOf(MigrateTask)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (Migrate.__proto__ || Object.getPrototypeOf(Migrate)).apply(this, arguments));
     }
 
-    _createClass(MigrateTask, [{
+    _createClass(Migrate, [{
         key: 'body',
         value: function body() {
             return "";
@@ -62579,16 +62551,16 @@ var MigrateTask = function (_BaseTask) {
         key: 'getDefaultParameters',
         value: function getDefaultParameters() {
             return {
-                name: "MigrateTask",
+                name: "Migrate",
                 enabled: true
             };
         }
     }]);
 
-    return MigrateTask;
+    return Migrate;
 }(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(MigrateTask));
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_5__BaseTask__["a" /* default */].matchDispatchToProps)(Migrate));
 
 /***/ }),
 /* 293 */

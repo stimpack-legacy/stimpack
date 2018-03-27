@@ -6,7 +6,7 @@ use App\Stimpack\Task;
 use App\Stimpack\Templates;
 use ZipArchive;
 
-class SetTargetProjectTask extends Task
+class SetTargetProject extends Task
 {
     public function perform() {
         // if project exist, do nothing

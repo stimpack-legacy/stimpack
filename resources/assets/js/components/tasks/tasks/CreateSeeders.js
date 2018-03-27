@@ -9,7 +9,7 @@ import Template from './../../../Template';
 import BaseTask from '../BaseTask'
 import CreateFilesTask from '../CreateFilesTask'
 
-class CreateMigrationsTask extends CreateFilesTask {
+class CreateSeeders extends CreateFilesTask {
     componentDidMount() {
         this.setupEditor();
     }
@@ -25,30 +25,24 @@ class CreateMigrationsTask extends CreateFilesTask {
         );
     }
 
+
     static getDefaultParameters() {
         return {
-            name: "CreateMigrationsTask",
+            name: "CreateSeeders",
             enabled: true,
             transformedPseudoCode: new PseudoCodeTransformer(),
             files: [],
             activeTab: null,
-            shouldDisplayFilesOfType: ["MODEL", "TABLE_ONLY", "MANY_TO_MANY"],
-            fileTypeToGenerate: "migration"
+            shouldDisplayFilesOfType: ["MODEL"],
+            fileTypeToGenerate: "seeder"
         }
     }
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks)
-            this.task().files = Template.migrations(this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort());
-            //this.props.tasks.SetObjectModelTask.transformedPseudoCode.safeSort()
+            this.task().files = Template.seeders(this.props.tasks.SetObjectModel.transformedPseudoCode.models());
             this.renderPhpCode();
-    }    
+    }      
 }
 
-export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateMigrationsTask);
-
-
-
-
-
-
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateSeeders);

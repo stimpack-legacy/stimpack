@@ -5,7 +5,7 @@ namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 
-class CreateEpicSplashPageTask extends Task
+class CreateEpicSplashPage extends Task
 {
 
     public function perform() {

@@ -15,9 +15,9 @@ class Task
 
     public function projectPath()
     {
-        if(isset($this->SetTargetProjectTask))
+        if(isset($this->SetTargetProject))
         {
-            return base_path() . $this->SetTargetProjectTask->projectPath . $this->SetTargetProjectTask->projectName;
+            return base_path() . $this->SetTargetProject->projectPath . $this->SetTargetProject->projectName;
         }
 
         return base_path();
@@ -25,9 +25,9 @@ class Task
 
     public function projectName()
     {
-        if(isset($this->SetTargetProjectTask))
+        if(isset($this->SetTargetProject))
         {
-            return $this->SetTargetProjectTask->projectName;
+            return $this->SetTargetProject->projectName;
         }
 
         return substr(base_path(), strrpos(base_path(), '/') + 1);

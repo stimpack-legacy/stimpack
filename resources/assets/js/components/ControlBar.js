@@ -66,28 +66,3 @@ export default class ControlBar extends Component {
         document.getElementById('packBar').style.display = "block";
     }
 }
-
-/*
-REALLY COOL ICONS I NEED v5 for
-<i className="fa fa-2x fa-syringe icon controlBarItem"></i>
-<i className="fa fa-plus icon-control-bar"></i>
-<i title="Share this pack to stimpack.io" className="fab fa-5x fa-laravel"></i>
-
-            <div className="controlBar">
-                <form>
-                    <div className="form-group">                        
-                        <input type="text" list="projects" />
-                        <datalist  id="projects" placeholder="my-new-project">
-                        </datalist>                            
-                    </div>
-                </form>
-
-                <form>
-                    <div className="form-group">                        
-                        <input type="text" list="projects2" />
-                        <datalist  id="projects2" placeholder="my-new-project">
-                        </datalist>                            
-                    </div>
-                </form>                
-            </div>
-*/

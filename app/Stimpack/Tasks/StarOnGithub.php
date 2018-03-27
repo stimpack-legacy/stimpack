@@ -5,7 +5,7 @@ namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 
-class StarOnGithubTask implements Task
+class StarOnGithub implements Task
 {
 
     public function __construct($tasks) {

@@ -10,7 +10,6 @@ export default class Inputs extends Component {
     }
 
     render() {
-        console.log(data.packs);
         return (
             <div className="inputs">
                 {

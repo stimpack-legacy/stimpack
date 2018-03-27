@@ -4,7 +4,7 @@ namespace App\Stimpack\Tasks;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 
-class CreateMigrationsTask extends Task
+class CreateMigrations extends Task
 {
     public function perform() {        
         $message = "";

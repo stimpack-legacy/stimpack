@@ -8,7 +8,7 @@ import {updateTasks} from '../../../actions/index';
 import Template from './../../../Template';
 import BaseTask from '../BaseTask'
 
-class SetObjectModelTask extends BaseTask {
+class SetObjectModel extends BaseTask {
     componentDidMount() {
         this.setup();
     }
@@ -85,7 +85,7 @@ class SetObjectModelTask extends BaseTask {
 
     renderPhpTabs() {        
         
-        return this.props.tasks.SetObjectModelTask.transformedPseudoCode.all().map((model) => {
+        return this.props.tasks.SetObjectModel.transformedPseudoCode.all().map((model) => {
             var tabClass = "editor-tab " + this.getClassForActiveTab(model.model); 
             return (
                 <li key={model.table} className={tabClass}>
@@ -96,7 +96,7 @@ class SetObjectModelTask extends BaseTask {
     }
 
     getClassForActiveTab(modelName) {
-        if(modelName == this.props.tasks.SetObjectModelTask.activeTab) {
+        if(modelName == this.props.tasks.SetObjectModel.activeTab) {
             return "editor-tab-active";
         }
         return "";        
@@ -104,19 +104,19 @@ class SetObjectModelTask extends BaseTask {
     
     clickTab(e) {
         e.preventDefault();
-        this.props.tasks.SetObjectModelTask.activeTab = e.target.getAttribute("data-model");
+        this.props.tasks.SetObjectModel.activeTab = e.target.getAttribute("data-model");
         this.props.updateTasks(this.props.tasks);        
     }
 
 
     updatePseudoCode(pseudoCode) {
-        this.props.tasks.SetObjectModelTask.pseudoCode = pseudoCode;
+        this.props.tasks.SetObjectModel.pseudoCode = pseudoCode;
         this.props.updateTasks(this.props.tasks);        
     }
 
     updateTransformedPseudoCode(transformedPseudoCode, activeTab) {
-        this.props.tasks.SetObjectModelTask.activeTab = activeTab;        
-        this.props.tasks.SetObjectModelTask.transformedPseudoCode = transformedPseudoCode;        
+        this.props.tasks.SetObjectModel.activeTab = activeTab;        
+        this.props.tasks.SetObjectModel.transformedPseudoCode = transformedPseudoCode;        
         this.props.updateTasks(this.props.tasks);        
     }
 
@@ -145,7 +145,7 @@ class SetObjectModelTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
-            name: "SetObjectModelTask",
+            name: "SetObjectModel",
             enabled: true,
             pseudoCode: "",
             transformedPseudoCode: new PseudoCodeTransformer(),
@@ -156,7 +156,7 @@ class SetObjectModelTask extends BaseTask {
     
 }
 
-export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(SetObjectModelTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(SetObjectModel);
 
 
 

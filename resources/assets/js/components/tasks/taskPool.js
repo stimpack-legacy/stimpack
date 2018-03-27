@@ -1,21 +1,21 @@
-import SetTargetProjectTask from './tasks/SetTargetProjectTask'
-import CreateDatabaseTask from './tasks/CreateDatabaseTask'
-import CreateMigrationsTask from './tasks/CreateMigrationsTask'
-import SetObjectModelTask from './tasks/SetObjectModelTask'
-import CreateModelsTask from './tasks/CreateModelsTask'
-import CreateSeedersTask from './tasks/CreateSeedersTask'
-import CreateControllersTask from './tasks/CreateControllersTask'
-import CreateEpicSplashPageTask from './tasks/CreateEpicSplashPageTask'
-import MigrateTask from './tasks/MigrateTask'
+import SetTargetProject from './tasks/SetTargetProject'
+import CreateDatabase from './tasks/CreateDatabase'
+import CreateMigrations from './tasks/CreateMigrations'
+import SetObjectModel from './tasks/SetObjectModel'
+import CreateModels from './tasks/CreateModels'
+import CreateSeeders from './tasks/CreateSeeders'
+import CreateControllers from './tasks/CreateControllers'
+import CreateEpicSplashPage from './tasks/CreateEpicSplashPage'
+import Migrate from './tasks/Migrate'
 
 export const taskPool = [
-    SetTargetProjectTask,
-    CreateDatabaseTask,
-    SetObjectModelTask,
-    CreateMigrationsTask,
-    CreateModelsTask,
-    CreateSeedersTask,    
-    CreateControllersTask,
-    CreateEpicSplashPageTask,
-    MigrateTask
+    SetTargetProject,
+    CreateDatabase,
+    SetObjectModel,
+    CreateMigrations,
+    CreateModels,
+    CreateSeeders,    
+    CreateControllers,
+    CreateEpicSplashPage,
+    Migrate
 ]

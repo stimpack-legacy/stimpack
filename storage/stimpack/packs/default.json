@@ -4,7 +4,7 @@
     "description": "Create a new project with a sqlite database",
     "tasks": [
         {
-            "name": "CreateDatabaseTask",
+            "name": "CreateDatabase",
             "enabled": true,
             "type": "sqlite",
             "status": "succeded"

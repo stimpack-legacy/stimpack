@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../../actions/index'
 import BaseTask from '../BaseTask'
 
-class CreateEpicSplashPageTask extends BaseTask {
+class CreateEpicSplashPage extends BaseTask {
 
     body() {
         return(
@@ -16,17 +16,17 @@ class CreateEpicSplashPageTask extends BaseTask {
     }
 
     updateBackgroundImage(event) {
-        this.props.tasks.CreateEpicSplashPageTask.imageUrl = event.target.value
+        this.props.tasks.CreateEpicSplashPage.imageUrl = event.target.value
         this.props.updateTasks(this.props.tasks);
     }
     
     static getDefaultParameters() {
         return {
-            name: "CreateEpicSplashPageTask",
+            name: "CreateEpicSplashPage",
             enabled: true,
             imageUrl: "https://img.wallpapersafari.com/desktop/1920/1080/16/65/JDGTWx.jpg"
         }
     }    
 }
 
-export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateEpicSplashPageTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateEpicSplashPage);

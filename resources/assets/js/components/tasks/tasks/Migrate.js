@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {updateTasks} from '../../../actions/index'
 import BaseTask from '../BaseTask'
 
-class MigrateTask extends BaseTask {
+class Migrate extends BaseTask {
 
     body() {
         return ("");
@@ -13,10 +13,10 @@ class MigrateTask extends BaseTask {
 
     static getDefaultParameters() {
         return {
-            name: "MigrateTask",
+            name: "Migrate",
             enabled: true
         };        
     }
 }
 
-export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(MigrateTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(Migrate);

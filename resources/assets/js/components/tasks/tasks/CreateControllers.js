@@ -9,7 +9,7 @@ import Template from './../../../Template';
 import BaseTask from '../BaseTask'
 import CreateFilesTask from '../CreateFilesTask'
 
-class CreateControllersTask extends CreateFilesTask {
+class CreateControllers extends CreateFilesTask {
     componentDidMount() {
         this.setupEditor();
     }
@@ -28,7 +28,7 @@ class CreateControllersTask extends CreateFilesTask {
 
     static getDefaultParameters() {
         return {
-            name: "CreateControllersTask",
+            name: "CreateControllers",
             enabled: true,
             pseudoCode: "",
             transformedPseudoCode: new PseudoCodeTransformer(),
@@ -41,9 +41,9 @@ class CreateControllersTask extends CreateFilesTask {
 
     componentWillReceiveProps(nextProps){
         if(this.props.tasks != nextProps.tasks)
-            this.task().files = Template.controllers(this.props.tasks.SetObjectModelTask.transformedPseudoCode.models());
+            this.task().files = Template.controllers(this.props.tasks.SetObjectModel.transformedPseudoCode.models());
             this.renderPhpCode();
     }      
 }
 
-export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateControllersTask);
+export default connect(BaseTask.mapStateToProps, BaseTask.matchDispatchToProps)(CreateControllers);
