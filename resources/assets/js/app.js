@@ -27,6 +27,7 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import allReducers from './reducers';
 import Main from './components/Main';
+import * as SRD from "storm-react-diagrams"
 
 import fontawesome from '@fortawesome/fontawesome'
 import regular from '@fortawesome/fontawesome-free-regular'
@@ -47,7 +48,6 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
 
 ReactDOM.render(
     <Provider store={store}>

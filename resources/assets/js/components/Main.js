@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header';
-import Footer from './Footer';
 import ControlBar from './ControlBar';
-import PackBar from './PackBar';
-import Generator from './Generator';
+import * as SRD from "storm-react-diagrams"
+import {connect} from 'react-redux';
 
-export default class Main extends Component {
-    render() {
-        return (
-            <div className="app">
-                {/* <Header /> */}                
+class Main extends Component {
+
+    render() {        
+        return (            
+            <div className="app">               
                 <ControlBar />
-                <PackBar />                
-                <Generator />                                 
-                <Footer />
+                <SRD.DiagramWidget onClick={this.handleDoubleClick} className="srd-demo-canvas" diagramEngine={this.props.engine} >
+                    SOME TEXT
+                    <h1>Some heading!</h1>
+                </SRD.DiagramWidget>
+
             </div>
         );
     }
+
+    handleDoubleClick() {
+        alert("Dubbelklick!");
+    }
 }
+
+function mapStateToProps(state) {
+    return { engine: state.engine };
+  }
+  
+export default connect(mapStateToProps)(Main)

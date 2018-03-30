@@ -31,6 +31,7 @@
         "popper.js": "^1.12.9",
         "react-modal": "^3.3.2",
         "react-redux": "^5.0.6",
-        "redux": "^3.7.2"
+        "redux": "^3.7.2",
+        "storm-react-diagrams": "^5.1.1"
     }
 }

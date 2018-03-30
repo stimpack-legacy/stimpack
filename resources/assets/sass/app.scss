@@ -6,9 +6,13 @@
 @import "editors";
 @import "icons";
 @import "controlBar";
-@import "_gradient";
+@import "_modal";
 
 @import "~bootstrap/scss/bootstrap.scss";
+
+@import "~storm-react-diagrams/src/sass/main";
+@import "_storm-react-diagrams-overrides.scss";
+
 
 html {
     height: 100%;
@@ -20,6 +24,16 @@ body {
     background: linear-gradient(to left, lighten($semi-dark, 1%), lighten($semi-dark, 11%), lighten($semi-dark, 19%), lighten($semi-dark, 3%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
     height: 100%;
+}
+
+.srd-demo-canvas {
+    height: 90vh;
+
+}
+
+.srd-node {
+    font-size: 200% !important;
+    color: red !important;
 }
 
 #main {

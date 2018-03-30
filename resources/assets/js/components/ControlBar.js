@@ -9,29 +9,9 @@ export default class ControlBar extends Component {
                 
 
                 
-                <form className="controlBarItem">
-                    <div className="form-group controlBarItem">                        
-                        <p className="controlBarItem">Target project:</p>                
-                        <input defaultValue={data.projectName} type="text" list="projects" className="controlBarItem controlBarInput" />
-                        <datalist id="projects" placeholder="my-new-project" className="controlBarDataList">
-                            {this.renderAvailableProjects()}
-                        </datalist>                            
-                    </div>
-                </form>
-                                
-                <form className="controlBarItem">
-                    <div className="form-group controlBarItem">
-                        <p className="controlBarItem">Using pack:</p>                        
-                        <input onChange={this.selectPack} type="text" list="packs" className="controlBarItem controlBarInput" />
-                        <datalist id="packs" placeholder="my-new-project" className="controlBarDataList pack-names">
-                        {this.renderAvailablePacks()}
-                        </datalist>                            
-                    </div>                    
-                </form>
-                
                 
                 {/* <i className="fa fa-refresh fa-spin log-pending icon"></i> */}
-                <i title="Run all tasks" className="fa fa-play icon-control-bar run-icon"></i>
+                <i title="Run all tasks" className="fa fa-play icon-control-bar icon-control-bar"></i>
                 <i title="Add task" className="fa fa-plus icon-control-bar"></i>
                 <i title="Remove all tasks" className="far fa-trash-alt icon-control-bar"></i>
 

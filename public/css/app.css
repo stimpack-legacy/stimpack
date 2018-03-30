@@ -364,6 +364,47 @@ input::-webkit-calendar-picker-indicator {
   opacity: 100;
 }
 
+.settings-modal {
+  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) !important;
+          transform: translate(-50%, -50%) !important;
+  font-family: 'Open Sans', sans-serif;
+  background: #31363F;
+  /* fallback for old browsers */
+  color: white;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 8px 8px rgba(0, 0, 0, 0.45);
+          box-shadow: 8px 8px rgba(0, 0, 0, 0.45);
+  opacity: 0.95;
+}
+
+.small {
+  width: 30%;
+}
+
+.medium {
+  width: 60%;
+}
+
+.large {
+  width: 90%;
+}
+
+.settings-modal-buttons > * {
+  margin: 0px 5px;
+}
+
+.btn-stimpack {
+  background-color: #AFE418;
+  color: black;
+}
+
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -10360,6 +10401,241 @@ a.text-dark:focus {
   }
 }
 
+.srd-diagram {
+  position: relative;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: move;
+  overflow: hidden;
+}
+
+.srd-diagram__selector {
+  position: absolute;
+  background-color: rgba(0, 192, 255, 0.2);
+  border: solid 2px #00c0ff;
+}
+
+.srd-link-layer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  overflow: visible !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.srd-node-layer {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  pointer-events: none;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  width: 100%;
+  height: 100%;
+}
+
+.srd-node {
+  position: absolute;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  cursor: move;
+  pointer-events: all;
+}
+
+.srd-node--selected > * {
+  border-color: #00c0ff !important;
+}
+
+.srd-port {
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.srd-port:hover,
+.srd-port.selected {
+  background: #c0ff00;
+}
+
+.srd-default-node {
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  font-family: sans-serif;
+  color: white;
+  border: solid 2px black;
+  overflow: visible;
+  font-size: 11px;
+}
+
+.srd-default-node__title {
+  background: rgba(0, 0, 0, 0.3);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  white-space: nowrap;
+}
+
+.srd-default-node__title > * {
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.srd-default-node__title .fa {
+  padding: 5px;
+  opacity: 0.2;
+  cursor: pointer;
+}
+
+.srd-default-node__title .fa:hover {
+  opacity: 1.0;
+}
+
+.srd-default-node__name {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 5px 5px;
+}
+
+.srd-default-node__ports {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.2)));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+}
+
+.srd-default-node__in,
+.srd-default-node__out {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.srd-default-port {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 1px;
+}
+
+.srd-default-port > * {
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.srd-default-port__name {
+  padding: 0 5px;
+}
+
+.srd-default-port--out {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.srd-default-port--out .srd-default-port__name {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  text-align: right;
+}
+
+.srd-default-label {
+  background: rgba(70, 70, 70, 0.8);
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-size: smaller;
+  padding: 5px;
+}
+
+@-webkit-keyframes dash {
+  from {
+    stroke-dashoffset: 24;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 24;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.srd-default-link path {
+  fill: none;
+  pointer-events: all;
+}
+
+.srd-default-link--path-selected {
+  stroke: #00c0ff !important;
+  stroke-dasharray: 10,2;
+  -webkit-animation: dash 1s linear infinite;
+          animation: dash 1s linear infinite;
+}
+
+.srd-default-link__label {
+  pointer-events: none;
+}
+
+.srd-default-link__label > div {
+  display: inline-block;
+  position: absolute;
+}
+
+.srd-default-link__point {
+  fill: rgba(255, 255, 255, 0.5);
+}
+
+.srd-default-link--point-selected {
+  fill: #00c0ff;
+}
+
+.srd-port {
+  background: none;
+}
+
+.srd-port:hover,
+.srd-port.selected {
+  background: none;
+}
+
+.srd-node {
+  min-width: 80px;
+}
+
 html {
   height: 100%;
 }
@@ -10373,6 +10649,15 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
   height: 100%;
+}
+
+.srd-demo-canvas {
+  height: 90vh;
+}
+
+.srd-node {
+  font-size: 200% !important;
+  color: red !important;
 }
 
 #main {
