@@ -23,13 +23,13 @@ engine.registerNodeFactory(new ManipulatorNodeFactory());
 var model = new DiagramModel();
 
 //3-A) create a default node
-var node1 = new ManipulatorNodeModel("Create", "#31363F");
+var node1 = new ManipulatorNodeModel("Create");
 var port0 = node1.addInPort(" ");
 var port1 = node1.addOutPort(" ");
 node1.setPosition(100, 150);
 
 //3-B) create our new custom node
-var node2 = new ManipulatorNodeModel("Migrate", "#31363F");
+var node2 = new ManipulatorNodeModel("Migrate");
 var port2 = node2.addInPort(" ");
 node2.setPosition(350, 150);
 

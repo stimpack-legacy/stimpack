@@ -65135,13 +65135,13 @@ engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_3__storm_ManipulatorNod
 var model = new __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__["DiagramModel"]();
 
 //3-A) create a default node
-var node1 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]("Create", "#31363F");
+var node1 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]("Create");
 var port0 = node1.addInPort(" ");
 var port1 = node1.addOutPort(" ");
 node1.setPosition(100, 150);
 
 //3-B) create our new custom node
-var node2 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]("Migrate", "#31363F");
+var node2 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]("Migrate");
 var port2 = node2.addInPort(" ");
 node2.setPosition(350, 150);
 
@@ -70257,7 +70257,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ManipulatorNodeModel = function (_NodeModel) {
 	_inherits(ManipulatorNodeModel, _NodeModel);
 
-	function ManipulatorNodeModel(name, color) {
+	function ManipulatorNodeModel(name) {
 		_classCallCheck(this, ManipulatorNodeModel);
 
 		var _this = _possibleConstructorReturn(this, (ManipulatorNodeModel.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel)).call(this, "manipulator"));
@@ -70281,7 +70281,6 @@ var ManipulatorNodeModel = function (_NodeModel) {
 		value: function deSerialize(object, engine) {
 			_get(ManipulatorNodeModel.prototype.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel.prototype), "deSerialize", this).call(this, object, engine);
 			this.name = object.name;
-			this.color = object.color;
 		}
 	}, {
 		key: "serialize",
@@ -70434,7 +70433,7 @@ var ManipulatorNodeWidget = function (_BaseWidget) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                 "div",
-                _extends({ onDoubleClick: this.openModal.bind(this) }, this.getProps(), { style: { background: this.props.node.color } }),
+                _extends({ onDoubleClick: this.openModal.bind(this) }, this.getProps()),
                 this.renderNode(),
                 this.renderSettings()
             );
@@ -70529,9 +70528,7 @@ var ManipulatorNodeWidget = function (_BaseWidget) {
     }, {
         key: "afterOpenModal",
         value: function afterOpenModal() {
-            // references are now sync'd and can be accessed.
-            // this.subtitle.style.color = '#f00';
-            //var str = JSON.stringify(model.serializeDiagram());
+            // 
         }
     }, {
         key: "closeModal",

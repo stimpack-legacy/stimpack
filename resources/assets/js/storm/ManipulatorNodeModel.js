@@ -10,7 +10,7 @@ import { NodeModel } from "storm-react-diagrams";
  */
 export class ManipulatorNodeModel extends NodeModel {
 
-	constructor(name, color){
+	constructor(name){
 		super("manipulator");
 		this.name = name;		
 	}
@@ -26,7 +26,6 @@ export class ManipulatorNodeModel extends NodeModel {
 	deSerialize(object, engine) {
 		super.deSerialize(object, engine);
 		this.name = object.name;
-		this.color = object.color;
 	}
 
 	serialize() {

@@ -33,7 +33,7 @@ class ManipulatorNodeWidget extends BaseWidget {
 	render() {
 		return (
             
-			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()} style={{ background: this.props.node.color }}>
+			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()}>
                 {this.renderNode()}
                 {this.renderSettings()}
 			</div>
@@ -92,9 +92,7 @@ class ManipulatorNodeWidget extends BaseWidget {
     }
     
     afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        // this.subtitle.style.color = '#f00';
-        //var str = JSON.stringify(model.serializeDiagram());
+        // 
     }
     
     closeModal() {
