@@ -27,7 +27,20 @@ class ManipulatorNodeWidget extends BaseWidget {
             
 			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()}>
                 {this.renderNode()}
-                {this.props.node.renderSettings()}
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal.bind(this)}
+                    onRequestClose={this.closeModal.bind(this)}
+                    contentLabel="Example Modal"
+                    overlayClassName="no-overlay"
+                    className="settings-modal small"
+                >                
+                    {this.props.node.renderSettings()}
+                    <div className="settings-modal-buttons">                    
+                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
+                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
+                    </div>                    
+                </Modal>
 			</div> 
 		);
     } //{this.renderSettings()}

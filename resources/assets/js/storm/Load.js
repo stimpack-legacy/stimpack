@@ -1,3 +1,4 @@
+import * as React from "react";
 import { DefaultPortModel } from "storm-react-diagrams";
 import { Toolkit } from "storm-react-diagrams";
 import * as _ from "lodash";
@@ -15,10 +16,22 @@ export default class Load extends ManipulatorNodeModel {
 		this.name = name;		
     }
     
-    renderSettings() {
+    renderSettingsX() {
         console.log(this);        
         return 123;
-    }    
+    }
+
+    renderSettings() {        
+        return (
+                <div className="container">
+                    <h4>Workspace / Manipulators / Migrate / #13 </h4>
+                    <div className="form-group">
+                        <label htmlFor="comment">Comment:</label>
+                        <textarea className="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                </div>
+        );
+    }        
 }
 
 /*
