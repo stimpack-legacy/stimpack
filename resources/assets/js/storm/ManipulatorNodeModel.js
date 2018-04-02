@@ -12,7 +12,8 @@ export class ManipulatorNodeModel extends NodeModel {
 
 	constructor(name){
 		super("manipulator");
-		this.name = name;		
+		this.name = name;
+		this.something = "Here I am!";		
 	}
 
 	addInPort(label) {

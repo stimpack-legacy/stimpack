@@ -70268,6 +70268,7 @@ var ManipulatorNodeModel = function (_NodeModel) {
 		var _this = _possibleConstructorReturn(this, (ManipulatorNodeModel.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel)).call(this, "manipulator"));
 
 		_this.name = name;
+		_this.something = "Here I am!";
 		return _this;
 	}
 
@@ -70595,6 +70596,7 @@ var Load = function (_ManipulatorNodeModel) {
     _createClass(Load, [{
         key: "renderSettings",
         value: function renderSettings() {
+            console.log(this);
             return 123;
         }
     }]);

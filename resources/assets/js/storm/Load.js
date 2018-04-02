@@ -15,7 +15,8 @@ export default class Load extends ManipulatorNodeModel {
 		this.name = name;		
     }
     
-    renderSettings() {        
+    renderSettings() {
+        console.log(this);        
         return 123;
     }    
 }
