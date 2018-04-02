@@ -8,12 +8,11 @@ import { NodeModel } from "storm-react-diagrams";
 /**
  * @author Dylan Vorster
  */
-export class TaskNodeModel extends NodeModel {
+export class ManipulatorNodeModel extends NodeModel {
 
-	constructor(name: string = "Untitled", color: string = "rgb(0,192,255)") {
-		super("task");
-		this.name = name;
-		this.color = color;
+	constructor(name, color){
+		super("manipulator");
+		this.name = name;		
 	}
 
 	addInPort(label) {
@@ -33,7 +32,6 @@ export class TaskNodeModel extends NodeModel {
 	serialize() {
 		return _.merge(super.serialize(), {
 			name: this.name,
-			color: this.color
 		});
 	}
 

@@ -20,14 +20,7 @@ const customStyles = {
     }
 };
 
-export interface DefaultNodeProps extends BaseWidgetProps {
-	node: DefaultNodeModel;
-	diagramEngine: DiagramEngine;
-}
-
-export interface DefaultNodeState {}
-
-class TaskNodeWidget extends BaseWidget<DefaultNodeProps, DefaultNodeState> {
+class ManipulatorNodeWidget extends BaseWidget {
 	constructor(props) {
 		super("srd-default-node", props);
 		this.state = {};
@@ -48,8 +41,6 @@ class TaskNodeWidget extends BaseWidget<DefaultNodeProps, DefaultNodeState> {
     }
 
     renderNode() {
-        console.log("var str = JSON.stringify(model.serializeDiagram());");
-        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));
         return (
             <wrapper>
                 <div className={this.bem("__title")}>
@@ -95,16 +86,21 @@ class TaskNodeWidget extends BaseWidget<DefaultNodeProps, DefaultNodeState> {
     }
 
     openModal() {
-        this.setState({modalIsOpen: true});
+        this.setState({
+            modalIsOpen: true,
+        });
     }
     
     afterOpenModal() {
         // references are now sync'd and can be accessed.
         // this.subtitle.style.color = '#f00';
+        //var str = JSON.stringify(model.serializeDiagram());
     }
     
     closeModal() {
         this.setState({modalIsOpen: false});
+        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        
     }     
 }
 
@@ -121,4 +117,4 @@ function matchDispatchToProps(dispatch){
         }, dispatch);
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(TaskNodeWidget);
+export default connect(mapStateToProps, matchDispatchToProps)(ManipulatorNodeWidget);
