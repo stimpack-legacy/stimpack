@@ -27,10 +27,10 @@ class ManipulatorNodeWidget extends BaseWidget {
             
 			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()}>
                 {this.renderNode()}
-                {this.renderSettings()}
-			</div>
+                {this.props.node.renderSettings()}
+			</div> 
 		);
-    }
+    } //{this.renderSettings()}
 
     renderNode() {
         return (

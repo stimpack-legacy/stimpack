@@ -65116,11 +65116,13 @@ var initialState = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__ = __webpack_require__(320);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__storm_ManipulatorNodeFactory__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__storm_Load__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__storm_ManipulatorNodeFactory__ = __webpack_require__(321);
 
 
 
 // import the custom models
+
 
 
 
@@ -65129,7 +65131,7 @@ var engine = new __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__["DiagramEngi
 engine.installDefaultFactories();
 
 // register some other factories as well
-engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_3__storm_ManipulatorNodeFactory__["a" /* ManipulatorNodeFactory */]());
+engine.registerNodeFactory(new __WEBPACK_IMPORTED_MODULE_4__storm_ManipulatorNodeFactory__["a" /* ManipulatorNodeFactory */]());
 
 //2) setup the diagram model
 var model = new __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__["DiagramModel"]();
@@ -65149,7 +65151,10 @@ node2.setPosition(350, 150);
 var link = port1.link(port2);
 
 //4) add the models to the root graph
-model.addAll(node1, node2, link);
+//model.addAll(node1, node2, link);
+
+var node3 = new __WEBPACK_IMPORTED_MODULE_3__storm_Load__["a" /* default */]("Loooady");
+model.addAll(node3);
 
 //5) load model into engine
 engine.setDiagramModel(model);
@@ -70427,9 +70432,10 @@ var ManipulatorNodeWidget = function (_BaseWidget) {
                 "div",
                 _extends({ onDoubleClick: this.openModal.bind(this) }, this.getProps()),
                 this.renderNode(),
-                this.renderSettings()
+                this.props.node.renderSettings()
             );
-        }
+        } //{this.renderSettings()}
+
     }, {
         key: "renderNode",
         value: function renderNode() {
@@ -70545,6 +70551,87 @@ function matchDispatchToProps(dispatch) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(ManipulatorNodeWidget));
+
+/***/ }),
+/* 323 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ManipulatorNodeModel__ = __webpack_require__(320);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+/**
+ * @author Dylan Vorster
+ */
+
+var Load = function (_ManipulatorNodeModel) {
+    _inherits(Load, _ManipulatorNodeModel);
+
+    function Load(name) {
+        _classCallCheck(this, Load);
+
+        var _this = _possibleConstructorReturn(this, (Load.__proto__ || Object.getPrototypeOf(Load)).call(this, "manipulator"));
+
+        _this.name = name;
+        return _this;
+    }
+
+    _createClass(Load, [{
+        key: "renderSettings",
+        value: function renderSettings() {
+            return 123;
+        }
+    }]);
+
+    return Load;
+}(__WEBPACK_IMPORTED_MODULE_2__ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]);
+
+/*
+    renderSettings() {        
+        return (
+            <Modal
+                isOpen={this.state.modalIsOpen}
+                onAfterOpen={this.afterOpenModal.bind(this)}
+                onRequestClose={this.closeModal.bind(this)}
+                contentLabel="Example Modal"
+                overlayClassName="no-overlay"
+                className="settings-modal small"
+            >
+                <div className="container">
+                    <h4>Workspace / Manipulators / Migrate / #13 </h4>
+                    <div className="form-group">
+                        <label htmlFor="comment">Comment:</label>
+                        <textarea className="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    <div className="settings-modal-buttons">                    
+                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
+                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
+                    </div>
+                </div>        
+
+            </Modal>
+        );
+    }
+*/
+
+
+/* harmony default export */ __webpack_exports__["a"] = (Load);
 
 /***/ })
 /******/ ]);

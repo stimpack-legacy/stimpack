@@ -10,6 +10,7 @@ import * as React from "react";
 
 // import the custom models
 import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
+import Load from "../storm/Load";
 import { ManipulatorNodeFactory } from "../storm/ManipulatorNodeFactory";
 
 //1) setup the diagram engine
@@ -38,7 +39,10 @@ var link = port1.link(port2);
 
 
 //4) add the models to the root graph
-model.addAll(node1, node2, link);
+//model.addAll(node1, node2, link);
+
+var node3 = new Load("Loooady");
+model.addAll(node3);
 
 //5) load model into engine
 engine.setDiagramModel(model);
