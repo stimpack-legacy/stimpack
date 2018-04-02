@@ -12,14 +12,6 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#main')
 
-const customStyles = {
-    content : {
-        background: "black"
-      //top: '20px',
-      //left: '20px'
-    }
-};
-
 class ManipulatorNodeWidget extends BaseWidget {
 	constructor(props) {
 		super("srd-default-node", props);
@@ -64,7 +56,6 @@ class ManipulatorNodeWidget extends BaseWidget {
                 isOpen={this.state.modalIsOpen}
                 onAfterOpen={this.afterOpenModal.bind(this)}
                 onRequestClose={this.closeModal.bind(this)}
-                //style={customStyles}
                 contentLabel="Example Modal"
                 overlayClassName="no-overlay"
                 className="settings-modal small"
@@ -97,7 +88,7 @@ class ManipulatorNodeWidget extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
         
     }     
 }

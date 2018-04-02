@@ -70403,14 +70403,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 __WEBPACK_IMPORTED_MODULE_6_react_modal___default.a.setAppElement('#main');
 
-var customStyles = {
-    content: {
-        background: "black"
-        //top: '20px',
-        //left: '20px'
-    }
-};
-
 var ManipulatorNodeWidget = function (_BaseWidget) {
     _inherits(ManipulatorNodeWidget, _BaseWidget);
 
@@ -70477,9 +70469,8 @@ var ManipulatorNodeWidget = function (_BaseWidget) {
                 {
                     isOpen: this.state.modalIsOpen,
                     onAfterOpen: this.afterOpenModal.bind(this),
-                    onRequestClose: this.closeModal.bind(this)
-                    //style={customStyles}
-                    , contentLabel: "Example Modal",
+                    onRequestClose: this.closeModal.bind(this),
+                    contentLabel: "Example Modal",
                     overlayClassName: "no-overlay",
                     className: "settings-modal small"
                 },
@@ -70534,7 +70525,7 @@ var ManipulatorNodeWidget = function (_BaseWidget) {
         key: "closeModal",
         value: function closeModal() {
             this.setState({ modalIsOpen: false });
-            console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));
+            //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
         }
     }]);
 
