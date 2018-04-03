@@ -10,8 +10,8 @@ import * as React from "react";
 
 // import the custom models
 import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
-import Load from "../storm/Load";
-import Migrate from "../storm/Migrate";
+//import Load from "../storm/Load";
+//import Migrate from "../storm/Migrate";
 import { ManipulatorNodeFactory } from "../storm/ManipulatorNodeFactory";
 
 //1) setup the diagram engine
@@ -25,13 +25,20 @@ engine.registerNodeFactory(new ManipulatorNodeFactory());
 var model = new DiagramModel();
 
 //3-A) create a default node
-var node1 = new ManipulatorNodeModel("Create");
+var node1 = new ManipulatorNodeModel({ 
+	path: "/home/anders/Code/something-new",
+	name: "Load"
+});
 var port0 = node1.addInPort(" ");
 var port1 = node1.addOutPort(" ");
 node1.setPosition(100, 150);
 
 //3-B) create our new custom node
-var node2 = new ManipulatorNodeModel("Migrate");
+var node2 = new ManipulatorNodeModel({
+	force: true,
+	name: "Migrate"
+});
+
 var port2 = node2.addInPort(" ");
 node2.setPosition(350, 150);
 
@@ -40,11 +47,7 @@ var link = port1.link(port2);
 
 
 //4) add the models to the root graph
-//model.addAll(node1, node2, link);
-
-var node3 = new Load("Loooady");
-var node4 = new Migrate("Migrate");
-model.addAll(node3, node4);
+model.addAll(node1, node2, link);
 
 //5) load model into engine
 engine.setDiagramModel(model);

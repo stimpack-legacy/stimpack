@@ -397,12 +397,16 @@ input::-webkit-calendar-picker-indicator {
 }
 
 .settings-modal-buttons > * {
-  margin: 0px 5px;
+  margin-right: 5px;
 }
 
 .btn-stimpack {
   background-color: #AFE418;
   color: black;
+}
+
+.manipulator-project-select {
+  width: auto;
 }
 
 /*!
@@ -10774,10 +10778,6 @@ p,
 
 .task-name {
   margin-left: 10px;
-}
-
-select {
-  width: 30% !important;
 }
 
 .ready-to-roll-out {

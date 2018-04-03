@@ -14,7 +14,7 @@ Modal.setAppElement('#main')
 
 class ManipulatorNodeWidget extends BaseWidget {
 	constructor(props) {
-		super("srd-default-node", props);
+        super("srd-default-node", props);        
 		this.state = {};
 	}
 
@@ -22,7 +22,7 @@ class ManipulatorNodeWidget extends BaseWidget {
 		return <DefaultPortLabel model={port} key={port.id} />;
 	}
 
-	render() {
+	render() {        
 		return (
             
 			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()}>
@@ -36,20 +36,20 @@ class ManipulatorNodeWidget extends BaseWidget {
                     className="settings-modal small"
                 >                
                     {this.props.node.renderSettings()}
-                    <div className="settings-modal-buttons">                    
+                    <div className="container settings-modal-buttons">                    
                         <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
                         <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
                     </div>                    
                 </Modal>
 			</div> 
 		);
-    } //{this.renderSettings()}
+    }
 
     renderNode() {
         return (
             <wrapper>
                 <div className={this.bem("__title")}>
-                    <div className={this.bem("__name")}>{this.props.node.name}</div>
+                    <div className={this.bem("__name")}>{this.props.node.state.manipulator.name}</div>
                 </div>                
                 <div className={this.bem("__ports")}>
                     <div className={this.bem("__in")}>
@@ -60,32 +60,6 @@ class ManipulatorNodeWidget extends BaseWidget {
                     </div>
                 </div>
             </wrapper>
-        );
-    }
-
-    renderSettings() {        
-        return (
-            <Modal
-                isOpen={this.state.modalIsOpen}
-                onAfterOpen={this.afterOpenModal.bind(this)}
-                onRequestClose={this.closeModal.bind(this)}
-                contentLabel="Example Modal"
-                overlayClassName="no-overlay"
-                className="settings-modal small"
-            >
-                <div className="container">
-                    <h4>Workspace / Manipulators / Migrate / #13 </h4>
-                    <div className="form-group">
-                        <label htmlFor="comment">Comment:</label>
-                        <textarea className="form-control" rows="5" id="comment"></textarea>
-                    </div>
-                    <div className="settings-modal-buttons">                    
-                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
-                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
-                    </div>
-                </div>        
-
-            </Modal>
         );
     }
 
@@ -101,7 +75,7 @@ class ManipulatorNodeWidget extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
         
     }     
 }

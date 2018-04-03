@@ -4,16 +4,13 @@ import * as _ from "lodash";
 
 import { NodeModel } from "storm-react-diagrams";
 
-
-/**
- * @author Dylan Vorster
- */
 export class ManipulatorNodeModel extends NodeModel {
 
-	constructor(name){
+	constructor(manipulator){
 		super("manipulator");
-		this.name = name;
-		this.something = "Here I am!";		
+		this.state = {
+			manipulator
+		};
 	}
 
 	addInPort(label) {
@@ -26,12 +23,14 @@ export class ManipulatorNodeModel extends NodeModel {
 
 	deSerialize(object, engine) {
 		super.deSerialize(object, engine);
+		// fix manipulator
 		this.name = object.name;
 	}
 
-	serialize() {
-		return _.merge(super.serialize(), {
-			name: this.name,
+	serialize() {		
+
+		return _.merge(super.serialize(), {			
+			manipulator: this.state.manipulator
 		});
 	}
 

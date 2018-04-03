@@ -34,10 +34,14 @@
 }
 
 .settings-modal-buttons > * {
-    margin: 0px 5px;    
+    margin-right: 5px;    
 }
 
 .btn-stimpack {
     background-color: $neon-green;
     color: black;
+}
+
+.manipulator-project-select {
+    width: auto;
 }
