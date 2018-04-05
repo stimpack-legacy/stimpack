@@ -1,7 +1,7 @@
 import { ManipulatorNodeModel } from "./ManipulatorNodeModel";
 import AllManipulators from "./AllManipulators"
 import * as React from "react";
-import ManipulatorNodeWidget from "./ManipulatorNodeWidget";
+//import ManipulatorNodeWidget from "./ManipulatorNodeWidget";
 import { DiagramEngine } from "storm-react-diagrams";
 import { AbstractNodeFactory } from "storm-react-diagrams";
 

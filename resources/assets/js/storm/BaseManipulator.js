@@ -10,17 +10,15 @@ import { DiagramEngine } from "storm-react-diagrams";
 import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
 import Modal from 'react-modal';
 
-Modal.setAppElement('#main')
-
-class ManipulatorNodeWidget extends BaseWidget {
-	constructor(props) {
-        super("srd-default-node", props);        
-		//this.state = {};
+export default class BaseManipulator extends BaseWidget {
+	constructor(className, props) {
+        super("srd-default-node", props);                
+        Modal.setAppElement('#main')
 	}
 
 	generatePort(port) {
 		return <DefaultPortLabel model={port} key={port.id} />;
-	}
+    }
 
 	render() {        
 		return (
@@ -35,7 +33,7 @@ class ManipulatorNodeWidget extends BaseWidget {
                     overlayClassName="no-overlay"
                     className="settings-modal small"
                 >                
-                    {this.props.node.renderSettings()}
+                    {this.renderSettings()}
                     <div className="container settings-modal-buttons">                    
                         <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
                         <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
@@ -48,9 +46,10 @@ class ManipulatorNodeWidget extends BaseWidget {
     renderNode() {
         return (
             <wrapper>
+                
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.state.manipulator.name}</div>
-                </div>                
+                </div>
                 <div className={this.bem("__ports")}>
                     <div className={this.bem("__in")}>
                         {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
@@ -75,22 +74,20 @@ class ManipulatorNodeWidget extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
         
-    }     
+    }
+    
+    mapStateToProps(state) {
+        return {
+            tasks: state.tasks 
+        };
+    }
+    
+    matchDispatchToProps(dispatch){
+        return bindActionCreators(
+            {
+                updateTasks: updateTasks
+            }, dispatch);
+    }    
 }
-
-function mapStateToProps(state) {
-    return {
-        tasks: state.tasks 
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            updateTasks: updateTasks
-        }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(ManipulatorNodeWidget);

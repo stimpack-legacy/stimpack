@@ -1,12 +1,10 @@
-import Load from "./Load";
-import Create from "./Create";
-import Migrate from "./Migrate";
-import CreateDatabase from "./CreateDatabase"
+import Load from "./Manipulators/Load";
+import Create from "./Manipulators/Create";
+import CreateDatabase from "./Manipulators/CreateDatabase"
 
 const AllManipulators = {
     Load,
     Create,
-    Migrate,
     CreateDatabase
 };
 

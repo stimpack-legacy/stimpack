@@ -10,11 +10,7 @@ class Main extends Component {
         return (            
             <div className="app">               
                 <ControlBar />
-                <SRD.DiagramWidget onClick={this.handleDoubleClick} className="srd-demo-canvas" diagramEngine={this.props.engine} >
-                    SOME TEXT
-                    <h1>Some heading!</h1>
-                </SRD.DiagramWidget>
-
+                <SRD.DiagramWidget onClick={this.handleDoubleClick} className="srd-demo-canvas" diagramEngine={this.props.engine} />
             </div>
         );
     }
