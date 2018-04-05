@@ -35936,13 +35936,8 @@ var Main = function (_Component) {
                 'div',
                 { className: 'app' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ControlBar__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__["DiagramWidget"], { onClick: this.handleDoubleClick, className: 'srd-demo-canvas', diagramEngine: this.props.engine })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__["DiagramWidget"], { className: 'srd-demo-canvas', diagramEngine: this.props.engine })
             );
-        }
-    }, {
-        key: 'handleDoubleClick',
-        value: function handleDoubleClick() {
-            alert("Dubbelklick!");
         }
     }]);
 

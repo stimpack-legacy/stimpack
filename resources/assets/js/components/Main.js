@@ -10,13 +10,9 @@ class Main extends Component {
         return (            
             <div className="app">               
                 <ControlBar />
-                <SRD.DiagramWidget onClick={this.handleDoubleClick} className="srd-demo-canvas" diagramEngine={this.props.engine} />
+                <SRD.DiagramWidget className="srd-demo-canvas" diagramEngine={this.props.engine} />
             </div>
         );
-    }
-
-    handleDoubleClick() {
-        alert("Dubbelklick!");
     }
 }
 
