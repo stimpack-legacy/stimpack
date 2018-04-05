@@ -25231,6 +25231,12 @@ var BaseManipulator = function (_BaseWidget) {
         value: function closeModal() {
             this.setState({ modalIsOpen: false });
             //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+            console.log(this.isStarter());
+        }
+    }, {
+        key: "isStarter",
+        value: function isStarter() {
+            return typeof this.state.isStarter !== 'undefined' && this.state.isStarter;
         }
     }, {
         key: "mapStateToProps",
@@ -65556,7 +65562,9 @@ var Create = function (_BaseManipulator) {
 
         var _this = _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this, "srd-default-node", props));
 
-        _this.state = {};
+        _this.state = {
+            isStarter: true
+        };
         return _this;
     }
 

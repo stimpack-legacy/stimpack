@@ -5,7 +5,9 @@ import BaseManipulator from "../BaseManipulator";
 class Create extends BaseManipulator {
 	constructor(props) {
         super("srd-default-node", props);        
-		this.state = {};
+		this.state = {
+            isStarter: true
+        };
 	}
 
     renderSettings() {        

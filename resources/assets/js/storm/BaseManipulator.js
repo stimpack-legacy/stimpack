@@ -75,7 +75,12 @@ export default class BaseManipulator extends BaseWidget {
     closeModal() {
         this.setState({modalIsOpen: false});
         //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        console.log(this.isStarter());
         
+    }
+
+    isStarter() {
+        return typeof this.state.isStarter !== 'undefined' && this.state.isStarter;
     }
     
     mapStateToProps(state) {
