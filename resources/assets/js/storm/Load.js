@@ -21,10 +21,6 @@ class Load extends BaseWidget {
 	generatePort(port) {
 		return <DefaultPortLabel model={port} key={port.id} />;
     }
-    
-    renderSettings() {
-        return "yiihaaaa!";
-    }
 
 	render() {        
 		return (
@@ -52,9 +48,10 @@ class Load extends BaseWidget {
     renderNode() {
         return (
             <wrapper>
+                
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.state.manipulator.name}</div>
-                </div>                
+                </div>
                 <div className={this.bem("__ports")}>
                     <div className={this.bem("__in")}>
                         {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}

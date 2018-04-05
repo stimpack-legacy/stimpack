@@ -12,15 +12,15 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#main')
 
-class ManipulatorNodeWidget extends BaseWidget {
+class Create extends BaseWidget {
 	constructor(props) {
         super("srd-default-node", props);        
-		//this.state = {};
+		this.state = {};
 	}
 
 	generatePort(port) {
 		return <DefaultPortLabel model={port} key={port.id} />;
-	}
+    }
 
 	render() {        
 		return (
@@ -35,7 +35,7 @@ class ManipulatorNodeWidget extends BaseWidget {
                     overlayClassName="no-overlay"
                     className="settings-modal small"
                 >                
-                    {this.props.node.renderSettings()}
+                    {this.renderSettings()}
                     <div className="container settings-modal-buttons">                    
                         <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
                         <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
@@ -48,9 +48,10 @@ class ManipulatorNodeWidget extends BaseWidget {
     renderNode() {
         return (
             <wrapper>
+                
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.state.manipulator.name}</div>
-                </div>                
+                </div>
                 <div className={this.bem("__ports")}>
                     <div className={this.bem("__in")}>
                         {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
@@ -61,6 +62,21 @@ class ManipulatorNodeWidget extends BaseWidget {
                 </div>
             </wrapper>
         );
+    }
+
+    renderSettings() {        
+        return (
+            <div className="container">
+                <h4>Create project </h4>
+                <div className="form-group">
+                    <input type="text" className="form-control" />
+              </div>
+            </div>
+        );
+    }
+    
+    handleChange(event) {
+        this.setState({ project: event.target.value});
     }
 
     openModal() {
@@ -75,7 +91,7 @@ class ManipulatorNodeWidget extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
         
     }     
 }
@@ -93,4 +109,4 @@ function matchDispatchToProps(dispatch){
         }, dispatch);
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(ManipulatorNodeWidget);
+export default connect(mapStateToProps, matchDispatchToProps)(Create);

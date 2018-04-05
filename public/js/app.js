@@ -65193,8 +65193,6 @@ var initialState = {
 
 // import the custom models
 
-//import Load from "../storm/Load";
-//import Migrate from "../storm/Migrate";
 
 
 //1) setup the diagram engine
@@ -65210,7 +65208,7 @@ var model = new __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__["DiagramModel
 //3-A) create a default node
 var node1 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
 	path: "/home/anders/Code/something-new",
-	name: "Load"
+	name: "Create"
 });
 var port0 = node1.addInPort(" ");
 var port1 = node1.addOutPort(" ");
@@ -65219,7 +65217,7 @@ node1.setPosition(100, 150);
 //3-B) create our new custom node
 var node2 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
 	force: true,
-	name: "Migrate"
+	name: "CreateDatabase"
 });
 
 var port2 = node2.addInPort(" ");
@@ -65306,13 +65304,19 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Load__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Migrate__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Create__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Migrate__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__CreateDatabase__ = __webpack_require__(323);
+
+
 
 
 
 var AllManipulators = {
-	Load: __WEBPACK_IMPORTED_MODULE_0__Load__["a" /* default */],
-	Migrate: __WEBPACK_IMPORTED_MODULE_1__Migrate__["a" /* default */]
+    Load: __WEBPACK_IMPORTED_MODULE_0__Load__["a" /* default */],
+    Create: __WEBPACK_IMPORTED_MODULE_1__Create__["a" /* default */],
+    Migrate: __WEBPACK_IMPORTED_MODULE_2__Migrate__["a" /* default */],
+    CreateDatabase: __WEBPACK_IMPORTED_MODULE_3__CreateDatabase__["a" /* default */]
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AllManipulators);
@@ -65373,11 +65377,6 @@ var Load = function (_BaseWidget) {
         key: "generatePort",
         value: function generatePort(port) {
             return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["DefaultPortLabel"], { model: port, key: port.id });
-        }
-    }, {
-        key: "renderSettings",
-        value: function renderSettings() {
-            return "yiihaaaa!";
         }
     }, {
         key: "render",
@@ -65581,7 +65580,20 @@ var Migrate = function (_BaseWidget) {
     }, {
         key: "renderSettings",
         value: function renderSettings() {
-            return "yiihaaaa!";
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Migrate"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "p",
+                    null,
+                    "No options"
+                )
+            );
         }
     }, {
         key: "render",
@@ -65732,10 +65744,8 @@ var ManipulatorNodeWidget = function (_BaseWidget) {
     function ManipulatorNodeWidget(props) {
         _classCallCheck(this, ManipulatorNodeWidget);
 
-        var _this = _possibleConstructorReturn(this, (ManipulatorNodeWidget.__proto__ || Object.getPrototypeOf(ManipulatorNodeWidget)).call(this, "srd-default-node", props));
-
-        _this.state = {};
-        return _this;
+        return _possibleConstructorReturn(this, (ManipulatorNodeWidget.__proto__ || Object.getPrototypeOf(ManipulatorNodeWidget)).call(this, "srd-default-node", props));
+        //this.state = {};
     }
 
     _createClass(ManipulatorNodeWidget, [{
@@ -70900,6 +70910,394 @@ bunker(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_modal__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_6_react_modal___default.a.setAppElement('#main');
+
+var CreateDatabase = function (_BaseWidget) {
+    _inherits(CreateDatabase, _BaseWidget);
+
+    function CreateDatabase(props) {
+        _classCallCheck(this, CreateDatabase);
+
+        var _this = _possibleConstructorReturn(this, (CreateDatabase.__proto__ || Object.getPrototypeOf(CreateDatabase)).call(this, "srd-default-node", props));
+
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(CreateDatabase, [{
+        key: "generatePort",
+        value: function generatePort(port) {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["DefaultPortLabel"], { model: port, key: port.id });
+        }
+    }, {
+        key: "renderSettings",
+        value: function renderSettings() {
+            return "yiihaaaa!";
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                _extends({ onDoubleClick: this.openModal.bind(this) }, this.getProps()),
+                this.renderNode(),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    __WEBPACK_IMPORTED_MODULE_6_react_modal___default.a,
+                    {
+                        isOpen: this.state.modalIsOpen,
+                        onAfterOpen: this.afterOpenModal.bind(this),
+                        onRequestClose: this.closeModal.bind(this),
+                        contentLabel: "Example Modal",
+                        overlayClassName: "no-overlay",
+                        className: "settings-modal small"
+                    },
+                    this.renderSettings(),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: "container settings-modal-buttons" },
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "button",
+                            { className: "btn btn-stimpack", onClick: this.closeModal.bind(this) },
+                            "Save"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "button",
+                            { className: "btn btn-stimpack", onClick: this.closeModal.bind(this) },
+                            "Cancel"
+                        )
+                    )
+                )
+            );
+        }
+    }, {
+        key: "renderNode",
+        value: function renderNode() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "wrapper",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: this.bem("__title") },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: this.bem("__name") },
+                        this.props.node.state.manipulator.name
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: this.bem("__ports") },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: this.bem("__in") },
+                        __WEBPACK_IMPORTED_MODULE_1_lodash__["map"](this.props.node.getInPorts(), this.generatePort.bind(this))
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: this.bem("__out") },
+                        __WEBPACK_IMPORTED_MODULE_1_lodash__["map"](this.props.node.getOutPorts(), this.generatePort.bind(this))
+                    )
+                )
+            );
+        }
+    }, {
+        key: "renderSettings",
+        value: function renderSettings() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Create Database"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: "form-group" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "select",
+                        { className: "form-control", id: "inputGroupSelect01" },
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "option",
+                            { value: "mysql", disabled: true },
+                            "MySQL"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "option",
+                            { value: "sqlite" },
+                            "Sqlite"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "option",
+                            { value: "postgres", disabled: true },
+                            "PostgreSQL"
+                        )
+                    )
+                )
+            );
+        }
+    }, {
+        key: "openModal",
+        value: function openModal() {
+            this.setState({
+                modalIsOpen: true
+            });
+        }
+    }, {
+        key: "afterOpenModal",
+        value: function afterOpenModal() {
+            // 
+        }
+    }, {
+        key: "closeModal",
+        value: function closeModal() {
+            this.setState({ modalIsOpen: false });
+            //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        }
+    }]);
+
+    return CreateDatabase;
+}(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["BaseWidget"]);
+
+function mapStateToProps(state) {
+    return {
+        tasks: state.tasks
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["a" /* updateTasks */]
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(CreateDatabase));
+
+/***/ }),
+/* 324 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_modal__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_6_react_modal___default.a.setAppElement('#main');
+
+var Create = function (_BaseWidget) {
+    _inherits(Create, _BaseWidget);
+
+    function Create(props) {
+        _classCallCheck(this, Create);
+
+        var _this = _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this, "srd-default-node", props));
+
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(Create, [{
+        key: "generatePort",
+        value: function generatePort(port) {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["DefaultPortLabel"], { model: port, key: port.id });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                _extends({ onDoubleClick: this.openModal.bind(this) }, this.getProps()),
+                this.renderNode(),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    __WEBPACK_IMPORTED_MODULE_6_react_modal___default.a,
+                    {
+                        isOpen: this.state.modalIsOpen,
+                        onAfterOpen: this.afterOpenModal.bind(this),
+                        onRequestClose: this.closeModal.bind(this),
+                        contentLabel: "Example Modal",
+                        overlayClassName: "no-overlay",
+                        className: "settings-modal small"
+                    },
+                    this.renderSettings(),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: "container settings-modal-buttons" },
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "button",
+                            { className: "btn btn-stimpack", onClick: this.closeModal.bind(this) },
+                            "Save"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "button",
+                            { className: "btn btn-stimpack", onClick: this.closeModal.bind(this) },
+                            "Cancel"
+                        )
+                    )
+                )
+            );
+        }
+    }, {
+        key: "renderNode",
+        value: function renderNode() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "wrapper",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: this.bem("__title") },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: this.bem("__name") },
+                        this.props.node.state.manipulator.name
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: this.bem("__ports") },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: this.bem("__in") },
+                        __WEBPACK_IMPORTED_MODULE_1_lodash__["map"](this.props.node.getInPorts(), this.generatePort.bind(this))
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "div",
+                        { className: this.bem("__out") },
+                        __WEBPACK_IMPORTED_MODULE_1_lodash__["map"](this.props.node.getOutPorts(), this.generatePort.bind(this))
+                    )
+                )
+            );
+        }
+    }, {
+        key: "renderSettings",
+        value: function renderSettings() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Create project "
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: "form-group" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { type: "text", className: "form-control" })
+                )
+            );
+        }
+    }, {
+        key: "handleChange",
+        value: function handleChange(event) {
+            this.setState({ project: event.target.value });
+        }
+    }, {
+        key: "openModal",
+        value: function openModal() {
+            this.setState({
+                modalIsOpen: true
+            });
+        }
+    }, {
+        key: "afterOpenModal",
+        value: function afterOpenModal() {
+            // 
+        }
+    }, {
+        key: "closeModal",
+        value: function closeModal() {
+            this.setState({ modalIsOpen: false });
+            //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        }
+    }]);
+
+    return Create;
+}(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["BaseWidget"]);
+
+function mapStateToProps(state) {
+    return {
+        tasks: state.tasks
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
+        updateTasks: __WEBPACK_IMPORTED_MODULE_4__actions_index__["a" /* updateTasks */]
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Create));
 
 /***/ })
 /******/ ]);

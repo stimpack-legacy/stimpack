@@ -23,7 +23,12 @@ class Migrate extends BaseWidget {
 	}
 
     renderSettings() {
-        return "yiihaaaa!";
+        return (
+            <div className="container">
+                <h4>Migrate</h4>
+                <p>No options</p>
+            </div>
+        );
     }
 
 	render() {        
