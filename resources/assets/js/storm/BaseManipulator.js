@@ -35,8 +35,7 @@ export default class BaseManipulator extends BaseWidget {
                 >                
                     {this.renderSettings()}
                     <div className="container settings-modal-buttons">                    
-                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Save</button>                                    
-                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Cancel</button>
+                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
                     </div>                    
                 </Modal>
 			</div> 
@@ -74,13 +73,15 @@ export default class BaseManipulator extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
-        console.log(this.isStarter());
-        
+        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
     }
 
     isStarter() {
         return typeof this.state.isStarter !== 'undefined' && this.state.isStarter;
+    }
+
+    manipulator() {
+        return this.props.node.state.manipulator;
     }
     
     mapStateToProps(state) {

@@ -9,10 +9,14 @@ class Main extends Component {
     render() {        
         return (            
             <div className="app">               
-                <ControlBar />
+                <ControlBar forceUpdateCallback={this.forceUpdateCallback.bind(this)} />
                 <SRD.DiagramWidget className="srd-demo-canvas" diagramEngine={this.props.engine} />
             </div>
         );
+    }
+
+    forceUpdateCallback() {
+        this.forceUpdate();
     }
 }
 

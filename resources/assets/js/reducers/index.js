@@ -1,14 +1,10 @@
 import {combineReducers} from 'redux';
-import taskReducer from './taskReducer';
-import logReducer from './logReducer';
-import taskBatchReducer from './taskBatchReducer';
 import engineReducer from './engineReducer';
+import manipulatorsReducer from './manipulatorsReducer';
 
 const allReducers = combineReducers({
-    tasks: taskReducer,
-    log: logReducer,
-    taskBatch: taskBatchReducer,
-    engine: engineReducer
+    engine: engineReducer,
+    manipulators: manipulatorsReducer
 });
 
 export default allReducers

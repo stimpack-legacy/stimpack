@@ -1,3 +1,4 @@
+import * as React from "react";
 import { DefaultPortModel } from "storm-react-diagrams";
 import { Toolkit } from "storm-react-diagrams";
 import * as _ from "lodash";
@@ -11,6 +12,8 @@ export class ManipulatorNodeModel extends NodeModel {
 		this.state = {
 			manipulator
 		};
+        this.addInPort(" ");
+        this.addOutPort(" ");		
 	}
 
 	addInPort(label) {
