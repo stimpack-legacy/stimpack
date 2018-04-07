@@ -4,6 +4,9 @@ import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
+import Search from "./controls/Search";
+import AddManipulator from "./controls/AddManipulator";
+import Run from "./controls/Run";
 
 class ControlBar extends Component {
     constructor(props) {
@@ -12,7 +15,7 @@ class ControlBar extends Component {
         this.state = {};        
     }
 
-    render() {
+    render() {        
         return (
             <div id="controlBar" className="controlBar">            
                 <span className="heading-app-name">LARAVEL <i className="fa fa-2x fa-syringe"></i> STIMPACK</span>                
@@ -51,24 +54,18 @@ class ControlBar extends Component {
         //{/* <i className="fa fa-refresh fa-spin log-pending icon"></i> */}
         return (
             <wrapper>            
-                <span onClick={this.addManipulator}>
-                    <i title="Run!" className="fa fa-play icon-control-bar icon-control-bar"></i>
-                </span>
-                <span onClick={this.addManipulator.bind(this)}>
-                    <i title="Add manipulator" className="fa fa-plus icon-control-bar"></i>    
-                </span>
+                <Run />
+                <AddManipulator forceUpdateCallback={this.props.forceUpdateCallback.bind(this)} />
                 <span onClick={this.addManipulator}>
                     <i title="Remove all manipulators" className="far fa-trash-alt icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
+                <span onClick={this.save.bind(this)}>
                     <i title="Save this pack" className="far fa-save icon-control-bar"></i>
                 </span>
                 <span onClick={this.addManipulator}>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
-                    <i title="Explore packs on stimpack.io" className="fas fa-search icon-control-bar"></i>
-                </span>
+                <Search />
             </wrapper>
         );
     }
@@ -79,8 +76,6 @@ class ControlBar extends Component {
         let { engine } = this.props;		
         let model = engine.getDiagramModel();
         
-        
-
         var node = new ManipulatorNodeModel({ 
             path: "/home/anders/Code/something-new",
             name: "Create"
@@ -89,7 +84,11 @@ class ControlBar extends Component {
         node.y = 350;
         model.addNode(node);
 
-        this.props.forceUpdateCallback(); // This does not work. We need to update the Main component!
+        this.props.forceUpdateCallback();
+    }
+
+    save() {
+        console.log(JSON.stringify(this.props.engine.diagramModel.serializeDiagram(), null, 4));        
     }
 
 
@@ -110,7 +109,8 @@ class ControlBar extends Component {
 
 function mapStateToProps(state) {
     return {
-        engine: state.engine 
+        engine: state.engine,
+        foo: state.foo 
     };
 }
 

@@ -25,3 +25,10 @@ export const resetTaskBatch = (taskBatch) => {
         payload: taskBatch
     }
 };
+
+export const updateDiagramEngine = (diagramEngine) => {
+    return {
+        type: 'UPDATE_DIAGRAM_ENGINE',
+        payload: diagramEngine
+    }
+};

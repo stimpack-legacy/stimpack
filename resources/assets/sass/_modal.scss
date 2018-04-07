@@ -15,6 +15,7 @@
     color: white;
     padding-top: 20px;
     padding-left: 20px;
+    padding-right: 20px;
     padding-bottom: 20px;
     border-radius: 20px;
     box-shadow: 8px 8px $darkest;
@@ -44,4 +45,29 @@
 
 .manipulator-project-select {
     width: auto;
+}
+
+.manipulator-modal {
+    position: relative;
+
+    //top: 100px;
+    //left: 200px;
+    //right: 200px;
+    //bottom: "auto";
+     
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;       
+    font-family: 'Open Sans', sans-serif;
+    background: $semi-dark;  /* fallback for old browsers */
+    color: white;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 8px 8px $darkest;
+    opacity: 0.95;
+    text-align: center;
 }

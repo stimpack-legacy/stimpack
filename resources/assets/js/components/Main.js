@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 class Main extends Component {
 
-    render() {        
+    render() {                
         return (            
             <div className="app">               
                 <ControlBar forceUpdateCallback={this.forceUpdateCallback.bind(this)} />
@@ -21,7 +21,10 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
-    return { engine: state.engine };
+    return { 
+        engine: state.engine,
+        foo: state.foo
+    };
   }
   
 export default connect(mapStateToProps)(Main)

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as _ from "lodash";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateTasks} from '../actions/index'
+import {updateDiagramEngine} from '../actions/index'
 
 import { DefaultNodeModel } from "storm-react-diagrams";
 import { DefaultPortLabel } from "storm-react-diagrams";
@@ -13,7 +13,7 @@ import Modal from 'react-modal';
 export default class BaseManipulator extends BaseWidget {
 	constructor(className, props) {
         super("srd-default-node", props);                
-        Modal.setAppElement('#main')
+        Modal.setAppElement('#main')        
 	}
 
 	generatePort(port) {
@@ -31,7 +31,7 @@ export default class BaseManipulator extends BaseWidget {
                     onRequestClose={this.closeModal.bind(this)}
                     contentLabel="Example Modal"
                     overlayClassName="no-overlay"
-                    className="settings-modal small"
+                    className="settings-modal medium"
                 >                
                     {this.renderSettings()}
                     <div className="container settings-modal-buttons">                    
@@ -47,7 +47,7 @@ export default class BaseManipulator extends BaseWidget {
             <wrapper>
                 
                 <div className={this.bem("__title")}>
-                    <div className={this.bem("__name")}>{this.props.node.state.manipulator.name}</div>
+                    <div className={this.bem("__name")}>{this.props.node.manipulator.name}</div>
                 </div>
                 <div className={this.bem("__ports")}>
                     <div className={this.bem("__in")}>
@@ -73,7 +73,7 @@ export default class BaseManipulator extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
     }
 
     isStarter() {
@@ -84,16 +84,17 @@ export default class BaseManipulator extends BaseWidget {
         return this.props.node.state.manipulator;
     }
     
-    mapStateToProps(state) {
+    static mapStateToProps(state) {
         return {
-            tasks: state.tasks 
+            engine: state.engine,
+            foo: state.foo
         };
     }
     
-    matchDispatchToProps(dispatch){
+    static matchDispatchToProps(dispatch){
         return bindActionCreators(
             {
-                updateTasks: updateTasks
+                updateDiagramEngine: updateDiagramEngine
             }, dispatch);
     }    
 }

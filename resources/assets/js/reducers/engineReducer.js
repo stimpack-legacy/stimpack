@@ -58,6 +58,11 @@ function defaultEngine() {
 
 
 
-export default function (state = defaultEngine(), action) {        
+export default function (state = defaultEngine(), action) {
+	
+	if(action.type == "UPDATE_DIAGRAM_ENGINE") {
+		state = Object.assign({}, action.payload);
+	}
+
     return state;
 }

@@ -9,9 +9,7 @@ export class ManipulatorNodeModel extends NodeModel {
 
 	constructor(manipulator){
 		super("manipulator");
-		this.state = {
-			manipulator
-		};
+		this.manipulator = manipulator;
         this.addInPort(" ");
         this.addOutPort(" ");		
 	}
@@ -24,6 +22,10 @@ export class ManipulatorNodeModel extends NodeModel {
 		return this.addPort(new DefaultPortModel(false, Toolkit.UID(), label));
 	}
 
+    isStarter() {
+        return typeof this.data.isStarter !== 'undefined' && this.data.isStarter;
+    }	
+
 	deSerialize(object, engine) {
 		super.deSerialize(object, engine);
 		// fix manipulator
@@ -33,7 +35,7 @@ export class ManipulatorNodeModel extends NodeModel {
 	serialize() {		
 
 		return _.merge(super.serialize(), {			
-			manipulator: this.state.manipulator
+			data: this.data
 		});
 	}
 
