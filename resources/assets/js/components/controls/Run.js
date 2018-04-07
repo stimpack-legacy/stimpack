@@ -103,7 +103,7 @@ class Run extends Component {
                 data: JSON.stringify(manipulator.data)
             },
             success: function(result){
-                console.log("SUCCESS!"); 
+                console.log("SUCCESS!", "--->" + result + "<---"); 
             }.bind(this),
             error: function(error) {
                 console.log("ERROR", error.responseText);

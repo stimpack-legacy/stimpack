@@ -2,12 +2,12 @@
 
 namespace App\Stimpack;
 
-class Task
+class Manipulator
 {
-    public function __construct($tasks)
+    public function __construct($data)
     {
-        $this->tasks = collect($tasks);
-        $this->transferParameters();
+        $this->data = $data;
+        //$this->transferParameters();
         // To be removed!!!
         ini_set('max_execution_time', 300);
         usleep(200000);        
