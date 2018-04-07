@@ -5,7 +5,7 @@ namespace Tests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use ZipArchive;
 
-abstract class ManipulatorTestCase extends BaseTestCase
+abstract class ContextTestCase extends BaseTestCase
 {
     use CreatesApplication;
 

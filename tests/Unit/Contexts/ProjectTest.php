@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit\Manipulators;
+namespace Tests\Unit\Contexts;
 
-use Tests\ManipulatorTestCase;
+use Tests\ContextTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-Use App\Stimpack\Manipulators\File;
-Use App\Stimpack\Manipulators\Project;
+Use App\Stimpack\Contexts\File;
+Use App\Stimpack\Contexts\Project;
 use PHPUnit\Runner\Exception;
 use ZipArchive;
 
-class ProjectTest extends ManipulatorTestCase
+class ProjectTest extends ContextTestCase
 {     
     /** @test */
     public function it_can_load_an_existing_project()

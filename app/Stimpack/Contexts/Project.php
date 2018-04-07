@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Stimpack\Manipulators;
+namespace App\Stimpack\Contexts;
 
 use Exception;
 use ZipArchive;
-use App\Stimpack\Manipulators\File;
+use App\Stimpack\Contexts\File;
 
 class Project
 {

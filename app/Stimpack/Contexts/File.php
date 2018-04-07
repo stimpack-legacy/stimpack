@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stimpack\Manipulators;
+namespace App\Stimpack\Contexts;
 
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;

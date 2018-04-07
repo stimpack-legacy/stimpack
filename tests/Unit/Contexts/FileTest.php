@@ -1,56 +1,16 @@
 <?php
 
-namespace Tests\Unit\Manipulators;
+namespace Tests\Unit\Contexts;
 
+use Tests\ContextTestCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-Use App\Stimpack\Manipulators\File;
+Use App\Stimpack\Contexts\File;
 use PHPUnit\Runner\Exception;
 use ZipArchive;
 
-class FileTest extends TestCase
+class FileTest extends ContextTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $zip = new ZipArchive;
-        $res = $zip->open(storage_path("stimpack/sample-app-without-vendors.zip"));
-        if ($res === TRUE) {
-            $zip->extractTo($this->sample_app_path());
-            $zip->close();
-        } else {
-            return "Error while setUp";
-        }        
-    }
-
-    protected function tearDown()
-    {
-        $this->rrmdir($this->sample_app_path());
-    }
-
-    public function sample_app_path($path = '')
-    {
-        return (storage_path().DIRECTORY_SEPARATOR."sample-app").($path ? DIRECTORY_SEPARATOR.$path : $path);
-    }    
-
-    private function rrmdir($dir) { 
-        if (is_dir($dir)) { 
-          $objects = scandir($dir); 
-          foreach ($objects as $object) { 
-            if ($object != "." && $object != "..") { 
-              if (is_dir($dir."/".$object))
-                $this->rrmdir($dir."/".$object);
-              else
-                unlink($dir."/".$object); 
-            } 
-          }
-          rmdir($dir); 
-        } 
-      }
-
-
-    /* LOAD ********************************************************************/
-      
     /** @test */
     public function it_can_load_from_existing_files()
     {        
@@ -275,25 +235,3 @@ class FileTest extends TestCase
         );
     }    
 }
-
-
-
-
-
-
-
-
-
-
-/*
-    // Use case: Create and fill a model
-    public function sketches() {
-        File::make($path)
-            ->namespace("App\Models")
-            ->use("App\Stimpack\HasWheelsTrait")
-            ->class(function($class) {
-                $class->name("Car");
-                $class->use("HasWheelsTrait");
-            })->save();        
-    }
-*/
