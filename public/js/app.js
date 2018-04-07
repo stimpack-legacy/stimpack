@@ -68839,13 +68839,16 @@ var Run = function (_Component) {
         value: function run() {
             var _this2 = this;
 
-            var compiled = this.starters().map(function (starter) {
+            var compiled = this.flatten(this.starters().map(function (starter) {
                 return _this2.compile(starter);
+            }));
+
+            var result = compiled.map(function (manipulator) {
+                return _this2.perform(manipulator);
             });
 
-            console.log(compiled[0].map(function (i) {
-                return i.data;
-            }));
+            //console.log(result.join("\n"));
+
 
             //this.openModal();
         }
@@ -68890,6 +68893,25 @@ var Run = function (_Component) {
         value: function starters() {
             return Object.values(this.props.engine.diagramModel.nodes).filter(function (node) {
                 return node.isStarter();
+            });
+        }
+    }, {
+        key: 'perform',
+        value: function perform(manipulator) {
+            //return "Manipulator " + manipulator.data.name + " executed successfully!";
+
+            $.ajax({
+                type: "POST",
+                url: "/stimpack/perform/" + manipulator.data.name,
+                data: {
+                    data: JSON.stringify(manipulator.data)
+                },
+                success: function (result) {
+                    console.log("SUCCESS!");
+                }.bind(this),
+                error: function (error) {
+                    console.log("ERROR", error.responseText);
+                }.bind(this)
             });
         }
     }, {

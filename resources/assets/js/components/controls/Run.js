@@ -43,13 +43,16 @@ class Run extends Component {
     }
 
     run() {        
-        var compiled = this.starters().map((starter) => {
+        var compiled = this.flatten(this.starters().map((starter) => {
             return this.compile(starter);                        
+        }));
+
+        var result = compiled.map(manipulator => {
+            return this.perform(manipulator);
         });
 
-        console.log(compiled[0].map(i => {
-            return i.data;
-        }));
+        //console.log(result.join("\n"));
+
         
         
 
@@ -89,6 +92,24 @@ class Run extends Component {
             return node.isStarter();
         });
     }
+
+    perform(manipulator) {
+        //return "Manipulator " + manipulator.data.name + " executed successfully!";
+        
+        $.ajax({
+            type: "POST",
+            url: "/stimpack/perform/" + manipulator.data.name,
+            data: {
+                data: JSON.stringify(manipulator.data)
+            },
+            success: function(result){
+                console.log("SUCCESS!"); 
+            }.bind(this),
+            error: function(error) {
+                console.log("ERROR", error.responseText);
+            }.bind(this)
+        });        
+    }    
 
     sortStarters() {
         // todo
