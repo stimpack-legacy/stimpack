@@ -7,39 +7,15 @@ class Log extends Component {
     render() {
         return (
             <div className="logItems">                
-                <ul>
-                    {this.renderTaskBatchItems()}                                
-                </ul>
-
-                {this.renderSiteUrl()}
+                <h1> This is the log! </h1>
             </div>
         );
-    }
-
-    renderTaskBatchItems() {
-        var icons = {
-            "queued": "fa-refresh fa-spin log-pending",
-            "pending": "fa-refresh fa-spin log-pending",
-            "succeded": "fa-check-circle log-ok",
-            "failed": "fa-exclamation-circle log-error"
-        }
-
-        return this.props.taskBatch.tasks.filter(task => task.status != "queued" ).map((task) => {
-            return (<li key={task.name}><i className={`fa ${icons[task.status]}`}></i> {task.name}</li>)
-        })
-    }
-
-    renderSiteUrl() {
-        if(this.props.taskBatch.presentSiteUrl) {
-            return (<a className="siteUrlLink" target="_blank" href={this.props.taskBatch.presentSiteUrl}> {this.props.taskBatch.presentSiteUrl}</a>);
-        }
     }
 }
 
 function mapStateToProps(state) {
     return {
-        tasks: state.tasks,
-        taskBatch: state.taskBatch
+
     };
 }
 

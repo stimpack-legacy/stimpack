@@ -34937,9 +34937,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ControlBar__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Workspace__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Log__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_redux__ = __webpack_require__(22);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34947,6 +34949,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -34969,14 +34973,19 @@ var Main = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'app' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ControlBar__["a" /* default */], { forceUpdateCallback: this.forceUpdateCallback.bind(this) }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__["DiagramWidget"], { className: 'srd-demo-canvas', diagramEngine: this.props.engine })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ControlBar__["a" /* default */], null),
+                this.page()
             );
         }
     }, {
-        key: 'forceUpdateCallback',
-        value: function forceUpdateCallback() {
-            this.forceUpdate();
+        key: 'page',
+        value: function page() {
+            var pages = {
+                Workspace: __WEBPACK_IMPORTED_MODULE_3__Workspace__["a" /* default */],
+                Log: __WEBPACK_IMPORTED_MODULE_4__Log__["a" /* default */]
+                // JSON,
+            };
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(pages[this.props.navigation]);
         }
     }]);
 
@@ -34986,11 +34995,11 @@ var Main = function (_Component) {
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        foo: state.foo
+        navigation: state.navigation
     };
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(mapStateToProps)(Main));
+/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_6_react_redux__["b" /* connect */])(mapStateToProps)(Main));
 
 /***/ }),
 /* 69 */
@@ -39812,7 +39821,7 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["a" /* updateDiagramEngine */]
+                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateDiagramEngine */]
             }, dispatch);
         }
     }]);
@@ -59098,6 +59107,7 @@ module.exports = ReactDOMInvalidARIAHook;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controls_Search__ = __webpack_require__(292);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controls_AddManipulator__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__controls_Run__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__actions_index__ = __webpack_require__(279);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59105,6 +59115,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -59201,7 +59212,7 @@ var ControlBar = function (_Component) {
                 'wrapper',
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__controls_Run__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__controls_AddManipulator__["a" /* default */], { forceUpdateCallback: this.props.forceUpdateCallback.bind(this) }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__controls_AddManipulator__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { onClick: this.addManipulator },
@@ -59219,17 +59230,17 @@ var ControlBar = function (_Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
-                    { onClick: this.addManipulator },
+                    { onClick: this.navigate.bind(this), 'data-value': 'Log' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View log', className: 'fa fa-align-left icon-control-bar' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
-                    { onClick: this.addManipulator },
+                    { onClick: this.navigate.bind(this), 'data-value': 'JSON' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View JSON', className: 'fa fa-code icon-control-bar' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
-                    { onClick: this.addManipulator },
+                    { onClick: this.navigate.bind(this), 'data-value': 'Workspace' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View workspace', className: 'fa fa-sitemap icon-control-bar' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -59241,24 +59252,14 @@ var ControlBar = function (_Component) {
             );
         }
     }, {
-        key: 'addManipulator',
-        value: function addManipulator() {
-
-            var manipulatorToAdd = "Create";
-            var engine = this.props.engine;
-
-            var model = engine.getDiagramModel();
-
-            var node = new __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
-                path: "/home/anders/Code/something-new",
-                name: "Create"
-            });
-            node.x = 500;
-            node.y = 350;
-            model.addNode(node);
-
-            this.props.forceUpdateCallback();
+        key: 'navigate',
+        value: function navigate(event) {
+            console.log(event.target.dataset.value);
+            this.props.navigate(event.target.dataset.value);
         }
+    }, {
+        key: 'addManipulator',
+        value: function addManipulator() {}
     }, {
         key: 'save',
         value: function save() {
@@ -59295,7 +59296,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        //
+        navigate: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* navigate */]
     }, dispatch);
 }
 
@@ -63046,17 +63047,19 @@ module.exports = react;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__engineReducer__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__manipulatorsReducer__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fooReducer__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigationReducer__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__ = __webpack_require__(297);
 
 
+//import manipulatorsReducer from './manipulatorsReducer';
+//import fooReducer from './fooReducer';
 
 
 
 var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReducers */])({
     engine: __WEBPACK_IMPORTED_MODULE_1__engineReducer__["a" /* default */],
-    manipulators: __WEBPACK_IMPORTED_MODULE_2__manipulatorsReducer__["a" /* default */],
-    foo: __WEBPACK_IMPORTED_MODULE_3__fooReducer__["a" /* default */]
+    navigation: __WEBPACK_IMPORTED_MODULE_2__navigationReducer__["a" /* default */],
+    reDraw: __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
@@ -63294,7 +63297,9 @@ var Create = function (_BaseManipulator) {
 /* unused harmony export updateTasks */
 /* unused harmony export updateTaskBatch */
 /* unused harmony export resetTaskBatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reDrawDiagram; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return navigate; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -63327,6 +63332,20 @@ var updateDiagramEngine = function updateDiagramEngine(diagramEngine) {
     return {
         type: 'UPDATE_DIAGRAM_ENGINE',
         payload: diagramEngine
+    };
+};
+
+var reDrawDiagram = function reDrawDiagram(signal) {
+    return {
+        type: 'RE_DRAW_DIAGRAM',
+        payload: signal
+    };
+};
+
+var navigate = function navigate(page) {
+    return {
+        type: 'NAVIGATE',
+        payload: page
     };
 };
 
@@ -63421,30 +63440,8 @@ var CreateDatabase = function (_BaseManipulator) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(CreateDatabase));
 
 /***/ }),
-/* 281 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var action = arguments[1];
-
-    return state;
-});
-
-/***/ }),
-/* 282 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Default state";
-    var action = arguments[1];
-
-    return state;
-});
-
-/***/ }),
+/* 281 */,
+/* 282 */,
 /* 283 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68649,6 +68646,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(279);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68656,6 +68654,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -68703,7 +68702,7 @@ var AddManipulator = function (_Component) {
             model.addNode(node);
 
             this.closeModal();
-            this.props.forceUpdateCallback();
+            this.props.reDrawDiagram(Date.now());
         }
     }, {
         key: 'renderModal',
@@ -68769,7 +68768,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        //
+        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["b" /* reDrawDiagram */]
     }, dispatch);
 }
 
@@ -69014,6 +69013,160 @@ function matchDispatchToProps(dispatch) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Run));
+
+/***/ }),
+/* 295 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Workspace";
+	var action = arguments[1];
+
+
+	if (action.type == "NAVIGATE") {
+		state = action.payload;
+	}
+
+	return state;
+});
+
+/***/ }),
+/* 296 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_storm_react_diagrams__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(22);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var Workspace = function (_Component) {
+    _inherits(Workspace, _Component);
+
+    function Workspace() {
+        _classCallCheck(this, Workspace);
+
+        return _possibleConstructorReturn(this, (Workspace.__proto__ || Object.getPrototypeOf(Workspace)).apply(this, arguments));
+    }
+
+    _createClass(Workspace, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_storm_react_diagrams__["DiagramWidget"], { className: 'srd-demo-canvas', diagramEngine: this.props.engine });
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.reDraw != nextProps.reDraw) this.forceUpdate();
+        }
+    }]);
+
+    return Workspace;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+function mapStateToProps(state) {
+    return {
+        engine: state.engine,
+        // I could find out how/why engine reducer is not(?) updated when adding new nodes. Hence separate reDraw key.
+        reDraw: state.reDraw
+    };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps)(Workspace));
+
+/***/ }),
+/* 297 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+	var action = arguments[1];
+
+
+	if (action.type == "RE_DRAW_DIAGRAM") {
+		state = action.payload;
+	}
+
+	return state;
+});
+
+/***/ }),
+/* 298 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(29);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var Log = function (_Component) {
+    _inherits(Log, _Component);
+
+    function Log() {
+        _classCallCheck(this, Log);
+
+        return _possibleConstructorReturn(this, (Log.__proto__ || Object.getPrototypeOf(Log)).apply(this, arguments));
+    }
+
+    _createClass(Log, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'logItems' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    ' This is the log! '
+                )
+            );
+        }
+    }]);
+
+    return Log;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+function mapStateToProps(state) {
+    return {};
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({}, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
 
 /***/ })
 /******/ ]);

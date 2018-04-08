@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ControlBar from './ControlBar';
+import Workspace from './Workspace';
+import Log from './Log';
 import * as SRD from "storm-react-diagrams"
 import {connect} from 'react-redux';
 
 class Main extends Component {
-
-    render() {                
+    render() {              
         return (            
             <div className="app">               
-                <ControlBar forceUpdateCallback={this.forceUpdateCallback.bind(this)} />
-                 <SRD.DiagramWidget className="srd-demo-canvas" diagramEngine={this.props.engine} /> 
-                {/*<div className="srd-demo-canvas">
-                    <div className="container">
-                        <h4>Log</h4>
-                    </div>
-                </div>
-                */}
+                <ControlBar />
+                {this.page()}                
             </div>
         );
     }
 
-    forceUpdateCallback() {
-        this.forceUpdate();
+    page() {
+        var pages = {
+            Workspace,
+             Log,
+            // JSON,
+        };
+        return React.createElement(pages[this.props.navigation]);
     }
+
 }
 
 function mapStateToProps(state) {
     return { 
         engine: state.engine,
-        foo: state.foo
+        navigation: state.navigation
     };
   }
   

@@ -7,6 +7,7 @@ import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
 import Search from "./controls/Search";
 import AddManipulator from "./controls/AddManipulator";
 import Run from "./controls/Run";
+import {navigate} from '../actions/index'
 
 class ControlBar extends Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class ControlBar extends Component {
         return (
             <wrapper>            
                 <Run />
-                <AddManipulator forceUpdateCallback={this.props.forceUpdateCallback.bind(this)} />
+                <AddManipulator />
                 <span onClick={this.addManipulator}>
                     <i title="Remove all manipulators" className="far fa-trash-alt icon-control-bar"></i>
                 </span>
@@ -65,13 +66,13 @@ class ControlBar extends Component {
                 <span onClick={this.addManipulator}>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
+                <span onClick={this.navigate.bind(this)} data-value="Log">
                     <i title="View log" className="fa fa-align-left icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
+                <span onClick={this.navigate.bind(this)} data-value="JSON">
                     <i title="View JSON" className="fa fa-code icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
+                <span onClick={this.navigate.bind(this)} data-value="Workspace">
                     <i title="View workspace" className="fa fa-sitemap icon-control-bar"></i>
                 </span>
                 <span onClick={this.addManipulator}>
@@ -82,21 +83,13 @@ class ControlBar extends Component {
         );
     }
 
-    addManipulator() {
-        
-        var manipulatorToAdd = "Create";
-        let { engine } = this.props;		
-        let model = engine.getDiagramModel();
-        
-        var node = new ManipulatorNodeModel({ 
-            path: "/home/anders/Code/something-new",
-            name: "Create"
-        });
-        node.x = 500;
-        node.y = 350;
-        model.addNode(node);
+    navigate(event) {
+        console.log(event.target.dataset.value);
+        this.props.navigate(event.target.dataset.value);
+    }
 
-        this.props.forceUpdateCallback();
+    addManipulator() {
+
     }
 
     save() {
@@ -129,7 +122,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            //
+            navigate: navigate
         }, dispatch);
 }
 

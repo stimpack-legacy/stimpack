@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { ManipulatorNodeModel } from "../../storm/ManipulatorNodeModel";
 import AllManipulators from "../../storm/AllManipulators";
+import {reDrawDiagram} from '../../actions/index'
 
 class AddManipulator extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class AddManipulator extends Component {
         model.addNode(node);
 
         this.closeModal();
-        this.props.forceUpdateCallback();
+        this.props.reDrawDiagram(Date.now());
     }    
 
     renderModal() {
@@ -89,7 +90,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            //
+            reDrawDiagram: reDrawDiagram
         }, dispatch);
 }
 

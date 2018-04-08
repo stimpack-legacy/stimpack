@@ -32,3 +32,17 @@ export const updateDiagramEngine = (diagramEngine) => {
         payload: diagramEngine
     }
 };
+
+export const reDrawDiagram = (signal) => {
+    return {
+        type: 'RE_DRAW_DIAGRAM',
+        payload: signal
+    }
+};
+
+export const navigate = (page) => {
+    return {
+        type: 'NAVIGATE',
+        payload: page
+    }
+};
