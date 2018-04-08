@@ -68920,6 +68920,22 @@ var Run = function (_Component) {
         value: function starters() {
             return Object.values(this.props.engine.diagramModel.nodes).filter(function (node) {
                 return node.isStarter();
+            }).sort(function (first, second) {
+                if (first.y < second.y) {
+                    return -1;
+                }
+
+                if (first.y > second.y) {
+                    return 1;
+                }
+
+                if (first.x < second.x) {
+                    return -1;
+                }
+
+                if (first.x > second.x) {
+                    return 1;
+                }
             });
         }
     }, {
@@ -68940,11 +68956,6 @@ var Run = function (_Component) {
                     console.log("ERROR", error.responseText);
                 }.bind(this)
             });
-        }
-    }, {
-        key: 'sortStarters',
-        value: function sortStarters() {
-            // todo
         }
     }, {
         key: 'sortLinks',

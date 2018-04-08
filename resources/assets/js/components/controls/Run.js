@@ -96,6 +96,22 @@ class Run extends Component {
     starters() {
         return Object.values(this.props.engine.diagramModel.nodes).filter((node) => {
             return node.isStarter();
+        }).sort((first, second) => {
+            if(first.y < second.y) {
+                return -1;
+            }
+        
+            if(first.y > second.y) {
+                return 1;
+            }
+        
+            if(first.x < second.x) {
+                return -1;
+            }
+        
+            if(first.x > second.x) {
+                return 1;
+            }            
         });
     }
 
@@ -116,10 +132,6 @@ class Run extends Component {
             }.bind(this)
         });        
     }    
-
-    sortStarters() {
-        // todo
-    }
 
     sortLinks(links) {
         return links.sort((first, second) => {
