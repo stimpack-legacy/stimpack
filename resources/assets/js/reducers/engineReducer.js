@@ -23,26 +23,27 @@ function defaultEngine() {
 	//2) setup the diagram model
 	var model = new DiagramModel();
 
-	//3-A) create a default node
-	var node1 = new ManipulatorNodeModel({ 
-		path: "/home/anders/Code/something-new",
+	var latestNode = new ManipulatorNodeModel({ 
 		name: "Create"
 	});
-	var port0 = node1.addInPort(" ");
-	var port1 = node1.addOutPort(" ");
-	node1.setPosition(100, 150);
 
-	//3-B) create our new custom node
-	var node2 = new ManipulatorNodeModel({
-		force: true,
+	latestNode.setPosition(300, 300);
+	//model.addNode(latestNode);
+
+	var node = new ManipulatorNodeModel({ 
 		name: "CreateDatabase"
 	});
 
-	var port2 = node2.addInPort(" ");
-	node2.setPosition(350, 150);
+	node.setPosition(500+Math.random()*100, 350+Math.random()*100);
+	//model.addNode(node);
 
-	//3-C) link the 2 nodes together
-	var link = port1.link(port2);
+	if(latestNode) {
+		var fromPort = latestNode.getOutPorts()[0];
+		var toPort = node.getInPorts()[0];
+		var link = fromPort.link(toPort);
+
+		//model.addAll(link);		
+	}
 
 
 	//4) add the models to the root graph

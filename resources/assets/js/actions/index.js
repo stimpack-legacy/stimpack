@@ -46,3 +46,10 @@ export const navigate = (page) => {
         payload: page
     }
 };
+
+export const registerLatestNode = (id) => {
+    return {
+        type: 'REGISTER_LATEST_NODE',
+        payload: id
+    }
+};

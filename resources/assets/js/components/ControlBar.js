@@ -84,8 +84,8 @@ class ControlBar extends Component {
     }
 
     navigate(event) {
-        console.log(event.target.dataset.value);
-        this.props.navigate(event.target.dataset.value);
+        console.log(event.currentTarget.dataset.value);
+        this.props.navigate(event.currentTarget.dataset.value);
     }
 
     addManipulator() {

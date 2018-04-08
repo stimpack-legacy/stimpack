@@ -4,11 +4,13 @@ import engineReducer from './engineReducer';
 //import fooReducer from './fooReducer';
 import navigationReducer from './navigationReducer';
 import reDrawReducer from './reDrawReducer';
+import latestNodeReducer from './latestNodeReducer';
 
 const allReducers = combineReducers({
     engine: engineReducer,
     navigation: navigationReducer,
-    reDraw: reDrawReducer
+    reDraw: reDrawReducer,
+    latestNode: latestNodeReducer
 });
 
 export default allReducers

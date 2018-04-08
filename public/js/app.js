@@ -34938,10 +34938,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ControlBar__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Workspace__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Log__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_redux__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Code__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Log__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_redux__ = __webpack_require__(22);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34949,6 +34950,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -34982,8 +34984,8 @@ var Main = function (_Component) {
         value: function page() {
             var pages = {
                 Workspace: __WEBPACK_IMPORTED_MODULE_3__Workspace__["a" /* default */],
-                Log: __WEBPACK_IMPORTED_MODULE_4__Log__["a" /* default */]
-                // JSON,
+                Code: __WEBPACK_IMPORTED_MODULE_4__Code__["a" /* default */],
+                Log: __WEBPACK_IMPORTED_MODULE_5__Log__["a" /* default */]
             };
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(pages[this.props.navigation]);
         }
@@ -34999,7 +35001,7 @@ function mapStateToProps(state) {
     };
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_6_react_redux__["b" /* connect */])(mapStateToProps)(Main));
+/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_7_react_redux__["b" /* connect */])(mapStateToProps)(Main));
 
 /***/ }),
 /* 69 */
@@ -39821,7 +39823,7 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["c" /* updateDiagramEngine */]
+                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateDiagramEngine */]
             }, dispatch);
         }
     }]);
@@ -59254,8 +59256,8 @@ var ControlBar = function (_Component) {
     }, {
         key: 'navigate',
         value: function navigate(event) {
-            console.log(event.target.dataset.value);
-            this.props.navigate(event.target.dataset.value);
+            console.log(event.currentTarget.dataset.value);
+            this.props.navigate(event.currentTarget.dataset.value);
         }
     }, {
         key: 'addManipulator',
@@ -63049,6 +63051,7 @@ module.exports = react;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__engineReducer__ = __webpack_require__(275);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigationReducer__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__ = __webpack_require__(301);
 
 
 //import manipulatorsReducer from './manipulatorsReducer';
@@ -63056,10 +63059,12 @@ module.exports = react;
 
 
 
+
 var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReducers */])({
     engine: __WEBPACK_IMPORTED_MODULE_1__engineReducer__["a" /* default */],
     navigation: __WEBPACK_IMPORTED_MODULE_2__navigationReducer__["a" /* default */],
-    reDraw: __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__["a" /* default */]
+    reDraw: __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__["a" /* default */],
+    latestNode: __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
@@ -63093,26 +63098,27 @@ function defaultEngine() {
 	//2) setup the diagram model
 	var model = new __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__["DiagramModel"]();
 
-	//3-A) create a default node
-	var node1 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
-		path: "/home/anders/Code/something-new",
+	var latestNode = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
 		name: "Create"
 	});
-	var port0 = node1.addInPort(" ");
-	var port1 = node1.addOutPort(" ");
-	node1.setPosition(100, 150);
 
-	//3-B) create our new custom node
-	var node2 = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
-		force: true,
+	latestNode.setPosition(300, 300);
+	//model.addNode(latestNode);
+
+	var node = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
 		name: "CreateDatabase"
 	});
 
-	var port2 = node2.addInPort(" ");
-	node2.setPosition(350, 150);
+	node.setPosition(500 + Math.random() * 100, 350 + Math.random() * 100);
+	//model.addNode(node);
 
-	//3-C) link the 2 nodes together
-	var link = port1.link(port2);
+	if (latestNode) {
+		var fromPort = latestNode.getOutPorts()[0];
+		var toPort = node.getInPorts()[0];
+		var link = fromPort.link(toPort);
+
+		//model.addAll(link);		
+	}
 
 	//4) add the models to the root graph
 	//model.addAll(node1, node2, link);
@@ -63297,9 +63303,10 @@ var Create = function (_BaseManipulator) {
 /* unused harmony export updateTasks */
 /* unused harmony export updateTaskBatch */
 /* unused harmony export resetTaskBatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return updateDiagramEngine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reDrawDiagram; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return navigate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return registerLatestNode; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -63346,6 +63353,13 @@ var navigate = function navigate(page) {
     return {
         type: 'NAVIGATE',
         payload: page
+    };
+};
+
+var registerLatestNode = function registerLatestNode(id) {
+    return {
+        type: 'REGISTER_LATEST_NODE',
+        payload: id
     };
 };
 
@@ -68664,6 +68678,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var AddManipulator = function (_Component) {
     _inherits(AddManipulator, _Component);
 
@@ -68697,11 +68712,23 @@ var AddManipulator = function (_Component) {
             var node = new __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
                 name: event.target.value
             });
-            node.x = 500 + Math.random() * 100;
-            node.y = 350 + Math.random() * 100;
+
+            node.setPosition(500 + Math.random() * 100, 350 + Math.random() * 100);
             model.addNode(node);
+            this.props.reDrawDiagram(Date.now());
+
+            /* ISSUE PUT ON GITHUB
+            var latestNode = model.nodes[this.props.latestNode];
+            if(latestNode) {
+                var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
+                var toPort = node.getInPorts()[0]; // Assume 1 port only
+                var link = fromPort.link(toPort);
+                model.addLink(link);
+            }
+            */
 
             this.closeModal();
+            this.props.registerLatestNode(node.id);
             this.props.reDrawDiagram(Date.now());
         }
     }, {
@@ -68762,13 +68789,14 @@ var AddManipulator = function (_Component) {
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        foo: state.foo
+        latestNode: state.latestNode
     };
 }
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["b" /* reDrawDiagram */]
+        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["b" /* reDrawDiagram */],
+        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["c" /* registerLatestNode */]
     }, dispatch);
 }
 
@@ -69167,6 +69195,85 @@ function matchDispatchToProps(dispatch) {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
+
+/***/ }),
+/* 299 */,
+/* 300 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(29);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var Code = function (_Component) {
+    _inherits(Code, _Component);
+
+    function Code() {
+        _classCallCheck(this, Code);
+
+        return _possibleConstructorReturn(this, (Code.__proto__ || Object.getPrototypeOf(Code)).apply(this, arguments));
+    }
+
+    _createClass(Code, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'logItems' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    ' This is the JSON view! '
+                )
+            );
+        }
+    }]);
+
+    return Code;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+function mapStateToProps(state) {
+    return {};
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({}, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Code));
+
+/***/ }),
+/* 301 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	var action = arguments[1];
+
+
+	if (action.type == "REGISTER_LATEST_NODE") {
+		state = action.payload;
+	}
+
+	return state;
+});
 
 /***/ })
 /******/ ]);

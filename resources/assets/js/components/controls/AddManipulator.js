@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import { ManipulatorNodeModel } from "../../storm/ManipulatorNodeModel";
 import AllManipulators from "../../storm/AllManipulators";
 import {reDrawDiagram} from '../../actions/index'
+import {registerLatestNode} from '../../actions/index'
 
 class AddManipulator extends Component {
     constructor(props) {
@@ -30,13 +31,26 @@ class AddManipulator extends Component {
         var node = new ManipulatorNodeModel({ 
             name: event.target.value
         });
-        node.x = 500+Math.random()*100;
-        node.y = 350+Math.random()*100;
+        
+        node.setPosition(500+Math.random()*100, 350+Math.random()*100);
         model.addNode(node);
+        this.props.reDrawDiagram(Date.now());
+        
+        /* ISSUE PUT ON GITHUB
+        var latestNode = model.nodes[this.props.latestNode];
+        if(latestNode) {
+            var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
+            var toPort = node.getInPorts()[0]; // Assume 1 port only
+            var link = fromPort.link(toPort);
+            model.addLink(link);
+        }
+        */
 
         this.closeModal();
+        this.props.registerLatestNode(node.id);
         this.props.reDrawDiagram(Date.now());
-    }    
+    }
+
 
     renderModal() {
         return (
@@ -83,14 +97,15 @@ class AddManipulator extends Component {
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        foo: state.foo 
+        latestNode: state.latestNode 
     };
 }
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            reDrawDiagram: reDrawDiagram
+            reDrawDiagram: reDrawDiagram,
+            registerLatestNode: registerLatestNode
         }, dispatch);
 }
 

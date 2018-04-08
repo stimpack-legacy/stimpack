@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ControlBar from './ControlBar';
 import Workspace from './Workspace';
+import Code from './Code';
 import Log from './Log';
 import * as SRD from "storm-react-diagrams"
 import {connect} from 'react-redux';
@@ -19,8 +20,8 @@ class Main extends Component {
     page() {
         var pages = {
             Workspace,
-             Log,
-            // JSON,
+            Code,
+            Log            
         };
         return React.createElement(pages[this.props.navigation]);
     }
