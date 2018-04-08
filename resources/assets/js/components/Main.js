@@ -10,7 +10,13 @@ class Main extends Component {
         return (            
             <div className="app">               
                 <ControlBar forceUpdateCallback={this.forceUpdateCallback.bind(this)} />
-                <SRD.DiagramWidget className="srd-demo-canvas" diagramEngine={this.props.engine} />
+                 <SRD.DiagramWidget className="srd-demo-canvas" diagramEngine={this.props.engine} /> 
+                {/*<div className="srd-demo-canvas">
+                    <div className="container">
+                        <h4>Log</h4>
+                    </div>
+                </div>
+                */}
             </div>
         );
     }

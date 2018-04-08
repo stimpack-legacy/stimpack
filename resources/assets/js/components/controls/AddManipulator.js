@@ -29,8 +29,8 @@ class AddManipulator extends Component {
         var node = new ManipulatorNodeModel({ 
             name: event.target.value
         });
-        node.x = 500;
-        node.y = 350;
+        node.x = 500+Math.random()*100;
+        node.y = 350+Math.random()*100;
         model.addNode(node);
 
         this.closeModal();

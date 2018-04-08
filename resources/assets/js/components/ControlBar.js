@@ -65,6 +65,18 @@ class ControlBar extends Component {
                 <span onClick={this.addManipulator}>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
                 </span>
+                <span onClick={this.addManipulator}>
+                    <i title="View log" className="fa fa-align-left icon-control-bar"></i>
+                </span>
+                <span onClick={this.addManipulator}>
+                    <i title="View JSON" className="fa fa-code icon-control-bar"></i>
+                </span>
+                <span onClick={this.addManipulator}>
+                    <i title="View workspace" className="fa fa-sitemap icon-control-bar"></i>
+                </span>
+                <span onClick={this.addManipulator}>
+                    <i title="View terminal commands" className="fa fa-terminal icon-control-bar"></i>
+                </span>                                                                
                 <Search />
             </wrapper>
         );

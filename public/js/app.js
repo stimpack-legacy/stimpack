@@ -59217,6 +59217,26 @@ var ControlBar = function (_Component) {
                     { onClick: this.addManipulator },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Share this pack to stimpack.io', className: 'fa fa-upload icon-control-bar' })
                 ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    { onClick: this.addManipulator },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View log', className: 'fa fa-align-left icon-control-bar' })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    { onClick: this.addManipulator },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View JSON', className: 'fa fa-code icon-control-bar' })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    { onClick: this.addManipulator },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View workspace', className: 'fa fa-sitemap icon-control-bar' })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    { onClick: this.addManipulator },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View terminal commands', className: 'fa fa-terminal icon-control-bar' })
+                ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__controls_Search__["a" /* default */], null)
             );
         }
@@ -68678,8 +68698,8 @@ var AddManipulator = function (_Component) {
             var node = new __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
                 name: event.target.value
             });
-            node.x = 500;
-            node.y = 350;
+            node.x = 500 + Math.random() * 100;
+            node.y = 350 + Math.random() * 100;
             model.addNode(node);
 
             this.closeModal();
@@ -68839,16 +68859,30 @@ var Run = function (_Component) {
         value: function run() {
             var _this2 = this;
 
-            var compiled = this.flatten(this.starters().map(function (starter) {
+            // compile sequences
+            var sequences = this.starters().map(function (starter) {
                 return _this2.compile(starter);
-            }));
+            });
+
+            // attach context (starter) to each manipulator in sequence
+            sequences.forEach(function (sequence) {
+                var starter = sequence[0];
+                sequence.forEach(function (manipulator) {
+                    manipulator.data.context = starter.data;
+                });
+            });
+
+            // flatten
+            var compiled = this.flatten(sequences);
 
             var result = compiled.map(function (manipulator) {
-                return _this2.perform(manipulator);
+                //return this.perform(manipulator);
+                return manipulator.data;
             });
 
             //console.log(result.join("\n"));
 
+            console.log(result);
 
             //this.openModal();
         }
@@ -68857,24 +68891,17 @@ var Run = function (_Component) {
         value: function compile(node) {
             var _this3 = this;
 
-            //console.log(node);
             var sequence = [node];
-            //console.log(sequence);
             // Assume only one output port at this stage
             var out = node.getOutPorts()[0];
-            //console.log(out);
             // Execution order determined by node y, then x.            
             var links = this.sortLinks(Object.values(out.links));
-            //console.log(links);
             var directChildren = links.map(function (link) {
                 return link.targetPort.parent;
             });
-            //console.log(directChildren);
-
             var allChildren = directChildren.map(function (child) {
                 return _this3.compile(child);
             });
-            //console.log(allChildren);
             sequence = this.flatten(sequence.concat(allChildren));
 
             return sequence;

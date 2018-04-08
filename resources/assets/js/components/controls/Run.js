@@ -43,41 +43,47 @@ class Run extends Component {
     }
 
     run() {        
-        var compiled = this.flatten(this.starters().map((starter) => {
+        // compile sequences
+        var sequences = this.starters().map((starter) => {
             return this.compile(starter);                        
-        }));
+        });
+
+        // attach context (starter) to each manipulator in sequence
+        sequences.forEach(sequence => {
+            var starter = sequence[0];
+            sequence.forEach(manipulator => {
+                manipulator.data.context = starter.data;               
+            });
+        });
+
+        // flatten
+        var compiled = this.flatten(sequences);
 
         var result = compiled.map(manipulator => {
-            return this.perform(manipulator);
+            //return this.perform(manipulator);
+            return manipulator.data;
         });
 
         //console.log(result.join("\n"));
 
-        
+        console.log(result);
         
 
         //this.openModal();
     }
 
     compile(node) {
-        //console.log(node);
         var sequence = [node];
-        //console.log(sequence);
         // Assume only one output port at this stage
         var out = node.getOutPorts()[0];
-        //console.log(out);
         // Execution order determined by node y, then x.            
         var links = this.sortLinks(Object.values(out.links));
-        //console.log(links);
         var directChildren = links.map(link => {
             return link.targetPort.parent;
         });
-        //console.log(directChildren);
-        
         var allChildren = directChildren.map(child => {
             return this.compile(child);
         });
-        //console.log(allChildren);
         sequence = this.flatten(sequence.concat(allChildren));
         
         return sequence;       

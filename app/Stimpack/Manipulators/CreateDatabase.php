@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Stimpack\Tasks;
+namespace App\Stimpack\Manipulators;
 
-use App\Stimpack\Task;
+use App\Stimpack\Manipulator;
 
-class CreateDatabase extends Task
+class CreateDatabase extends Manipulator
 {
     public function perform() {
+        return "Dummy implementation";
+        /*
         $path = "/home/anders/Code/" . $this->projectName() . "/storage/database.sqlite";        
         file_put_contents($path, "");       
         
@@ -16,6 +18,7 @@ class CreateDatabase extends Task
             "messages" => [
                 "Created database at '" . $path . "'"
             ]
-        ];        
+        ];
+        */        
     }
 }
