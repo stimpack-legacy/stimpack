@@ -1,16 +1,21 @@
 import {combineReducers} from 'redux';
 import engineReducer from './engineReducer';
-//import manipulatorsReducer from './manipulatorsReducer';
-//import fooReducer from './fooReducer';
 import navigationReducer from './navigationReducer';
 import reDrawReducer from './reDrawReducer';
 import latestNodeReducer from './latestNodeReducer';
+import queueReducer from './queueReducer';
+import busyReducer from './busyReducer';
+import logReducer from './logReducer';
+
 
 const allReducers = combineReducers({
     engine: engineReducer,
     navigation: navigationReducer,
     reDraw: reDrawReducer,
-    latestNode: latestNodeReducer
+    latestNode: latestNodeReducer,
+    queue: queueReducer,
+    busy: busyReducer,
+    log: logReducer
 });
 
 export default allReducers

@@ -22274,10 +22274,15 @@ var ManipulatorNodeModel = function (_NodeModel) {
 /* unused harmony export updateTasks */
 /* unused harmony export updateTaskBatch */
 /* unused harmony export resetTaskBatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return updateDiagramEngine; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reDrawDiagram; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return navigate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return registerLatestNode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return reDrawDiagram; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return navigate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return registerLatestNode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setQueue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return popQueue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return setBusy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return emptyLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return pushToLog; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -22331,6 +22336,41 @@ var registerLatestNode = function registerLatestNode(id) {
     return {
         type: 'REGISTER_LATEST_NODE',
         payload: id
+    };
+};
+
+var setQueue = function setQueue(compiledManipulators) {
+    return {
+        type: 'SET_QUEUE',
+        payload: compiledManipulators
+    };
+};
+
+var popQueue = function popQueue() {
+    return {
+        type: 'POP_QUEUE',
+        payload: null
+    };
+};
+
+var setBusy = function setBusy(trueOrFalse) {
+    return {
+        type: 'SET_BUSY',
+        payload: trueOrFalse
+    };
+};
+
+var emptyLog = function emptyLog() {
+    return {
+        type: 'EMPTY_LOG',
+        payload: null
+    };
+};
+
+var pushToLog = function pushToLog(item) {
+    return {
+        type: 'PUSH_TO_LOG',
+        payload: item
     };
 };
 
@@ -35032,6 +35072,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_redux__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_redux__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__actions_index__ = __webpack_require__(43);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35039,6 +35083,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
 
 
 
@@ -35078,6 +35127,62 @@ var Main = function (_Component) {
             };
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(pages[this.props.navigation]);
         }
+
+        // Process the queue
+
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (nextProps.queue.length > 0 && !nextProps.busy) {
+                var manipulator = nextProps.queue[nextProps.queue.length - 1];
+                this.process(manipulator);
+                this.props.popQueue();
+            }
+        }
+
+        // Process queue item
+
+    }, {
+        key: 'process',
+        value: function process(manipulator) {
+            this.props.setBusy(true);
+            console.log("processing: " + manipulator.data.name);
+
+            $.ajax({
+                type: "POST",
+                url: "/stimpack/perform/" + manipulator.data.name,
+                data: {
+                    data: this.nonCircularStringify(manipulator.data)
+                },
+                success: function (result) {
+                    console.log("SUCCESS!", "--->" + result + "<---");
+                    this.props.pushToLog(result);
+                    this.props.setBusy(false);
+                }.bind(this),
+                error: function (error) {
+                    console.log("ERROR", error.responseText);
+                    this.props.pushToLog(error.responseText);
+                    // Empty queue                
+                    this.props.setBusy(false);
+                }.bind(this)
+            });
+        }
+    }, {
+        key: 'nonCircularStringify',
+        value: function nonCircularStringify(data) {
+            var cache = [];
+            return JSON.stringify(data, function (key, value) {
+                if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Circular reference found, discard key
+                        return;
+                    }
+                    // Store value in our collection
+                    cache.push(value);
+                }
+                return value;
+            });
+        }
     }]);
 
     return Main;
@@ -35086,11 +35191,22 @@ var Main = function (_Component) {
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        navigation: state.navigation
+        navigation: state.navigation,
+        queue: state.queue,
+        busy: state.busy
     };
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_7_react_redux__["b" /* connect */])(mapStateToProps)(Main));
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_8_redux__["a" /* bindActionCreators */])({
+        setBusy: __WEBPACK_IMPORTED_MODULE_9__actions_index__["g" /* setBusy */],
+        popQueue: __WEBPACK_IMPORTED_MODULE_9__actions_index__["c" /* popQueue */],
+        pushToLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["d" /* pushToLog */],
+        emptyLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* emptyLog */]
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_7_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Main));
 
 /***/ }),
 /* 71 */
@@ -39909,7 +40025,7 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["d" /* updateDiagramEngine */]
+                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["i" /* updateDiagramEngine */]
             }, dispatch);
         }
     }]);
@@ -59383,7 +59499,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        navigate: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* navigate */]
+        navigate: __WEBPACK_IMPORTED_MODULE_9__actions_index__["b" /* navigate */]
     }, dispatch);
 }
 
@@ -63414,8 +63530,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["b" /* reDrawDiagram */],
-        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["c" /* registerLatestNode */]
+        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["e" /* reDrawDiagram */],
+        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["f" /* registerLatestNode */]
     }, dispatch);
 }
 
@@ -63604,6 +63720,7 @@ var CreateDatabase = function (_BaseManipulator) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_modal__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(43);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -63611,6 +63728,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -63690,17 +63810,9 @@ var Run = function (_Component) {
 
             // flatten
             var compiled = this.flatten(sequences);
-
-            var result = compiled.map(function (manipulator) {
-                //return this.perform(manipulator);
-                return manipulator.data;
-            });
-
-            //console.log(result.join("\n"));
-
-            console.log(result);
-
-            //this.openModal();
+            this.props.emptyLog();
+            this.props.setQueue(compiled.reverse());
+            this.props.navigate("Log");
         }
     }, {
         key: 'compile',
@@ -63755,25 +63867,6 @@ var Run = function (_Component) {
             });
         }
     }, {
-        key: 'perform',
-        value: function perform(manipulator) {
-            //return "Manipulator " + manipulator.data.name + " executed successfully!";
-
-            $.ajax({
-                type: "POST",
-                url: "/stimpack/perform/" + manipulator.data.name,
-                data: {
-                    data: JSON.stringify(manipulator.data)
-                },
-                success: function (result) {
-                    console.log("SUCCESS!", "--->" + result + "<---");
-                }.bind(this),
-                error: function (error) {
-                    console.log("ERROR", error.responseText);
-                }.bind(this)
-            });
-        }
-    }, {
         key: 'sortLinks',
         value: function sortLinks(links) {
             return links.sort(function (first, second) {
@@ -63825,7 +63918,9 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        //
+        navigate: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* navigate */],
+        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["h" /* setQueue */],
+        emptyLog: __WEBPACK_IMPORTED_MODULE_5__actions_index__["a" /* emptyLog */]
     }, dispatch);
 }
 
@@ -63955,13 +64050,9 @@ var Code = function (_Component) {
             });
 
             this.editor.on("change", function () {
-                //var lineHeight = this.editor.renderer.lineHeight;
                 var lineHeight = 16;
                 var doc = this.editor.getSession().getDocument();
-                console.log("lineheight", lineHeight);
-                console.log("docLentgth", doc.getLength());
                 document.getElementById("editor").style.height = lineHeight * doc.getLength() + "px";
-                console.log("new height!: ", lineHeight * doc.getLength());
                 this.editor.resize();
             }.bind(this));
 
@@ -64029,12 +64120,19 @@ var Log = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'h1',
-                    null,
-                    ' This is the log! '
-                )
+                this.renderLogItems()
             );
+        }
+    }, {
+        key: 'renderLogItems',
+        value: function renderLogItems() {
+            return this.props.log.map(function (item, index) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'p',
+                    { key: index },
+                    item
+                );
+            });
         }
     }]);
 
@@ -64042,7 +64140,9 @@ var Log = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        log: state.log
+    };
 }
 
 function matchDispatchToProps(dispatch) {
@@ -64061,10 +64161,14 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigationReducer__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queueReducer__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__busyReducer__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__logReducer__ = __webpack_require__(300);
 
 
-//import manipulatorsReducer from './manipulatorsReducer';
-//import fooReducer from './fooReducer';
+
+
+
 
 
 
@@ -64073,7 +64177,10 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
     engine: __WEBPACK_IMPORTED_MODULE_1__engineReducer__["a" /* default */],
     navigation: __WEBPACK_IMPORTED_MODULE_2__navigationReducer__["a" /* default */],
     reDraw: __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__["a" /* default */],
-    latestNode: __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__["a" /* default */]
+    latestNode: __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__["a" /* default */],
+    queue: __WEBPACK_IMPORTED_MODULE_5__queueReducer__["a" /* default */],
+    busy: __WEBPACK_IMPORTED_MODULE_6__busyReducer__["a" /* default */],
+    log: __WEBPACK_IMPORTED_MODULE_7__logReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
@@ -69311,6 +69418,72 @@ bunker(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	var action = arguments[1];
+
+
+	if (action.type == "SET_QUEUE") {
+		state = action.payload;
+	}
+
+	if (action.type == "POP_QUEUE") {
+		state.pop();
+		state = Object.assign([], state);
+	}
+
+	return state;
+});
+
+/***/ }),
+/* 300 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ["Running", "All", "The time!"];
+	var action = arguments[1];
+
+
+	if (action.type == "EMPTY_LOG") {
+		state = [];
+	}
+
+	if (action.type == "PUSH_TO_LOG") {
+		state = [].concat(_toConsumableArray(state), [action.payload]);
+	}
+
+	return state;
+});
+
+/***/ }),
+/* 301 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	var action = arguments[1];
+
+
+	if (action.type == "SET_BUSY") {
+		state = action.payload;
+	}
+
+	return state;
+});
 
 /***/ })
 /******/ ]);

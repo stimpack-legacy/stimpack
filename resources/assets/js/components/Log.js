@@ -6,16 +6,24 @@ import {bindActionCreators} from 'redux';
 class Log extends Component {
     render() {
         return (
-            <div>                
-                <h1> This is the log! </h1>
+            <div>
+                {this.renderLogItems()}
             </div>
         );
+    }
+
+    renderLogItems() {
+        return this.props.log.map((item, index) => {
+            return (
+                <p key={index}>{item}</p>
+            );
+        });
     }
 }
 
 function mapStateToProps(state) {
     return {
-
+        log: state.log
     };
 }
 

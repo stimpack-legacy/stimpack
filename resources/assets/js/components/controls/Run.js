@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {navigate} from '../../actions/index';
+import {setQueue} from '../../actions/index';
+import {emptyLog} from '../../actions/index';
 
 class Run extends Component {
     constructor(props) {
@@ -58,18 +61,10 @@ class Run extends Component {
 
         // flatten
         var compiled = this.flatten(sequences);
+        this.props.emptyLog();
+        this.props.setQueue(compiled.reverse());
+        this.props.navigate("Log");
 
-        var result = compiled.map(manipulator => {
-            //return this.perform(manipulator);
-            return manipulator.data;
-        });
-
-        //console.log(result.join("\n"));
-
-        console.log(result);
-        
-
-        //this.openModal();
     }
 
     compile(node) {
@@ -113,24 +108,6 @@ class Run extends Component {
                 return 1;
             }            
         });
-    }
-
-    perform(manipulator) {
-        //return "Manipulator " + manipulator.data.name + " executed successfully!";
-        
-        $.ajax({
-            type: "POST",
-            url: "/stimpack/perform/" + manipulator.data.name,
-            data: {
-                data: JSON.stringify(manipulator.data)
-            },
-            success: function(result){
-                console.log("SUCCESS!", "--->" + result + "<---"); 
-            }.bind(this),
-            error: function(error) {
-                console.log("ERROR", error.responseText);
-            }.bind(this)
-        });        
     }    
 
     sortLinks(links) {
@@ -178,7 +155,9 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            //
+            navigate: navigate,
+            setQueue: setQueue,
+            emptyLog: emptyLog                        
         }, dispatch);
 }
 

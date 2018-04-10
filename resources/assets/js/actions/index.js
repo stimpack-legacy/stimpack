@@ -53,3 +53,38 @@ export const registerLatestNode = (id) => {
         payload: id
     }
 };
+
+export const setQueue = (compiledManipulators) => {
+    return {
+        type: 'SET_QUEUE',
+        payload: compiledManipulators
+    }
+};
+
+export const popQueue = () => {
+    return {
+        type: 'POP_QUEUE',
+        payload: null
+    }
+};
+
+export const setBusy = (trueOrFalse) => {
+    return {
+        type: 'SET_BUSY',
+        payload: trueOrFalse
+    }
+};
+
+export const emptyLog = () => {
+    return {
+        type: 'EMPTY_LOG',
+        payload: null
+    }
+};
+
+export const pushToLog = (item) => {
+    return {
+        type: 'PUSH_TO_LOG',
+        payload: item
+    }
+};

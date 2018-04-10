@@ -33,13 +33,9 @@ class Code extends Component {
         });
         
         this.editor.on("change", function() {
-            //var lineHeight = this.editor.renderer.lineHeight;
             var lineHeight = 16;
             var doc = this.editor.getSession().getDocument();
-            console.log("lineheight", lineHeight);
-            console.log("docLentgth", doc.getLength());
             document.getElementById("editor").style.height = lineHeight * doc.getLength() + "px";
-            console.log("new height!: ", lineHeight * doc.getLength());
             this.editor.resize();
         }.bind(this));
 
