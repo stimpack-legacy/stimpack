@@ -11,6 +11,8 @@ import {setBusy} from '../actions/index';
 import {popQueue} from '../actions/index';
 import {pushToLog} from '../actions/index';
 import {emptyLog} from '../actions/index';
+import {setPendingManipulator} from '../actions/index';
+import {setQueue} from '../actions/index';
 
 
 class Main extends Component {
@@ -44,6 +46,7 @@ class Main extends Component {
     // Process queue item
     process(manipulator) {
         this.props.setBusy(true);
+        this.props.setPendingManipulator(manipulator);
         console.log("processing: " + manipulator.data.name);
 
         $.ajax({
@@ -54,13 +57,16 @@ class Main extends Component {
             },
             success: function(result){
                 console.log("SUCCESS!", "--->" + result + "<---");
-                this.props.pushToLog(result); 
+                this.props.pushToLog(result);
+                this.props.setPendingManipulator(null); 
                 this.props.setBusy(false);
             }.bind(this),
             error: function(error) {
                 console.log("ERROR", error.responseText);
                 this.props.pushToLog(error.responseText);
-                // Empty queue                
+                this.props.setQueue([]);
+                
+                this.props.setPendingManipulator(null);                
                 this.props.setBusy(false);
             }.bind(this)
         });        
@@ -97,7 +103,8 @@ function matchDispatchToProps(dispatch){
             setBusy: setBusy,
             popQueue: popQueue,
             pushToLog: pushToLog,
-            emptyLog: emptyLog,            
+            emptyLog: emptyLog,
+            setPendingManipulator: setPendingManipulator            
         }, dispatch);
 }
   

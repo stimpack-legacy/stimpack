@@ -6,6 +6,7 @@ import latestNodeReducer from './latestNodeReducer';
 import queueReducer from './queueReducer';
 import busyReducer from './busyReducer';
 import logReducer from './logReducer';
+import pendingManipulatorReducer from './pendingManipulatorReducer';
 
 
 const allReducers = combineReducers({
@@ -15,7 +16,8 @@ const allReducers = combineReducers({
     latestNode: latestNodeReducer,
     queue: queueReducer,
     busy: busyReducer,
-    log: logReducer
+    log: logReducer,
+    pendingManipulator: pendingManipulatorReducer
 });
 
 export default allReducers

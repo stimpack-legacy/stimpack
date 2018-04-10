@@ -88,3 +88,12 @@ export const pushToLog = (item) => {
         payload: item
     }
 };
+
+export const setPendingManipulator = (manipulator) => {
+    return {
+        type: 'SET_PENDING_MANIPULATOR',
+        payload: manipulator
+    }
+};
+
+

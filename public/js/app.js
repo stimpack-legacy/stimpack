@@ -22274,15 +22274,16 @@ var ManipulatorNodeModel = function (_NodeModel) {
 /* unused harmony export updateTasks */
 /* unused harmony export updateTaskBatch */
 /* unused harmony export resetTaskBatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return updateDiagramEngine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return reDrawDiagram; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return navigate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return registerLatestNode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setQueue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return setQueue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return popQueue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return setBusy; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return emptyLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return pushToLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setPendingManipulator; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -22371,6 +22372,13 @@ var pushToLog = function pushToLog(item) {
     return {
         type: 'PUSH_TO_LOG',
         payload: item
+    };
+};
+
+var setPendingManipulator = function setPendingManipulator(manipulator) {
+    return {
+        type: 'SET_PENDING_MANIPULATOR',
+        payload: manipulator
     };
 };
 
@@ -35098,6 +35106,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
 var Main = function (_Component) {
     _inherits(Main, _Component);
 
@@ -35146,6 +35156,7 @@ var Main = function (_Component) {
         key: 'process',
         value: function process(manipulator) {
             this.props.setBusy(true);
+            this.props.setPendingManipulator(manipulator);
             console.log("processing: " + manipulator.data.name);
 
             $.ajax({
@@ -35157,12 +35168,15 @@ var Main = function (_Component) {
                 success: function (result) {
                     console.log("SUCCESS!", "--->" + result + "<---");
                     this.props.pushToLog(result);
+                    this.props.setPendingManipulator(null);
                     this.props.setBusy(false);
                 }.bind(this),
                 error: function (error) {
                     console.log("ERROR", error.responseText);
                     this.props.pushToLog(error.responseText);
-                    // Empty queue                
+                    this.props.setQueue([]);
+
+                    this.props.setPendingManipulator(null);
                     this.props.setBusy(false);
                 }.bind(this)
             });
@@ -35202,7 +35216,8 @@ function matchDispatchToProps(dispatch) {
         setBusy: __WEBPACK_IMPORTED_MODULE_9__actions_index__["g" /* setBusy */],
         popQueue: __WEBPACK_IMPORTED_MODULE_9__actions_index__["c" /* popQueue */],
         pushToLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["d" /* pushToLog */],
-        emptyLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* emptyLog */]
+        emptyLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* emptyLog */],
+        setPendingManipulator: __WEBPACK_IMPORTED_MODULE_9__actions_index__["h" /* setPendingManipulator */]
     }, dispatch);
 }
 
@@ -40025,7 +40040,7 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["i" /* updateDiagramEngine */]
+                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["j" /* updateDiagramEngine */]
             }, dispatch);
         }
     }]);
@@ -63919,7 +63934,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
         navigate: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* navigate */],
-        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["h" /* setQueue */],
+        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["i" /* setQueue */],
         emptyLog: __WEBPACK_IMPORTED_MODULE_5__actions_index__["a" /* emptyLog */]
     }, dispatch);
 }
@@ -64119,20 +64134,52 @@ var Log = function (_Component) {
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
-                this.renderLogItems()
+                { className: 'logItems' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'ul',
+                    null,
+                    this.renderLogItems(),
+                    this.renderPendingItems()
+                )
             );
         }
     }, {
         key: 'renderLogItems',
         value: function renderLogItems() {
+            var _this2 = this;
+
             return this.props.log.map(function (item, index) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'p',
+                    'li',
                     { key: index },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
+                    ' ',
                     item
                 );
             });
+        }
+    }, {
+        key: 'renderPendingItems',
+        value: function renderPendingItems() {
+            if (this.props.pendingManipulator) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: 'pending' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
+                    ' ',
+                    this.props.pendingManipulator.data.name
+                );
+            }
+        }
+    }, {
+        key: 'icons',
+        value: function icons(icon) {
+            return {
+                "queued": "fa-refresh fa-spin log-pending",
+                "pending": "fa-refresh fa-spin log-pending",
+                "succeded": "fa-check-circle log-ok",
+                "failed": "fa-exclamation-circle log-error"
+            }[icon];
         }
     }]);
 
@@ -64141,7 +64188,8 @@ var Log = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        log: state.log
+        log: state.log,
+        pendingManipulator: state.pendingManipulator
     };
 }
 
@@ -64164,6 +64212,8 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queueReducer__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__busyReducer__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__logReducer__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pendingManipulatorReducer__ = __webpack_require__(302);
+
 
 
 
@@ -64180,7 +64230,8 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
     latestNode: __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__["a" /* default */],
     queue: __WEBPACK_IMPORTED_MODULE_5__queueReducer__["a" /* default */],
     busy: __WEBPACK_IMPORTED_MODULE_6__busyReducer__["a" /* default */],
-    log: __WEBPACK_IMPORTED_MODULE_7__logReducer__["a" /* default */]
+    log: __WEBPACK_IMPORTED_MODULE_7__logReducer__["a" /* default */],
+    pendingManipulator: __WEBPACK_IMPORTED_MODULE_8__pendingManipulatorReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
@@ -69479,6 +69530,23 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 	if (action.type == "SET_BUSY") {
+		state = action.payload;
+	}
+
+	return state;
+});
+
+/***/ }),
+/* 302 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	var action = arguments[1];
+
+
+	if (action.type == "SET_PENDING_MANIPULATOR") {
 		state = action.payload;
 	}
 
