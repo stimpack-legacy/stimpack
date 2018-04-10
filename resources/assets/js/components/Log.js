@@ -5,31 +5,30 @@ import {bindActionCreators} from 'redux';
 
 
 class Log extends Component {
-    render() {
+    
+    render() {                
         return (
             <div className="logItems">                
                 <ul>
-                    {this.renderLogItems()}                                
-                    {this.renderPendingItems()}
+                    {this.renderLogItems()}
+                    {this.renderPendingItems()}                                                                        
                 </ul>
             </div>
         );
     }
 
-
-
     renderLogItems() {
-        return this.props.log.map((item, index) => {
+        return this.props.queue.finished.map((item, index) => {
             return( 
-                <li key={index}><i className={`fa ${this.icons("succeded")}`}></i> {item}</li>
+                <li key={index}><i className={`fa ${this.icons("succeded")}`}></i> {item.data.name}</li>
             );
         });
     }
 
     renderPendingItems() {
-        if(this.props.pendingManipulator) {
+        if(this.props.queue.pending) {
             return (
-                <li key="pending"><i className={`fa ${this.icons("pending")}`}></i> {this.props.pendingManipulator.data.name}</li>                
+                <li key="pending"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.data.name}</li>                
             );
         }
     }    
@@ -47,7 +46,8 @@ class Log extends Component {
 function mapStateToProps(state) {
     return {
         log: state.log,
-        pendingManipulator: state.pendingManipulator
+        pendingManipulator: state.pendingManipulator,
+        queue: state.queue
     };
 }
 

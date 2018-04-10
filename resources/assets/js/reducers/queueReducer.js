@@ -1,12 +1,9 @@
-export default function (state = [], action) {
-	
-	if(action.type == "SET_QUEUE") {
-		state = action.payload;
-	}
+import Queue from "../Queue";
 
-	if(action.type == "POP_QUEUE") {
-        state.pop();
-        state = Object.assign([], state);
+export default function (state = new Queue(), action) {
+	
+	if(action.type == "SET_QUEUE") {        
+		state = Object.assign({}, action.payload);
 	}
 
     return state;

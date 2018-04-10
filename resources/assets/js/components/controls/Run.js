@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {navigate} from '../../actions/index';
 import {setQueue} from '../../actions/index';
-import {emptyLog} from '../../actions/index';
+import Queue from '../../Queue';
 
 class Run extends Component {
     constructor(props) {
@@ -61,10 +61,11 @@ class Run extends Component {
 
         // flatten
         var compiled = this.flatten(sequences);
-        this.props.emptyLog();
-        this.props.setQueue(compiled.reverse());
+        
+        var queue = new Queue();
+        queue.register(compiled);
+        this.props.setQueue(queue);
         this.props.navigate("Log");
-
     }
 
     compile(node) {
@@ -156,8 +157,7 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
             navigate: navigate,
-            setQueue: setQueue,
-            emptyLog: emptyLog                        
+            setQueue: setQueue,                        
         }, dispatch);
 }
 

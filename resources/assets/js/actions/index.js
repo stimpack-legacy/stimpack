@@ -57,14 +57,7 @@ export const registerLatestNode = (id) => {
 export const setQueue = (compiledManipulators) => {
     return {
         type: 'SET_QUEUE',
-        payload: compiledManipulators
-    }
-};
-
-export const popQueue = () => {
-    return {
-        type: 'POP_QUEUE',
-        payload: null
+        payload: Object.assign({}, compiledManipulators)
     }
 };
 

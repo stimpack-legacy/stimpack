@@ -195,7 +195,7 @@ h6 ~ *:not(h6) {
 }
 
 .ace_editor {
-  background: transparent !important;
+  background: black !important;
 }
 
 .editor-tabs {

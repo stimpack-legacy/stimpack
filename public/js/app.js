@@ -22274,16 +22274,15 @@ var ManipulatorNodeModel = function (_NodeModel) {
 /* unused harmony export updateTasks */
 /* unused harmony export updateTaskBatch */
 /* unused harmony export resetTaskBatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return updateDiagramEngine; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return reDrawDiagram; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return navigate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return registerLatestNode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return setQueue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return popQueue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return setBusy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return emptyLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return pushToLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setPendingManipulator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return reDrawDiagram; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return navigate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return registerLatestNode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return setQueue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return setBusy; });
+/* unused harmony export emptyLog */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pushToLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return setPendingManipulator; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -22343,14 +22342,7 @@ var registerLatestNode = function registerLatestNode(id) {
 var setQueue = function setQueue(compiledManipulators) {
     return {
         type: 'SET_QUEUE',
-        payload: compiledManipulators
-    };
-};
-
-var popQueue = function popQueue() {
-    return {
-        type: 'POP_QUEUE',
-        payload: null
+        payload: Object.assign({}, compiledManipulators)
     };
 };
 
@@ -35082,8 +35074,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_redux__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__actions_index__ = __webpack_require__(43);
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Queue__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_lodash__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35138,64 +35131,21 @@ var Main = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(pages[this.props.navigation]);
         }
 
-        // Process the queue
+        // Process the queue - PLEASE REFACTOR THIS
 
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (nextProps.queue.length > 0 && !nextProps.busy) {
-                var manipulator = nextProps.queue[nextProps.queue.length - 1];
-                this.process(manipulator);
-                this.props.popQueue();
+            if (!__WEBPACK_IMPORTED_MODULE_11_lodash__["isEqual"](this.props.queue, nextProps.queue)) {
+                // React cant save classes - recreate it.
+                var queue = __WEBPACK_IMPORTED_MODULE_10__Queue__["a" /* default */].deSerialize(nextProps.queue);
+                // I could not get the Queue class to dispatch events, instead pass callback :/
+                queue.addSetQueueCallback(function (queue) {
+                    this.props.setQueue(queue);
+                }.bind(this));
+
+                queue.process();
             }
-        }
-
-        // Process queue item
-
-    }, {
-        key: 'process',
-        value: function process(manipulator) {
-            this.props.setBusy(true);
-            this.props.setPendingManipulator(manipulator);
-            console.log("processing: " + manipulator.data.name);
-
-            $.ajax({
-                type: "POST",
-                url: "/stimpack/perform/" + manipulator.data.name,
-                data: {
-                    data: this.nonCircularStringify(manipulator.data)
-                },
-                success: function (result) {
-                    console.log("SUCCESS!", "--->" + result + "<---");
-                    this.props.pushToLog(result);
-                    this.props.setPendingManipulator(null);
-                    this.props.setBusy(false);
-                }.bind(this),
-                error: function (error) {
-                    console.log("ERROR", error.responseText);
-                    this.props.pushToLog(error.responseText);
-                    this.props.setQueue([]);
-
-                    this.props.setPendingManipulator(null);
-                    this.props.setBusy(false);
-                }.bind(this)
-            });
-        }
-    }, {
-        key: 'nonCircularStringify',
-        value: function nonCircularStringify(data) {
-            var cache = [];
-            return JSON.stringify(data, function (key, value) {
-                if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value !== null) {
-                    if (cache.indexOf(value) !== -1) {
-                        // Circular reference found, discard key
-                        return;
-                    }
-                    // Store value in our collection
-                    cache.push(value);
-                }
-                return value;
-            });
         }
     }]);
 
@@ -35213,11 +35163,10 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_8_redux__["a" /* bindActionCreators */])({
-        setBusy: __WEBPACK_IMPORTED_MODULE_9__actions_index__["g" /* setBusy */],
-        popQueue: __WEBPACK_IMPORTED_MODULE_9__actions_index__["c" /* popQueue */],
-        pushToLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["d" /* pushToLog */],
-        emptyLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* emptyLog */],
-        setPendingManipulator: __WEBPACK_IMPORTED_MODULE_9__actions_index__["h" /* setPendingManipulator */]
+        setBusy: __WEBPACK_IMPORTED_MODULE_9__actions_index__["e" /* setBusy */],
+        setQueue: __WEBPACK_IMPORTED_MODULE_9__actions_index__["g" /* setQueue */],
+        pushToLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["b" /* pushToLog */],
+        setPendingManipulator: __WEBPACK_IMPORTED_MODULE_9__actions_index__["f" /* setPendingManipulator */]
     }, dispatch);
 }
 
@@ -40040,7 +39989,7 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["j" /* updateDiagramEngine */]
+                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["h" /* updateDiagramEngine */]
             }, dispatch);
         }
     }]);
@@ -59514,7 +59463,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        navigate: __WEBPACK_IMPORTED_MODULE_9__actions_index__["b" /* navigate */]
+        navigate: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* navigate */]
     }, dispatch);
 }
 
@@ -63545,8 +63494,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["e" /* reDrawDiagram */],
-        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["f" /* registerLatestNode */]
+        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["c" /* reDrawDiagram */],
+        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["d" /* registerLatestNode */]
     }, dispatch);
 }
 
@@ -63736,6 +63685,7 @@ var CreateDatabase = function (_BaseManipulator) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Queue__ = __webpack_require__(303);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -63825,8 +63775,10 @@ var Run = function (_Component) {
 
             // flatten
             var compiled = this.flatten(sequences);
-            this.props.emptyLog();
-            this.props.setQueue(compiled.reverse());
+
+            var queue = new __WEBPACK_IMPORTED_MODULE_6__Queue__["a" /* default */]();
+            queue.register(compiled);
+            this.props.setQueue(queue);
             this.props.navigate("Log");
         }
     }, {
@@ -63933,9 +63885,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        navigate: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* navigate */],
-        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["i" /* setQueue */],
-        emptyLog: __WEBPACK_IMPORTED_MODULE_5__actions_index__["a" /* emptyLog */]
+        navigate: __WEBPACK_IMPORTED_MODULE_5__actions_index__["a" /* navigate */],
+        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["g" /* setQueue */]
     }, dispatch);
 }
 
@@ -64148,26 +64099,26 @@ var Log = function (_Component) {
         value: function renderLogItems() {
             var _this2 = this;
 
-            return this.props.log.map(function (item, index) {
+            return this.props.queue.finished.map(function (item, index) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: index },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
                     ' ',
-                    item
+                    item.data.name
                 );
             });
         }
     }, {
         key: 'renderPendingItems',
         value: function renderPendingItems() {
-            if (this.props.pendingManipulator) {
+            if (this.props.queue.pending) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'li',
                     { key: 'pending' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
                     ' ',
-                    this.props.pendingManipulator.data.name
+                    this.props.queue.pending.data.name
                 );
             }
         }
@@ -64189,7 +64140,8 @@ var Log = function (_Component) {
 function mapStateToProps(state) {
     return {
         log: state.log,
-        pendingManipulator: state.pendingManipulator
+        pendingManipulator: state.pendingManipulator,
+        queue: state.queue
     };
 }
 
@@ -69479,18 +69431,16 @@ bunker(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Queue__ = __webpack_require__(303);
+
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new __WEBPACK_IMPORTED_MODULE_0__Queue__["a" /* default */]();
 	var action = arguments[1];
 
 
 	if (action.type == "SET_QUEUE") {
-		state = action.payload;
-	}
-
-	if (action.type == "POP_QUEUE") {
-		state.pop();
-		state = Object.assign([], state);
+		state = Object.assign({}, action.payload);
 	}
 
 	return state;
@@ -69552,6 +69502,112 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 	return state;
 });
+
+/***/ }),
+/* 303 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Queue = function () {
+    function Queue() {
+        _classCallCheck(this, Queue);
+
+        this.waiting = [];
+        this.finished = [];
+        this.pending = null;
+    }
+
+    _createClass(Queue, [{
+        key: "addSetQueueCallback",
+        value: function addSetQueueCallback(callback) {
+            this.setQueue = callback;
+        }
+    }, {
+        key: "register",
+        value: function register(items) {
+            this.waiting = items;
+        }
+    }, {
+        key: "process",
+        value: function process() {
+            if (!this.isBusy() && this.hasWaitingItems()) {
+                this.processItem(this.waiting.shift());
+            }
+        }
+    }, {
+        key: "hasWaitingItems",
+        value: function hasWaitingItems() {
+            return this.waiting.length > 0;
+        }
+    }, {
+        key: "isBusy",
+        value: function isBusy() {
+            return this.pending != null;
+        }
+    }, {
+        key: "processItem",
+        value: function processItem(item) {
+            this.pending = item;
+            this.setQueue(this);
+
+            $.ajax({
+                type: "POST",
+                url: "/stimpack/perform/" + item.data.name,
+                data: {
+                    data: this.nonCircularStringify(item.data)
+                },
+                success: function (result) {
+                    console.log("AJAX SUCCESS!");
+                    this.finished.push(this.pending);
+                    this.pending = null;
+                    this.setQueue(this);
+                }.bind(this),
+                error: function (error) {
+                    console.log("AJAX ERROR", error.responseText);
+                    this.finished.push(this.pending);
+                    this.pending = null;
+                    this.waiting = [];
+                    this.setQueue(this);
+                }.bind(this)
+            });
+        }
+    }, {
+        key: "nonCircularStringify",
+        value: function nonCircularStringify(data) {
+            var cache = [];
+            return JSON.stringify(data, function (key, value) {
+                if ((typeof value === "undefined" ? "undefined" : _typeof(value)) === 'object' && value !== null) {
+                    if (cache.indexOf(value) !== -1) {
+                        // Circular reference found, discard key
+                        return;
+                    }
+                    // Store value in our collection
+                    cache.push(value);
+                }
+                return value;
+            });
+        }
+    }], [{
+        key: "deSerialize",
+        value: function deSerialize(data) {
+            var queue = new Queue();
+            queue.waiting = data.waiting;
+            queue.finished = data.finished;
+            queue.pending = data.pending;
+            return queue;
+        }
+    }]);
+
+    return Queue;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Queue);
 
 /***/ })
 /******/ ]);
