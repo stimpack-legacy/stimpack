@@ -43,17 +43,20 @@ h6 ~ *:not(h6) {
 
 #php-wrapper {
     font-size: 1rem;
-    //background-color: #141518;
     display: inline-block;
     width: 100%;    
 }
 
 .result-editor {
     font-size: 1rem;
-    background-color: #141518 !important; // Why is this needed?
     width: 100%;
-    height: 600px;
 }
+
+#editor {
+    height: 100px;
+}
+
+.ace_editor{background: rgba(0,0,0,0)!important}
 
 .editor-tabs {
     list-style-type: none;    

@@ -69,7 +69,7 @@ class ControlBar extends Component {
                 <span onClick={this.navigate.bind(this)} data-value="Log">
                     <i title="View log" className="fa fa-align-left icon-control-bar"></i>
                 </span>
-                <span onClick={this.navigate.bind(this)} data-value="JSON">
+                <span onClick={this.navigate.bind(this)} data-value="Code">
                     <i title="View JSON" className="fa fa-code icon-control-bar"></i>
                 </span>
                 <span onClick={this.navigate.bind(this)} data-value="Workspace">
@@ -84,7 +84,6 @@ class ControlBar extends Component {
     }
 
     navigate(event) {
-        console.log(event.currentTarget.dataset.value);
         this.props.navigate(event.currentTarget.dataset.value);
     }
 

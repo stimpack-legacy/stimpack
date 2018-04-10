@@ -57,8 +57,6 @@ function defaultEngine() {
 	return engine;
 }
 
-
-
 export default function (state = defaultEngine(), action) {
 	
 	if(action.type == "UPDATE_DIAGRAM_ENGINE") {

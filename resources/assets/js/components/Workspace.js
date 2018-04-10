@@ -21,7 +21,7 @@ class Workspace extends Component {
 function mapStateToProps(state) {
     return { 
         engine: state.engine,
-        // I could find out how/why engine reducer is not(?) updated when adding new nodes. Hence separate reDraw key.
+        // I could not find out how/why engine reducer is not(?) updated when adding new nodes. Hence separate reDraw key.
         reDraw: state.reDraw        
     };
   }

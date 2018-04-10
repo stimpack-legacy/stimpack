@@ -32,21 +32,22 @@ class AddManipulator extends Component {
             name: event.target.value
         });
         
-        node.setPosition(500+Math.random()*100, 350+Math.random()*100);
+        node.setPosition(100+Math.random()*100, 100+Math.random()*100);
         model.addNode(node);
-        this.props.reDrawDiagram(Date.now());
         
-        /* ISSUE PUT ON GITHUB
+         //ISSUE PUT ON GITHUB
         var latestNode = model.nodes[this.props.latestNode];
+        
         if(latestNode) {
             var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
             var toPort = node.getInPorts()[0]; // Assume 1 port only
-            var link = fromPort.link(toPort);
-            model.addLink(link);
-        }
-        */
+            //var link = fromPort.link(toPort);            
+            //model.addAll(link);
 
-        this.closeModal();
+            node.setPosition(latestNode.x+200, latestNode.y);
+        }
+
+        //this.closeModal();
         this.props.registerLatestNode(node.id);
         this.props.reDrawDiagram(Date.now());
     }
@@ -62,7 +63,10 @@ class AddManipulator extends Component {
             overlayClassName="no-overlay"
             className="manipulator-modal medium"
             >                
-                {this.renderManipulators()}                    
+                {this.renderManipulators()}
+                <button onClick={this.closeModal.bind(this)} className="btn btn-light">
+                    Done
+                </button>                                    
             </Modal>
         );
     }

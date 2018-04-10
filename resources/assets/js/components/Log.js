@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 class Log extends Component {
     render() {
         return (
-            <div className="logItems">                
+            <div>                
                 <h1> This is the log! </h1>
             </div>
         );
