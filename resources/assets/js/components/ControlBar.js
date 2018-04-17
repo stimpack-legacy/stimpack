@@ -22,6 +22,7 @@ class ControlBar extends Component {
                 <span className="heading-app-name">LARAVEL <i className="fa fa-2x fa-syringe"></i> STIMPACK</span>                
                 {this.renderButtons()}
                 {this.renderAddManipulatorModal()}
+                {this.renderLogModal()}
                 
             </div>
         );
@@ -30,12 +31,12 @@ class ControlBar extends Component {
     renderAddManipulatorModal() {
         return (
             <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
+            isOpen={this.state.addManipulator}
             onRequestClose={this.closeModal.bind(this)}
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
             className="settings-modal small"
+            value="addManipulator"
             >                
                 <h4>Choose manipulator</h4>
                 <div className="form-group">                
@@ -51,19 +52,46 @@ class ControlBar extends Component {
         );
     }
 
+    renderLogModal() {
+        return (
+            <Modal
+            isOpen={this.state.log}
+            onRequestClose={this.closeModal.bind(this)}
+            contentLabel="Example Modal"
+            overlayClassName="no-overlay"
+            className="settings-modal small"
+            value="log"
+            >                
+                <h4>Choose manipulator</h4>
+                <div className="form-group">                
+                    <select className="form-control">
+                        <option>Create</option>
+                        <option>CreateDatabase</option>
+                    </select>
+                </div>
+                <div className="container settings-modal-buttons">                    
+                    <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
+                </div>                    
+            </Modal>
+        );        
+    }
+
     renderButtons() {
         //{/* <i className="fa fa-refresh fa-spin log-pending icon"></i> */}
         return (
             <wrapper>            
                 <Run />
                 <AddManipulator />
-                <span onClick={this.addManipulator}>
+                <span onClick={this.navigate.bind(this)} data-value="Log">
+                    <i title="View log" className="fa fa-align-left icon-control-bar"></i>
+                </span>                
+                <span>
                     <i title="Remove all manipulators" className="far fa-trash-alt icon-control-bar"></i>
                 </span>
                 <span onClick={this.save.bind(this)}>
                     <i title="Save this pack" className="far fa-save icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
+                <span>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
                 </span>
                 <span onClick={this.navigate.bind(this)} data-value="Log">
@@ -75,7 +103,7 @@ class ControlBar extends Component {
                 <span onClick={this.navigate.bind(this)} data-value="Workspace">
                     <i title="View workspace" className="fa fa-sitemap icon-control-bar"></i>
                 </span>
-                <span onClick={this.addManipulator}>
+                <span>
                     <i title="View terminal commands" className="fa fa-terminal icon-control-bar"></i>
                 </span>                                                                
                 <Search />
@@ -87,27 +115,22 @@ class ControlBar extends Component {
         this.props.navigate(event.currentTarget.dataset.value);
     }
 
-    addManipulator() {
-
-    }
-
     save() {
         console.log(JSON.stringify(this.props.engine.diagramModel.serializeDiagram(), null, 4));        
     }
 
+    openModal(event) {
+        var stateToSet = {};
+        stateToSet[event.target.value] = true
 
-    openModal() {
-        this.setState({
-            modalIsOpen: true,
-        });
+        this.setState(stateToSet);
     }
     
-    afterOpenModal() {
-        // 
-    }
-    
-    closeModal() {
-        this.setState({modalIsOpen: false});        
+    closeModal(event) {
+        var stateToSet = {};
+        stateToSet[event.target.value] = false
+
+        this.setState(stateToSet);
     }    
 }
 
