@@ -77,7 +77,7 @@ function defaultEngine() {
 	return engine;
 }
 
-export default function (state = engineWithLoadedModel(), action) {
+export default function (state = defaultEngine() /*engineWithLoadedModel()*/, action) {
 	
 	if(action.type == "UPDATE_DIAGRAM_ENGINE") {
 		state = Object.assign({}, action.payload);
