@@ -1,4 +1,4 @@
-export const nonCircularStringify = function(data) {
+export const nonCircularStringify = function(data, callback = null, indentation = 4) {
     var cache = [];
     return JSON.stringify(data, function(key, value) {
         if (typeof value === 'object' && value !== null) {
@@ -10,5 +10,5 @@ export const nonCircularStringify = function(data) {
             cache.push(value);
         }
         return value;
-    });
+    }, indentation);
 }

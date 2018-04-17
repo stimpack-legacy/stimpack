@@ -52,7 +52,7 @@ class Log extends Component {
     renderLogItems() {
         return this.props.queue.finished.map((item, index) => {
             return( 
-                <li key={index}><i className={`fa ${this.icons("succeded")}`}></i> {item.data.name}</li>
+                <li key={index}><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</li>
             );
         });
     }
@@ -60,7 +60,7 @@ class Log extends Component {
     renderPendingItems() {
         if(this.props.queue.pending) {
             return (
-                <li key="pending"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.data.name}</li>                
+                <li key="pending"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>                
             );
         }
     }    
@@ -68,7 +68,7 @@ class Log extends Component {
     renderFailedItems() {
         if(this.props.queue.failed) {
             return (
-                <li key="failed"><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.data.name}</li>                
+                <li key="failed"><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.name}</li>                
             );
         }
     }

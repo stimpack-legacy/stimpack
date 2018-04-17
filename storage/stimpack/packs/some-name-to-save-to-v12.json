@@ -1,0 +1,229 @@
+{
+    "diagram": {
+        "id": "4fdf61ee-c31e-4d4d-ac66-b9ac97cd39b3",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [
+            {
+                "id": "771c33dd-92ee-4291-b18e-989c7e05ca00",
+                "type": "default",
+                "selected": false,
+                "source": "3d89aab7-0f9d-4e0b-96d0-4852237f14b9",
+                "sourcePort": "05dba611-a6e6-41f7-8cf0-2c62e571aa2f",
+                "target": "c2652932-f4e3-4504-a39f-09b29c78282c",
+                "targetPort": "c297bae7-05dd-47d4-b6db-d9a1904d05e0",
+                "points": [
+                    {
+                        "id": "657b0a75-767c-4c08-b355-ad659f940bc2",
+                        "selected": false,
+                        "x": 238.3096466064453,
+                        "y": 215.0284080505371
+                    },
+                    {
+                        "id": "e8e56d3f-238c-4dc5-bbfd-6ca69fde8587",
+                        "selected": false,
+                        "x": 377.28692626953125,
+                        "y": 215.0284080505371
+                    }
+                ],
+                "extras": {},
+                "labels": [],
+                "width": 3,
+                "color": "rgba(255,255,255,0.5)",
+                "curvyness": 50
+            },
+            {
+                "id": "046bf264-7ca2-45b6-9122-2997cc35a1bc",
+                "type": "default",
+                "selected": false,
+                "source": "c2652932-f4e3-4504-a39f-09b29c78282c",
+                "sourcePort": "0a5cc828-8d1b-4a62-99c6-5d55939e350d",
+                "target": "146f3787-23f0-4f78-8a55-c2a793e09fa4",
+                "targetPort": "9ad6729e-8faf-4d0e-86a0-d0dbe72e58e2",
+                "points": [
+                    {
+                        "id": "1cb4064e-7f04-46fc-9c63-99f192818af9",
+                        "selected": false,
+                        "x": 452.37213134765625,
+                        "y": 215.0284080505371
+                    },
+                    {
+                        "id": "78618ecb-8a1e-4029-a288-3bf6b328d7f9",
+                        "selected": false,
+                        "x": 577.2869262695312,
+                        "y": 215.0284080505371
+                    }
+                ],
+                "extras": {},
+                "labels": [],
+                "width": 3,
+                "color": "rgba(255,255,255,0.5)",
+                "curvyness": 50
+            }
+        ],
+        "nodes": [
+            {
+                "id": "3d89aab7-0f9d-4e0b-96d0-4852237f14b9",
+                "type": "manipulator",
+                "selected": false,
+                "x": 167.80260988222895,
+                "y": 178.18547066363442,
+                "extras": {},
+                "ports": [
+                    {
+                        "id": "a0f17fbe-35a6-496b-bdf1-9a8b5e776116",
+                        "type": "default",
+                        "selected": false,
+                        "name": "cdb79438-6bcf-4a54-b8b2-9cb9ce428cd0",
+                        "parentNode": "3d89aab7-0f9d-4e0b-96d0-4852237f14b9",
+                        "links": [],
+                        "in": true,
+                        "label": " "
+                    },
+                    {
+                        "id": "05dba611-a6e6-41f7-8cf0-2c62e571aa2f",
+                        "type": "default",
+                        "selected": false,
+                        "name": "b6ec31c6-af9b-4d07-8f51-eb0cc94ce424",
+                        "parentNode": "3d89aab7-0f9d-4e0b-96d0-4852237f14b9",
+                        "links": [
+                            "771c33dd-92ee-4291-b18e-989c7e05ca00"
+                        ],
+                        "in": false,
+                        "label": " "
+                    }
+                ],
+                "data": {
+                    "name": "Create",
+                    "path": "/home/anders/Code/something-new",
+                    "isStarter": true,
+                    "context": {
+                        "name": "Create",
+                        "path": "/home/anders/Code/something-new",
+                        "isStarter": true
+                    }
+                }
+            },
+            {
+                "id": "c2652932-f4e3-4504-a39f-09b29c78282c",
+                "type": "manipulator",
+                "selected": false,
+                "x": 367.8026098822289,
+                "y": 178.18547066363442,
+                "extras": {},
+                "ports": [
+                    {
+                        "id": "c297bae7-05dd-47d4-b6db-d9a1904d05e0",
+                        "type": "default",
+                        "selected": false,
+                        "name": "77744dbb-f1d5-4d77-96ed-870470bb16fe",
+                        "parentNode": "c2652932-f4e3-4504-a39f-09b29c78282c",
+                        "links": [
+                            "771c33dd-92ee-4291-b18e-989c7e05ca00"
+                        ],
+                        "in": true,
+                        "label": " "
+                    },
+                    {
+                        "id": "0a5cc828-8d1b-4a62-99c6-5d55939e350d",
+                        "type": "default",
+                        "selected": false,
+                        "name": "aee404cc-807f-4ec0-b352-37c6418da78b",
+                        "parentNode": "c2652932-f4e3-4504-a39f-09b29c78282c",
+                        "links": [
+                            "046bf264-7ca2-45b6-9122-2997cc35a1bc"
+                        ],
+                        "in": false,
+                        "label": " "
+                    }
+                ],
+                "data": {
+                    "name": "CreateDatabase",
+                    "path": "/home/anders/Code/something-new",
+                    "lolid": 13,
+                    "context": {
+                        "name": "Create",
+                        "path": "/home/anders/Code/something-new",
+                        "isStarter": true
+                    }
+                }
+            },
+            {
+                "id": "146f3787-23f0-4f78-8a55-c2a793e09fa4",
+                "type": "manipulator",
+                "selected": false,
+                "x": 567.8026098822289,
+                "y": 178.18547066363442,
+                "extras": {},
+                "ports": [
+                    {
+                        "id": "9ad6729e-8faf-4d0e-86a0-d0dbe72e58e2",
+                        "type": "default",
+                        "selected": false,
+                        "name": "8cf64e0f-399b-4559-865a-cea991bf8223",
+                        "parentNode": "146f3787-23f0-4f78-8a55-c2a793e09fa4",
+                        "links": [
+                            "046bf264-7ca2-45b6-9122-2997cc35a1bc"
+                        ],
+                        "in": true,
+                        "label": " "
+                    },
+                    {
+                        "id": "fce4ff29-3838-40e1-b735-18c2b96674f7",
+                        "type": "default",
+                        "selected": false,
+                        "name": "ec2f18db-5f3d-4f5e-8f70-70511b1a0f86",
+                        "parentNode": "146f3787-23f0-4f78-8a55-c2a793e09fa4",
+                        "links": [],
+                        "in": false,
+                        "label": " "
+                    }
+                ],
+                "data": {
+                    "name": "CreateDatabase",
+                    "path": "/home/anders/Code/something-new",
+                    "lolid": 99,
+                    "context": {
+                        "name": "Create",
+                        "path": "/home/anders/Code/something-new",
+                        "isStarter": true
+                    }
+                }
+            }
+        ]
+    },
+    "compiled": [
+        {
+            "name": "Create",
+            "path": "/home/anders/Code/something-new",
+            "isStarter": true,
+            "context": {
+                "name": "Create",
+                "path": "/home/anders/Code/something-new",
+                "isStarter": true
+            }
+        },
+        {
+            "name": "CreateDatabase",
+            "path": "/home/anders/Code/something-new",
+            "lolid": 13,
+            "context": {
+                "name": "Create",
+                "path": "/home/anders/Code/something-new",
+                "isStarter": true
+            }
+        },
+        {
+            "name": "CreateDatabase",
+            "path": "/home/anders/Code/something-new",
+            "lolid": 99,
+            "context": {
+                "name": "Create",
+                "path": "/home/anders/Code/something-new",
+                "isStarter": true
+            }
+        }
+    ]
+}

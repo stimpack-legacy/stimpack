@@ -68,6 +68,17 @@ class File
         return new File($path);
     }
 
+    // Untested
+    public static function loadOrCreate($path)
+    {
+        if(file_exists($path))
+        {
+            return File::load($path);
+        }
+
+        return new File($path);
+    }    
+
     // Combined getter and setter. Note different return types for chaining
     public function content($content = false)
     {

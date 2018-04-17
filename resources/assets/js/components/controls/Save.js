@@ -9,6 +9,7 @@ import {reDrawDiagram} from '../../actions/index'
 import {registerLatestNode} from '../../actions/index'
 import Queue from "../../Queue";
 import {nonCircularStringify} from "../../Helpers";
+import Compiler from "../../Compiler"
 
 class Save extends Component {
     constructor(props) {
@@ -52,32 +53,26 @@ class Save extends Component {
     }
 
     save() {
-        console.log(nonCircularStringify(this.props.engine.diagramModel.serializeDiagram(), null, 4));
+        var compiler = new Compiler(this.props.engine);
+        var compiled = compiler.compile();
         $.ajax({
             type: "POST",
-            url: "/stimpack/save/" + "some-name-to-save-to",
+            url: "/stimpack/save/" + "some-name-to-save-to-v12.json",
             data: {
-                data: nonCircularStringify()
+                fileContent: nonCircularStringify({
+                    // Used to redraw the diagram
+                    diagram: this.props.engine.diagramModel.serializeDiagram(),
+                    // Used to run the pack from command line
+                    compiled: compiled
+                }, null, 4)
             },
             success: function(result){
-                console.log(item.data.name + " succeded!");
-                this.finished.push(this.pending);
-                this.pending = null;
-                this.setQueue(this);
-
-            }.bind(this),
+                console.log(result);
+            },
             error: function(error) {
                 //var a = JSON.parse(error);
-                console.log(item.data.name + " failed with message: '" + error.responseJSON.message + "'");
-                
-                console.groupCollapsed(["Stack trace"])
-                    console.log(error.responseText);
-                console.groupEnd();                
-                this.failed = this.pending;
-                this.pending = null;
-                this.waiting = [];
-                this.setQueue(this);
-            }.bind(this)
+                console.log("Failed with message: '" + error.responseJSON.message + "'");
+            }
         });                
     }    
 

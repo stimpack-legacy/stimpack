@@ -21236,19 +21236,19 @@ var Queue = function () {
 
             $.ajax({
                 type: "POST",
-                url: "/stimpack/perform/" + item.data.name,
+                url: "/stimpack/perform/" + item.name,
                 data: {
-                    data: Object(__WEBPACK_IMPORTED_MODULE_0__Helpers__["a" /* nonCircularStringify */])(item.data)
+                    data: Object(__WEBPACK_IMPORTED_MODULE_0__Helpers__["a" /* nonCircularStringify */])(item)
                 },
                 success: function (result) {
-                    console.log(item.data.name + " succeded!");
+                    console.log(item.name + " succeded!");
                     this.finished.push(this.pending);
                     this.pending = null;
                     this.setQueue(this);
                 }.bind(this),
                 error: function (error) {
                     //var a = JSON.parse(error);
-                    console.log(item.data.name + " failed with message: '" + error.responseJSON.message + "'");
+                    console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
 
                     console.groupCollapsed(["Stack trace"]);
                     console.log(error.responseText);
@@ -40139,6 +40139,9 @@ function verifyPlainObject(value, displayName, methodName) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var nonCircularStringify = function nonCircularStringify(data) {
+    var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var indentation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 4;
+
     var cache = [];
     return JSON.stringify(data, function (key, value) {
         if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value !== null) {
@@ -40150,7 +40153,7 @@ var nonCircularStringify = function nonCircularStringify(data) {
             cache.push(value);
         }
         return value;
-    });
+    }, indentation);
 };
 
 /***/ }),
@@ -64142,7 +64145,7 @@ var Log = function (_Component) {
                     { key: index },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
                     ' ',
-                    item.data.name
+                    item.name
                 );
             });
         }
@@ -64155,7 +64158,7 @@ var Log = function (_Component) {
                     { key: 'pending' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
                     ' ',
-                    this.props.queue.pending.data.name
+                    this.props.queue.pending.name
                 );
             }
         }
@@ -64168,7 +64171,7 @@ var Log = function (_Component) {
                     { key: 'failed' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("failed") }),
                     ' ',
-                    this.props.queue.failed.data.name
+                    this.props.queue.failed.name
                 );
             }
         }
@@ -64249,6 +64252,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Queue__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Helpers__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Compiler__ = __webpack_require__(308);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64256,6 +64260,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -64335,31 +64340,26 @@ var Save = function (_Component) {
     }, {
         key: 'save',
         value: function save() {
-            console.log(Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])(this.props.engine.diagramModel.serializeDiagram(), null, 4));
+            var compiler = new __WEBPACK_IMPORTED_MODULE_10__Compiler__["a" /* default */](this.props.engine);
+            var compiled = compiler.compile();
             $.ajax({
                 type: "POST",
-                url: "/stimpack/save/" + "some-name-to-save-to",
+                url: "/stimpack/save/" + "some-name-to-save-to-v12.json",
                 data: {
-                    data: Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])()
+                    fileContent: Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])({
+                        // Used to redraw the diagram
+                        diagram: this.props.engine.diagramModel.serializeDiagram(),
+                        // Used to run the pack from command line
+                        compiled: compiled
+                    }, null, 4)
                 },
-                success: function (result) {
-                    console.log(item.data.name + " succeded!");
-                    this.finished.push(this.pending);
-                    this.pending = null;
-                    this.setQueue(this);
-                }.bind(this),
-                error: function (error) {
+                success: function success(result) {
+                    console.log(result);
+                },
+                error: function error(_error) {
                     //var a = JSON.parse(error);
-                    console.log(item.data.name + " failed with message: '" + error.responseJSON.message + "'");
-
-                    console.groupCollapsed(["Stack trace"]);
-                    console.log(error.responseText);
-                    console.groupEnd();
-                    this.failed = this.pending;
-                    this.pending = null;
-                    this.waiting = [];
-                    this.setQueue(this);
-                }.bind(this)
+                    console.log("Failed with message: '" + _error.responseJSON.message + "'");
+                }
             });
         }
     }, {
@@ -70037,12 +70037,16 @@ var Compiler = function () {
             sequences.forEach(function (sequence) {
                 var starter = sequence[0];
                 sequence.forEach(function (manipulator) {
-                    manipulator.data.context = starter.data;
+                    var context = Object.assign({}, starter.data);
+                    delete context["context"]; // Avoid circular context
+                    manipulator.data.context = context;
                 });
             });
 
             // flatten
-            var compiled = this.flatten(sequences);
+            var compiled = this.flatten(sequences).map(function (manipulator) {
+                return manipulator.data;
+            });
             return compiled;
         }
     }, {

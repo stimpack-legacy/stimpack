@@ -13,12 +13,16 @@ export default class Compiler {
         sequences.forEach(sequence => {
             var starter = sequence[0];
             sequence.forEach(manipulator => {
-                manipulator.data.context = starter.data;               
+                var context = Object.assign({}, starter.data);
+                delete context["context"]; // Avoid circular context
+                manipulator.data.context = context;               
             });
         });
 
         // flatten
-        var compiled = this.flatten(sequences);
+        var compiled = this.flatten(sequences).map(manipulator => {
+            return manipulator.data;
+        });
         return compiled;
     }
 

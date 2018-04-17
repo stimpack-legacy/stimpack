@@ -45,12 +45,12 @@ export default class Queue {
 
         $.ajax({
             type: "POST",
-            url: "/stimpack/perform/" + item.data.name,
+            url: "/stimpack/perform/" + item.name,
             data: {
-                data: nonCircularStringify(item.data)
+                data: nonCircularStringify(item)
             },
             success: function(result){
-                console.log(item.data.name + " succeded!");
+                console.log(item.name + " succeded!");
                 this.finished.push(this.pending);
                 this.pending = null;
                 this.setQueue(this);
@@ -58,7 +58,7 @@ export default class Queue {
             }.bind(this),
             error: function(error) {
                 //var a = JSON.parse(error);
-                console.log(item.data.name + " failed with message: '" + error.responseJSON.message + "'");
+                console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
                 
                 console.groupCollapsed(["Stack trace"])
                     console.log(error.responseText);
