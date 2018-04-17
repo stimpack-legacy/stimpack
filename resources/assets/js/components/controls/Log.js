@@ -7,6 +7,7 @@ import { ManipulatorNodeModel } from "../../storm/ManipulatorNodeModel";
 import AllManipulators from "../../storm/AllManipulators";
 import {reDrawDiagram} from '../../actions/index'
 import {registerLatestNode} from '../../actions/index'
+import Queue from "../../Queue";
 
 class Log extends Component {
     constructor(props) {
@@ -84,7 +85,20 @@ class Log extends Component {
     
     closeModal() {
         this.setState({modalIsOpen: false});        
-    }    
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        if(!_.isEqual(this.props.queue, nextProps.queue)) {            
+            // React/redux cant save classes - recreate it.
+            var queue = Queue.deSerialize(nextProps.queue);
+            if(queue.isAboutToRun()) {
+                this.setState({
+                    modalIsOpen: true,
+                });
+            }
+
+        }
+    }
 }
 
 function mapStateToProps(state) {

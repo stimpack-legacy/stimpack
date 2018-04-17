@@ -47,6 +47,13 @@ export const navigate = (page) => {
     }
 };
 
+export const openLog = () => {
+    return {
+        type: 'OPEN_LOG',
+        payload: null
+    }
+};
+
 export const registerLatestNode = (id) => {
     return {
         type: 'REGISTER_LATEST_NODE',

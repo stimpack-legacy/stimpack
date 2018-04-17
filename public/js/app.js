@@ -1702,15 +1702,16 @@ module.exports = ReactUpdates;
 /* unused harmony export updateTasks */
 /* unused harmony export updateTaskBatch */
 /* unused harmony export resetTaskBatch */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return updateDiagramEngine; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return reDrawDiagram; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return updateDiagramEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return reDrawDiagram; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return navigate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return registerLatestNode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return setQueue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return setBusy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return openLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return registerLatestNode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setQueue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return setBusy; });
 /* unused harmony export emptyLog */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pushToLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return setPendingManipulator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return pushToLog; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return setPendingManipulator; });
 var updateLog = function updateLog(message) {
     return {
         type: 'LOG_UPDATED',
@@ -1757,6 +1758,13 @@ var navigate = function navigate(page) {
     return {
         type: 'NAVIGATE',
         payload: page
+    };
+};
+
+var openLog = function openLog() {
+    return {
+        type: 'OPEN_LOG',
+        payload: null
     };
 };
 
@@ -24506,6 +24514,11 @@ var Queue = function () {
                 return value;
             });
         }
+    }, {
+        key: "isAboutToRun",
+        value: function isAboutToRun() {
+            return this.finished.length == 0;
+        }
     }], [{
         key: "deSerialize",
         value: function deSerialize(data) {
@@ -35269,10 +35282,10 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_8_redux__["a" /* bindActionCreators */])({
-        setBusy: __WEBPACK_IMPORTED_MODULE_9__actions_index__["e" /* setBusy */],
-        setQueue: __WEBPACK_IMPORTED_MODULE_9__actions_index__["g" /* setQueue */],
-        pushToLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["b" /* pushToLog */],
-        setPendingManipulator: __WEBPACK_IMPORTED_MODULE_9__actions_index__["f" /* setPendingManipulator */]
+        setBusy: __WEBPACK_IMPORTED_MODULE_9__actions_index__["f" /* setBusy */],
+        setQueue: __WEBPACK_IMPORTED_MODULE_9__actions_index__["h" /* setQueue */],
+        pushToLog: __WEBPACK_IMPORTED_MODULE_9__actions_index__["c" /* pushToLog */],
+        setPendingManipulator: __WEBPACK_IMPORTED_MODULE_9__actions_index__["g" /* setPendingManipulator */]
     }, dispatch);
 }
 
@@ -40095,7 +40108,7 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["h" /* updateDiagramEngine */]
+                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["i" /* updateDiagramEngine */]
             }, dispatch);
         }
     }]);
@@ -63620,8 +63633,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["c" /* reDrawDiagram */],
-        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["d" /* registerLatestNode */]
+        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["d" /* reDrawDiagram */],
+        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["e" /* registerLatestNode */]
     }, dispatch);
 }
 
@@ -63905,6 +63918,7 @@ var Run = function (_Component) {
             var queue = new __WEBPACK_IMPORTED_MODULE_6__Queue__["a" /* default */]();
             queue.register(compiled);
             this.props.setQueue(queue);
+            this.props.openLog();
         }
     }, {
         key: 'compile',
@@ -64010,8 +64024,8 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        navigate: __WEBPACK_IMPORTED_MODULE_5__actions_index__["a" /* navigate */],
-        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["g" /* setQueue */]
+        openLog: __WEBPACK_IMPORTED_MODULE_5__actions_index__["b" /* openLog */],
+        setQueue: __WEBPACK_IMPORTED_MODULE_5__actions_index__["h" /* setQueue */]
     }, dispatch);
 }
 
@@ -69642,6 +69656,7 @@ bunker(function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Queue__ = __webpack_require__(64);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69649,6 +69664,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -69767,6 +69783,19 @@ var Log = function (_Component) {
         key: 'closeModal',
         value: function closeModal() {
             this.setState({ modalIsOpen: false });
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (!_.isEqual(this.props.queue, nextProps.queue)) {
+                // React/redux cant save classes - recreate it.
+                var queue = __WEBPACK_IMPORTED_MODULE_8__Queue__["a" /* default */].deSerialize(nextProps.queue);
+                if (queue.isAboutToRun()) {
+                    this.setState({
+                        modalIsOpen: true
+                    });
+                }
+            }
         }
     }]);
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {navigate} from '../../actions/index';
+import {openLog} from '../../actions/index';
 import {setQueue} from '../../actions/index';
 import Queue from '../../Queue';
 
@@ -65,6 +65,7 @@ class Run extends Component {
         var queue = new Queue();
         queue.register(compiled);
         this.props.setQueue(queue);
+        this.props.openLog();
     }
 
     compile(node) {
@@ -155,7 +156,7 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            navigate: navigate,
+            openLog: openLog,
             setQueue: setQueue,                        
         }, dispatch);
 }

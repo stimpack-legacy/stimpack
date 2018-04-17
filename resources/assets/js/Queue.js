@@ -77,4 +77,8 @@ export default class Queue {
             return value;
         });
     }
+
+    isAboutToRun() {
+        return this.finished.length == 0;
+    }
 }
