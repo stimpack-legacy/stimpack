@@ -2,6 +2,7 @@ export default class Queue {
     constructor() {
         this.waiting = [];
         this.finished = [];
+        this.failed = null;
         this.pending = null;
                 
     }
@@ -54,8 +55,10 @@ export default class Queue {
 
             }.bind(this),
             error: function(error) {
-                console.log("AJAX ERROR", error.responseText);                
-                this.finished.push(this.pending);
+                console.groupCollapsed(["Error"])
+                    console.log(error.responseText);
+                console.groupEnd();                
+                this.failed = this.pending;
                 this.pending = null;
                 this.waiting = [];
                 this.setQueue(this);

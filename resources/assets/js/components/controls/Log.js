@@ -38,7 +38,8 @@ class Log extends Component {
                 <div className="logItems">                
                     <ul>
                         {this.renderLogItems()}
-                        {this.renderPendingItems()}                                                                        
+                        {this.renderPendingItems()}
+                        {this.renderFailedItems()}
                     </ul>
                 </div>
                 <button onClick={this.closeModal.bind(this)} className="btn btn-light">
@@ -63,6 +64,14 @@ class Log extends Component {
             );
         }
     }    
+
+    renderFailedItems() {
+        if(this.props.queue.failed) {
+            return (
+                <li key="failed"><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.data.name}</li>                
+            );
+        }
+    }
 
     icons(icon) {
         return {
