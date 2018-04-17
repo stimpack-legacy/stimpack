@@ -48,14 +48,17 @@ export default class Queue {
                 data: this.nonCircularStringify(item.data)
             },
             success: function(result){
-                console.log("AJAX SUCCESS!");
+                console.log(item.data.name + " succeded!");
                 this.finished.push(this.pending);
                 this.pending = null;
                 this.setQueue(this);
 
             }.bind(this),
             error: function(error) {
-                console.groupCollapsed(["Error"])
+                //var a = JSON.parse(error);
+                console.log(item.data.name + " failed with message: '" + error.responseJSON.message + "'");
+                
+                console.groupCollapsed(["Stack trace"])
                     console.log(error.responseText);
                 console.groupEnd();                
                 this.failed = this.pending;
