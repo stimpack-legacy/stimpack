@@ -88,7 +88,8 @@ class ControlBar extends Component {
                 <Save />
                 <span>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
-                </span>                                                                
+                </span>
+                                                                                
                 <Search />
             </wrapper>
         );

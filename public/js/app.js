@@ -64303,8 +64303,8 @@ var Log = function (_Component) {
         key: 'icons',
         value: function icons(icon) {
             return {
-                "queued": "fa-refresh fa-spin log-pending",
-                "pending": "fa-refresh fa-spin log-pending",
+                "queued": "fa-sync-alt fa-spin log-pending",
+                "pending": "fa-sync-alt fa-spin log-pending",
                 "succeded": "fa-check-circle log-ok",
                 "failed": "fa-exclamation-circle log-error"
             }[icon];
