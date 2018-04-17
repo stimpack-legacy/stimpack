@@ -8,6 +8,7 @@ import Search from "./controls/Search";
 import AddManipulator from "./controls/AddManipulator";
 import Run from "./controls/Run";
 import Log from "./controls/Log";
+import Save from "./controls/Save";
 import {navigate} from '../actions/index'
 
 class ControlBar extends Component {
@@ -84,9 +85,7 @@ class ControlBar extends Component {
                 <Run />
                 <AddManipulator />
                 <Log />
-                <span onClick={this.save.bind(this)}>
-                    <i title="Save this pack" className="far fa-save icon-control-bar"></i>
-                </span>
+                <Save />
                 <span>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
                 </span>                                                                

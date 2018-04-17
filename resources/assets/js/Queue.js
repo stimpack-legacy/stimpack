@@ -1,3 +1,5 @@
+import {nonCircularStringify} from "./Helpers";
+
 export default class Queue {
     constructor() {
         this.waiting = [];
@@ -45,7 +47,7 @@ export default class Queue {
             type: "POST",
             url: "/stimpack/perform/" + item.data.name,
             data: {
-                data: this.nonCircularStringify(item.data)
+                data: nonCircularStringify(item.data)
             },
             success: function(result){
                 console.log(item.data.name + " succeded!");
