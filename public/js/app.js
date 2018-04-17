@@ -3280,8 +3280,8 @@ var ManipulatorNodeModel = function (_NodeModel) {
 		var _this = _possibleConstructorReturn(this, (ManipulatorNodeModel.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel)).call(this, "manipulator"));
 
 		_this.manipulator = manipulator;
-		_this.addInPort(" ");
-		_this.addOutPort(" ");
+		//this.addInPort(" ");
+		//this.addOutPort(" ");		
 		return _this;
 	}
 
@@ -3304,15 +3304,15 @@ var ManipulatorNodeModel = function (_NodeModel) {
 		key: "deSerialize",
 		value: function deSerialize(object, engine) {
 			_get(ManipulatorNodeModel.prototype.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel.prototype), "deSerialize", this).call(this, object, engine);
-			// fix manipulator
-			this.name = object.name;
+			this.manipulator = object.manipulator;
 		}
 	}, {
 		key: "serialize",
 		value: function serialize() {
 
 			return __WEBPACK_IMPORTED_MODULE_2_lodash__["merge"](_get(ManipulatorNodeModel.prototype.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel.prototype), "serialize", this).call(this), {
-				data: this.data
+				data: this.data,
+				manipulator: this.manipulator
 			});
 		}
 	}, {
@@ -63704,6 +63704,8 @@ var AddManipulator = function (_Component) {
             var node = new __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
                 name: event.target.value
             });
+            node.addInPort(" ");
+            node.addOutPort(" ");
 
             node.setPosition(100 + Math.random() * 100, 100 + Math.random() * 100);
             model.addNode(node);
@@ -64892,9 +64894,13 @@ function defaultEngine() {
 	return engine;
 }
 
+//console.log(defaultEngine());
+//console.log(engineWithLoadedModel());
+
+//export default function (state = defaultEngine(), action) {
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultEngine();
-	var /*engineWithLoadedModel()*/action = arguments[1];
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : engineWithLoadedModel();
+	var action = arguments[1];
 
 
 	if (action.type == "UPDATE_DIAGRAM_ENGINE") {

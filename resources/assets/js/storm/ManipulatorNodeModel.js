@@ -10,8 +10,8 @@ export class ManipulatorNodeModel extends NodeModel {
 	constructor(manipulator){
 		super("manipulator");
 		this.manipulator = manipulator;
-        this.addInPort(" ");
-        this.addOutPort(" ");		
+        //this.addInPort(" ");
+        //this.addOutPort(" ");		
 	}
 
 	addInPort(label) {
@@ -28,14 +28,14 @@ export class ManipulatorNodeModel extends NodeModel {
 
 	deSerialize(object, engine) {
 		super.deSerialize(object, engine);
-		// fix manipulator
-		this.name = object.name;
+		this.manipulator = object.manipulator;
 	}
 
 	serialize() {		
 
 		return _.merge(super.serialize(), {			
-			data: this.data
+			data: this.data,
+			manipulator: this.manipulator
 		});
 	}
 
