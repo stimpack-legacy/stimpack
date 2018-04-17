@@ -35,19 +35,19 @@ class AddManipulator extends Component {
         node.setPosition(100+Math.random()*100, 100+Math.random()*100);
         model.addNode(node);
         
-         //ISSUE PUT ON GITHUB
         var latestNode = model.nodes[this.props.latestNode];
         
         if(latestNode) {
-            var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
-            var toPort = node.getInPorts()[0]; // Assume 1 port only
-            //var link = fromPort.link(toPort);            
-            //model.addAll(link);
-
             node.setPosition(latestNode.x+200, latestNode.y);
+            setTimeout(function() {                
+                var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
+                var toPort = node.getInPorts()[0]; // Assume 1 port only
+                var link = fromPort.link(toPort);            
+                model.addAll(link);                    
+                this.props.reDrawDiagram(Date.now());
+            }.bind(this), 0);
         }
 
-        //this.closeModal();
         this.props.registerLatestNode(node.id);
         this.props.reDrawDiagram(Date.now());
     }
