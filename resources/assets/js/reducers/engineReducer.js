@@ -12,6 +12,26 @@ import * as React from "react";
 import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
 import { ManipulatorNodeFactory } from "../storm/ManipulatorNodeFactory";
 
+
+
+
+function engineWithLoadedModel() {
+	//1) setup the diagram engine
+	var engine = new DiagramEngine();
+	engine.installDefaultFactories();
+
+	// register some other factories as well
+	engine.registerNodeFactory(new ManipulatorNodeFactory());
+
+	//2) setup the diagram model
+	var model = new DiagramModel();
+	
+	model.deSerializeDiagram(data.packs[0].diagram, engine);
+	engine.setDiagramModel(model);
+	return engine;	
+}
+
+
 function defaultEngine() {
 	//1) setup the diagram engine
 	var engine = new DiagramEngine();
@@ -57,7 +77,7 @@ function defaultEngine() {
 	return engine;
 }
 
-export default function (state = defaultEngine(), action) {
+export default function (state = engineWithLoadedModel(), action) {
 	
 	if(action.type == "UPDATE_DIAGRAM_ENGINE") {
 		state = Object.assign({}, action.payload);

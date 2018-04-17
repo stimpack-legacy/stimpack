@@ -12,7 +12,7 @@ class GuiController extends Controller
         
         $data = [
             'projects' => $this->projects(), 
-            'packs' => $this->localPacks()->concat($this->onlinePacks()),
+            'packs' => $this->localPacks()//->concat($this->onlinePacks()),
         ];
         
         if($projectName) $data["projectName"] = $projectName;
@@ -20,19 +20,27 @@ class GuiController extends Controller
         return view('welcome')->with(["data" => collect($data)]);
     }
 
-    private function projects() {
+    public function load($author, $pack)
+    {
+        return "TEMP"; //view('welcome')->with(["data" => collect($data)]);
+    }
+
+    private function projects()
+    {
         chdir("../../");
         return collect(array_filter(glob("*"), 'is_dir'))->values();        
     }
 
-    private function localPacks() {
+    private function localPacks()
+    {
         chdir("/home/anders/Code/stimpack/storage/stimpack/packs");
         return collect(array_filter(glob("*"), 'is_file'))->map(function($filename) {
             return json_decode(file_get_contents($filename));
         });
     }
 
-    private function onlinePacks() {
+    private function onlinePacks()
+    {
         $client = new Client();
         $result = $client->get('http://stimpack-data.test/api/packs');
         return collect(json_decode($result->getBody()->getContents(), true));
