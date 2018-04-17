@@ -52,7 +52,33 @@ class Save extends Component {
     }
 
     save() {
-        console.log(nonCircularStringify(this.props.engine.diagramModel.serializeDiagram(), null, 4));        
+        console.log(nonCircularStringify(this.props.engine.diagramModel.serializeDiagram(), null, 4));
+        $.ajax({
+            type: "POST",
+            url: "/stimpack/save/" + "some-name-to-save-to",
+            data: {
+                data: nonCircularStringify()
+            },
+            success: function(result){
+                console.log(item.data.name + " succeded!");
+                this.finished.push(this.pending);
+                this.pending = null;
+                this.setQueue(this);
+
+            }.bind(this),
+            error: function(error) {
+                //var a = JSON.parse(error);
+                console.log(item.data.name + " failed with message: '" + error.responseJSON.message + "'");
+                
+                console.groupCollapsed(["Stack trace"])
+                    console.log(error.responseText);
+                console.groupEnd();                
+                this.failed = this.pending;
+                this.pending = null;
+                this.waiting = [];
+                this.setQueue(this);
+            }.bind(this)
+        });                
     }    
 
     openModal() {
