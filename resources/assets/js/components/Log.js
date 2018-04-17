@@ -45,8 +45,6 @@ class Log extends Component {
 
 function mapStateToProps(state) {
     return {
-        log: state.log,
-        pendingManipulator: state.pendingManipulator,
         queue: state.queue
     };
 }

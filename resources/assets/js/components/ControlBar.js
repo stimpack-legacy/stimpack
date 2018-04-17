@@ -7,6 +7,7 @@ import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
 import Search from "./controls/Search";
 import AddManipulator from "./controls/AddManipulator";
 import Run from "./controls/Run";
+import Log from "./controls/Log";
 import {navigate} from '../actions/index'
 
 class ControlBar extends Component {
@@ -82,29 +83,12 @@ class ControlBar extends Component {
             <wrapper>            
                 <Run />
                 <AddManipulator />
-                <span onClick={this.navigate.bind(this)} data-value="Log">
-                    <i title="View log" className="fa fa-align-left icon-control-bar"></i>
-                </span>                
-                <span>
-                    <i title="Remove all manipulators" className="far fa-trash-alt icon-control-bar"></i>
-                </span>
+                <Log />
                 <span onClick={this.save.bind(this)}>
                     <i title="Save this pack" className="far fa-save icon-control-bar"></i>
                 </span>
                 <span>
                     <i title="Share this pack to stimpack.io" className="fa fa-upload icon-control-bar"></i>
-                </span>
-                <span onClick={this.navigate.bind(this)} data-value="Log">
-                    <i title="View log" className="fa fa-align-left icon-control-bar"></i>
-                </span>
-                <span onClick={this.navigate.bind(this)} data-value="Code">
-                    <i title="View JSON" className="fa fa-code icon-control-bar"></i>
-                </span>
-                <span onClick={this.navigate.bind(this)} data-value="Workspace">
-                    <i title="View workspace" className="fa fa-sitemap icon-control-bar"></i>
-                </span>
-                <span>
-                    <i title="View terminal commands" className="fa fa-terminal icon-control-bar"></i>
                 </span>                                                                
                 <Search />
             </wrapper>

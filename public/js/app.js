@@ -59381,7 +59381,8 @@ module.exports = ReactDOMInvalidARIAHook;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controls_Search__ = __webpack_require__(277);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controls_AddManipulator__ = __webpack_require__(278);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__controls_Run__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__actions_index__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__controls_Log__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__actions_index__ = __webpack_require__(17);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59389,6 +59390,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -59535,16 +59537,7 @@ var ControlBar = function (_Component) {
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__controls_Run__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__controls_AddManipulator__["a" /* default */], null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { onClick: this.navigate.bind(this), 'data-value': 'Log' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View log', className: 'fa fa-align-left icon-control-bar' })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Remove all manipulators', className: 'far fa-trash-alt icon-control-bar' })
-                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__controls_Log__["a" /* default */], null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { onClick: this.save.bind(this) },
@@ -59554,26 +59547,6 @@ var ControlBar = function (_Component) {
                     'span',
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Share this pack to stimpack.io', className: 'fa fa-upload icon-control-bar' })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { onClick: this.navigate.bind(this), 'data-value': 'Log' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View log', className: 'fa fa-align-left icon-control-bar' })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { onClick: this.navigate.bind(this), 'data-value': 'Code' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View JSON', className: 'fa fa-code icon-control-bar' })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    { onClick: this.navigate.bind(this), 'data-value': 'Workspace' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View workspace', className: 'fa fa-sitemap icon-control-bar' })
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'span',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View terminal commands', className: 'fa fa-terminal icon-control-bar' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__controls_Search__["a" /* default */], null)
             );
@@ -59618,7 +59591,7 @@ function mapStateToProps(state) {
 
 function matchDispatchToProps(dispatch) {
     return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
-        navigate: __WEBPACK_IMPORTED_MODULE_9__actions_index__["a" /* navigate */]
+        navigate: __WEBPACK_IMPORTED_MODULE_10__actions_index__["a" /* navigate */]
     }, dispatch);
 }
 
@@ -63579,6 +63552,9 @@ var AddManipulator = function (_Component) {
 
             this.props.registerLatestNode(node.id);
             this.props.reDrawDiagram(Date.now());
+            if (!event.shiftKey) {
+                this.closeModal();
+            }
         }
     }, {
         key: 'renderModal',
@@ -63593,12 +63569,7 @@ var AddManipulator = function (_Component) {
                     overlayClassName: 'no-overlay',
                     className: 'manipulator-modal medium'
                 },
-                this.renderManipulators(),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
-                    'Done'
-                )
+                this.renderManipulators()
             );
         }
     }, {
@@ -63934,7 +63905,6 @@ var Run = function (_Component) {
             var queue = new __WEBPACK_IMPORTED_MODULE_6__Queue__["a" /* default */]();
             queue.register(compiled);
             this.props.setQueue(queue);
-            this.props.navigate("Log");
         }
     }, {
         key: 'compile',
@@ -64294,8 +64264,6 @@ var Log = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        log: state.log,
-        pendingManipulator: state.pendingManipulator,
         queue: state.queue
     };
 }
@@ -69653,6 +69621,171 @@ bunker(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_modal__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(17);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+
+
+var Log = function (_Component) {
+    _inherits(Log, _Component);
+
+    function Log(props) {
+        _classCallCheck(this, Log);
+
+        var _this = _possibleConstructorReturn(this, (Log.__proto__ || Object.getPrototypeOf(Log)).call(this, props));
+
+        __WEBPACK_IMPORTED_MODULE_2_react_modal___default.a.setAppElement('#main');
+        _this.state = {};
+        return _this;
+    }
+
+    _createClass(Log, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { onClick: this.openModal.bind(this) },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'View log', className: 'fa fa-align-left icon-control-bar' }),
+                this.renderModal()
+            );
+        }
+    }, {
+        key: 'renderModal',
+        value: function renderModal() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react_modal___default.a,
+                {
+                    isOpen: this.state.modalIsOpen,
+                    onAfterOpen: this.afterOpenModal.bind(this),
+                    onRequestClose: this.closeModal.bind(this),
+                    contentLabel: 'Example Modal',
+                    overlayClassName: 'no-overlay',
+                    className: 'manipulator-modal medium'
+                },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'logItems' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'ul',
+                        null,
+                        this.renderLogItems(),
+                        this.renderPendingItems()
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
+                    'Close'
+                )
+            );
+        }
+    }, {
+        key: 'renderLogItems',
+        value: function renderLogItems() {
+            var _this2 = this;
+
+            return this.props.queue.finished.map(function (item, index) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: index },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
+                    ' ',
+                    item.data.name
+                );
+            });
+        }
+    }, {
+        key: 'renderPendingItems',
+        value: function renderPendingItems() {
+            if (this.props.queue.pending) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'li',
+                    { key: 'pending' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
+                    ' ',
+                    this.props.queue.pending.data.name
+                );
+            }
+        }
+    }, {
+        key: 'icons',
+        value: function icons(icon) {
+            return {
+                "queued": "fa-refresh fa-spin log-pending",
+                "pending": "fa-refresh fa-spin log-pending",
+                "succeded": "fa-check-circle log-ok",
+                "failed": "fa-exclamation-circle log-error"
+            }[icon];
+        }
+    }, {
+        key: 'openModal',
+        value: function openModal() {
+            this.setState({
+                modalIsOpen: true
+            });
+        }
+    }, {
+        key: 'afterOpenModal',
+        value: function afterOpenModal() {
+            // 
+        }
+    }, {
+        key: 'closeModal',
+        value: function closeModal() {
+            this.setState({ modalIsOpen: false });
+        }
+    }]);
+
+    return Log;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+function mapStateToProps(state) {
+    return {
+        queue: state.queue
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
+        //
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
 
 /***/ })
 /******/ ]);

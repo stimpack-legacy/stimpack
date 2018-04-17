@@ -25,6 +25,7 @@ class AddManipulator extends Component {
     }
 
     addManipulator(event) {        
+        
         let { engine } = this.props;		
         let model = engine.getDiagramModel();
         
@@ -50,6 +51,9 @@ class AddManipulator extends Component {
 
         this.props.registerLatestNode(node.id);
         this.props.reDrawDiagram(Date.now());
+        if (!event.shiftKey) {
+            this.closeModal();
+        }
     }
 
 
@@ -63,10 +67,7 @@ class AddManipulator extends Component {
             overlayClassName="no-overlay"
             className="manipulator-modal medium"
             >                
-                {this.renderManipulators()}
-                <button onClick={this.closeModal.bind(this)} className="btn btn-light">
-                    Done
-                </button>                                    
+                {this.renderManipulators()}             
             </Modal>
         );
     }

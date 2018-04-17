@@ -65,7 +65,6 @@ class Run extends Component {
         var queue = new Queue();
         queue.register(compiled);
         this.props.setQueue(queue);
-        this.props.navigate("Log");
     }
 
     compile(node) {
