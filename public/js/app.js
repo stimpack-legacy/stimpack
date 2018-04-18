@@ -3305,6 +3305,7 @@ var ManipulatorNodeModel = function (_NodeModel) {
 		value: function deSerialize(object, engine) {
 			_get(ManipulatorNodeModel.prototype.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel.prototype), "deSerialize", this).call(this, object, engine);
 			this.manipulator = object.manipulator;
+			this.data = object.data;
 		}
 	}, {
 		key: "serialize",
@@ -63830,7 +63831,7 @@ var Create = function (_BaseManipulator) {
         var _this = _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this, "srd-default-node", props));
 
         _this.state = {
-            data: Create.getDefaultManipulatorParameters()
+            data: Create.getDefaultManipulatorParameters() // this.props.node.data - makes deserializing work!
         };
         _this.props.node.data = _this.state.data;
         return _this;
