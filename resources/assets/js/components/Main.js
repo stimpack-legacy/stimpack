@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ControlBar from './ControlBar';
 import Workspace from './Workspace';
-import Code from './Code';
-import Log from './Log';
 import * as SRD from "storm-react-diagrams"
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {setBusy} from '../actions/index';
-import {pushToLog} from '../actions/index';
-import {setPendingManipulator} from '../actions/index';
 import {setQueue} from '../actions/index';
 import Queue from "../Queue";
 import * as _ from "lodash";
@@ -20,18 +15,9 @@ class Main extends Component {
         return (            
             <div className="app">               
                 <ControlBar />
-                {this.page()}                
+                <Workspace />                
             </div>
         );
-    }
-
-    page() {
-        var pages = {
-            Workspace,
-            Code,
-            Log            
-        };
-        return React.createElement(pages[this.props.navigation]);
     }
 
     // Process the queue - PLEASE REFACTOR THIS
@@ -51,20 +37,14 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return { 
-        engine: state.engine,
-        navigation: state.navigation,
-        queue: state.queue,
-        busy: state.busy
+        queue: state.queue
     };
 }
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            setBusy: setBusy,
             setQueue: setQueue,
-            pushToLog: pushToLog,
-            setPendingManipulator: setPendingManipulator            
         }, dispatch);
 }
   
