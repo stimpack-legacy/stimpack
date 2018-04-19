@@ -21,7 +21,7 @@ class GuiController extends Controller
         return view('welcome')->with(["data" => collect($this->data)]);
     }
 
-    public function load($author, $packName)
+    public function open($author, $packName)
     {
         if($author != "local") {
             return "Aouch! No such author/pack";
@@ -34,9 +34,9 @@ class GuiController extends Controller
         return view('welcome')->with(["data" => collect($this->data)]);
     }
 
-    public function loadLocal($packName)
+    public function openLocal($packName)
     {
-        return $this->load("local", $packName);
+        return $this->open("local", $packName);
     }    
 
 

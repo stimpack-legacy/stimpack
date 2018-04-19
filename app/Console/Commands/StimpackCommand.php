@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Console\Controllers\TaskController;
+use App\Console\Controllers\ManipulatorController;
 
 
 class StimpackCommand extends Command
@@ -42,7 +42,8 @@ class StimpackCommand extends Command
         $handler = collect([
             'stimpack' => "homeHandler",
             'stimpack help' => "helpHandler",
-            "stimpack new [\w-]+( from [\w-\/]+)?( in gui)?" => "newHandler",
+            'stimpack run [\w-\s]+' => "runHandler",
+            "stimpack new [\w-]+( from [\w-\/]+)?" => "runHandler",
             "stimpack open [\w-]+" => "openHandler",            
             // default
             '.*?' => "commandNotRecognizedHandler"
@@ -72,6 +73,7 @@ class StimpackCommand extends Command
                          /_/';
         
         $this->line($logo);
+        $this->line("\n             By Anders Jürisoo and contributors");
         $this->helpHandler();
     }
 
@@ -84,17 +86,30 @@ class StimpackCommand extends Command
             ["stimpack new pack <name> [from <pack>]", "Create a new pack, optionally as a copy of an already existing pack."],            
             ["stimpack open <name>", "Open an existing project in stimpack gui."],
             
-        ]);
-        
+        ]);        
     }
 
     private function openHandler() {
-        $this->info("Woh! Nu ska vi öppna ett project!");
-        $project = $this->args()[1]; // Does not feal clean. Assign stuff at parsing instead?
-        exec("xdg-open http://stimpack.test/" . $project);
+        // stimpack open pack
+        $project = $this->args()[1];
+        exec("xdg-open http://stimpack.test/open/" . $project);
+    }
+
+    private function runHandler() {
+        // stimpack run pack p1 p2...
+        $packName = $this->args()[1];
+        $packParameters = $this->args()->slice(2)->values();
+        $compiledManipulators = collect(json_decode(
+            file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/" . $packName . ".json")
+        )->compiled);
+        
+        $compiledManipulators->each(function($manipulator) {
+            $this->info(ManipulatorController::make()->perform($manipulator));    
+        });
     }
 
     private function newHandler() {
+        // stimpack new app from template p1 p2 p3
         $tasks = collect(json_decode(
             file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/default.json")
         ));

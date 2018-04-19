@@ -2,8 +2,8 @@
 
 Route::get('/', 'GuiController@index');
 
-Route::get('load/{packName}', 'GuiController@loadLocal');
-Route::get('load/{author}/{packName}', 'GuiController@load');
+Route::get('open/{packName}', 'GuiController@openLocal');
+Route::get('open/{author}/{packName}', 'GuiController@open');
 
 Route::post('save/{pack}', 'PackController@save');
 
