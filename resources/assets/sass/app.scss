@@ -5,6 +5,7 @@
 @import "switch";
 @import "editors";
 @import "icons";
+@import "header";
 @import "controlBar";
 @import "_modal";
 @import "_log";
@@ -40,13 +41,6 @@ body {
 #main {
     height: 100%;
     position: relative;   
-}
-
-.header {
-    padding-top: 20px;
-    padding-bottom: 15px;
-    padding-left: 20px;
-    background-color: $darkest;    
 }
 
 .invisible {

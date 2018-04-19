@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class Header extends Component {
-    render() {
+    render() {        
         return (
-            <div className="header">
-
+            <div id="header" className="header">            
+                <span className="heading-app-name"><i className="fa fa-2x fa-syringe logo"></i>STIMPACK</span>                
             </div>
         );
-    }
+    }    
 }

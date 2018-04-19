@@ -315,13 +315,21 @@ li a:hover {
   color: DarkOrange;
 }
 
-.controlBar {
+.header {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
   padding-bottom: 13px;
   background-color: rgba(0, 0, 0, 0.45);
-  border-bottom: 1px solid darkgrey;
+}
+
+.controlBar {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #31363F;
+  text-align: center;
 }
 
 .packBar {
@@ -10711,13 +10719,6 @@ body {
 #main {
   height: 100%;
   position: relative;
-}
-
-.header {
-  padding-top: 20px;
-  padding-bottom: 15px;
-  padding-left: 20px;
-  background-color: rgba(0, 0, 0, 0.45);
 }
 
 .invisible {

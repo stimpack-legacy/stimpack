@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ControlBar from './ControlBar';
+import Header from './Header';
 import Workspace from './Workspace';
 import * as SRD from "storm-react-diagrams"
 import {connect} from 'react-redux';
@@ -13,7 +14,8 @@ import * as _ from "lodash";
 class Main extends Component {
     render() {              
         return (            
-            <div className="app">               
+            <div className="app">
+                <Header />               
                 <ControlBar />
                 <Workspace />                
             </div>
