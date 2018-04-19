@@ -10848,3 +10848,10 @@ button {
   width: auto;
 }
 
+.logo {
+  -webkit-transform: rotate(-20deg);
+          transform: rotate(-20deg);
+  -webkit-transform: scale(50%);
+          transform: scale(50%);
+}
+

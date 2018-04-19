@@ -12,7 +12,7 @@ export default class ControlBar extends Component {
     render() {        
         return (
             <div id="controlBar" className="controlBar">            
-                <span className="heading-app-name">LARAVEL <i className="fa fa-2x fa-syringe"></i> STIMPACK</span>                
+                <span className="heading-app-name"><i className="fa fa-2x fa-syringe logo"></i>STIMPACK</span>                
                 <Run />
                 <AddManipulator />
                 <Log />
