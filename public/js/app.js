@@ -63630,7 +63630,7 @@ var Search = function (_Component) {
             return data.packs.map(function (pack) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'a',
-                    { key: pack.name, href: "/load/" + pack.name },
+                    { key: pack.name, href: "/open/" + pack.name },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
                         null,

@@ -43,7 +43,7 @@ class StimpackCommand extends Command
             'stimpack' => "homeHandler",
             'stimpack help' => "helpHandler",
             'stimpack run [\w-\s]+' => "runHandler",
-            "stimpack new [\w-]+( from [\w-\/]+)?" => "runHandler",
+            "stimpack new [\w-]+( from [\w-\/]+)?" => "newHandler",
             "stimpack open [\w-]+" => "openHandler",            
             // default
             '.*?' => "commandNotRecognizedHandler"
@@ -96,7 +96,7 @@ class StimpackCommand extends Command
     }
 
     private function runHandler() {
-        // stimpack run pack p1 p2...
+        // stimpack run pack
         $packName = $this->args()[1];
         $packParameters = $this->args()->slice(2)->values();
         $compiledManipulators = collect(json_decode(
@@ -109,23 +109,28 @@ class StimpackCommand extends Command
     }
 
     private function newHandler() {
-        // stimpack new app from template p1 p2 p3
-        $tasks = collect(json_decode(
-            file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/default.json")
-        ));
+        // stimpack new app from template
+        $projectName = $this->args()[1];
+        $packName = $this->args()[3];
+        $path = "/home/anders/Code/";
 
-        $projectName = $this->args()[1]; // Does not feal clean. Assign stuff at parsing instead?
+        $compiledManipulators = collect(json_decode(
+            file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/" . $packName . ".json")
+        )->compiled)->map(function($manipulator) use($projectName, $packName, $path) {
+            // Reset all starters path to the project to be created
+            if(isset($manipulator->isStarter) && $manipulator->isStarter)
+            {
+                $manipulator->path = $path . $projectName;
+            }
 
-        $tasks->firstWhere('name', 'SetTargetProject')->projectName = $projectName;
-        return;
-        TaskController::make()->performAll($tasks)->each(function($taskFeedback) {
-            $this->comment($taskFeedback["name"] . " " . $taskFeedback["status"]);
-            collect($taskFeedback["messages"])->each(function($message) {
-                $this->info($message);
-            });
-            $this->line("");                
+            // Reset all context paths to the project to be created
+            $manipulator->context->path = $path . $projectName;                        
+            return $manipulator;
         });
-        $this->line("");
+
+        $compiledManipulators->each(function($manipulator) {
+            $this->info(ManipulatorController::make()->perform($manipulator));    
+        });
     }
     
     private function commandNotRecognizedHandler() {
