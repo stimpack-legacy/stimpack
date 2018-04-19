@@ -1,31 +1,3 @@
-export const updateLog = (message) => {
-    return {
-        type: 'LOG_UPDATED',
-        payload: message
-    }
-};
-
-export const updateTasks = (tasks) => {
-    return {
-        type: 'TASKS_UPDATED',
-        payload: tasks
-    }
-};
-
-export const updateTaskBatch = (tasks) => {
-    return {
-        type: 'TASK_BATCH_UPDATED',
-        payload: tasks
-    }
-};
-
-export const resetTaskBatch = (taskBatch) => {
-    return {
-        type: 'TASK_BATCH_RESET',
-        payload: taskBatch
-    }
-};
-
 export const updateDiagramEngine = (diagramEngine) => {
     return {
         type: 'UPDATE_DIAGRAM_ENGINE',
@@ -40,12 +12,6 @@ export const reDrawDiagram = (signal) => {
     }
 };
 
-export const navigate = (page) => {
-    return {
-        type: 'NAVIGATE',
-        payload: page
-    }
-};
 
 export const openLog = () => {
     return {
@@ -67,33 +33,3 @@ export const setQueue = (compiledManipulators) => {
         payload: Object.assign({}, compiledManipulators)
     }
 };
-
-export const setBusy = (trueOrFalse) => {
-    return {
-        type: 'SET_BUSY',
-        payload: trueOrFalse
-    }
-};
-
-export const emptyLog = () => {
-    return {
-        type: 'EMPTY_LOG',
-        payload: null
-    }
-};
-
-export const pushToLog = (item) => {
-    return {
-        type: 'PUSH_TO_LOG',
-        payload: item
-    }
-};
-
-export const setPendingManipulator = (manipulator) => {
-    return {
-        type: 'SET_PENDING_MANIPULATOR',
-        payload: manipulator
-    }
-};
-
-

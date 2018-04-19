@@ -599,48 +599,11 @@ module.exports = ExecutionEnvironment;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export updateLog */
-/* unused harmony export updateTasks */
-/* unused harmony export updateTaskBatch */
-/* unused harmony export resetTaskBatch */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return updateDiagramEngine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reDrawDiagram; });
-/* unused harmony export navigate */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return openLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return registerLatestNode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return setQueue; });
-/* unused harmony export setBusy */
-/* unused harmony export emptyLog */
-/* unused harmony export pushToLog */
-/* unused harmony export setPendingManipulator */
-var updateLog = function updateLog(message) {
-    return {
-        type: 'LOG_UPDATED',
-        payload: message
-    };
-};
-
-var updateTasks = function updateTasks(tasks) {
-    return {
-        type: 'TASKS_UPDATED',
-        payload: tasks
-    };
-};
-
-var updateTaskBatch = function updateTaskBatch(tasks) {
-    return {
-        type: 'TASK_BATCH_UPDATED',
-        payload: tasks
-    };
-};
-
-var resetTaskBatch = function resetTaskBatch(taskBatch) {
-    return {
-        type: 'TASK_BATCH_RESET',
-        payload: taskBatch
-    };
-};
-
 var updateDiagramEngine = function updateDiagramEngine(diagramEngine) {
     return {
         type: 'UPDATE_DIAGRAM_ENGINE',
@@ -652,13 +615,6 @@ var reDrawDiagram = function reDrawDiagram(signal) {
     return {
         type: 'RE_DRAW_DIAGRAM',
         payload: signal
-    };
-};
-
-var navigate = function navigate(page) {
-    return {
-        type: 'NAVIGATE',
-        payload: page
     };
 };
 
@@ -680,34 +636,6 @@ var setQueue = function setQueue(compiledManipulators) {
     return {
         type: 'SET_QUEUE',
         payload: Object.assign({}, compiledManipulators)
-    };
-};
-
-var setBusy = function setBusy(trueOrFalse) {
-    return {
-        type: 'SET_BUSY',
-        payload: trueOrFalse
-    };
-};
-
-var emptyLog = function emptyLog() {
-    return {
-        type: 'EMPTY_LOG',
-        payload: null
-    };
-};
-
-var pushToLog = function pushToLog(item) {
-    return {
-        type: 'PUSH_TO_LOG',
-        payload: item
-    };
-};
-
-var setPendingManipulator = function setPendingManipulator(manipulator) {
-    return {
-        type: 'SET_PENDING_MANIPULATOR',
-        payload: manipulator
     };
 };
 
@@ -64480,17 +64408,9 @@ function mapStateToProps(state) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__engineReducer__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigationReducer__ = __webpack_require__(293);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__ = __webpack_require__(294);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queueReducer__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__busyReducer__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__logReducer__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pendingManipulatorReducer__ = __webpack_require__(299);
-
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reDrawReducer__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__latestNodeReducer__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__queueReducer__ = __webpack_require__(296);
 
 
 
@@ -64499,13 +64419,9 @@ function mapStateToProps(state) {
 
 var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReducers */])({
     engine: __WEBPACK_IMPORTED_MODULE_1__engineReducer__["a" /* default */],
-    navigation: __WEBPACK_IMPORTED_MODULE_2__navigationReducer__["a" /* default */],
-    reDraw: __WEBPACK_IMPORTED_MODULE_3__reDrawReducer__["a" /* default */],
-    latestNode: __WEBPACK_IMPORTED_MODULE_4__latestNodeReducer__["a" /* default */],
-    queue: __WEBPACK_IMPORTED_MODULE_5__queueReducer__["a" /* default */],
-    busy: __WEBPACK_IMPORTED_MODULE_6__busyReducer__["a" /* default */],
-    log: __WEBPACK_IMPORTED_MODULE_7__logReducer__["a" /* default */],
-    pendingManipulator: __WEBPACK_IMPORTED_MODULE_8__pendingManipulatorReducer__["a" /* default */]
+    reDraw: __WEBPACK_IMPORTED_MODULE_2__reDrawReducer__["a" /* default */],
+    latestNode: __WEBPACK_IMPORTED_MODULE_3__latestNodeReducer__["a" /* default */],
+    queue: __WEBPACK_IMPORTED_MODULE_4__queueReducer__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
@@ -64672,23 +64588,7 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 }(__WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__["AbstractNodeFactory"]);
 
 /***/ }),
-/* 293 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Workspace";
-	var action = arguments[1];
-
-
-	if (action.type == "NAVIGATE") {
-		state = action.payload;
-	}
-
-	return state;
-});
-
-/***/ }),
+/* 293 */,
 /* 294 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64743,63 +64643,9 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 });
 
 /***/ }),
-/* 297 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-	var action = arguments[1];
-
-
-	if (action.type == "SET_BUSY") {
-		state = action.payload;
-	}
-
-	return state;
-});
-
-/***/ }),
-/* 298 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ["Running", "All", "The time!"];
-	var action = arguments[1];
-
-
-	if (action.type == "EMPTY_LOG") {
-		state = [];
-	}
-
-	if (action.type == "PUSH_TO_LOG") {
-		state = [].concat(_toConsumableArray(state), [action.payload]);
-	}
-
-	return state;
-});
-
-/***/ }),
-/* 299 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-	var action = arguments[1];
-
-
-	if (action.type == "SET_PENDING_MANIPULATOR") {
-		state = action.payload;
-	}
-
-	return state;
-});
-
-/***/ }),
+/* 297 */,
+/* 298 */,
+/* 299 */,
 /* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
