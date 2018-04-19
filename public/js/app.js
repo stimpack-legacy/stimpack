@@ -21237,7 +21237,7 @@ var Queue = function () {
 
             $.ajax({
                 type: "POST",
-                url: "/stimpack/perform/" + item.name,
+                url: "/perform/" + item.name,
                 data: {
                     data: Object(__WEBPACK_IMPORTED_MODULE_0__Helpers__["a" /* nonCircularStringify */])(item)
                 },
@@ -64415,7 +64415,9 @@ var Save = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Save.__proto__ || Object.getPrototypeOf(Save)).call(this, props));
 
         __WEBPACK_IMPORTED_MODULE_2_react_modal___default.a.setAppElement('#main');
-        _this.state = {};
+        _this.state = {
+            name: "new-awesome-project"
+        };
         return _this;
     }
 
@@ -64455,7 +64457,7 @@ var Save = function (_Component) {
                         { htmlFor: 'name' },
                         'Name'
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', className: 'form-control', id: 'name' })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: this.state.name, onChange: this.changeName.bind(this), type: 'text', className: 'form-control', id: 'name' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
@@ -64470,13 +64472,20 @@ var Save = function (_Component) {
             );
         }
     }, {
+        key: 'changeName',
+        value: function changeName(event) {
+            this.setState({
+                name: event.target.value
+            });
+        }
+    }, {
         key: 'save',
         value: function save() {
             var compiler = new __WEBPACK_IMPORTED_MODULE_10__Compiler__["a" /* default */](this.props.engine);
             var compiled = compiler.compile();
             $.ajax({
                 type: "POST",
-                url: "/stimpack/save/" + "some-name-to-save-to-v12.json",
+                url: "/save/" + this.state.name + ".json",
                 data: {
                     fileContent: Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])({
                         // Used to redraw the diagram
@@ -64853,7 +64862,7 @@ function engineWithLoadedModel() {
 	//2) setup the diagram model
 	var model = new __WEBPACK_IMPORTED_MODULE_0_storm_react_diagrams__["DiagramModel"]();
 
-	model.deSerializeDiagram(data.packs[0].diagram, engine);
+	model.deSerializeDiagram(data.pack.content.diagram, engine);
 	engine.setDiagramModel(model);
 	return engine;
 }
@@ -64909,8 +64918,17 @@ function defaultEngine() {
 //console.log(defaultEngine());
 //console.log(engineWithLoadedModel());
 
+
+function getEngine() {
+	if (!(typeof data.pack == "undefined")) {
+		return engineWithLoadedModel();
+	}
+
+	return defaultEngine();
+}
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultEngine();
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getEngine();
 	var action = arguments[1];
 
 	//export default function (state = engineWithLoadedModel(), action) {

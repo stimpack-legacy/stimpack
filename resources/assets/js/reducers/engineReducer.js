@@ -26,7 +26,7 @@ function engineWithLoadedModel() {
 	//2) setup the diagram model
 	var model = new DiagramModel();
 	
-	model.deSerializeDiagram(data.packs[0].diagram, engine);
+	model.deSerializeDiagram(data.pack.content.diagram, engine);
 	engine.setDiagramModel(model);
 	return engine;	
 }
@@ -84,7 +84,18 @@ function defaultEngine() {
 //console.log(defaultEngine());
 //console.log(engineWithLoadedModel());
 
-export default function (state = defaultEngine(), action) {
+
+
+function getEngine() {
+	if(!(typeof data.pack == "undefined")) {
+		return engineWithLoadedModel();
+	}
+
+	return defaultEngine();
+}
+
+
+export default function (state = getEngine(), action) {
 //export default function (state = engineWithLoadedModel(), action) {
 	
 	if(action.type == "UPDATE_DIAGRAM_ENGINE") {

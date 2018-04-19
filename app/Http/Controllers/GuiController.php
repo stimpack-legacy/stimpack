@@ -5,25 +5,67 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use App\Stimpack\Pack;
 
 class GuiController extends Controller
 {
-    public function index($projectName = false) {
-        
-        $data = [
+    public function __construct() {
+        $this->data = [
             'projects' => $this->projects(), 
             'packs' => $this->localPacks()//->concat($this->onlinePacks()),
         ];
-        
-        if($projectName) $data["projectName"] = $projectName;
-        
-        return view('welcome')->with(["data" => collect($data)]);
     }
 
-    public function load($author, $pack)
-    {
-        return "TEMP"; //view('welcome')->with(["data" => collect($data)]);
+    public function index()
+    {        
+        return view('welcome')->with(["data" => collect($this->data)]);
     }
+
+    public function load($author, $packName)
+    {
+        if($author != "local") {
+            return "Aouch! No such author/pack";
+        }
+
+        $this->data["pack"] = collect($this->data["packs"])->first(function($pack) use($packName) {
+            return $pack->name == $packName;
+        });
+
+        return view('welcome')->with(["data" => collect($this->data)]);
+    }
+
+    public function loadLocal($packName)
+    {
+        return $this->load("local", $packName);
+    }    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* PRIVATES ******************************************************************/
 
     private function projects()
     {
@@ -35,7 +77,10 @@ class GuiController extends Controller
     {
         chdir("/home/anders/Code/stimpack/storage/stimpack/packs");
         return collect(array_filter(glob("*"), 'is_file'))->map(function($filename) {
-            return json_decode(file_get_contents($filename));
+            return new Pack(
+                str_replace_last(".json", "", $filename),
+                json_decode(file_get_contents($filename))
+            ); 
         });
     }
 
@@ -45,5 +90,4 @@ class GuiController extends Controller
         $result = $client->get('http://stimpack-data.test/api/packs');
         return collect(json_decode($result->getBody()->getContents(), true));
     }
-
 }

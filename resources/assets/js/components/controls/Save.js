@@ -15,7 +15,9 @@ class Save extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
-        this.state = {};        
+        this.state = {
+            name: "new-awesome-project"
+        };        
     }
 
     render() {        
@@ -40,7 +42,7 @@ class Save extends Component {
                 <h4>Save as a pack</h4>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" id="name" />
+                    <input value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
                 </div>
                 <button onClick={this.save.bind(this)} className="btn btn-light">
                     Save
@@ -52,12 +54,18 @@ class Save extends Component {
         );
     }
 
+    changeName(event) {
+        this.setState({
+            name: event.target.value
+        });
+    }
+
     save() {
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
         $.ajax({
             type: "POST",
-            url: "/stimpack/save/" + "some-name-to-save-to-v12.json",
+            url: "/save/" + this.state.name + ".json",
             data: {
                 fileContent: nonCircularStringify({
                     // Used to redraw the diagram

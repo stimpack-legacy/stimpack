@@ -45,7 +45,7 @@ export default class Queue {
 
         $.ajax({
             type: "POST",
-            url: "/stimpack/perform/" + item.name,
+            url: "/perform/" + item.name,
             data: {
                 data: nonCircularStringify(item)
             },
