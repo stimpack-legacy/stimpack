@@ -51,6 +51,7 @@ export default class Queue {
             },
             success: function(result){
                 console.log(item.name + " succeded!");
+                this.pending.result = result;
                 this.finished.push(this.pending);
                 this.pending = null;
                 this.setQueue(this);

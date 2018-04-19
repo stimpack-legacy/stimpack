@@ -8,6 +8,7 @@ import AllManipulators from "../../storm/AllManipulators";
 import {reDrawDiagram} from '../../actions/index'
 import {registerLatestNode} from '../../actions/index'
 import Queue from "../../Queue";
+import AutoLinkText from 'react-autolink-text';
 
 class Log extends Component {
     constructor(props) {
@@ -51,16 +52,35 @@ class Log extends Component {
 
     renderLogItems() {
         return this.props.queue.finished.map((item, index) => {
-            return( 
-                <li key={index}><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</li>
+            return(
+                <div key={index}> 
+                    <li><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</li>
+                    {item.result.messages.map((message, index) => {
+                        return (
+                            <p className="log-item-message" key={index}>
+                                <AutoLinkText text={message} />
+                            </p>
+                        )
+                    })}
+                </div>
             );
         });
+    }
+
+    autoLink(text) {
+        var re = /(?![^<]*>|[^<>]*<\/)((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi; 
+        var val = re.exec(text);
+        var subst = '<a href="$1">$1</a>'; 
+        var result = text.replace(re, subst);
+        return result;        
     }
 
     renderPendingItems() {
         if(this.props.queue.pending) {
             return (
-                <li key="pending"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>                
+                <div key="pending">                
+                    <li><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>                
+                </div>
             );
         }
     }    
@@ -68,7 +88,9 @@ class Log extends Component {
     renderFailedItems() {
         if(this.props.queue.failed) {
             return (
-                <li key="failed"><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.name}</li>                
+                <div key="failed">                                
+                    <li key="failed"><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.name}</li>                
+                </div>
             );
         }
     }

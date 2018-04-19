@@ -21243,6 +21243,7 @@ var Queue = function () {
                 },
                 success: function (result) {
                     console.log(item.name + " succeded!");
+                    this.pending.result = result;
                     this.finished.push(this.pending);
                     this.pending = null;
                     this.setQueue(this);
@@ -64218,6 +64219,8 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Queue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_autolink_text__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_autolink_text___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_react_autolink_text__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64225,6 +64228,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -64298,24 +64302,48 @@ var Log = function (_Component) {
 
             return this.props.queue.finished.map(function (item, index) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'li',
+                    'div',
                     { key: index },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
-                    ' ',
-                    item.name
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
+                        ' ',
+                        item.name
+                    ),
+                    item.result.messages.map(function (message, index) {
+                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            { className: 'log-item-message', key: index },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9_react_autolink_text___default.a, { text: message })
+                        );
+                    })
                 );
             });
+        }
+    }, {
+        key: 'autoLink',
+        value: function autoLink(text) {
+            var re = /(?![^<]*>|[^<>]*<\/)((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi;
+            var val = re.exec(text);
+            var subst = '<a href="$1">$1</a>';
+            var result = text.replace(re, subst);
+            return result;
         }
     }, {
         key: 'renderPendingItems',
         value: function renderPendingItems() {
             if (this.props.queue.pending) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'li',
+                    'div',
                     { key: 'pending' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
-                    ' ',
-                    this.props.queue.pending.name
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
+                        ' ',
+                        this.props.queue.pending.name
+                    )
                 );
             }
         }
@@ -64324,11 +64352,15 @@ var Log = function (_Component) {
         value: function renderFailedItems() {
             if (this.props.queue.failed) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'li',
+                    'div',
                     { key: 'failed' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("failed") }),
-                    ' ',
-                    this.props.queue.failed.name
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        { key: 'failed' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("failed") }),
+                        ' ',
+                        this.props.queue.failed.name
+                    )
                 );
             }
         }
@@ -70201,6 +70233,600 @@ bunker(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactPureRenderFunction = __webpack_require__(310);
+
+var _reactPureRenderFunction2 = _interopRequireDefault(_reactPureRenderFunction);
+
+var _match_parser = __webpack_require__(312);
+
+var _match_parser2 = _interopRequireDefault(_match_parser);
+
+var AutoLinkText = (function (_React$Component) {
+  _inherits(AutoLinkText, _React$Component);
+
+  function AutoLinkText() {
+    _classCallCheck(this, AutoLinkText);
+
+    _get(Object.getPrototypeOf(AutoLinkText.prototype), 'constructor', this).apply(this, arguments);
+
+    this.shouldComponentUpdate = _reactPureRenderFunction2['default'];
+  }
+
+  _createClass(AutoLinkText, [{
+    key: 'render',
+    value: function render() {
+      var _context;
+
+      var text = this.props.text || '';
+      return _react2['default'].createElement(
+        'span',
+        null,
+        (_context = (_context = (_context = (0, _match_parser2['default'])(text), prepareElements).call(_context, text), truncate).call(_context, this.props.maxLength), keyElements).call(_context)
+      );
+    }
+  }]);
+
+  return AutoLinkText;
+})(_react2['default'].Component);
+
+exports['default'] = AutoLinkText;
+
+function prepareElements(text) {
+  var elements = [];
+  var lastIndex = 0;
+
+  this.forEach(function (match) {
+    if (match.position.start !== 0) {
+      elements.push(_react2['default'].createElement(
+        'span',
+        null,
+        text.slice(lastIndex, match.position.start)
+      ));
+    }
+    elements.push(_react2['default'].createElement(
+      'a',
+      { href: match.getAnchorHref() },
+      match.getAnchorText()
+    ));
+    lastIndex = match.position.end;
+  });
+
+  if (lastIndex < text.length) {
+    elements.push(_react2['default'].createElement(
+      'span',
+      null,
+      text.slice(lastIndex)
+    ));
+  }
+
+  return elements;
+}
+
+function truncate(maxLength) {
+  if (!maxLength) return this;
+
+  var elements = [];
+  var length = 0;
+
+  this.some(function (el) {
+    length += el.props.children.length;
+
+    if (length > maxLength) {
+      var truncatedText = el.props.children.slice(0, -(length - maxLength));
+      elements.push(_react2['default'].cloneElement(el, {}, truncatedText));
+      return true; // stop iterating through the elements
+    }
+
+    elements.push(el);
+  });
+
+  return elements;
+}
+
+/*
+ * Generate unique keys for each of the elements.
+ * The key will be based on the index of the element.
+ */
+function keyElements() {
+  return this.map(function (el, index) {
+    return _react2['default'].cloneElement(el, { key: index });
+  });
+}
+
+AutoLinkText.propTypes = {
+  text: _react2['default'].PropTypes.string,
+  maxLength: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string])
+};
+module.exports = exports['default'];
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports['default'] = shouldPureComponentUpdate;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _shallowEqual = __webpack_require__(311);
+
+var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+
+function shouldPureComponentUpdate(nextProps, nextState) {
+  return !(0, _shallowEqual2['default'])(this.props, nextProps) || !(0, _shallowEqual2['default'])(this.state, nextState);
+}
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports['default'] = shallowEqual;
+
+function shallowEqual(objA, objB) {
+  if (objA === objB) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
+  for (var i = 0; i < keysA.length; i++) {
+    if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _match_validator = __webpack_require__(313);
+
+var _url_match = __webpack_require__(314);
+
+var _url_match2 = _interopRequireDefault(_url_match);
+
+// match protocol, allow in format "http://" or "mailto:". However, do not match
+// the first part of something like 'link:http://www.google.com' (i.e. don't match "link:").
+// Also, make sure we don't interpret 'google.com:8000' as if 'google.com' was a
+// protocol here (i.e. ignore a trailing port number in this regex)
+var protocolRegex = /(?:[A-Za-z][-.+A-Za-z0-9]+:(?![A-Za-z][-.+A-Za-z0-9]+:\/\/)(?!\d+\/?)(?:\/\/)?)/;
+
+// starting with 'www.'
+var wwwRegex = /(?:www\.)/;
+
+// anything looking at all like a domain, non-unicode domains, not ending in a period
+var domainNameRegex = /[A-Za-z0-9\.\-]*[A-Za-z0-9\-]/;
+
+// match our known top level domains (TLDs)
+var tldRegex = /\.(?:international|construction|contractors|enterprises|photography|productions|foundation|immobilien|industries|management|properties|technology|christmas|community|directory|education|equipment|institute|marketing|solutions|vacations|bargains|boutique|builders|catering|cleaning|clothing|computer|democrat|diamonds|graphics|holdings|lighting|partners|plumbing|supplies|training|ventures|academy|careers|company|cruises|domains|exposed|flights|florist|gallery|guitars|holiday|kitchen|neustar|okinawa|recipes|rentals|reviews|shiksha|singles|support|systems|agency|berlin|camera|center|coffee|condos|dating|estate|events|expert|futbol|kaufen|luxury|maison|monash|museum|nagoya|photos|repair|report|social|supply|tattoo|tienda|travel|viajes|villas|vision|voting|voyage|actor|build|cards|cheap|codes|dance|email|glass|house|mango|ninja|parts|photo|shoes|solar|today|tokyo|tools|watch|works|aero|arpa|asia|best|bike|blue|buzz|camp|club|cool|coop|farm|fish|gift|guru|info|jobs|kiwi|kred|land|limo|link|menu|mobi|moda|name|pics|pink|post|qpon|rich|ruhr|sexy|tips|vote|voto|wang|wien|wiki|zone|bar|bid|biz|cab|cat|ceo|com|edu|gov|int|kim|mil|net|onl|org|pro|pub|red|tel|uno|wed|xxx|xyz|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)\b/;
+
+// Allow optional path, query string, and hash anchor, not ending in the following characters: "?!:,.;"
+// http://blog.codinghorror.com/the-problem-with-urls/
+var urlSuffixRegex = /[\-A-Za-z0-9+&@#\/%=~_()|'$*\[\]?!:,.;]*[\-A-Za-z0-9+&@#\/%=~_()|'$*\[\]]/;
+
+var charBeforeProtocolRelMatchRegex = /^(.)?\/\//;
+
+var urlRegex = ['(?:', // parens to cover match for protocol (optional), and domain
+'(', // *** Capturing group $1, for a protocol-prefixed url (ex: http://google.com)
+protocolRegex.source, domainNameRegex.source, ')', '|', '(?:', // non-capturing paren for a 'www.' prefixed url (ex: www.google.com)
+'(.?//)?', // *** Capturing group $2 for an optional protocol-relative URL. Must be at the beginning of the string or start with a non-word character
+wwwRegex.source, domainNameRegex.source, ')', '|', '(?:', // non-capturing paren for known a TLD url (ex: google.com)
+'(.?//)?', // *** Capturing group $3 for an optional protocol-relative URL. Must be at the beginning of the string or start with a non-word character
+domainNameRegex.source, tldRegex.source, ')', ')', '(?:' + urlSuffixRegex.source + ')?']. // match for path, query string, and/or hash anchor - optional
+join('');
+
+exports['default'] = function () {
+  var text = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+  var regex = new RegExp(urlRegex, 'gi');
+  var matches = [];
+
+  var match;
+  while ((match = regex.exec(text)) !== null) {
+    var _match = match;
+
+    var _match2 = _slicedToArray(_match, 4);
+
+    var matchedText = _match2[0];
+    var protocolUrlMatch = _match2[1];
+    var wwwProtocolRelativeMatch = _match2[2];
+    var tldProtocolRelativeMatch = _match2[3];
+
+    var protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
+
+    // If it's a protocol-relative '//' match, remove the character
+    // before the '//' (which the matcherRegex needed to match due to
+    // the lack of a negative look-behind in JavaScript regular
+    // expressions)
+    if (protocolRelativeMatch) {
+      var charBeforeMatch = protocolRelativeMatch.match(charBeforeProtocolRelMatchRegex)[1] || '';
+
+      // fix up the `matchStr` if there was a preceding char before a protocol-relative match, which was needed to determine the match itself (since there are no look-behinds in JS regexes)
+      if (charBeforeMatch) {
+        matchedText = matchedText.slice(1); // remove the prefixed char from the match
+        match.index++;
+      }
+    }
+
+    if ((0, _match_validator.isValidMatch)(matchedText, protocolUrlMatch, protocolRelativeMatch)) {
+      var position = { start: match.index, end: regex.lastIndex };
+      matches.push(new _url_match2['default'](matchedText, protocolUrlMatch, protocolRelativeMatch, position));
+    }
+  }
+
+  return matches;
+};
+
+;
+module.exports = exports['default'];
+
+/***/ }),
+/* 313 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.isValidMatch = isValidMatch;
+var uriSchemeRegex = /^[A-Za-z][-.+A-Za-z0-9]+:/;
+var hasFullProtocolRegex = /^[A-Za-z][-.+A-Za-z0-9]+:\/\//;
+var hasWordCharAfterProtocolRegex = /:[^\s]*?[A-Za-z]/;
+var invalidProtocolRelMatchRegex = /^[\w]\/\//;
+
+/**
+ * Determines if a given match found by the match parser is valid.
+ * Will return `false` for:
+ *
+ * 1) URL matches which do not have at least have one period ('.') in the
+ *    domain name (effectively skipping over matches like "abc:def").
+ *    However, URL matches with a protocol will be allowed (ex: 'http://localhost')
+ * 2) URL matches which do not have at least one word character in the
+ *    domain name (effectively skipping over matches like "git:1.0").
+ * 3) A protocol-relative url match (a URL beginning with '//') whose
+ *    previous character is a word character (effectively skipping over
+ *    strings like "abc//google.com")
+ *
+ * Otherwise, returns `true`.
+ *
+ * @param {String} urlMatch The matched URL, if there was one. Will be an
+ *   empty string if the match is not a URL match.
+ * @param {String} protocolUrlMatch The match URL string for a protocol
+ *   match. Ex: 'http://yahoo.com'. This is used to match something like
+ *   'http://localhost', where we won't double check that the domain name
+ *   has at least one '.' in it.
+ * @param {String} protocolRelativeMatch The protocol-relative string for a
+ *   URL match (i.e. '//'), possibly with a preceding character (ex, a
+ *   space, such as: ' //', or a letter, such as: 'a//'). The match is
+ *   invalid if there is a word character preceding the '//'.
+ * @return {Boolean} `true` if the match given is valid and should be
+ *   processed, or `false` if the match is invalid and/or should just not be
+ *   processed.
+ */
+
+function isValidMatch(urlMatch, protocolUrlMatch, protocolRelativeMatch) {
+  if (protocolUrlMatch && !isValidUriScheme(protocolUrlMatch) || urlMatchDoesNotHaveProtocolOrDot(urlMatch, protocolUrlMatch) || // At least one period ('.') must exist in the URL match for us to consider it an actual URL, *unless* it was a full protocol match (like 'http://localhost')
+  urlMatchDoesNotHaveAtLeastOneWordChar(urlMatch, protocolUrlMatch) || // At least one letter character must exist in the domain name after a protocol match. Ex: skip over something like "git:1.0"
+  isInvalidProtocolRelativeMatch(protocolRelativeMatch) // A protocol-relative match which has a word character in front of it (so we can skip something like "abc//google.com")
+  ) {
+      return false;
+    }
+
+  return true;
+}
+
+/**
+ * Determines if the URI scheme is a valid scheme to be autolinked. Returns
+ * `false` if the scheme is 'javascript:' or 'vbscript:'
+ *
+ * @private
+ * @param {String} uriSchemeMatch The match URL string for a full URI scheme
+ *   match. Ex: 'http://yahoo.com' or 'mailto:a@a.com'.
+ * @return {Boolean} `true` if the scheme is a valid one, `false` otherwise.
+ */
+function isValidUriScheme(uriSchemeMatch) {
+  var uriScheme = uriSchemeMatch.match(uriSchemeRegex)[0].toLowerCase();
+
+  return uriScheme !== 'javascript:' && uriScheme !== 'vbscript:';
+}
+
+/**
+ * Determines if a URL match does not have either:
+ *
+ * a) a full protocol (i.e. 'http://'), or
+ * b) at least one dot ('.') in the domain name (for a non-full-protocol
+ *    match).
+ *
+ * Either situation is considered an invalid URL (ex: 'git:d' does not have
+ * either the '://' part, or at least one dot in the domain name. If the
+ * match was 'git:abc.com', we would consider this valid.)
+ *
+ * @private
+ * @param {String} urlMatch The matched URL, if there was one. Will be an
+ *   empty string if the match is not a URL match.
+ * @param {String} protocolUrlMatch The match URL string for a protocol
+ *   match. Ex: 'http://yahoo.com'. This is used to match something like
+ *   'http://localhost', where we won't double check that the domain name
+ *   has at least one '.' in it.
+ * @return {Boolean} `true` if the URL match does not have a full protocol,
+ *   or at least one dot ('.') in a non-full-protocol match.
+ */
+function urlMatchDoesNotHaveProtocolOrDot(urlMatch, protocolUrlMatch) {
+  return !!urlMatch && (!protocolUrlMatch || !hasFullProtocolRegex.test(protocolUrlMatch)) && urlMatch.indexOf('.') === -1;
+}
+
+/**
+ * Determines if a URL match does not have at least one word character after
+ * the protocol (i.e. in the domain name).
+ *
+ * At least one letter character must exist in the domain name after a
+ * protocol match. Ex: skip over something like "git:1.0"
+ *
+ * @private
+ * @param {String} urlMatch The matched URL, if there was one. Will be an
+ *   empty string if the match is not a URL match.
+ * @param {String} protocolUrlMatch The match URL string for a protocol
+ *   match. Ex: 'http://yahoo.com'. This is used to know whether or not we
+ *   have a protocol in the URL string, in order to check for a word
+ *   character after the protocol separator (':').
+ * @return {Boolean} `true` if the URL match does not have at least one word
+ *   character in it after the protocol, `false` otherwise.
+ */
+function urlMatchDoesNotHaveAtLeastOneWordChar(urlMatch, protocolUrlMatch) {
+  if (urlMatch && protocolUrlMatch) {
+    return !hasWordCharAfterProtocolRegex.test(urlMatch);
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Determines if a protocol-relative match is an invalid one. This method
+ * returns `true` if there is a `protocolRelativeMatch`, and that match
+ * contains a word character before the '//' (i.e. it must contain
+ * whitespace or nothing before the '//' in order to be considered valid).
+ *
+ * @private
+ * @param {String} protocolRelativeMatch The protocol-relative string for a
+ *   URL match (i.e. '//'), possibly with a preceding character (ex, a
+ *   space, such as: ' //', or a letter, such as: 'a//'). The match is
+ *   invalid if there is a word character preceding the '//'.
+ * @return {Boolean} `true` if it is an invalid protocol-relative match,
+ *   `false` otherwise.
+ */
+function isInvalidProtocolRelativeMatch(protocolRelativeMatch) {
+  return !!protocolRelativeMatch && invalidProtocolRelMatchRegex.test(protocolRelativeMatch);
+}
+
+/***/ }),
+/* 314 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * @class Autolinker.match.Url
+ *
+ * Represents a Url match found in an input string which should be Autolinked.
+ */
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var URLMatch = (function () {
+  function URLMatch(url, protocolUrlMatch, protocolRelativeMatch, position) {
+    _classCallCheck(this, URLMatch);
+
+    this.urlPrefixRegex = /^(https?:\/\/)?(www\.)?/i;
+    this.protocolRelativeRegex = /^\/\//;
+    this.protocolPrepended = false;
+    this.stripPrefix = true;
+
+    this._url = url;
+    this._protocolUrlMatch = protocolUrlMatch;
+    this._protocolRelativeMatch = protocolRelativeMatch;
+    this.position = position;
+  }
+
+  /**
+   * A regular expression used to remove the 'http://' or 'https://' and/or the 'www.' from URLs.
+   */
+
+  _createClass(URLMatch, [{
+    key: 'getUrl',
+
+    /**
+     * Returns the url that was matched, assuming the protocol to be 'http://' if the original
+     * match was missing a protocol.
+     *
+     * @return {String}
+     */
+    value: function getUrl() {
+      var url = this._url;
+
+      // if the url string doesn't begin with a protocol, assume 'http://'
+      if (!this._protocolRelativeMatch && !this._protocolUrlMatch && !this.protocolPrepended) {
+        url = this._url = 'http://' + url;
+
+        this.protocolPrepended = true;
+      }
+
+      return url;
+    }
+
+    /**
+     * Returns the anchor href that should be generated for the match.
+     *
+     * @return {String}
+     */
+  }, {
+    key: 'getAnchorHref',
+    value: function getAnchorHref() {
+      var url = this.getUrl();
+
+      return url.replace(/&amp;/g, '&'); // any &amp;'s in the URL should be converted back to '&' if they were displayed as &amp; in the source html
+    }
+
+    /**
+     * Returns the anchor text that should be generated for the match.
+     *
+     * @return {String}
+     */
+  }, {
+    key: 'getAnchorText',
+    value: function getAnchorText() {
+      var anchorText = this.getUrl();
+
+      if (this._protocolRelativeMatch) {
+        // Strip off any protocol-relative '//' from the anchor text
+        anchorText = this.stripProtocolRelativePrefix(anchorText);
+      }
+      if (this.stripPrefix) {
+        anchorText = this.stripUrlPrefix(anchorText);
+      }
+      anchorText = this.removeTrailingSlash(anchorText); // remove trailing slash, if there is one
+
+      return anchorText;
+    }
+
+    // ---------------------------------------
+
+    // Utility Functionality
+
+    /**
+     * Strips the URL prefix (such as "http://" or "https://") from the given text.
+     *
+     * @private
+     * @param {String} text The text of the anchor that is being generated, for which to strip off the
+     *   url prefix (such as stripping off "http://")
+     * @return {String} The `anchorText`, with the prefix stripped.
+     */
+  }, {
+    key: 'stripUrlPrefix',
+    value: function stripUrlPrefix(text) {
+      return text.replace(this.urlPrefixRegex, '');
+    }
+
+    /**
+     * Strips any protocol-relative '//' from the anchor text.
+     *
+     * @private
+     * @param {String} text The text of the anchor that is being generated, for which to strip off the
+     *   protocol-relative prefix (such as stripping off "//")
+     * @return {String} The `anchorText`, with the protocol-relative prefix stripped.
+     */
+  }, {
+    key: 'stripProtocolRelativePrefix',
+    value: function stripProtocolRelativePrefix(text) {
+      return text.replace(this.protocolRelativeRegex, '');
+    }
+
+    /**
+     * Removes any trailing slash from the given `anchorText`, in preparation for the text to be displayed.
+     *
+     * @private
+     * @param {String} anchorText The text of the anchor that is being generated, for which to remove any trailing
+     *   slash ('/') that may exist.
+     * @return {String} The `anchorText`, with the trailing slash removed.
+     */
+  }, {
+    key: 'removeTrailingSlash',
+    value: function removeTrailingSlash(anchorText) {
+      if (anchorText.charAt(anchorText.length - 1) === '/') {
+        anchorText = anchorText.slice(0, -1);
+      }
+      return anchorText;
+    }
+  }]);
+
+  return URLMatch;
+})();
+
+exports['default'] = URLMatch;
+module.exports = exports['default'];
+
+/**
+ * The regular expression used to remove the protocol-relative '//' from the {@link #url} string, for purposes
+ * of {@link #getAnchorText}. A protocol-relative URL is, for example, "//yahoo.com"
+ */
+
+/**
+ * Will be set to `true` if the 'http://' protocol has been prepended to the {@link #url} (because the
+ * {@link #url} did not have a protocol)
+ */
 
 /***/ })
 /******/ ]);

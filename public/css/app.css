@@ -443,6 +443,16 @@ input::-webkit-calendar-picker-indicator {
   text-align: center;
 }
 
+.logItems {
+  padding-left: 20px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.log-item-message {
+  margin-left: 20px;
+}
+
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -10828,12 +10838,6 @@ hr {
 
 button {
   margin-top: 10px;
-}
-
-.logItems {
-  padding-left: 30%;
-  text-align: left;
-  margin-bottom: 20px;
 }
 
 .siteUrlLink {

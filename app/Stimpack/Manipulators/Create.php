@@ -9,13 +9,9 @@ use ZipArchive;
 class Create extends Manipulator
 {
     public function perform() {
-        //Log::info($this->data->path);
-
         // Get the file from github
         $start = microtime(true);
         //file_put_contents("../storage/stimpack/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
-        
-        //dd($this->data);
 
         // Unzip    
         $zip = new ZipArchive;
@@ -25,12 +21,13 @@ class Create extends Manipulator
             $zip->close();
         } else {
             return "some Error?";
-        }        
-        
-        // Update .env
-        //file_put_contents($this->projectPath()."/.env", str_replace("DATABASE_PATH", $this->projectPath() . "/storage/database.sqlite" ,Templates::ENV));
+        }
 
-        return "OK";
+        return [
+            "messages" => [
+                "Created application at http://" . substr($this->data->path, strrpos($this->data->path, '/') + 1) . ".test"
+            ]
+        ];
 
     }
 }
