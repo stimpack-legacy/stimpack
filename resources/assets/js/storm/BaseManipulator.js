@@ -2,7 +2,6 @@ import * as React from "react";
 import * as _ from "lodash";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateDiagramEngine} from '../actions/index'
 
 import { DefaultNodeModel } from "storm-react-diagrams";
 import { DefaultPortLabel } from "storm-react-diagrams";
@@ -75,6 +74,9 @@ export default class BaseManipulator extends BaseWidget {
         this.setState({
             modalIsOpen: true,
         });
+
+        // Prevent focus bug
+        this.props.engine.diagramModel.setLocked(true);
     }
     
     afterOpenModal() {
@@ -83,7 +85,8 @@ export default class BaseManipulator extends BaseWidget {
     
     closeModal() {
         this.setState({modalIsOpen: false});
-        //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+        // Prevent focus bug
+        this.props.engine.diagramModel.setLocked(false);        
     }
 
     isStarter() {
@@ -104,7 +107,7 @@ export default class BaseManipulator extends BaseWidget {
     static matchDispatchToProps(dispatch){
         return bindActionCreators(
             {
-                updateDiagramEngine: updateDiagramEngine
+                //
             }, dispatch);
     }    
 }

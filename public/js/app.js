@@ -599,18 +599,10 @@ module.exports = ExecutionEnvironment;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return updateDiagramEngine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return reDrawDiagram; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return openLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return registerLatestNode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return setQueue; });
-var updateDiagramEngine = function updateDiagramEngine(diagramEngine) {
-    return {
-        type: 'UPDATE_DIAGRAM_ENGINE',
-        payload: diagramEngine
-    };
-};
-
 var reDrawDiagram = function reDrawDiagram(signal) {
     return {
         type: 'RE_DRAW_DIAGRAM',
@@ -24505,12 +24497,11 @@ function isPlainObject(value) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_index__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__AllManipulators__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_storm_react_diagrams__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_storm_react_diagrams__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_modal__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__AllManipulators__ = __webpack_require__(45);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -24535,7 +24526,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var BaseManipulator = function (_BaseWidget) {
     _inherits(BaseManipulator, _BaseWidget);
 
@@ -24544,11 +24534,11 @@ var BaseManipulator = function (_BaseWidget) {
 
         var _this = _possibleConstructorReturn(this, (BaseManipulator.__proto__ || Object.getPrototypeOf(BaseManipulator)).call(this, "srd-default-node", props));
 
-        __WEBPACK_IMPORTED_MODULE_6_react_modal___default.a.setAppElement('#main');
+        __WEBPACK_IMPORTED_MODULE_5_react_modal___default.a.setAppElement('#main');
 
         _this.state = {};
         if (!(_typeof(_this.props.node.data) == "object")) {
-            _this.state.data = __WEBPACK_IMPORTED_MODULE_7__AllManipulators__["a" /* default */][_this.constructor.name].getDefaultManipulatorParameters();
+            _this.state.data = __WEBPACK_IMPORTED_MODULE_6__AllManipulators__["a" /* default */][_this.constructor.name].getDefaultManipulatorParameters();
             // attach data to node
             _this.props.node.data = _this.state.data;
         } else {
@@ -24560,7 +24550,7 @@ var BaseManipulator = function (_BaseWidget) {
     _createClass(BaseManipulator, [{
         key: "generatePort",
         value: function generatePort(port) {
-            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["DefaultPortLabel"], { model: port, key: port.id });
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_4_storm_react_diagrams__["DefaultPortLabel"], { model: port, key: port.id });
         }
     }, {
         key: "render",
@@ -24570,7 +24560,7 @@ var BaseManipulator = function (_BaseWidget) {
                 _extends({ onDoubleClick: this.openModal.bind(this) }, this.getProps()),
                 this.renderNode(),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    __WEBPACK_IMPORTED_MODULE_6_react_modal___default.a,
+                    __WEBPACK_IMPORTED_MODULE_5_react_modal___default.a,
                     {
                         isOpen: this.state.modalIsOpen,
                         onAfterOpen: this.afterOpenModal.bind(this),
@@ -24629,6 +24619,9 @@ var BaseManipulator = function (_BaseWidget) {
             this.setState({
                 modalIsOpen: true
             });
+
+            // Prevent focus bug
+            this.props.engine.diagramModel.setLocked(true);
         }
     }, {
         key: "afterOpenModal",
@@ -24639,7 +24632,8 @@ var BaseManipulator = function (_BaseWidget) {
         key: "closeModal",
         value: function closeModal() {
             this.setState({ modalIsOpen: false });
-            //console.log(JSON.stringify(this.props.diagramEngine.diagramModel.serializeDiagram(), null, 4));        
+            // Prevent focus bug
+            this.props.engine.diagramModel.setLocked(false);
         }
     }, {
         key: "isStarter",
@@ -24663,13 +24657,13 @@ var BaseManipulator = function (_BaseWidget) {
         key: "matchDispatchToProps",
         value: function matchDispatchToProps(dispatch) {
             return Object(__WEBPACK_IMPORTED_MODULE_3_redux__["a" /* bindActionCreators */])({
-                updateDiagramEngine: __WEBPACK_IMPORTED_MODULE_4__actions_index__["e" /* updateDiagramEngine */]
+                //
             }, dispatch);
         }
     }]);
 
     return BaseManipulator;
-}(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__["BaseWidget"]);
+}(__WEBPACK_IMPORTED_MODULE_4_storm_react_diagrams__["BaseWidget"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (BaseManipulator);
 
