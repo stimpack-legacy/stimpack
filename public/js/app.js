@@ -63586,7 +63586,7 @@ var Search = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h4',
                     null,
-                    'Explore'
+                    'Open pack'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -63594,7 +63594,17 @@ var Search = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'p',
                         null,
-                        ' Explore packs on ',
+                        ' Your local packs '
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'ul',
+                        null,
+                        this.renderLocalPacks()
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'p',
+                        null,
+                        ' Explore all packs on ',
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { href: 'https://stimpack.io' },
@@ -63613,6 +63623,21 @@ var Search = function (_Component) {
                     )
                 )
             );
+        }
+    }, {
+        key: 'renderLocalPacks',
+        value: function renderLocalPacks() {
+            return data.packs.map(function (pack) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'a',
+                    { key: pack.name, href: "/load/" + pack.name },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'li',
+                        null,
+                        pack.name
+                    )
+                );
+            });
         }
     }, {
         key: 'openModal',

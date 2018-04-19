@@ -19,13 +19,13 @@
                         "id": "aef92418-6a0c-4a7a-9ed1-14f457e1c363",
                         "selected": false,
                         "x": 268.8210144042969,
-                        "y": 204.67329025268555
+                        "y": 204.67330169677734
                     },
                     {
                         "id": "c8df4cb1-ad17-420c-963d-c8701b31b275",
                         "selected": false,
                         "x": 332.79827880859375,
-                        "y": 302.67329025268555
+                        "y": 302.6704635620117
                     }
                 ],
                 "extras": {},
@@ -47,13 +47,13 @@
                         "id": "bce87a94-4af6-4c0f-a2de-0471f2749e71",
                         "selected": false,
                         "x": 407.8835144042969,
-                        "y": 302.67329025268555
+                        "y": 302.6704635620117
                     },
                     {
                         "id": "d80350ce-f5d1-4341-8ce2-72c215ad3651",
                         "selected": false,
-                        "x": 326.79827880859375,
-                        "y": 404.67329025268555
+                        "x": 326.803955078125,
+                        "y": 404.6732711791992
                     }
                 ],
                 "extras": {},
@@ -74,14 +74,14 @@
                     {
                         "id": "4a622984-dfd0-4ad1-b49a-7aba09024184",
                         "selected": false,
-                        "x": 401.88348388671875,
-                        "y": 404.67329025268555
+                        "x": 401.8891906738281,
+                        "y": 404.6732711791992
                     },
                     {
                         "id": "bb17aa0b-f32e-4366-a307-c8ec516504cc",
                         "selected": false,
-                        "x": 320.79827880859375,
-                        "y": 494.67329025268555
+                        "x": 320.8096618652344,
+                        "y": 494.6732406616211
                     }
                 ],
                 "extras": {},
@@ -95,7 +95,7 @@
             {
                 "id": "f214693c-fd89-436e-b5ea-66e24a27dd7f",
                 "type": "manipulator",
-                "selected": false,
+                "selected": true,
                 "x": 198.32262126008806,
                 "y": 167.8369174291315,
                 "extras": {},
@@ -125,11 +125,11 @@
                 ],
                 "data": {
                     "name": "Create",
-                    "path": "/home/anders/Code/box-1",
+                    "path": "/home/anders/Code/boxes-from-cli",
                     "isStarter": true,
                     "context": {
                         "name": "Create",
-                        "path": "/home/anders/Code/box-1",
+                        "path": "/home/anders/Code/boxes-from-cli",
                         "isStarter": true
                     }
                 },
@@ -173,10 +173,10 @@
                 "data": {
                     "name": "CreateDatabase",
                     "path": "/home/anders/Code/something-new",
-                    "lolid": 77,
+                    "lolid": 88,
                     "context": {
                         "name": "Create",
-                        "path": "/home/anders/Code/box-1",
+                        "path": "/home/anders/Code/boxes-from-cli",
                         "isStarter": true
                     }
                 },
@@ -220,10 +220,10 @@
                 "data": {
                     "name": "CreateDatabase",
                     "path": "/home/anders/Code/something-new",
-                    "lolid": 31,
+                    "lolid": 51,
                     "context": {
                         "name": "Create",
-                        "path": "/home/anders/Code/box-1",
+                        "path": "/home/anders/Code/boxes-from-cli",
                         "isStarter": true
                     }
                 },
@@ -265,10 +265,10 @@
                 "data": {
                     "name": "CreateDatabase",
                     "path": "/home/anders/Code/something-new",
-                    "lolid": 38,
+                    "lolid": 51,
                     "context": {
                         "name": "Create",
-                        "path": "/home/anders/Code/box-1",
+                        "path": "/home/anders/Code/boxes-from-cli",
                         "isStarter": true
                     }
                 },
@@ -279,7 +279,7 @@
             {
                 "id": "2847ebf7-8079-4fad-a442-078318af25e7",
                 "type": "manipulator",
-                "selected": true,
+                "selected": false,
                 "x": 199.322621260088,
                 "y": 583.8369174291315,
                 "extras": {},
@@ -324,41 +324,41 @@
     "compiled": [
         {
             "name": "Create",
-            "path": "/home/anders/Code/box-1",
+            "path": "/home/anders/Code/boxes-from-cli",
             "isStarter": true,
             "context": {
                 "name": "Create",
-                "path": "/home/anders/Code/box-1",
+                "path": "/home/anders/Code/boxes-from-cli",
                 "isStarter": true
             }
         },
         {
             "name": "CreateDatabase",
             "path": "/home/anders/Code/something-new",
-            "lolid": 77,
+            "lolid": 88,
             "context": {
                 "name": "Create",
-                "path": "/home/anders/Code/box-1",
+                "path": "/home/anders/Code/boxes-from-cli",
                 "isStarter": true
             }
         },
         {
             "name": "CreateDatabase",
             "path": "/home/anders/Code/something-new",
-            "lolid": 31,
+            "lolid": 51,
             "context": {
                 "name": "Create",
-                "path": "/home/anders/Code/box-1",
+                "path": "/home/anders/Code/boxes-from-cli",
                 "isStarter": true
             }
         },
         {
             "name": "CreateDatabase",
             "path": "/home/anders/Code/something-new",
-            "lolid": 38,
+            "lolid": 51,
             "context": {
                 "name": "Create",
-                "path": "/home/anders/Code/box-1",
+                "path": "/home/anders/Code/boxes-from-cli",
                 "isStarter": true
             }
         },
