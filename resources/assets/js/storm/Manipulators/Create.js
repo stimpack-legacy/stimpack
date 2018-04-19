@@ -5,10 +5,6 @@ import BaseManipulator from "../BaseManipulator";
 class Create extends BaseManipulator {
 	constructor(props) {
         super("srd-default-node", props);        
-        this.state = {
-            data: Create.getDefaultManipulatorParameters() // this.props.node.data - makes deserializing work!
-        }
-        this.props.node.data = this.state.data;
     }
     
     static getDefaultManipulatorParameters() {

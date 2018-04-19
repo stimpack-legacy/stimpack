@@ -9,11 +9,21 @@ import { DefaultPortLabel } from "storm-react-diagrams";
 import { DiagramEngine } from "storm-react-diagrams";
 import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
 import Modal from 'react-modal';
+import AllManipulators from "./AllManipulators";
 
 export default class BaseManipulator extends BaseWidget {
 	constructor(className, props) {
         super("srd-default-node", props);                
-        Modal.setAppElement('#main')        
+        Modal.setAppElement('#main');
+        
+        this.state = {};
+        if(!(typeof(this.props.node.data) == "object")) {
+            this.state.data = AllManipulators[this.constructor.name].getDefaultManipulatorParameters();            
+            // attach data to node
+            this.props.node.data = this.state.data;
+        } else {
+            this.state.data = this.props.node.data; 
+        }        
 	}
 
 	generatePort(port) {

@@ -46,6 +46,8 @@ function defaultEngine() {
 	var latestNode = new ManipulatorNodeModel({ 
 		name: "Create"
 	});
+	latestNode.addInPort(" ");
+    latestNode.addOutPort(" ");
 
 	latestNode.setPosition(300, 300);
 	//model.addNode(latestNode);
@@ -53,6 +55,8 @@ function defaultEngine() {
 	var node = new ManipulatorNodeModel({ 
 		name: "CreateDatabase"
 	});
+	node.addInPort(" ");
+    node.addOutPort(" ");	
 
 	node.setPosition(500+Math.random()*100, 350+Math.random()*100);
 	//model.addNode(node);
@@ -80,8 +84,8 @@ function defaultEngine() {
 //console.log(defaultEngine());
 //console.log(engineWithLoadedModel());
 
-//export default function (state = defaultEngine(), action) {
-export default function (state = engineWithLoadedModel(), action) {
+export default function (state = defaultEngine(), action) {
+//export default function (state = engineWithLoadedModel(), action) {
 	
 	if(action.type == "UPDATE_DIAGRAM_ENGINE") {
 		state = Object.assign({}, action.payload);

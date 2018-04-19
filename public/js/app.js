@@ -24581,7 +24581,10 @@ function isPlainObject(value) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__AllManipulators__ = __webpack_require__(45);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24590,6 +24593,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -24612,6 +24616,15 @@ var BaseManipulator = function (_BaseWidget) {
         var _this = _possibleConstructorReturn(this, (BaseManipulator.__proto__ || Object.getPrototypeOf(BaseManipulator)).call(this, "srd-default-node", props));
 
         __WEBPACK_IMPORTED_MODULE_6_react_modal___default.a.setAppElement('#main');
+
+        _this.state = {};
+        if (!(_typeof(_this.props.node.data) == "object")) {
+            _this.state.data = __WEBPACK_IMPORTED_MODULE_7__AllManipulators__["a" /* default */][_this.constructor.name].getDefaultManipulatorParameters();
+            // attach data to node
+            _this.props.node.data = _this.state.data;
+        } else {
+            _this.state.data = _this.props.node.data;
+        }
         return _this;
     }
 
@@ -63828,13 +63841,7 @@ var Create = function (_BaseManipulator) {
     function Create(props) {
         _classCallCheck(this, Create);
 
-        var _this = _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this, "srd-default-node", props));
-
-        _this.state = {
-            data: Create.getDefaultManipulatorParameters() // this.props.node.data - makes deserializing work!
-        };
-        _this.props.node.data = _this.state.data;
-        return _this;
+        return _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this, "srd-default-node", props));
     }
 
     _createClass(Create, [{
@@ -64865,6 +64872,8 @@ function defaultEngine() {
 	var latestNode = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
 		name: "Create"
 	});
+	latestNode.addInPort(" ");
+	latestNode.addOutPort(" ");
 
 	latestNode.setPosition(300, 300);
 	//model.addNode(latestNode);
@@ -64872,6 +64881,8 @@ function defaultEngine() {
 	var node = new __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
 		name: "CreateDatabase"
 	});
+	node.addInPort(" ");
+	node.addOutPort(" ");
 
 	node.setPosition(500 + Math.random() * 100, 350 + Math.random() * 100);
 	//model.addNode(node);
@@ -64898,11 +64909,11 @@ function defaultEngine() {
 //console.log(defaultEngine());
 //console.log(engineWithLoadedModel());
 
-//export default function (state = defaultEngine(), action) {
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : engineWithLoadedModel();
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultEngine();
 	var action = arguments[1];
 
+	//export default function (state = engineWithLoadedModel(), action) {
 
 	if (action.type == "UPDATE_DIAGRAM_ENGINE") {
 		state = Object.assign({}, action.payload);
