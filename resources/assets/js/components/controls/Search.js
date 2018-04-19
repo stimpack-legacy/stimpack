@@ -52,7 +52,7 @@ class Search extends Component {
     renderLocalPacks() {
         return data.packs.map(pack => {
             return (
-                <a key={pack.name} href={"/load/" + pack.name}>
+                <a key={pack.name} href={"/open/" + pack.name}>
                     <li>{pack.name}</li>
                 </a>
             );
