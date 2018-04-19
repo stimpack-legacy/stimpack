@@ -40,40 +40,7 @@ class GuiController extends Controller
     }    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* PRIVATES ******************************************************************/
-
-    private function projects()
-    {
-        chdir("../../");
-        return collect(array_filter(glob("*"), 'is_dir'))->values();        
-    }
-
-    private function localPacks()
+    public function localPacks()
     {
         chdir("/home/anders/Code/stimpack/storage/stimpack/packs");
         return collect(array_filter(glob("*"), 'is_file'))->map(function($filename) {
@@ -83,6 +50,15 @@ class GuiController extends Controller
             ); 
         });
     }
+
+    /* PRIVATES ******************************************************************/
+
+    private function projects()
+    {
+        chdir("../../");
+        return collect(array_filter(glob("*"), 'is_dir'))->values();        
+    }
+
 
     private function onlinePacks()
     {

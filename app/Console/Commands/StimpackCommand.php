@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Console\Controllers\ManipulatorController;
+use App\Http\Controllers\GuiController;
 
 
 class StimpackCommand extends Command
@@ -42,6 +43,7 @@ class StimpackCommand extends Command
         $handler = collect([
             'stimpack' => "homeHandler",
             'stimpack help' => "helpHandler",
+            'stimpack list' => "listHandler",
             'stimpack run [\w-\s]+' => "runHandler",
             "stimpack new [\w-]+( from [\w-\/]+)?" => "newHandler",
             "stimpack open [\w-]+" => "openHandler",            
@@ -138,5 +140,18 @@ class StimpackCommand extends Command
         $this->info("\nPlease confirm you are using correct syntax:\n");
         $this->helpHandler();
         $this->info("");
+    }
+    
+    private function listHandler() {
+        $packs = (new GuiController())->localPacks();
+        $packs->each(function($pack) {
+            //$this->info($pack->name);
+        });
+        $this->table(["Local packs"], 
+            $packs->map(function($pack) {
+                return [$pack->name];
+            })->toArray()
+        );        
+        
     }    
 }
