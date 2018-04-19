@@ -59,11 +59,18 @@ export default class Queue {
             }.bind(this),
             error: function(error) {
                 //var a = JSON.parse(error);
-                console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
+                if(typeof(error) == "object" && typeof(error.message) == "string") {
+                    console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
                 
-                console.groupCollapsed(["Stack trace"])
-                    console.log(error.responseText);
-                console.groupEnd();                
+                    console.groupCollapsed(["Stack trace"])
+                        console.log(error.responseText);
+                    console.groupEnd();
+                }
+                this.pending.result = {
+                    messages: [
+                        "Failed! Please review your console for more information!"
+                    ]
+                };                
                 this.failed = this.pending;
                 this.pending = null;
                 this.waiting = [];

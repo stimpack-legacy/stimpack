@@ -21170,11 +21170,16 @@ var Queue = function () {
                 }.bind(this),
                 error: function (error) {
                     //var a = JSON.parse(error);
-                    console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
+                    if ((typeof error === "undefined" ? "undefined" : _typeof(error)) == "object" && typeof error.message == "string") {
+                        console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
 
-                    console.groupCollapsed(["Stack trace"]);
-                    console.log(error.responseText);
-                    console.groupEnd();
+                        console.groupCollapsed(["Stack trace"]);
+                        console.log(error.responseText);
+                        console.groupEnd();
+                    }
+                    this.pending.result = {
+                        messages: ["Failed! Please review your console for more information!"]
+                    };
                     this.failed = this.pending;
                     this.pending = null;
                     this.waiting = [];
@@ -64093,11 +64098,18 @@ var Log = function (_Component) {
                     { key: 'failed' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        { key: 'failed' },
+                        null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("failed") }),
                         ' ',
                         this.props.queue.failed.name
-                    )
+                    ),
+                    this.props.queue.failed.result.messages.map(function (message, index) {
+                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'p',
+                            { className: 'log-item-message', key: index },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9_react_autolink_text___default.a, { text: message })
+                        );
+                    })
                 );
             }
         }

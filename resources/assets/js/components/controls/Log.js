@@ -88,9 +88,17 @@ class Log extends Component {
     renderFailedItems() {
         if(this.props.queue.failed) {
             return (
-                <div key="failed">                                
-                    <li key="failed"><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.name}</li>                
+                <div key="failed"> 
+                    <li><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.name}</li>
+                    {this.props.queue.failed.result.messages.map((message, index) => {
+                        return (
+                            <p className="log-item-message" key={index}>
+                                <AutoLinkText text={message} />
+                            </p>
+                        )
+                    })}
                 </div>
+                            
             );
         }
     }
