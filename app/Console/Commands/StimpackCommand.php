@@ -104,9 +104,16 @@ class StimpackCommand extends Command
         $compiledManipulators = collect(json_decode(
             file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/" . $packName . ".json")
         )->compiled);
+        $this->info("Running pack " . $packName . "!\n");
         
         $compiledManipulators->each(function($manipulator) {
-            $this->info(ManipulatorController::make()->perform($manipulator));    
+            $this->info($manipulator->name);
+            collect(
+                ManipulatorController::make()->perform($manipulator)["messages"]
+            )->each(function ($message) {
+                $this->comment(" - " .$message);
+            });
+            $this->line("");    
         });
     }
 
@@ -131,7 +138,13 @@ class StimpackCommand extends Command
         });
 
         $compiledManipulators->each(function($manipulator) {
-            $this->info(ManipulatorController::make()->perform($manipulator));    
+            $this->info($manipulator->name);
+            collect(
+                ManipulatorController::make()->perform($manipulator)["messages"]
+            )->each(function ($message) {
+                $this->comment(" - " .$message);
+            });
+            $this->line("");
         });
     }
     
