@@ -42,7 +42,7 @@ class GuiController extends Controller
 
     public function localPacks()
     {
-        chdir("/home/anders/Code/stimpack/storage/stimpack/packs");
+        chdir(storage_path("stimpack/packs"));
         return collect(array_filter(glob("*"), 'is_file'))->map(function($filename) {
             return new Pack(
                 str_replace_last(".json", "", $filename),

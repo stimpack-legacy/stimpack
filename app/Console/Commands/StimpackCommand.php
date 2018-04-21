@@ -102,7 +102,7 @@ class StimpackCommand extends Command
         $packName = $this->args()[1];
         $packParameters = $this->args()->slice(2)->values();
         $compiledManipulators = collect(json_decode(
-            file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/" . $packName . ".json")
+            file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
         )->compiled);
         $this->info("Running pack " . $packName . "!\n");
         
@@ -121,15 +121,14 @@ class StimpackCommand extends Command
         // stimpack new app from template
         $projectName = $this->args()[1];
         $packName = $this->args()[3];
-        $path = "/home/anders/Code/";
 
         $compiledManipulators = collect(json_decode(
-            file_get_contents("/home/anders/Code/stimpack/storage/stimpack/packs/" . $packName . ".json")
+            file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
         )->compiled)->map(function($manipulator) use($projectName, $packName, $path) {
             // Reset all starters path to the project to be created
             if(isset($manipulator->isStarter) && $manipulator->isStarter)
             {
-                $manipulator->path = $path . $projectName;
+                $manipulator->path = env('CODE_PATH') . $projectName;
             }
 
             // Reset all context paths to the project to be created
