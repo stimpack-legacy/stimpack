@@ -106,6 +106,10 @@ class Save extends Component {
         console.log(compiled);
         $.ajax({
             type: "POST",
+            beforeSend: function(request) {
+                request.setRequestHeader("token", "this ma token!");
+                return request;
+            },
             url: "http://data.stimpack.test/packs/upload/",
             data: {},
             success: function(result){

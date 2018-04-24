@@ -64788,6 +64788,10 @@ var Save = function (_Component) {
             console.log(compiled);
             $.ajax({
                 type: "POST",
+                beforeSend: function beforeSend(request) {
+                    request.setRequestHeader("token", "this ma token!");
+                    return request;
+                },
                 url: "http://data.stimpack.test/packs/upload/",
                 data: {},
                 success: function success(result) {
