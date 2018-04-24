@@ -64784,30 +64784,18 @@ var Save = function (_Component) {
     }, {
         key: 'upload',
         value: function upload() {
-            alert("Uploading!");
-            return;
             var compiler = new __WEBPACK_IMPORTED_MODULE_10__Compiler__["a" /* default */](this.props.engine);
             var compiled = compiler.compile();
             console.log(compiled);
             $.ajax({
                 type: "POST",
-                url: "/save/" + this.state.name + ".json",
-                data: {
-                    fileContent: Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])({
-                        name: this.state.name,
-                        created: new Date(Date.now()).toLocaleString(),
-                        // Used to redraw the diagram
-                        diagram: this.props.engine.diagramModel.serializeDiagram(),
-                        // Used to run the pack from command line
-                        compiled: compiled
-                    }, null, 4)
-                },
+                url: "http://data.stimpack.test/packs/upload/",
+                data: {},
                 success: function success(result) {
                     console.log(result);
                 },
                 error: function error(_error2) {
-                    //var a = JSON.parse(error);
-                    console.log("Failed with message: '" + _error2.responseJSON.message + "'");
+                    //console.log("Failed with message: '" + error.responseJSON.message + "'");
                 }
             });
         }
