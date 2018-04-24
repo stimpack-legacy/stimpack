@@ -28,6 +28,5 @@ class Create extends Manipulator
                 "Created application at http://" . substr($this->data->path, strrpos($this->data->path, '/') + 1) . ".test"
             ]
         ];
-
     }
 }

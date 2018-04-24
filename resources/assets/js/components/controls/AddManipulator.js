@@ -32,8 +32,8 @@ class AddManipulator extends Component {
         var node = new ManipulatorNodeModel({ 
             name: event.target.value
         });
-        node.addInPort(" ");
-        node.addOutPort(" ");
+        node.addInPort(' ');
+        node.addOutPort(' ');
         
         node.setPosition(100+Math.random()*100, 100+Math.random()*100);
         model.addNode(node);

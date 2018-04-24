@@ -1,10 +1,8 @@
 // Prettier ports
 .srd-port{
     background: none;
-    
-    &:hover,&.selected{
-      background: none;
-    }
+
+    text-align: right !important;
 }
 
 // Enforce Node min width

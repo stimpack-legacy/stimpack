@@ -10681,11 +10681,7 @@ a.text-dark:focus {
 
 .srd-port {
   background: none;
-}
-
-.srd-port:hover,
-.srd-port.selected {
-  background: none;
+  text-align: right !important;
 }
 
 .srd-node {
