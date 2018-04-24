@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-class Search extends Component {
+class Open extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
@@ -14,7 +14,7 @@ class Search extends Component {
     render() {        
         return (
             <span onClick={this.openModal.bind(this)}>
-                <i title="Explore packs on stimpack.io" className="fas fa-search icon-control-bar"></i>
+                <i title="Explore packs on stimpack.io" className="fas fa-folder-open icon-control-bar"></i>
                 {this.renderModal()}
             </span>
             
@@ -91,4 +91,4 @@ function matchDispatchToProps(dispatch){
 export default connect(
     mapStateToProps, 
     matchDispatchToProps
-)(Search);
+)(Open);

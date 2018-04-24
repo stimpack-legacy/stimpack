@@ -16,7 +16,8 @@ class Save extends Component {
         super(props);
         Modal.setAppElement('#main');
         this.state = {
-            name: ""
+            name: "",
+            description: "",
         };        
     }
 
@@ -42,11 +43,18 @@ class Save extends Component {
                 <h4>Save as a pack</h4>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input placeholder="new-project" value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
+                    <input placeholder="new-pack" value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
                 </div>
+                <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <textarea rows="4" placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control" id="description" />
+                </div>                
                 <button onClick={this.save.bind(this)} className="btn btn-light">
-                    Save
-                </button>                
+                    Save locally
+                </button>
+                <button onClick={this.upload.bind(this)} className="btn btn-light">
+                    Upload to stimpack.io
+                </button>                                
                 <button onClick={this.closeModal.bind(this)} className="btn btn-light">
                     Cancel
                 </button>                        
@@ -60,7 +68,42 @@ class Save extends Component {
         });
     }
 
+    changeDescription(event) {
+        this.setState({
+            description: event.target.value
+        });
+    }
+
     save() {
+        var compiler = new Compiler(this.props.engine);
+        var compiled = compiler.compile();
+        console.log(compiled);
+        $.ajax({
+            type: "POST",
+            url: "/save/" + this.state.name + ".json",
+            data: {
+                fileContent: nonCircularStringify({
+                    name: this.state.name,
+                    created: (new Date(Date.now()).toLocaleString()),
+                    // Used to redraw the diagram
+                    diagram: this.props.engine.diagramModel.serializeDiagram(),
+                    // Used to run the pack from command line
+                    compiled: compiled
+                }, null, 4)
+            },
+            success: function(result){
+                console.log(result);
+            },
+            error: function(error) {
+                //var a = JSON.parse(error);
+                console.log("Failed with message: '" + error.responseJSON.message + "'");
+            }
+        });                
+    }
+    
+    upload() {
+        alert("Uploading!");
+        return;
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
         console.log(compiled);

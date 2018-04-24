@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Search from "./controls/Search";
+import Open from "./controls/Open";
 import AddManipulator from "./controls/AddManipulator";
 import Run from "./controls/Run";
 import Log from "./controls/Log";
 import Save from "./controls/Save";
-import Upload from "./controls/Upload";
 
 export default class ControlBar extends Component {
     render() {        
         return (
-            <div id="controlBar" className="controlBar">            
-                {/*<span className="heading-app-name"><i className="fa fa-2x fa-syringe logo"></i>STIMPACK</span>*/}
+            <div id="controlBar" className="controlBar">
                 <Run />
                 <AddManipulator />
                 <Log />
-                <Save />
-                <Upload />                                                      
-                <Search />
+                <Save />                                                      
+                <Open />
             </div>
         );
     }    
