@@ -59,7 +59,6 @@ export default class Queue {
 
             }.bind(this),
             error: function(error) {
-                //var a = JSON.parse(error);
                 if(typeof(error) == "object" && typeof(error.message) == "string") {
                     console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
                 

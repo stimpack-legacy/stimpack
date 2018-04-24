@@ -16,7 +16,7 @@ class Save extends Component {
         super(props);
         Modal.setAppElement('#main');
         this.state = {
-            name: "new-awesome-project"
+            name: ""
         };        
     }
 
@@ -42,7 +42,7 @@ class Save extends Component {
                 <h4>Save as a pack</h4>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
+                    <input placeholder="new-project" value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
                 </div>
                 <button onClick={this.save.bind(this)} className="btn btn-light">
                     Save

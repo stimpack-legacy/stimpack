@@ -3234,7 +3234,6 @@ var Queue = function () {
                     this.setQueue(this);
                 }.bind(this),
                 error: function (error) {
-                    //var a = JSON.parse(error);
                     if ((typeof error === "undefined" ? "undefined" : _typeof(error)) == "object" && typeof error.message == "string") {
                         console.log(item.name + " failed with message: '" + error.responseJSON.message + "'");
 
@@ -64811,7 +64810,7 @@ var Save = function (_Component) {
 
         __WEBPACK_IMPORTED_MODULE_2_react_modal___default.a.setAppElement('#main');
         _this.state = {
-            name: "new-awesome-project"
+            name: ""
         };
         return _this;
     }
@@ -64852,7 +64851,7 @@ var Save = function (_Component) {
                         { htmlFor: 'name' },
                         'Name'
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { value: this.state.name, onChange: this.changeName.bind(this), type: 'text', className: 'form-control', id: 'name' })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { placeholder: 'new-project', value: this.state.name, onChange: this.changeName.bind(this), type: 'text', className: 'form-control', id: 'name' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
