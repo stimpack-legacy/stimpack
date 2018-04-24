@@ -63,11 +63,14 @@ class Save extends Component {
     save() {
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
+        console.log(compiled);
         $.ajax({
             type: "POST",
             url: "/save/" + this.state.name + ".json",
             data: {
                 fileContent: nonCircularStringify({
+                    name: this.state.name,
+                    created: (new Date(Date.now()).toLocaleString()),
                     // Used to redraw the diagram
                     diagram: this.props.engine.diagramModel.serializeDiagram(),
                     // Used to run the pack from command line

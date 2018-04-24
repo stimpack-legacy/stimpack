@@ -3227,8 +3227,9 @@ var Queue = function () {
                 },
                 success: function (result) {
                     console.log(item.name + " succeded!");
-                    this.pending.result = result;
-                    this.finished.push(this.pending);
+                    var finishedItem = Object.assign({}, this.pending);
+                    finishedItem.result = result;
+                    this.finished.push(finishedItem);
                     this.pending = null;
                     this.setQueue(this);
                 }.bind(this),
@@ -3241,10 +3242,11 @@ var Queue = function () {
                         console.log(error.responseText);
                         console.groupEnd();
                     }
-                    this.pending.result = {
+                    var failedItem = Object.assign({}, this.pending);
+                    failedItem.result = {
                         messages: ["Failed! Please review your console for more information!"]
                     };
-                    this.failed = this.pending;
+                    this.failed = failedItem;
                     this.pending = null;
                     this.waiting = [];
                     this.setQueue(this);
@@ -64876,11 +64878,14 @@ var Save = function (_Component) {
         value: function save() {
             var compiler = new __WEBPACK_IMPORTED_MODULE_10__Compiler__["a" /* default */](this.props.engine);
             var compiled = compiler.compile();
+            console.log(compiled);
             $.ajax({
                 type: "POST",
                 url: "/save/" + this.state.name + ".json",
                 data: {
                     fileContent: Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])({
+                        name: this.state.name,
+                        created: new Date(Date.now()).toLocaleString(),
                         // Used to redraw the diagram
                         diagram: this.props.engine.diagramModel.serializeDiagram(),
                         // Used to run the pack from command line

@@ -50,9 +50,10 @@ export default class Queue {
                 data: nonCircularStringify(item)
             },
             success: function(result){
-                console.log(item.name + " succeded!");
-                this.pending.result = result;
-                this.finished.push(this.pending);
+                console.log(item.name + " succeded!");                
+                var finishedItem = Object.assign({}, this.pending);
+                finishedItem.result = result;
+                this.finished.push(finishedItem);
                 this.pending = null;
                 this.setQueue(this);
 
@@ -66,12 +67,13 @@ export default class Queue {
                         console.log(error.responseText);
                     console.groupEnd();
                 }
-                this.pending.result = {
+                var failedItem = Object.assign({}, this.pending);
+                failedItem.result = {
                     messages: [
                         "Failed! Please review your console for more information!"
                     ]
                 };                
-                this.failed = this.pending;
+                this.failed = failedItem;
                 this.pending = null;
                 this.waiting = [];
                 this.setQueue(this);
