@@ -62280,7 +62280,7 @@ var Log = function (_Component) {
     }, {
         key: 'renderDefaultMessage',
         value: function renderDefaultMessage() {
-            console.log(this.props.queue); // its a serialized object kind of this does not work
+            //console.log(this.props.queue); // its a serialized object kind of this does not work
             //if(this.props.queue.isEmpty()) {
             //    return (
             //        <h4>Nothing to show - please run a pack first.</h4>
@@ -64758,7 +64758,6 @@ var Save = function (_Component) {
         value: function save() {
             var compiler = new __WEBPACK_IMPORTED_MODULE_10__Compiler__["a" /* default */](this.props.engine);
             var compiled = compiler.compile();
-            console.log(compiled);
             $.ajax({
                 type: "POST",
                 url: "/save/" + this.state.name + ".json",

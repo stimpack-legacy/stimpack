@@ -77,7 +77,6 @@ class Save extends Component {
     save() {
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
-        console.log(compiled);
         $.ajax({
             type: "POST",
             url: "/save/" + this.state.name + ".json",

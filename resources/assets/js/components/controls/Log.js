@@ -52,7 +52,7 @@ class Log extends Component {
     }
 
     renderDefaultMessage() {
-        console.log(this.props.queue); // its a serialized object kind of this does not work
+        //console.log(this.props.queue); // its a serialized object kind of this does not work
         //if(this.props.queue.isEmpty()) {
         //    return (
         //        <h4>Nothing to show - please run a pack first.</h4>
