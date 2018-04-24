@@ -36,7 +36,8 @@ class Log extends Component {
             overlayClassName="no-overlay"
             className="manipulator-modal medium"
             >
-                <div className="logItems">                
+                <div className="logItems">
+                    {this.renderDefaultMessage()}                
                     <ul>
                         {this.renderLogItems()}
                         {this.renderPendingItems()}
@@ -48,6 +49,15 @@ class Log extends Component {
                 </button>                                    
             </Modal>
         );
+    }
+
+    renderDefaultMessage() {
+        console.log(this.props.queue); // its a serialized object kind of this does not work
+        //if(this.props.queue.isEmpty()) {
+        //    return (
+        //        <h4>Nothing to show - please run a pack first.</h4>
+        //    )
+        //}
     }
 
     renderLogItems() {

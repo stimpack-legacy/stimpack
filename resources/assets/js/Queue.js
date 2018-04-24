@@ -9,6 +9,10 @@ export default class Queue {
                 
     }
 
+    isEmpty() {
+        return this.waiting.length == 0 && this.finished.length == 0 && this.failed == null && this.pending == null; 
+    }
+
     addSetQueueCallback(callback) {
         this.setQueue = callback;
     }

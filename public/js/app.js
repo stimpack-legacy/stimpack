@@ -3187,6 +3187,11 @@ var Queue = function () {
     }
 
     _createClass(Queue, [{
+        key: "isEmpty",
+        value: function isEmpty() {
+            return this.waiting.length == 0 && this.finished.length == 0 && this.failed == null && this.pending == null;
+        }
+    }, {
         key: "addSetQueueCallback",
         value: function addSetQueueCallback(callback) {
             this.setQueue = callback;
@@ -62256,6 +62261,7 @@ var Log = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'logItems' },
+                    this.renderDefaultMessage(),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'ul',
                         null,
@@ -62270,6 +62276,16 @@ var Log = function (_Component) {
                     'Close'
                 )
             );
+        }
+    }, {
+        key: 'renderDefaultMessage',
+        value: function renderDefaultMessage() {
+            console.log(this.props.queue); // its a serialized object kind of this does not work
+            //if(this.props.queue.isEmpty()) {
+            //    return (
+            //        <h4>Nothing to show - please run a pack first.</h4>
+            //    )
+            //}
         }
     }, {
         key: 'renderLogItems',
