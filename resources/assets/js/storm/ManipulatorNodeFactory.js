@@ -10,7 +10,6 @@ export class ManipulatorNodeFactory extends AbstractNodeFactory {
 	}
 
 	generateReactWidget(diagramEngine, node) {
-		console.log(1.5, node.data);
 		var element = AllManipulators[node.manipulator.name];
 		return React.createElement(element, {
 			node: node,

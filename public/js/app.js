@@ -21139,9 +21139,12 @@ var ManipulatorNodeModel = function (_NodeModel) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Manipulators_Create__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Manipulators_CreateDatabase__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Manipulators_ThrowBackEndError__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_ReplaceInFile__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Manipulators_Load__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateDatabase__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_ThrowBackEndError__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_ReplaceInFile__ = __webpack_require__(308);
+
+
 
 
 
@@ -21149,9 +21152,10 @@ var ManipulatorNodeModel = function (_NodeModel) {
 
 var AllManipulators = {
     Create: __WEBPACK_IMPORTED_MODULE_0__Manipulators_Create__["a" /* default */],
-    CreateDatabase: __WEBPACK_IMPORTED_MODULE_1__Manipulators_CreateDatabase__["a" /* default */],
-    ReplaceInFile: __WEBPACK_IMPORTED_MODULE_3__Manipulators_ReplaceInFile__["a" /* default */],
-    ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_2__Manipulators_ThrowBackEndError__["a" /* default */]
+    Load: __WEBPACK_IMPORTED_MODULE_1__Manipulators_Load__["a" /* default */],
+    CreateDatabase: __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateDatabase__["a" /* default */],
+    ReplaceInFile: __WEBPACK_IMPORTED_MODULE_4__Manipulators_ReplaceInFile__["a" /* default */],
+    ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_3__Manipulators_ThrowBackEndError__["a" /* default */]
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AllManipulators);
@@ -24544,21 +24548,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BaseManipulator = function (_BaseWidget) {
     _inherits(BaseManipulator, _BaseWidget);
 
-    function BaseManipulator(className, props) {
+    function BaseManipulator(props) {
         _classCallCheck(this, BaseManipulator);
 
         var _this = _possibleConstructorReturn(this, (BaseManipulator.__proto__ || Object.getPrototypeOf(BaseManipulator)).call(this, "srd-default-node", props));
 
         __WEBPACK_IMPORTED_MODULE_5_react_modal___default.a.setAppElement('#main');
         _this.state = {};
-        console.log(2, _this.props.node.data);
         if (!(_typeof(_this.props.node.data) == "object")) {
             _this.state.data = __WEBPACK_IMPORTED_MODULE_6__AllManipulators__["a" /* default */][_this.constructor.name].getDefaultManipulatorParameters();
             // attach data to node
             _this.props.node.data = _this.state.data;
-            console.log("Also here.......");
         } else {
-            console.log("It makes it in here...");
             _this.state.data = _this.props.node.data;
         }
         return _this;
@@ -63685,17 +63686,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CreateDatabase = function (_BaseManipulator) {
     _inherits(CreateDatabase, _BaseManipulator);
 
-    function CreateDatabase(props) {
+    function CreateDatabase() {
         _classCallCheck(this, CreateDatabase);
 
-        var _this = _possibleConstructorReturn(this, (CreateDatabase.__proto__ || Object.getPrototypeOf(CreateDatabase)).call(this, "srd-default-node", props));
-
-        _this.state = {};
-        _this.state = {
-            data: CreateDatabase.getDefaultManipulatorParameters()
-        };
-        _this.props.node.data = _this.state.data;
-        return _this;
+        return _possibleConstructorReturn(this, (CreateDatabase.__proto__ || Object.getPrototypeOf(CreateDatabase)).apply(this, arguments));
     }
 
     _createClass(CreateDatabase, [{
@@ -63707,8 +63701,7 @@ var CreateDatabase = function (_BaseManipulator) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "h4",
                     null,
-                    "Create Database ",
-                    this.state.data.lolid
+                    "Create Database"
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
@@ -63740,8 +63733,7 @@ var CreateDatabase = function (_BaseManipulator) {
         value: function getDefaultManipulatorParameters() {
             return {
                 name: "CreateDatabase",
-                path: "/home/anders/Code/something-new",
-                lolid: Math.floor(Math.random() * 100)
+                path: "/home/anders/Code/something-new"
             };
         }
     }]);
@@ -64020,7 +64012,11 @@ var Log = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'logItems' },
-                    this.renderDefaultMessage(),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h4',
+                        null,
+                        'Log'
+                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'ul',
                         null,
@@ -64037,16 +64033,6 @@ var Log = function (_Component) {
             );
         }
     }, {
-        key: 'renderDefaultMessage',
-        value: function renderDefaultMessage() {
-            //console.log(this.props.queue); // its a serialized object kind of this does not work
-            //if(this.props.queue.isEmpty()) {
-            //    return (
-            //        <h4>Nothing to show - please run a pack first.</h4>
-            //    )
-            //}
-        }
-    }, {
         key: 'renderLogItems',
         value: function renderLogItems() {
             var _this2 = this;
@@ -64054,7 +64040,7 @@ var Log = function (_Component) {
             return this.props.queue.finished.map(function (item, index) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { key: index },
+                    { className: 'log-group', key: index },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
                         null,
@@ -65250,7 +65236,6 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 	_createClass(ManipulatorNodeFactory, [{
 		key: "generateReactWidget",
 		value: function generateReactWidget(diagramEngine, node) {
-			console.log(1.5, node.data);
 			var element = __WEBPACK_IMPORTED_MODULE_1__AllManipulators__["a" /* default */][node.manipulator.name];
 			return __WEBPACK_IMPORTED_MODULE_2_react__["createElement"](element, {
 				node: node,
@@ -70475,6 +70460,95 @@ var ReplaceInFile = function (_BaseManipulator) {
 }(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(ReplaceInFile));
+
+/***/ }),
+/* 309 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(66);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var Load = function (_BaseManipulator) {
+    _inherits(Load, _BaseManipulator);
+
+    function Load() {
+        _classCallCheck(this, Load);
+
+        return _possibleConstructorReturn(this, (Load.__proto__ || Object.getPrototypeOf(Load)).apply(this, arguments));
+    }
+
+    _createClass(Load, [{
+        key: "renderSettings",
+        value: function renderSettings() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Create Database"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: "form-group" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                        "select",
+                        { onChange: this.setPath.bind(this), value: this.state.data.path, className: "form-control", id: "inputGroupSelect01" },
+                        this.renderProjects()
+                    )
+                )
+            );
+        }
+    }, {
+        key: "renderProjects",
+        value: function renderProjects() {
+            return data.projects.map(function (project) {
+                return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "option",
+                    { key: project, value: project },
+                    project
+                );
+            });
+        }
+    }, {
+        key: "setPath",
+        value: function setPath(event) {
+            var data = this.state.data;
+            data.path = event.target.value;
+            this.setState({ data: data });
+
+            // Copy to Node Model
+            this.props.node.data = this.state.data;
+        }
+    }], [{
+        key: "getDefaultManipulatorParameters",
+        value: function getDefaultManipulatorParameters() {
+            return {
+                name: "Load",
+                path: "",
+                isStarter: true
+            };
+        }
+    }]);
+
+    return Load;
+}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(Load));
 
 /***/ })
 /******/ ]);

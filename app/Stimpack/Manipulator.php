@@ -13,16 +13,6 @@ class Manipulator
         usleep(200000);        
     }
 
-    public function projectPath()
-    {
-        if(isset($this->SetTargetProject))
-        {
-            return base_path() . $this->SetTargetProject->projectPath . $this->SetTargetProject->projectName;
-        }
-
-        return base_path();
-    }
-
     public function projectName()
     {
         if(isset($this->SetTargetProject))

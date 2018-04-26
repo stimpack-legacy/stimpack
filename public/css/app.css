@@ -429,6 +429,10 @@ li a:hover {
   color: #AFE418 !important;
 }
 
+.add-manipulator-button {
+  width: 100%;
+}
+
 .logItems {
   padding-left: 20px;
   text-align: left;
@@ -437,6 +441,11 @@ li a:hover {
 
 .log-item-message {
   margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+.log-group {
+  margin-bottom: 20px;
 }
 
 /*!

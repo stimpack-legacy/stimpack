@@ -37,7 +37,7 @@ class Log extends Component {
             className="manipulator-modal medium"
             >
                 <div className="logItems">
-                    {this.renderDefaultMessage()}                
+                    <h4>Log</h4>                
                     <ul>
                         {this.renderLogItems()}
                         {this.renderPendingItems()}
@@ -51,19 +51,12 @@ class Log extends Component {
         );
     }
 
-    renderDefaultMessage() {
-        //console.log(this.props.queue); // its a serialized object kind of this does not work
-        //if(this.props.queue.isEmpty()) {
-        //    return (
-        //        <h4>Nothing to show - please run a pack first.</h4>
-        //    )
-        //}
-    }
+
 
     renderLogItems() {
         return this.props.queue.finished.map((item, index) => {
             return(
-                <div key={index}> 
+                <div className="log-group" key={index}> 
                     <li><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</li>
                     {item.result.messages.map((message, index) => {
                         return (
