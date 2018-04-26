@@ -3,9 +3,6 @@ import {connect} from 'react-redux';
 import BaseManipulator from "../BaseManipulator";
 
 class Create extends BaseManipulator {
-	constructor(props) {
-        super("srd-default-node", props);        
-    }
     
     static getDefaultManipulatorParameters() {
         return {

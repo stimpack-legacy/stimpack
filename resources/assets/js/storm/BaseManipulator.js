@@ -13,14 +13,16 @@ import AllManipulators from "./AllManipulators";
 export default class BaseManipulator extends BaseWidget {
 	constructor(className, props) {
         super("srd-default-node", props);                
-        Modal.setAppElement('#main');
-        
+        Modal.setAppElement('#main');        
         this.state = {};
+        console.log(2, this.props.node.data);
         if(!(typeof(this.props.node.data) == "object")) {
             this.state.data = AllManipulators[this.constructor.name].getDefaultManipulatorParameters();            
             // attach data to node
             this.props.node.data = this.state.data;
+            console.log("Also here.......");
         } else {
+            console.log("It makes it in here...");
             this.state.data = this.props.node.data; 
         }        
 	}

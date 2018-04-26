@@ -21103,6 +21103,7 @@ var ManipulatorNodeModel = function (_NodeModel) {
 			_get(ManipulatorNodeModel.prototype.__proto__ || Object.getPrototypeOf(ManipulatorNodeModel.prototype), "deSerialize", this).call(this, object, engine);
 			this.manipulator = object.manipulator;
 			this.data = object.data;
+			console.log(1, this.data);
 		}
 	}, {
 		key: "serialize",
@@ -24549,13 +24550,15 @@ var BaseManipulator = function (_BaseWidget) {
         var _this = _possibleConstructorReturn(this, (BaseManipulator.__proto__ || Object.getPrototypeOf(BaseManipulator)).call(this, "srd-default-node", props));
 
         __WEBPACK_IMPORTED_MODULE_5_react_modal___default.a.setAppElement('#main');
-
         _this.state = {};
+        console.log(2, _this.props.node.data);
         if (!(_typeof(_this.props.node.data) == "object")) {
             _this.state.data = __WEBPACK_IMPORTED_MODULE_6__AllManipulators__["a" /* default */][_this.constructor.name].getDefaultManipulatorParameters();
             // attach data to node
             _this.props.node.data = _this.state.data;
+            console.log("Also here.......");
         } else {
+            console.log("It makes it in here...");
             _this.state.data = _this.props.node.data;
         }
         return _this;
@@ -63608,10 +63611,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Create = function (_BaseManipulator) {
     _inherits(Create, _BaseManipulator);
 
-    function Create(props) {
+    function Create() {
         _classCallCheck(this, Create);
 
-        return _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).call(this, "srd-default-node", props));
+        return _possibleConstructorReturn(this, (Create.__proto__ || Object.getPrototypeOf(Create)).apply(this, arguments));
     }
 
     _createClass(Create, [{
@@ -63772,17 +63775,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ThrowBackEndError = function (_BaseManipulator) {
     _inherits(ThrowBackEndError, _BaseManipulator);
 
-    function ThrowBackEndError(props) {
+    function ThrowBackEndError() {
         _classCallCheck(this, ThrowBackEndError);
 
-        var _this = _possibleConstructorReturn(this, (ThrowBackEndError.__proto__ || Object.getPrototypeOf(ThrowBackEndError)).call(this, "srd-default-node", props));
-
-        _this.state = {};
-        _this.state = {
-            data: ThrowBackEndError.getDefaultManipulatorParameters()
-        };
-        _this.props.node.data = _this.state.data;
-        return _this;
+        return _possibleConstructorReturn(this, (ThrowBackEndError.__proto__ || Object.getPrototypeOf(ThrowBackEndError)).apply(this, arguments));
     }
 
     _createClass(ThrowBackEndError, [{
@@ -65254,6 +65250,7 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 	_createClass(ManipulatorNodeFactory, [{
 		key: "generateReactWidget",
 		value: function generateReactWidget(diagramEngine, node) {
+			console.log(1.5, node.data);
 			var element = __WEBPACK_IMPORTED_MODULE_1__AllManipulators__["a" /* default */][node.manipulator.name];
 			return __WEBPACK_IMPORTED_MODULE_2_react__["createElement"](element, {
 				node: node,
@@ -70407,17 +70404,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ReplaceInFile = function (_BaseManipulator) {
     _inherits(ReplaceInFile, _BaseManipulator);
 
-    function ReplaceInFile(props) {
+    function ReplaceInFile() {
         _classCallCheck(this, ReplaceInFile);
 
-        var _this = _possibleConstructorReturn(this, (ReplaceInFile.__proto__ || Object.getPrototypeOf(ReplaceInFile)).call(this, "srd-default-node", props));
-
-        _this.state = {};
-        _this.state = {
-            data: ReplaceInFile.getDefaultManipulatorParameters()
-        };
-        _this.props.node.data = _this.state.data;
-        return _this;
+        return _possibleConstructorReturn(this, (ReplaceInFile.__proto__ || Object.getPrototypeOf(ReplaceInFile)).apply(this, arguments));
     }
 
     _createClass(ReplaceInFile, [{

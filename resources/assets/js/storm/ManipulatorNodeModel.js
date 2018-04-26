@@ -30,6 +30,7 @@ export class ManipulatorNodeModel extends NodeModel {
 		super.deSerialize(object, engine);
 		this.manipulator = object.manipulator;
 		this.data = object.data;
+		console.log(1, this.data);
 	}
 
 	serialize() {		

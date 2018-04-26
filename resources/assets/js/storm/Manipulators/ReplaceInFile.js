@@ -3,14 +3,6 @@ import {connect} from 'react-redux';
 import BaseManipulator from "../BaseManipulator";
 
 class ReplaceInFile extends BaseManipulator {
-	constructor(props) {
-        super("srd-default-node", props);        
-        this.state = {};
-        this.state = {
-            data: ReplaceInFile.getDefaultManipulatorParameters()
-        }        
-        this.props.node.data = this.state.data;
-    }
     
     static getDefaultManipulatorParameters() {
         return {
