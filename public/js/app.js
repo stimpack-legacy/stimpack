@@ -64931,6 +64931,8 @@ var Save = function (_Component) {
             this.setState({
                 modalIsOpen: true
             });
+            // Prevent focus bug
+            this.props.engine.diagramModel.setLocked(true);
         }
     }, {
         key: 'afterOpenModal',
@@ -64944,6 +64946,9 @@ var Save = function (_Component) {
                 modalIsOpen: false,
                 message: null
             });
+
+            // Prevent focus bug
+            this.props.engine.diagramModel.setLocked(false);
         }
     }]);
 

@@ -162,6 +162,8 @@ class Save extends Component {
         this.setState({
             modalIsOpen: true,
         });
+        // Prevent focus bug
+        this.props.engine.diagramModel.setLocked(true);
     }
     
     afterOpenModal() {
@@ -172,7 +174,10 @@ class Save extends Component {
         this.setState({
             modalIsOpen: false,
             message: null
-        });        
+        });
+
+        // Prevent focus bug
+        this.props.engine.diagramModel.setLocked(false);                
     }
 
 }
