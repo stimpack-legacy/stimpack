@@ -433,6 +433,10 @@ li a:hover {
   width: 100%;
 }
 
+.starter-button {
+  font-weight: 900 !important;
+}
+
 .logItems {
   padding-left: 20px;
   text-align: left;

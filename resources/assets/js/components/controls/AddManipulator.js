@@ -68,14 +68,32 @@ class AddManipulator extends Component {
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
             className="manipulator-modal medium"
-            >                
+            >
+                {this.renderStarters()}
+                <hr />                
                 {this.renderManipulators()}             
             </Modal>
         );
     }
 
+    renderStarters() {
+        return Object.values(AllManipulators).filter(manipulator => {
+                return Boolean(manipulator.getDefaultManipulatorParameters().isStarter);
+            }).map((manipulator) => {
+            return (
+                <div key={manipulator.getDefaultManipulatorParameters().name}>
+                    <button value={manipulator.getDefaultManipulatorParameters().name} onClick={this.addManipulator.bind(this)} className="btn btn-light add-manipulator-button">
+                        {manipulator.getDefaultManipulatorParameters().name}
+                    </button>
+                </div>
+            )
+        })
+    }
+
     renderManipulators() {
-        return Object.values(AllManipulators).map((manipulator) => {
+        return Object.values(AllManipulators).filter(manipulator => {
+                return !Boolean(manipulator.getDefaultManipulatorParameters().isStarter);
+            }).map((manipulator) => {
             return (
                 <div key={manipulator.getDefaultManipulatorParameters().name}>
                     <button value={manipulator.getDefaultManipulatorParameters().name} onClick={this.addManipulator.bind(this)} className="btn btn-light add-manipulator-button">

@@ -124,15 +124,15 @@ class StimpackCommand extends Command
 
         $compiledManipulators = collect(json_decode(
             file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
-        )->compiled)->map(function($manipulator) use($projectName, $packName, $path) {
+        )->compiled)->map(function($manipulator) use($projectName, $packName) {
             // Reset all starters path to the project to be created
             if(isset($manipulator->isStarter) && $manipulator->isStarter)
             {
-                $manipulator->path = env('CODE_PATH') . $projectName;
+                $manipulator->path = $projectName;
             }
 
             // Reset all context paths to the project to be created
-            $manipulator->context->path = $path . $projectName;                        
+            $manipulator->context->path = $projectName;                        
             return $manipulator;
         });
 
