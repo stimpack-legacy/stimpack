@@ -91,6 +91,14 @@ class File
         return $this->content;
     }
 
+    public function replace($oldString, $newString)
+    {
+        //$matches = -1;
+        $this->content = str_replace($oldString, $newString, $this->content, $matches);
+        $this->report = $matches;
+        return $this;
+    }
+
     public function empty()
     {
         $this->content = "";

@@ -17,7 +17,7 @@ class Create extends Manipulator
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
         if ($res === TRUE) {
-            $zip->extractTo($this->data->path);
+            $zip->extractTo(env('STIMPACK_CODE_PATH') . "/" . $this->data->path);
             $zip->close();
         } else {
             return "some Error?";
@@ -25,7 +25,8 @@ class Create extends Manipulator
 
         return [
             "messages" => [
-                "Created application at http://" . substr($this->data->path, strrpos($this->data->path, '/') + 1) . ".test"
+                "Created application at http://" . $this->data->path . ".test",
+                
             ]
         ];
     }

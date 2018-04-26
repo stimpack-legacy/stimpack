@@ -10,7 +10,7 @@ class Create extends BaseManipulator {
     static getDefaultManipulatorParameters() {
         return {
             name: "Create",
-            path: "/home/anders/Code/something-new",
+            path: "",
             isStarter: true                                    
         }
     }
@@ -20,8 +20,8 @@ class Create extends BaseManipulator {
             <div className="container">
                 <h4>Create project </h4>
                 <div className="form-group">
-                    <input onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
-              </div>
+                    <input placeholder="new-project" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
+                </div>
             </div>
         );
     }

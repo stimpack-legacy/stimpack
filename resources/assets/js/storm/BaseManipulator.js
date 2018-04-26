@@ -40,7 +40,7 @@ export default class BaseManipulator extends BaseWidget {
                     onRequestClose={this.closeModal.bind(this)}
                     contentLabel="Example Modal"
                     overlayClassName="no-overlay"
-                    className="settings-modal medium"
+                    className="settings-modal"
                 >                
                     {this.renderSettings()}
                     <div className="container settings-modal-buttons">                    
