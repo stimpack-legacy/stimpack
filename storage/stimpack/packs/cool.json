@@ -1,0 +1,69 @@
+{
+    "name": "cool",
+    "created": "4/26/2018, 5:51:09 PM",
+    "diagram": {
+        "id": "e79f5728-abb7-4f6e-b483-f7ef23c209db",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+            {
+                "id": "29d9a316-c781-4a85-a093-803da24d34a9",
+                "type": "manipulator",
+                "selected": false,
+                "x": 184.396588720032,
+                "y": 124.93056764883505,
+                "extras": {},
+                "ports": [
+                    {
+                        "id": "e69e8913-cea6-404b-be34-a93a39dc768f",
+                        "type": "default",
+                        "selected": false,
+                        "name": "7234f790-417b-4ca4-aab5-f2f3e29284d2",
+                        "parentNode": "29d9a316-c781-4a85-a093-803da24d34a9",
+                        "links": [],
+                        "in": true,
+                        "label": " "
+                    },
+                    {
+                        "id": "498928b0-d9bf-4309-ac9e-6e5d3f394574",
+                        "type": "default",
+                        "selected": false,
+                        "name": "c711e4fd-882f-46b8-9194-c6909e3376ff",
+                        "parentNode": "29d9a316-c781-4a85-a093-803da24d34a9",
+                        "links": [],
+                        "in": false,
+                        "label": " "
+                    }
+                ],
+                "data": {
+                    "name": "Create",
+                    "path": "/home/anders/Code/something-new",
+                    "isStarter": true,
+                    "context": {
+                        "name": "Create",
+                        "path": "/home/anders/Code/something-new",
+                        "isStarter": true
+                    }
+                },
+                "manipulator": {
+                    "name": "Create"
+                }
+            }
+        ]
+    },
+    "compiled": [
+        {
+            "name": "Create",
+            "path": "/home/anders/Code/something-new",
+            "isStarter": true,
+            "context": {
+                "name": "Create",
+                "path": "/home/anders/Code/something-new",
+                "isStarter": true
+            }
+        }
+    ]
+}

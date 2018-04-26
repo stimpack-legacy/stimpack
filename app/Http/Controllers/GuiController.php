@@ -24,13 +24,18 @@ class GuiController extends Controller
 
     public function open($author, $packName)
     {
-        if($author != "local") {
-            return "Aouch! No such author/pack";
+        
+        if($author != "local") {            
+            $this->data["pack"] = new Pack(
+                $packName,
+                json_decode(file_get_contents("http://data.stimpack.test/packs/" . $author . "/" . $packName))
+            );
+//            dd($this->data["packs"][0]);
+        } else {
+            $this->data["pack"] = collect($this->data["packs"])->first(function($pack) use($packName) {
+                return $pack->name == $packName;
+            });
         }
-
-        $this->data["pack"] = collect($this->data["packs"])->first(function($pack) use($packName) {
-            return $pack->name == $packName;
-        });
 
         return view('welcome')->with(["data" => collect($this->data)]);
     }

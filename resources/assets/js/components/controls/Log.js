@@ -8,7 +8,7 @@ import AllManipulators from "../../storm/AllManipulators";
 import {reDrawDiagram} from '../../actions/index'
 import {registerLatestNode} from '../../actions/index'
 import Queue from "../../Queue";
-import AutoLinkText from 'react-autolink-text';
+import AutoLinkText from 'react-autolink-text2';
 
 class Log extends Component {
     constructor(props) {
@@ -68,21 +68,13 @@ class Log extends Component {
                     {item.result.messages.map((message, index) => {
                         return (
                             <p className="log-item-message" key={index}>
-                                <AutoLinkText text={message} />
+                                <AutoLinkText linkProps={{"target": "_blank"}} text={message} />
                             </p>
                         )
                     })}
                 </div>
             );
         });
-    }
-
-    autoLink(text) {
-        var re = /(?![^<]*>|[^<>]*<\/)((https?:)\/\/[a-z0-9&#=.\/\-?_]+)/gi; 
-        var val = re.exec(text);
-        var subst = '<a href="$1">$1</a>'; 
-        var result = text.replace(re, subst);
-        return result;        
     }
 
     renderPendingItems() {

@@ -15,8 +15,7 @@ class Main extends Component {
     render() {              
         return (            
             <div className="app">
-                <Header />               
-                <ControlBar />
+                <Header />
                 <Workspace />                
             </div>
         );

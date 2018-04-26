@@ -18,6 +18,7 @@ class Save extends Component {
         this.state = {
             name: "",
             description: "",
+            message: null
         };        
     }
 
@@ -50,6 +51,7 @@ class Save extends Component {
                     <label htmlFor="description">Description</label>
                     <textarea rows="4" placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control" id="description" />
                 </div>
+                {this.renderMessage()} 
                 <div className="modal-buttons">                
                     <button onClick={this.save.bind(this)} className="btn btn-light">
                         Save locally
@@ -60,9 +62,19 @@ class Save extends Component {
                     <button onClick={this.closeModal.bind(this)} className="btn btn-light">
                         Cancel
                     </button>
-                </div>                        
+                </div>                                       
             </Modal>
         );
+    }
+
+    renderMessage() {
+        if(this.state.message != null)  {
+            return (
+                <div className="messageBox">
+                    <p><b>{this.state.message}</b></p>
+                </div>
+            );
+        }
     }
 
     changeName(event) {
@@ -94,12 +106,18 @@ class Save extends Component {
                 }, null, 4)
             },
             success: function(result){
+                this.setState({
+                    message: "Succesfully stored pack!"
+                });
                 console.log(result);
-            },
+            }.bind(this),
             error: function(error) {
+                this.setState({
+                    message: "Could not store!"
+                });                
                 //var a = JSON.parse(error);
                 console.log("Failed with message: '" + error.responseJSON.message + "'");
-            }
+            }.bind(this)
         });                
     }
     
@@ -126,11 +144,17 @@ class Save extends Component {
                 }, null, 4)
             },
             success: function(result){
+                this.setState({
+                    message: "Succesfully uploaded pack!"
+                });                
                 console.log(result);
-            },
+            }.bind(this),
             error: function(error) {
+                this.setState({
+                    message: "Could not upload pack!"
+                });
                 //console.log("Failed with message: '" + error.responseJSON.message + "'");
-            }
+            }.bind(this)
         });                
     }    
 
@@ -145,7 +169,10 @@ class Save extends Component {
     }
     
     closeModal() {
-        this.setState({modalIsOpen: false});        
+        this.setState({
+            modalIsOpen: false,
+            message: null
+        });        
     }
 
 }

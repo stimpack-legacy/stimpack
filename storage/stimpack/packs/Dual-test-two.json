@@ -1,0 +1,122 @@
+{
+    "name": "Dual-test-two",
+    "created": "4/26/2018, 5:59:01 PM",
+    "diagram": {
+        "id": "ce0c8ca6-cffc-45b3-8f0c-251abc53c0a9",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+            {
+                "id": "c9335038-82f9-4ce9-8557-059dc6cfc029",
+                "type": "manipulator",
+                "selected": false,
+                "x": 158.47203508679664,
+                "y": 145.62179265693095,
+                "extras": {},
+                "ports": [
+                    {
+                        "id": "2db45be3-927a-4442-9fef-29dcad601a00",
+                        "type": "default",
+                        "selected": false,
+                        "name": "4d19e834-9251-4f8f-8c04-cc1d24c5b3b8",
+                        "parentNode": "c9335038-82f9-4ce9-8557-059dc6cfc029",
+                        "links": [],
+                        "in": true,
+                        "label": " "
+                    },
+                    {
+                        "id": "f13067ab-1cb0-4ca6-91b2-c6c51258fc2f",
+                        "type": "default",
+                        "selected": false,
+                        "name": "34a0a6a9-2143-47bf-9475-9fd89acee56c",
+                        "parentNode": "c9335038-82f9-4ce9-8557-059dc6cfc029",
+                        "links": [],
+                        "in": false,
+                        "label": " "
+                    }
+                ],
+                "data": {
+                    "name": "Create",
+                    "path": "/home/anders/Code/tri1",
+                    "isStarter": true,
+                    "context": {
+                        "name": "Create",
+                        "path": "/home/anders/Code/tri1",
+                        "isStarter": true
+                    }
+                },
+                "manipulator": {
+                    "name": "Create"
+                }
+            },
+            {
+                "id": "c3b4e9e4-867d-49b8-9001-95f2e1dbfce5",
+                "type": "manipulator",
+                "selected": true,
+                "x": 149.4720350867966,
+                "y": 254.62179265693095,
+                "extras": {},
+                "ports": [
+                    {
+                        "id": "6aede1d7-2aa6-411e-9d7d-26aa3d1e8856",
+                        "type": "default",
+                        "selected": false,
+                        "name": "f604e97a-2527-481b-8297-afb5db73768b",
+                        "parentNode": "c3b4e9e4-867d-49b8-9001-95f2e1dbfce5",
+                        "links": [],
+                        "in": true,
+                        "label": " "
+                    },
+                    {
+                        "id": "9308c9a4-fd22-4e99-bab9-9c00eab2e3df",
+                        "type": "default",
+                        "selected": false,
+                        "name": "eebae4ec-82ed-4021-acac-4f7d048767fb",
+                        "parentNode": "c3b4e9e4-867d-49b8-9001-95f2e1dbfce5",
+                        "links": [],
+                        "in": false,
+                        "label": " "
+                    }
+                ],
+                "data": {
+                    "name": "Create",
+                    "path": "/home/anders/Code/tri2",
+                    "isStarter": true,
+                    "context": {
+                        "name": "Create",
+                        "path": "/home/anders/Code/tri2",
+                        "isStarter": true
+                    }
+                },
+                "manipulator": {
+                    "name": "Create"
+                }
+            }
+        ]
+    },
+    "compiled": [
+        {
+            "name": "Create",
+            "path": "/home/anders/Code/tri1",
+            "isStarter": true,
+            "context": {
+                "name": "Create",
+                "path": "/home/anders/Code/tri1",
+                "isStarter": true
+            }
+        },
+        {
+            "name": "Create",
+            "path": "/home/anders/Code/tri2",
+            "isStarter": true,
+            "context": {
+                "name": "Create",
+                "path": "/home/anders/Code/tri2",
+                "isStarter": true
+            }
+        }
+    ]
+}

@@ -7,16 +7,17 @@ import Run from "./controls/Run";
 import Log from "./controls/Log";
 import Save from "./controls/Save";
 
+
 export default class ControlBar extends Component {
     render() {        
         return (
-            <div id="controlBar" className="controlBar">
+            <span id="controlBar" className="controlBar">
                 <Run />
                 <AddManipulator />
                 <Log />
                 <Save />                                                      
                 <Open />
-            </div>
+            </span>
         );
     }    
 }
