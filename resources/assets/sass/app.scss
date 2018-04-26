@@ -28,6 +28,10 @@ body {
     height: 100%;
 }
 
+hr {
+    border-color: white;
+}
+
 .srd-demo-canvas {
     height: 90vh;
 
@@ -61,16 +65,6 @@ body {
 .bottom {
     position: relative;
     bottom: 0;
-}
-
-.heading-app-name {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 100%;
-    letter-spacing: 2px;
-    color: $neon-green;
-    margin-right: 50px;
 }
 
 .generator {
@@ -149,13 +143,6 @@ p, .form-group label{
     text-align: center;
 }
 
-hr {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    width: 25%;
-    border-color: $neon-green;
-}
-
 button {
     margin-top: 10px;
 }
@@ -168,7 +155,3 @@ button {
     width: auto;
 }
 
-.logo{
-    transform: rotate(-20deg);
-    transform: scale(50%);
-}

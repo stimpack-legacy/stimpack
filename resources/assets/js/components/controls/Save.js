@@ -41,6 +41,7 @@ class Save extends Component {
             className="manipulator-modal medium"
             >
                 <h4>Save as a pack</h4>
+                <hr />
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input placeholder="new-pack" value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
@@ -48,16 +49,18 @@ class Save extends Component {
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
                     <textarea rows="4" placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control" id="description" />
-                </div>                
-                <button onClick={this.save.bind(this)} className="btn btn-light">
-                    Save locally
-                </button>
-                <button onClick={this.upload.bind(this)} className="btn btn-light">
-                    Upload to stimpack.io
-                </button>                                
-                <button onClick={this.closeModal.bind(this)} className="btn btn-light">
-                    Cancel
-                </button>                        
+                </div>
+                <div className="modal-buttons">                
+                    <button onClick={this.save.bind(this)} className="btn btn-light">
+                        Save locally
+                    </button>
+                    <button onClick={this.upload.bind(this)} className="btn btn-light">
+                        Upload to stimpack.io
+                    </button>                                
+                    <button onClick={this.closeModal.bind(this)} className="btn btn-light">
+                        Cancel
+                    </button>
+                </div>                        
             </Modal>
         );
     }
@@ -103,15 +106,25 @@ class Save extends Component {
     upload() {        
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
-        console.log(compiled);
         $.ajax({
             type: "POST",
             beforeSend: function(request) {
-                request.setRequestHeader("token", "this ma token!");
-                return request;
+                request.setRequestHeader("stimpack-io-token", data.stimpack_io_token);
             },
             url: "http://data.stimpack.test/packs/upload/",
-            data: {},
+            data: {
+                name: this.state.name,
+                description: this.state.description,
+                fileContent: nonCircularStringify({
+                    name: this.state.name,
+                    description: this.state.description,
+                    created: (new Date(Date.now()).toLocaleString()),
+                    // Used to redraw the diagram
+                    diagram: this.props.engine.diagramModel.serializeDiagram(),
+                    // Used to run the pack from command line
+                    compiled: compiled
+                }, null, 4)
+            },
             success: function(result){
                 console.log(result);
             },

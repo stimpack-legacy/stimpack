@@ -64702,6 +64702,7 @@ var Save = function (_Component) {
                     null,
                     'Save as a pack'
                 ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'form-group' },
@@ -64723,19 +64724,23 @@ var Save = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '4', placeholder: 'What does it do?', value: this.state.description, onChange: this.changeDescription.bind(this), type: 'textarea', className: 'form-control', id: 'description' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { onClick: this.save.bind(this), className: 'btn btn-light' },
-                    'Save locally'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { onClick: this.upload.bind(this), className: 'btn btn-light' },
-                    'Upload to stimpack.io'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
-                    'Cancel'
+                    'div',
+                    { className: 'modal-buttons' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.save.bind(this), className: 'btn btn-light' },
+                        'Save locally'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.upload.bind(this), className: 'btn btn-light' },
+                        'Upload to stimpack.io'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
+                        'Cancel'
+                    )
                 )
             );
         }
@@ -64785,15 +64790,25 @@ var Save = function (_Component) {
         value: function upload() {
             var compiler = new __WEBPACK_IMPORTED_MODULE_10__Compiler__["a" /* default */](this.props.engine);
             var compiled = compiler.compile();
-            console.log(compiled);
             $.ajax({
                 type: "POST",
                 beforeSend: function beforeSend(request) {
-                    request.setRequestHeader("token", "this ma token!");
-                    return request;
+                    request.setRequestHeader("stimpack-io-token", data.stimpack_io_token);
                 },
                 url: "http://data.stimpack.test/packs/upload/",
-                data: {},
+                data: {
+                    name: this.state.name,
+                    description: this.state.description,
+                    fileContent: Object(__WEBPACK_IMPORTED_MODULE_9__Helpers__["a" /* nonCircularStringify */])({
+                        name: this.state.name,
+                        description: this.state.description,
+                        created: new Date(Date.now()).toLocaleString(),
+                        // Used to redraw the diagram
+                        diagram: this.props.engine.diagramModel.serializeDiagram(),
+                        // Used to run the pack from command line
+                        compiled: compiled
+                    }, null, 4)
+                },
                 success: function success(result) {
                     console.log(result);
                 },
@@ -64876,9 +64891,12 @@ var Header = function (_Component) {
                 { id: 'header', className: 'header' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
-                    { className: 'heading-app-name' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-2x fa-syringe logo' }),
-                    'STIMPACK'
+                    { className: 'heading-icon-and-app-name' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'header-text' },
+                        'stimpack'
+                    )
                 )
             );
         }

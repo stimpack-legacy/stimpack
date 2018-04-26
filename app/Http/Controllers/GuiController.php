@@ -12,7 +12,8 @@ class GuiController extends Controller
     public function __construct() {
         $this->data = [
             'projects' => $this->projects(), 
-            'packs' => $this->localPacks()//->concat($this->onlinePacks()),
+            'packs' => $this->localPacks(),
+            'stimpack_io_token' => env('STIMPACK_IO_TOKEN')
         ];
     }
 

@@ -3,59 +3,12 @@
     padding-right: 20px;
     padding-top: 4px;
     padding-bottom: 4px;
-    background-color: $semi-dark;
-    text-align: center;
-}
-
-.packBar {
-    background-color: lighten(grey, 10%);
-    //min-height: 100px;
-    display: none;
-}
-
-.run-icon {
-    margin-right: 250px;
-}
-
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;    
-    -webkit-transition: opacity 1.0s ease-in;
-    -moz-transition: opacity 1.0s ease-in;
-    -o-transition: opacity 1.0s ease-in;
-    opacity: .8;  
-}
-.sticky:after {
-    opacity: 0.5;
+    //background-color: $semi-dark;    
+    background-color: rgba(255, 255, 255, 0);    
+    //text-align: center;
 }
 
 .controlBarItem {
     display: inline;
     margin-right: 10px;
 }
-
-.controlBarForm {
-    display: inline;
-}
-
-.controlBarInput {
-    //width: 160px;
-    background-color: $dark;
-    color: white;
-    border-radius: 5px;
-}
-
-.controlBarDataList {
-    display: none;
-}
-
-input::-webkit-calendar-picker-indicator {
-    opacity: 100;
- }
-
- .add-manipulator-button {
-    //display: block;
-    width: 100%;
-    text-align: center;
- }

@@ -5,3 +5,22 @@
     padding-bottom: 13px;
     background-color: $darkest;
 }
+
+.heading-icon-and-app-name {    
+    color: $neon-green;
+    margin-right: 50px;    
+}
+
+
+.header-text {
+    margin-left: 5px;
+    font-weight: 700;
+    font-size: 150%;
+    font-style: italic;
+    //text-transform: uppercase;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.logo{
+    transform: rotate(-305deg);
+}

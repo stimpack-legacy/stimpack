@@ -323,64 +323,35 @@ li a:hover {
   background-color: rgba(0, 0, 0, 0.45);
 }
 
+.heading-icon-and-app-name {
+  color: #AFE418;
+  margin-right: 50px;
+}
+
+.header-text {
+  margin-left: 5px;
+  font-weight: 700;
+  font-size: 150%;
+  font-style: italic;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.logo {
+  -webkit-transform: rotate(-305deg);
+          transform: rotate(-305deg);
+}
+
 .controlBar {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 4px;
   padding-bottom: 4px;
-  background-color: #31363F;
-  text-align: center;
-}
-
-.packBar {
-  background-color: #9a9999;
-  display: none;
-}
-
-.run-icon {
-  margin-right: 250px;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  -webkit-transition: opacity 1.0s ease-in;
-  -moz-transition: opacity 1.0s ease-in;
-  -o-transition: opacity 1.0s ease-in;
-  opacity: .8;
-}
-
-.sticky:after {
-  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .controlBarItem {
   display: inline;
   margin-right: 10px;
-}
-
-.controlBarForm {
-  display: inline;
-}
-
-.controlBarInput {
-  background-color: rgba(0, 0, 0, 0.2);
-  color: white;
-  border-radius: 5px;
-}
-
-.controlBarDataList {
-  display: none;
-}
-
-input::-webkit-calendar-picker-indicator {
-  opacity: 100;
-}
-
-.add-manipulator-button {
-  width: 100%;
-  text-align: center;
 }
 
 .settings-modal {
@@ -449,6 +420,10 @@ input::-webkit-calendar-picker-indicator {
           box-shadow: 8px 8px rgba(0, 0, 0, 0.45);
   opacity: 0.95;
   text-align: center;
+}
+
+.modal-buttons > * {
+  margin-right: 5px;
 }
 
 .logItems {
@@ -10703,6 +10678,10 @@ body {
   height: 100%;
 }
 
+hr {
+  border-color: white;
+}
+
 .srd-demo-canvas {
   height: 90vh;
 }
@@ -10738,16 +10717,6 @@ body {
 .bottom {
   position: relative;
   bottom: 0;
-}
-
-.heading-app-name {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 500;
-  font-style: italic;
-  font-size: 100%;
-  letter-spacing: 2px;
-  color: #AFE418;
-  margin-right: 50px;
 }
 
 .generator {
@@ -10826,13 +10795,6 @@ p,
   text-align: center;
 }
 
-hr {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  width: 25%;
-  border-color: #AFE418;
-}
-
 button {
   margin-top: 10px;
 }
@@ -10843,12 +10805,5 @@ button {
 
 .table-sm-width {
   width: auto;
-}
-
-.logo {
-  -webkit-transform: rotate(-20deg);
-          transform: rotate(-20deg);
-  -webkit-transform: scale(50%);
-          transform: scale(50%);
 }
 
