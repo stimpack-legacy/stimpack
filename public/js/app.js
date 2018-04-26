@@ -64161,7 +64161,7 @@ var Save = function (_Component) {
                     { className: 'messageBox' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'p',
-                        null,
+                        { className: 'message' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'b',
                             null,

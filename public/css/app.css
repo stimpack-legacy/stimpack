@@ -425,6 +425,10 @@ li a:hover {
   margin-right: 5px;
 }
 
+.message {
+  color: #AFE418 !important;
+}
+
 .logItems {
   padding-left: 20px;
   text-align: left;

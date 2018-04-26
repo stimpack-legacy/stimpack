@@ -71,7 +71,7 @@ class Save extends Component {
         if(this.state.message != null)  {
             return (
                 <div className="messageBox">
-                    <p><b>{this.state.message}</b></p>
+                    <p className="message"><b>{this.state.message}</b></p>
                 </div>
             );
         }
