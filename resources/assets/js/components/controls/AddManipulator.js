@@ -39,15 +39,16 @@ class AddManipulator extends Component {
         model.addNode(node);
         
         var latestNode = model.nodes[this.props.latestNode];
-        
         if(latestNode) {
             node.setPosition(latestNode.x+200, latestNode.y);
             setTimeout(function() {                
-                var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
-                var toPort = node.getInPorts()[0]; // Assume 1 port only
-                var link = fromPort.link(toPort);            
-                model.addAll(link);                    
-                this.props.reDrawDiagram(Date.now());
+                if(!node.data['isStarter']) {
+                    var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
+                    var toPort = node.getInPorts()[0]; // Assume 1 port only
+                    var link = fromPort.link(toPort);            
+                    model.addAll(link);                    
+                    this.props.reDrawDiagram(Date.now());
+                }
             }.bind(this), 0);
         }
 
@@ -67,7 +68,7 @@ class AddManipulator extends Component {
             onRequestClose={this.closeModal.bind(this)}
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
-            className="manipulator-modal medium"
+            className="manipulator-modal small"
             >
                 {this.renderStarters()}
                 <hr />                
