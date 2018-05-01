@@ -437,6 +437,10 @@ li a:hover {
   font-weight: 900 !important;
 }
 
+.code-text-area {
+  width: 800px;
+}
+
 .logItems {
   padding-left: 20px;
   text-align: left;

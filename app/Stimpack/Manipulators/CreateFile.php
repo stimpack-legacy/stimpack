@@ -4,18 +4,17 @@ namespace App\Stimpack\Manipulators;
 use App\Stimpack\Manipulator;
 use App\Stimpack\Contexts\File;
 
-class ReplaceInFile extends Manipulator
+class CreateFile extends Manipulator
 {
     public function perform() {
 
-        $file = File::load($this->filePath())
-            ->replace($this->data->oldString, $this->data->newString)
+        $file = File::loadOrCreate($this->filePath())
+            ->content($this->data->content)
             ->save();
 
         return [
             "messages" => [
-                "Found " . $this->filePath(),
-                $file->report . " matches replaced."
+                "Created " . $this->filePath()
             ]
         ];
     }
