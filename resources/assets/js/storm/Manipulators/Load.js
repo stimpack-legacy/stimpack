@@ -1,8 +1,8 @@
 import * as React from "react";
 import {connect} from 'react-redux';
-import BaseManipulator from "../BaseManipulator";
+import BaseStarter from "../BaseStarter";
 
-class Load extends BaseManipulator {
+class Load extends BaseStarter {
     
     static getDefaultManipulatorParameters() {
         return {
@@ -44,6 +44,6 @@ class Load extends BaseManipulator {
 }
 
 export default connect(
-    BaseManipulator.mapStateToProps, 
-    BaseManipulator.matchDispatchToProps
+    BaseStarter.mapStateToProps, 
+    BaseStarter.matchDispatchToProps
 )(Load);
