@@ -70,9 +70,15 @@ export default class Compiler {
     }
     
     globalParameters() {
-        return Object.values(this.engine.diagramModel.nodes).find((node) => {
+        var globalParametersNode = Object.values(this.engine.diagramModel.nodes).find((node) => {
             return node.isGlobalParametersNode();
-        }).data.globalParameters;        
+        });
+        
+        if(globalParametersNode) {
+            return globalParametersNode.data.globalParameters;
+        }
+
+        return {};
     }
 
     sortLinks(links) {

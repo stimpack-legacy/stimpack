@@ -22,7 +22,7 @@ const AllManipulators = {
     ReplaceInFile,
     SetGlobalParameters,
     ThrowBackEndError,
-    // Add your import here
+    // Add your manipulator here
 };
 
 export default AllManipulators;

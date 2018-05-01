@@ -2273,7 +2273,7 @@ var AllManipulators = {
     ReplaceInFile: __WEBPACK_IMPORTED_MODULE_6__Manipulators_ReplaceInFile__["a" /* default */],
     SetGlobalParameters: __WEBPACK_IMPORTED_MODULE_0__Manipulators_SetGlobalParameters__["a" /* default */],
     ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_7__Manipulators_ThrowBackEndError__["a" /* default */]
-    // Add your import here
+    // Add your manipulator here
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AllManipulators);
@@ -40471,9 +40471,15 @@ var Compiler = function () {
     }, {
         key: "globalParameters",
         value: function globalParameters() {
-            return Object.values(this.engine.diagramModel.nodes).find(function (node) {
+            var globalParametersNode = Object.values(this.engine.diagramModel.nodes).find(function (node) {
                 return node.isGlobalParametersNode();
-            }).data.globalParameters;
+            });
+
+            if (globalParametersNode) {
+                return globalParametersNode.data.globalParameters;
+            }
+
+            return {};
         }
     }, {
         key: "sortLinks",
