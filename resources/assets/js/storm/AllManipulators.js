@@ -8,7 +8,7 @@ import CreateDatabase from "./Manipulators/CreateDatabase"
 import DeleteFile from "./Manipulators/DeleteFile"
 import ReplaceInFile from "./Manipulators/ReplaceInFile"
 import ThrowBackEndError from "./Manipulators/ThrowBackEndError"
-
+// Add your import here
 
 const AllManipulators = {
     // Starters
@@ -21,7 +21,8 @@ const AllManipulators = {
     DeleteFile,
     ReplaceInFile,
     SetGlobalParameters,
-    ThrowBackEndError
+    ThrowBackEndError,
+    // Add your import here
 };
 
 export default AllManipulators;

@@ -17,14 +17,14 @@ class ReplaceInFile extends BaseManipulator {
         return (
             <div className="container">
                 <h4>Replace in file</h4>                
-                <div className="form-group">
-                    <input placeholder="relative/root/file.php" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
+                <div className="form-group code-text-area">
+                    <textarea placeholder="relative/root/file.php" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
                 </div>
-                <div className="form-group">
-                    <input placeholder="old-string" onChange={this.setOldString.bind(this)} value={this.state.data.oldString} type="text" className="form-control" />                    
+                <div className="form-group code-text-area">
+                    <textarea placeholder="old-string" onChange={this.setOldString.bind(this)} value={this.state.data.oldString} type="text" className="form-control" />                    
                 </div>
-                <div className="form-group">
-                    <input placeholder="new-string" onChange={this.setNewString.bind(this)} value={this.state.data.newString} type="text" className="form-control" />
+                <div className="form-group code-text-area">
+                    <textarea placeholder="new-string" onChange={this.setNewString.bind(this)} value={this.state.data.newString} type="text" className="form-control" />
                 </div>
                 
             </div>

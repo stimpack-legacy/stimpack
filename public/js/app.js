@@ -2259,6 +2259,7 @@ module.exports = exports["default"];
 
 
 
+// Add your import here
 
 var AllManipulators = {
     // Starters
@@ -2272,6 +2273,7 @@ var AllManipulators = {
     ReplaceInFile: __WEBPACK_IMPORTED_MODULE_6__Manipulators_ReplaceInFile__["a" /* default */],
     SetGlobalParameters: __WEBPACK_IMPORTED_MODULE_0__Manipulators_SetGlobalParameters__["a" /* default */],
     ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_7__Manipulators_ThrowBackEndError__["a" /* default */]
+    // Add your import here
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AllManipulators);
@@ -64535,18 +64537,18 @@ var ReplaceInFile = function (_BaseManipulator) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "relative/root/file.php", onChange: this.setPath.bind(this), value: this.state.data.path, type: "text", className: "form-control" })
+                    { className: "form-group code-text-area" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { placeholder: "relative/root/file.php", onChange: this.setPath.bind(this), value: this.state.data.path, type: "text", className: "form-control" })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "old-string", onChange: this.setOldString.bind(this), value: this.state.data.oldString, type: "text", className: "form-control" })
+                    { className: "form-group code-text-area" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { placeholder: "old-string", onChange: this.setOldString.bind(this), value: this.state.data.oldString, type: "text", className: "form-control" })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "new-string", onChange: this.setNewString.bind(this), value: this.state.data.newString, type: "text", className: "form-control" })
+                    { className: "form-group code-text-area" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { placeholder: "new-string", onChange: this.setNewString.bind(this), value: this.state.data.newString, type: "text", className: "form-control" })
                 )
             );
         }
