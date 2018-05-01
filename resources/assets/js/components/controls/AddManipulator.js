@@ -32,8 +32,8 @@ class AddManipulator extends Component {
         var node = new ManipulatorNodeModel({ 
             name: event.target.value
         });
-        node.addInPort(' ');
-        node.addOutPort(' ');
+
+        node.addPorts();
         
         node.setPosition(100+Math.random()*100, 100+Math.random()*100);
         model.addNode(node);
@@ -42,7 +42,7 @@ class AddManipulator extends Component {
         if(latestNode) {
             node.setPosition(latestNode.x+200, latestNode.y);
             setTimeout(function() {                
-                if(!node.data['isStarter']) {
+                if(node.isNormal() && !latestNode.isIndependent) {
                     var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
                     var toPort = node.getInPorts()[0]; // Assume 1 port only
                     var link = fromPort.link(toPort);            

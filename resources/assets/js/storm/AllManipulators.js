@@ -1,4 +1,4 @@
-import SetGlobalParameters from "./SetGlobalParameters"
+import SetGlobalParameters from "./Manipulators/SetGlobalParameters"
 
 import Create from "./Manipulators/Create";
 import Load from "./Manipulators/Load";

@@ -10,7 +10,7 @@ import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
 import Modal from 'react-modal';
 import AllManipulators from "./AllManipulators";
 
-class SetGlobalParameters extends BaseWidget {
+export default class BaseIndependentManipulator extends BaseWidget {
 	constructor(props) {
         super("srd-default-node", props);                
         Modal.setAppElement('#main');        
@@ -23,10 +23,6 @@ class SetGlobalParameters extends BaseWidget {
             this.state.data = this.props.node.data; 
         }        
 	}
-
-	generatePort(port) {
-		return <DefaultPortLabel model={port} key={port.id} />;
-    }
 
 	render() {        
 		return (
@@ -52,49 +48,14 @@ class SetGlobalParameters extends BaseWidget {
 
     renderNode() {
         return (
-            <wrapper>                
+            <wrapper>
+                
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.manipulator.name}</div>
                 </div>
-                <div className={this.bem("__ports")}>
-                    <div className={this.bem("__out")}>
-                        {_.map(this.props.node.getOutPorts(), this.generatePort.bind(this))}
-                    </div>
-                </div>                
             </wrapper>
         );
     }
-
-    static getDefaultManipulatorParameters() {
-        return {
-            name: "SetGlobalParameters",
-            path: "",
-            content: ""                                    
-        }
-    }    
-
-    renderSettings() {        
-        return (            
-            <div className="container">
-                <h4>Set global parameters</h4>
-                <div className="form-group code-text-area">
-                    <textarea rows="20" placeholder="content" onChange={this.setContent.bind(this)} value={this.state.data.content} type="text" className="form-control" />                    
-                </div>
-            </div>
-        );
-    }
-
-    setPath(event) {
-        var data = this.state.data;
-        data.path = event.target.value;
-        this.setState({data});
-    }
-
-    setContent(event) {
-        var data = this.state.data;
-        data.content = event.target.value;
-        this.setState({data});        
-    } 
 
     openModal() {
         this.setState({
@@ -137,8 +98,3 @@ class SetGlobalParameters extends BaseWidget {
             }, dispatch);
     }    
 }
-
-export default connect(
-    SetGlobalParameters.mapStateToProps, 
-    SetGlobalParameters.matchDispatchToProps
-)(SetGlobalParameters);
