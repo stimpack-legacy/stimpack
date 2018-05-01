@@ -26,6 +26,7 @@ export class ManipulatorNodeModel extends NodeModel {
 		}
 
 		if(this.isStarter()) {
+			console.log("hej!");
 			this.addOutPort(' ');
 			return;
 		}
@@ -43,6 +44,10 @@ export class ManipulatorNodeModel extends NodeModel {
 	isIndependent() {
 		return AllManipulators[this.manipulator.name].getDefaultManipulatorParameters().isIndependent;
 	}
+	
+	isGlobalParametersNode() {
+		return AllManipulators[this.manipulator.name].getDefaultManipulatorParameters().name == "SetGlobalParameters";
+	}	
 
 	isNormal() {
 		return (!this.isStarter()) && (!this.isIndependent())

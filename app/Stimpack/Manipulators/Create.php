@@ -25,8 +25,7 @@ class Create extends Manipulator
 
         return [
             "messages" => [
-                "Created application at http://" . $this->data->path . ".test",
-                
+                "Created application at http://" . $this->data->path . ".test"                
             ]
         ];
     }

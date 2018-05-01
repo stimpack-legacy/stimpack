@@ -10524,7 +10524,9 @@ a.text-dark:focus {
   background: #c0ff00;
 }
 
-.srd-default-node {
+.srd-default-node,
+.srd-independent-node,
+.srd-starter-node {
   background-color: #1e1e1e;
   border-radius: 5px;
   font-family: sans-serif;
@@ -10681,6 +10683,52 @@ a.text-dark:focus {
 
 .srd-node {
   min-width: 80px;
+}
+
+.srd-independent-node {
+  background-color: #AFE418;
+  color: black;
+}
+
+.srd-independent-node__name {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 5px 5px;
+}
+
+.srd-starter-node {
+  background-color: #AFE418;
+  color: black;
+}
+
+.srd-starter-node__name {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 5px 5px;
+}
+
+.srd-starter-node__ports {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.2)));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+}
+
+.srd-starter-node__in,
+.srd-starter-node__out {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 html {

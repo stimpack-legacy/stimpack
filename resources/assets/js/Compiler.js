@@ -67,7 +67,13 @@ export default class Compiler {
                 return 1;
             }            
         });
-    }    
+    }
+    
+    globalParameters() {
+        return Object.values(this.engine.diagramModel.nodes).find((node) => {
+            return node.isGlobalParametersNode();
+        }).data.globalParameters;        
+    }
 
     sortLinks(links) {
         return links.sort((first, second) => {

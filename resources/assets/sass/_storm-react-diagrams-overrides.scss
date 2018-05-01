@@ -10,3 +10,36 @@
     min-width: 80px;
     //text-align: center;
 }
+
+.srd-independent-node{
+    @extend .srd-default-node;
+    background-color: $neon-green;
+    color: black;
+
+    &__name {
+        flex-grow: 1;
+        padding: 5px 5px;
+    }
+}
+
+.srd-starter-node{
+    @extend .srd-default-node;
+    background-color: $neon-green;
+    color: black;
+
+    &__name {
+        flex-grow: 1;
+        padding: 5px 5px;
+    }
+
+    &__ports {
+        display: flex;
+        background-image: linear-gradient(rgba(black, 0.1), rgba(black, 0.2));
+    }
+    
+    &__in, &__out{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }    
+}

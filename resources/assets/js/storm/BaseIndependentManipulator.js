@@ -12,7 +12,7 @@ import AllManipulators from "./AllManipulators";
 
 export default class BaseIndependentManipulator extends BaseWidget {
 	constructor(props) {
-        super("srd-default-node", props);                
+        super("srd-independent-node", props);                
         Modal.setAppElement('#main');        
         this.state = {};
         if(!(typeof(this.props.node.data) == "object")) {
@@ -53,6 +53,9 @@ export default class BaseIndependentManipulator extends BaseWidget {
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.manipulator.name}</div>
                 </div>
+                <div className={this.bem("__ports")}>
+                    {/* EMPTY - FOR STYLES SAKE */}
+                </div>                
             </wrapper>
         );
     }

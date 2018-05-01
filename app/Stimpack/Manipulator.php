@@ -2,15 +2,39 @@
 
 namespace App\Stimpack;
 
+use stdClass;
+use Log;
+
 class Manipulator
 {
-    public function __construct($data)
+    public function __construct($data, $globalParameters = 0)
     {
-        $this->data = $data;
-        //$this->transferParameters();
-        // To be removed!!!
-        ini_set('max_execution_time', 300);
-        usleep(200000);        
+        $this->globalParameters = $globalParameters;
+        $this->data = $this->injectGlobalParameters($data);        
+    }
+
+    public function injectGlobalParameters($data) {
+        return (object) collect((array) $data)->map(function($value, $key) {
+            if(is_object($value)) {
+                return $this->injectGlobalParameters($value);
+            }
+            if(is_string($value)) {
+                return $this->possiblyInjectParameter($value);
+            }
+            return $value;
+        })->toArray();
+    }
+
+    private function possiblyInjectParameter($str) {
+        preg_match_all("/__STIMPACK\((.*?)\)/", $str, $matches);
+        $fullMatches = $matches[0];
+        $parameterMatches = $matches[1];
+
+        return collect($parameterMatches)->filter(function($value) {
+            return isset($this->globalParameters->$value);
+        })->reduce(function($carry, $item) use($str) {            
+            return str_replace("__STIMPACK(" . $item . ")", $this->globalParameters->$item, $carry);            
+        }, $str);
     }
 
     public function projectName()

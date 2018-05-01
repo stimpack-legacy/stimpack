@@ -9,7 +9,7 @@ class CreateDatabase extends Manipulator
     public function perform() {
         return [
             "messages" => [
-                "Dummy implementation"
+                "OK I GUESS"
             ]
         ];        
     }

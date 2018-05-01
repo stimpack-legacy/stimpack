@@ -7,8 +7,7 @@ class SetGlobalParameters extends BaseIndependentManipulator {
     static getDefaultManipulatorParameters() {
         return {
             name: "SetGlobalParameters",
-            path: "",
-            content: "",
+            globalParameters: '{ "foo": "bar" }',
             isIndependent: true                                    
         }
     }    
@@ -17,25 +16,16 @@ class SetGlobalParameters extends BaseIndependentManipulator {
         return (            
             <div className="container">
                 <h4>Set global parameters</h4>
-                <div className="form-group">
-                    <input placeholder="relative/root/file.php" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
-                </div>
                 <div className="form-group code-text-area">
-                    <textarea rows="20" placeholder="content" onChange={this.setContent.bind(this)} value={this.state.data.content} type="text" className="form-control" />                    
+                    <textarea rows="20" placeholder="content" onChange={this.setContent.bind(this)} value={this.state.data.globalParameters} type="text" className="form-control" />                    
                 </div>
             </div>
         );
     }
 
-    setPath(event) {
-        var data = this.state.data;
-        data.path = event.target.value;
-        this.setState({data});
-    }
-
     setContent(event) {
         var data = this.state.data;
-        data.content = event.target.value;
+        data.globalParameters = event.target.value;
         this.setState({data});        
     }        
 }

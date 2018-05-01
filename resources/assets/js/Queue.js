@@ -17,7 +17,8 @@ export default class Queue {
         this.setQueue = callback;
     }
 
-    register(items) {
+    register(items, globalParameters) {
+        this.globalParameters = globalParameters;
         this.waiting = items;
     }
 
@@ -26,6 +27,7 @@ export default class Queue {
         queue.waiting = data.waiting;
         queue.finished = data.finished;
         queue.pending = data.pending;
+        queue.globalParameters = data.globalParameters;
         return queue;
     }
 
@@ -51,7 +53,8 @@ export default class Queue {
             type: "POST",
             url: "/perform/" + item.name,
             data: {
-                data: nonCircularStringify(item)
+                data: nonCircularStringify(item),
+                globalParameters: this.globalParameters
             },
             success: function(result){
                 console.log(item.name + " succeded!");                

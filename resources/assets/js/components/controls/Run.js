@@ -46,8 +46,9 @@ class Run extends Component {
     run() {        
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
+        var parameters = compiler.globalParameters();
         var queue = new Queue();
-        queue.register(compiled);
+        queue.register(compiled, parameters);
         this.props.setQueue(queue);
         this.props.openLog();
     }

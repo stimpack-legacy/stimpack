@@ -12,7 +12,7 @@ import AllManipulators from "./AllManipulators";
 
 export default class BaseStarter extends BaseWidget {
 	constructor(props) {
-        super("srd-default-node", props);                
+        super("srd-starter-node", props);                
         Modal.setAppElement('#main');        
         this.state = {};
         if(!(typeof(this.props.node.data) == "object")) {
