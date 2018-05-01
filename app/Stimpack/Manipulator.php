@@ -10,7 +10,10 @@ class Manipulator
     public function __construct($data, $globalParameters = 0)
     {
         $this->globalParameters = $globalParameters;
-        $this->data = $this->injectGlobalParameters($data);        
+        $this->data = $this->injectGlobalParameters($data);
+        
+        // Smoothen your experience by reducing speed
+        usleep(200000);
     }
 
     public function injectGlobalParameters($data) {
