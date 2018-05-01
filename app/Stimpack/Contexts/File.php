@@ -99,6 +99,13 @@ class File
         return $this;
     }
 
+    // Untested
+    public function delete()
+    {
+        unlink($this->path);
+        return $this;
+    }
+
     public function empty()
     {
         $this->content = "";

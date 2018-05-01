@@ -21142,8 +21142,10 @@ var ManipulatorNodeModel = function (_NodeModel) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Manipulators_Load__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateFile__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_CreateDatabase__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_ThrowBackEndError__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ReplaceInFile__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_DeleteFile__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ThrowBackEndError__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Manipulators_ReplaceInFile__ = __webpack_require__(285);
+
 
 
 
@@ -21160,8 +21162,9 @@ var AllManipulators = {
     // Manipulators
     CreateFile: __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateFile__["a" /* default */],
     CreateDatabase: __WEBPACK_IMPORTED_MODULE_3__Manipulators_CreateDatabase__["a" /* default */],
-    ReplaceInFile: __WEBPACK_IMPORTED_MODULE_5__Manipulators_ReplaceInFile__["a" /* default */],
-    ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_4__Manipulators_ThrowBackEndError__["a" /* default */]
+    DeleteFile: __WEBPACK_IMPORTED_MODULE_4__Manipulators_DeleteFile__["a" /* default */],
+    ReplaceInFile: __WEBPACK_IMPORTED_MODULE_6__Manipulators_ReplaceInFile__["a" /* default */],
+    ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_5__Manipulators_ThrowBackEndError__["a" /* default */]
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AllManipulators);
@@ -70663,6 +70666,76 @@ var CreateFile = function (_BaseManipulator) {
 }(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(CreateFile));
+
+/***/ }),
+/* 312 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(37);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var DeleteFile = function (_BaseManipulator) {
+    _inherits(DeleteFile, _BaseManipulator);
+
+    function DeleteFile() {
+        _classCallCheck(this, DeleteFile);
+
+        return _possibleConstructorReturn(this, (DeleteFile.__proto__ || Object.getPrototypeOf(DeleteFile)).apply(this, arguments));
+    }
+
+    _createClass(DeleteFile, [{
+        key: "renderSettings",
+        value: function renderSettings() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Delete File"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: "form-group" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "relative/root/file.php", onChange: this.setPath.bind(this), value: this.state.data.path, type: "text", className: "form-control" })
+                )
+            );
+        }
+    }, {
+        key: "setPath",
+        value: function setPath(event) {
+            var data = this.state.data;
+            data.path = event.target.value;
+            this.setState({ data: data });
+        }
+    }], [{
+        key: "getDefaultManipulatorParameters",
+        value: function getDefaultManipulatorParameters() {
+            return {
+                name: "DeleteFile",
+                path: ""
+            };
+        }
+    }]);
+
+    return DeleteFile;
+}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(DeleteFile));
 
 /***/ })
 /******/ ]);
