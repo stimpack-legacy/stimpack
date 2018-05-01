@@ -62382,18 +62382,20 @@ var AddManipulator = function (_Component) {
                     overlayClassName: 'no-overlay',
                     className: 'manipulator-modal small'
                 },
+                this.renderIndependent(),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 this.renderStarters(),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 this.renderManipulators()
             );
         }
     }, {
-        key: 'renderStarters',
-        value: function renderStarters() {
+        key: 'renderIndependent',
+        value: function renderIndependent() {
             var _this2 = this;
 
             return Object.values(__WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__["a" /* default */]).filter(function (manipulator) {
-                return Boolean(manipulator.getDefaultManipulatorParameters().isStarter);
+                return Boolean(manipulator.getDefaultManipulatorParameters().isIndependent);
             }).map(function (manipulator) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -62407,12 +62409,12 @@ var AddManipulator = function (_Component) {
             });
         }
     }, {
-        key: 'renderManipulators',
-        value: function renderManipulators() {
+        key: 'renderStarters',
+        value: function renderStarters() {
             var _this3 = this;
 
             return Object.values(__WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__["a" /* default */]).filter(function (manipulator) {
-                return !Boolean(manipulator.getDefaultManipulatorParameters().isStarter);
+                return Boolean(manipulator.getDefaultManipulatorParameters().isStarter);
             }).map(function (manipulator) {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -62420,6 +62422,25 @@ var AddManipulator = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { value: manipulator.getDefaultManipulatorParameters().name, onClick: _this3.addManipulator.bind(_this3), className: 'btn btn-light add-manipulator-button' },
+                        manipulator.getDefaultManipulatorParameters().name
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'renderManipulators',
+        value: function renderManipulators() {
+            var _this4 = this;
+
+            return Object.values(__WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__["a" /* default */]).filter(function (manipulator) {
+                return !Boolean(manipulator.getDefaultManipulatorParameters().isStarter) && !Boolean(manipulator.getDefaultManipulatorParameters().isIndependent);
+            }).map(function (manipulator) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { key: manipulator.getDefaultManipulatorParameters().name },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { value: manipulator.getDefaultManipulatorParameters().name, onClick: _this4.addManipulator.bind(_this4), className: 'btn btn-light add-manipulator-button' },
                         manipulator.getDefaultManipulatorParameters().name
                     )
                 );
