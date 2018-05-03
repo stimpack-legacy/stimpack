@@ -70,27 +70,11 @@ class AddManipulator extends Component {
             overlayClassName="no-overlay"
             className="manipulator-modal small"
             >
-                {this.renderIndependent()}
-                 <hr />
                 {this.renderStarters()}
                 <hr />                
                 {this.renderManipulators()}             
             </Modal>
         );
-    }
-
-    renderIndependent() {
-        return Object.values(AllManipulators).filter(manipulator => {
-            return Boolean(manipulator.getDefaultManipulatorParameters().isIndependent);
-        }).map((manipulator) => {
-        return (
-            <div key={manipulator.getDefaultManipulatorParameters().name}>
-                <button value={manipulator.getDefaultManipulatorParameters().name} onClick={this.addManipulator.bind(this)} className="btn btn-light add-manipulator-button">
-                    {manipulator.getDefaultManipulatorParameters().name}
-                </button>
-            </div>
-            )
-        });
     }
 
     renderStarters() {

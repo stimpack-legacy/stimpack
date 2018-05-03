@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {openLog} from '../../actions/index';
-import {setQueue} from '../../actions/index';
-import Queue from '../../Queue';
-import Compiler from "../../Compiler"
+import {setParameters} from '../../actions/index';
 
 
-class Run extends Component {
+class Parameters extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
@@ -18,8 +15,8 @@ class Run extends Component {
 
     render() {        
         return (
-            <span onClick={this.run.bind(this)}>
-                <i title="Run!" className="fa fa-play icon-control-bar icon-control-bar"></i>
+            <span onClick={this.openModal.bind(this)}>
+                <i title="Set parameters" className="fa fa-cog icon-control-bar icon-control-bar"></i>
                 {this.renderModal()}
             </span>           
         );
@@ -33,23 +30,24 @@ class Run extends Component {
             onRequestClose={this.closeModal.bind(this)}
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
-            className="settings-modal medium"
+            className="manipulator-modal"
             >                
-                <h4>Run!</h4>                
-                <div className="container settings-modal-buttons">                    
-                    <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
-                </div>                    
+                <h4>Set global parameters</h4>
+                <hr />
+                <div className="form-group code-text-area">
+                    <textarea rows="20" placeholder="content" value={this.props.parameters} onChange={this.setParameters.bind(this)} type="text" className="form-control" />                    
+                </div>
+                <div className="modal-buttons">                                                
+                    <button onClick={this.closeModal.bind(this)} className="btn btn-light">
+                        Close
+                    </button>
+                </div>                                    
             </Modal>
         );
     }
 
-    run() {        
-        var compiler = new Compiler(this.props.engine);
-        var compiled = compiler.compile();
-        var queue = new Queue();
-        queue.register(compiled, this.props.parameters);
-        this.props.setQueue(queue);
-        this.props.openLog();
+    setParameters(event) {
+        this.props.setParameters(event.target.value);        
     }
 
     openModal() {
@@ -70,7 +68,6 @@ class Run extends Component {
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        foo: state.foo,        
         parameters: state.parameters 
     };
 }
@@ -78,12 +75,11 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            openLog: openLog,
-            setQueue: setQueue                        
+            setParameters: setParameters                        
         }, dispatch);
 }
 
 export default connect(
     mapStateToProps, 
     matchDispatchToProps
-)(Run);
+)(Parameters);

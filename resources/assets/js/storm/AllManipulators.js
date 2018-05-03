@@ -1,5 +1,3 @@
-import SetGlobalParameters from "./Manipulators/SetGlobalParameters"
-
 import Create from "./Manipulators/Create";
 import Load from "./Manipulators/Load";
 
@@ -20,7 +18,6 @@ const AllManipulators = {
     CreateDatabase,
     DeleteFile,
     ReplaceInFile,
-    SetGlobalParameters,
     ThrowBackEndError,
     // Add your manipulator here
 };

@@ -17,7 +17,7 @@ class Create extends BaseStarterManipulator {
             <div className="container">
                 <h4>Create project </h4>
                 <div className="form-group">
-                    <input placeholder="new-project" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
+                    <input placeholder="new-project" size="40" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
                 </div>
             </div>
         );

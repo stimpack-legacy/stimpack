@@ -25,3 +25,10 @@ export const setQueue = (compiledManipulators) => {
         payload: Object.assign({}, compiledManipulators)
     }
 };
+
+export const setParameters = (parameters) => {
+    return {
+        type: 'SET_PARAMETERS',
+        payload: parameters
+    }
+};

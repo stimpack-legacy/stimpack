@@ -36,17 +36,12 @@ export class ManipulatorNodeModel extends NodeModel {
 
 	}
 
-
     isStarter() {
         return AllManipulators[this.manipulator.name].getDefaultManipulatorParameters().isStarter;
 	}
 	
 	isIndependent() {
 		return AllManipulators[this.manipulator.name].getDefaultManipulatorParameters().isIndependent;
-	}
-	
-	isGlobalParametersNode() {
-		return AllManipulators[this.manipulator.name].getDefaultManipulatorParameters().name == "SetGlobalParameters";
 	}	
 
 	isNormal() {

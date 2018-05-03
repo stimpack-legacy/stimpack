@@ -70,14 +70,6 @@ export default class Compiler {
     }
     
     globalParameters() {
-        var globalParametersNode = Object.values(this.engine.diagramModel.nodes).find((node) => {
-            return node.isGlobalParametersNode();
-        });
-        
-        if(globalParametersNode) {
-            return globalParametersNode.data.globalParameters;
-        }
-
         return {};
     }
 
