@@ -70045,6 +70045,9 @@ var Parameters = function (_Component) {
             this.setState({
                 modalIsOpen: true
             });
+
+            // Prevent focus bug
+            this.props.engine.diagramModel.setLocked(true);
         }
     }, {
         key: 'afterOpenModal',
@@ -70055,6 +70058,9 @@ var Parameters = function (_Component) {
         key: 'closeModal',
         value: function closeModal() {
             this.setState({ modalIsOpen: false });
+
+            // Prevent focus bug
+            this.props.engine.diagramModel.setLocked(false);
         }
     }]);
 

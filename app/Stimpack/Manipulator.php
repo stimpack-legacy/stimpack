@@ -9,9 +9,10 @@ class Manipulator
 {
     public function __construct($data, $globalParameters = 0)
     {
-        $this->globalParameters = $globalParameters;
-        $this->data = $this->injectGlobalParameters($data);
         
+        $this->globalParameters = $globalParameters;             
+        $this->data = $this->injectGlobalParameters($data);
+
         // Smoothen your experience by reducing speed
         usleep(200000);
     }
@@ -33,9 +34,9 @@ class Manipulator
         $fullMatches = $matches[0];
         $parameterMatches = $matches[1];
 
-        return collect($parameterMatches)->filter(function($value) {
+        return collect($parameterMatches)->filter(function($value) {            
             return isset($this->globalParameters->$value);
-        })->reduce(function($carry, $item) use($str) {            
+        })->reduce(function($carry, $item) use($str) {                        
             return str_replace("__STIMPACK(" . $item . ")", $this->globalParameters->$item, $carry);            
         }, $str);
     }

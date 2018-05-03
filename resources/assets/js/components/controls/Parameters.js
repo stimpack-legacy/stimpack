@@ -54,6 +54,9 @@ class Parameters extends Component {
         this.setState({
             modalIsOpen: true,
         });
+
+        // Prevent focus bug
+        this.props.engine.diagramModel.setLocked(true);        
     }
     
     afterOpenModal() {
@@ -62,6 +65,9 @@ class Parameters extends Component {
     
     closeModal() {
         this.setState({modalIsOpen: false});        
+
+        // Prevent focus bug
+        this.props.engine.diagramModel.setLocked(false)        
     }    
 }
 

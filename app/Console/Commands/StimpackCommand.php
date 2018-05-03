@@ -44,7 +44,7 @@ class StimpackCommand extends Command
             'stimpack' => "homeHandler",
             'stimpack help' => "helpHandler",
             'stimpack list' => "listHandler",
-            'stimpack run [\w-\s]+' => "runHandler",
+            'stimpack run [\w-]+(\s+[\w-]+=[\w-]+)*' => "runHandler",
             "stimpack new [\w-]+( from [\w-\/]+)?" => "newHandler",
             "stimpack open [\w-]+" => "openHandler",            
             // default
@@ -98,18 +98,30 @@ class StimpackCommand extends Command
     }
 
     private function runHandler() {
-        // stimpack run pack
+        // stimpack run pack p1=v1 p2=v2 ...
         $packName = $this->args()[1];
-        $packParameters = $this->args()->slice(2)->values();
+
+        $passedParameters = $this->args()->slice(2)->values()->map(function($statement) {
+            return [str_before($statement,"=") => str_after($statement,"=")];
+        })->collapse();
+
+        $defaultParameters = collect(json_decode(
+            file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
+        )->parameters);
+
+        $parameters = (object) $defaultParameters->merge($passedParameters)->toArray();
+
         $compiledManipulators = collect(json_decode(
             file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
         )->compiled);
+
+
         $this->info("Running pack " . $packName . "!\n");
         
-        $compiledManipulators->each(function($manipulator) {
+        $compiledManipulators->each(function($manipulator) use($parameters) {
             $this->info($manipulator->name);
             collect(
-                ManipulatorController::make()->perform($manipulator)["messages"]
+                ManipulatorController::make()->perform($manipulator, $parameters)["messages"]
             )->each(function ($message) {
                 $this->comment(" - " .$message);
             });
