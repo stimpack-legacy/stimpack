@@ -141,7 +141,8 @@ class Save extends Component {
                     // Used to redraw the diagram
                     diagram: this.props.engine.diagramModel.serializeDiagram(),
                     // Used to run the pack from command line
-                    compiled: compiled
+                    compiled: compiled,
+                    parameters: JSON.parse(this.props.parameters)
                 }, null, 4)
             },
             success: function(result){
