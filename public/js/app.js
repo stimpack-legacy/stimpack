@@ -71102,16 +71102,24 @@ function matchDispatchToProps(dispatch) {
 "use strict";
 var defaultParameters = "{\n    \"foo\": \"bar\"\n}";
 
+function getParameters() {
+	if (!(typeof data.pack == "undefined")) {
+		return JSON.stringify(data.pack.content.parameters, null, 4);
+	}
+
+	return defaultParameters;
+}
+
 /* harmony default export */ __webpack_exports__["a"] = (function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultParameters;
-    var action = arguments[1];
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getParameters();
+	var action = arguments[1];
 
 
-    if (action.type == "SET_PARAMETERS") {
-        state = action.payload;
-    }
+	if (action.type == "SET_PARAMETERS") {
+		state = action.payload;
+	}
 
-    return state;
+	return state;
 });
 
 /***/ })
