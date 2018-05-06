@@ -6,10 +6,18 @@ require __DIR__.'/vendor/autoload.php';
 $app = require_once __DIR__.'/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 
-// Fix arguments to work with class ArgVInput
-$args = collect(["app-name-placeholder-to-remove", "stimpack"])->merge(
-    collect($_SERVER['argv'])->splice(1)
-)->toArray();
+// Comply with Laravels command style name:command {parameters?}
+$name = "stimpack";
+$command = collect($_SERVER['argv'])->splice(1)->shift();
+$parameters = collect($_SERVER['argv'])->splice(2);
+
+// Since we want to support standalone "stimpack" aswell only render the ":" when a sub command is preset
+$signature = collect($command)->reduce(function ($stimpack, $command) use($parameters) {
+    return collect($stimpack->first() . ":" . $command)->concat($parameters);
+}, collect("stimpack"));
+
+// Add a placeholder - compare with the "artisan" command
+$args = $signature->prepend("app-name-placeholder-to-remove")->toArray();
 
 $status = $kernel->handle(
     $input = new Symfony\Component\Console\Input\ArgvInput($args),
