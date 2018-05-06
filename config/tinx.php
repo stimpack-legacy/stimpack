@@ -53,7 +53,7 @@ return [
      * Include these file(s) before starting tinker.
      * */
     'include' => [
-        '/home/anders/Code/stimpack/TinxHelpers.php',
+        //'/home/anders/Code/stimpack/TinxHelpers.php',
         // '/include/this/file.php',
         // '/also/include/this/file.php',
     ],
