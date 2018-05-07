@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "stimpack-io/stimpack",
+    "description": "Stimpack",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
