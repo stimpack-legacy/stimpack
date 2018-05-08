@@ -35,7 +35,16 @@ class ParkCommand extends StimpackCommand
 
         $this->configureEnviromentFile();
         $this->setEnviromentParameter("STIMPACK_CODE_PATH", $parkAt);
-
-        $this->info("Parked at " . $parkAt);
+        $this->createSymlinkToCode();
+        $this->info("Successfully parked at " . $parkAt);
     }
+
+    protected function createSymlinkToCode()
+    {
+        symlink(
+            base_path("../stimpack"), // Target
+            env("STIMPACK_CODE_PATH") . "/stimpack" // Link
+        );
+    }
+
 }
