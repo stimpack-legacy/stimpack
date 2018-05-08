@@ -42,12 +42,12 @@ class ParkCommand extends StimpackCommand
     protected function createSymlinkToCode()
     {
         $this->info("Create symlink with");
-        $this->info("TARGET: " . base_path("../stimpack"));
-        $this->info("LINK: " . $this->parkAt . "/stimpack");
+        $this->info("FROM: " . base_path("../stimpack"));
+        $this->info("TO: " . $this->parkAt . "/stimpack");
 
         symlink(
             base_path("../stimpack"), // Target
-            env("STIMPACK_CODE_PATH") . "/stimpack" // Link
+            $this->parkAt . "/stimpack" // Link
         );
     }
 
