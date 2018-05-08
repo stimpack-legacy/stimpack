@@ -6,26 +6,17 @@ use App\Stimpack\Contexts\File;
 
 class ReplaceInFile extends Manipulator
 {
-    public function perform() {
-
-        $file = File::load($this->filePath())
+    public function perform() 
+    {        
+        $file = File::load($this->path($this->data->relativePathToFile))
             ->replace($this->data->oldString, $this->data->newString)
             ->save();
 
         return [
             "messages" => [
-                "Found " . $this->filePath(),
+                "Found " . $file->path(),
                 $file->report . " matches replaced."
             ]
         ];
-    }
-
-    private function filePath()
-    {
-        return env('STIMPACK_CODE_PATH') . 
-            "/" . 
-            $this->data->context->path .
-            "/" .
-            $this->data->path;
     }
 }

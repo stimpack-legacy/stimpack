@@ -41,43 +41,6 @@ class Manipulator
         }, $str);
     }
 
-    public function projectName()
-    {
-        if(isset($this->SetTargetProject))
-        {
-            return $this->SetTargetProject->projectName;
-        }
-
-        return substr(base_path(), strrpos(base_path(), '/') + 1);
-    }    
-
-    public function getTask($name) {
-        return $this->tasks->first(function ($value, $key) use($name) {
-            return $value->name == $name;
-        });
-    }
-
-    private function transferParameters()
-    {
-        $taskClassName = class_basename(get_class($this));
-        $thisTask = $this->tasks->first(function($value) use($taskClassName) {
-            return $value->name == $taskClassName;
-        });
-
-        // Transfer the current task directly onto this
-        foreach ($thisTask as $key => $value)
-        {
-            $this->$key = $value;
-        }
-
-        // Transfer all task to this so they can be called by name
-        foreach ($this->tasks as $key => $value) {
-            $name = $value->name;
-            $this->$name = $value;
-        }
-
-    }
-
     public static function projects() {
         chdir("../../");
         $projects = collect(array_filter(glob("*"), 'is_dir'));
@@ -94,4 +57,37 @@ class Manipulator
 
         return $value;
     }
+
+    protected function targetProjectPath()
+    {
+        return $this->resolveRealPath(
+            str_finish(
+                $this->env('STIMPACK_CODE_PATH', base_path("../")
+            ), "/")
+            .$this->data->context->targetProjectName
+        );
+    }
+
+    protected function resolveRealPath($path)
+    {
+        $path = str_replace('//', '/', $path);
+        $parts = explode('/', $path);
+        $out = array();
+        foreach ($parts as $part){
+            if ($part == '.') continue;
+            if ($part == '..') {
+                array_pop($out);
+                continue;
+            }
+            $out[] = $part;
+        }
+        return implode('/', $out);
+    }
+    
+    protected function path($relativePath)
+    {
+        return $this->targetProjectPath() . "/" . $relativePath;
+    }
+
+
 }

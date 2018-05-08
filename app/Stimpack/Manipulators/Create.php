@@ -9,22 +9,21 @@ use ZipArchive;
 class Create extends Manipulator
 {
     public function perform() {
-        // Get the file from github
-        $start = microtime(true);
-        //file_put_contents("../storage/stimpack/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
-    
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
+        $targetProjectPath = $this->targetProjectPath();
+        
         if ($res === TRUE) {
-            $zip->extractTo(str_finish($this->env('STIMPACK_CODE_PATH', base_path("../")), "/") . $this->data->path);
+            $zip->extractTo($targetProjectPath);
             $zip->close();
         } else {
-            return "some Error?";
+            return "Throw error here!";
         }
 
         return [
             "messages" => [
-                "Created application at http://" . $this->data->path . ".test"                
+                "Created application at $targetProjectPath",
+                "Check it out at http://" . $this->data->targetProjectName . ".test"                
             ]
         ];
     }

@@ -8,23 +8,14 @@ class CreateFile extends Manipulator
 {
     public function perform() {
 
-        $file = File::loadOrCreate($this->filePath())
+        $file = File::loadOrCreate($this->path($this->data->relativePathToFile))
             ->content($this->data->content)
             ->save();
 
         return [
             "messages" => [
-                "Created " . $this->filePath()
+                "Created " . $this->path($this->data->relativePathToFile)
             ]
         ];
-    }
-
-    private function filePath()
-    {
-        return env('STIMPACK_CODE_PATH') . 
-            "/" . 
-            $this->data->context->path .
-            "/" .
-            $this->data->path;
     }
 }

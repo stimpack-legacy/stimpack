@@ -7,7 +7,7 @@ class ReplaceInFile extends BaseManipulator {
     static getDefaultManipulatorParameters() {
         return {
             name: "ReplaceInFile",
-            path: "",
+            relativePathToFile: "",
             oldString: "",
             newString: ""                                    
         }
@@ -18,7 +18,7 @@ class ReplaceInFile extends BaseManipulator {
             <div className="container">
                 <h4>Replace in file</h4>                
                 <div className="form-group code-text-area">
-                    <textarea placeholder="relative/root/file.php" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
+                    <textarea placeholder="relative/root/file.php" onChange={this.setRelativePathToFile.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
                 </div>
                 <div className="form-group code-text-area">
                     <textarea placeholder="old-string" onChange={this.setOldString.bind(this)} value={this.state.data.oldString} type="text" className="form-control" />                    
@@ -31,9 +31,9 @@ class ReplaceInFile extends BaseManipulator {
         );
     }
 
-    setPath(event) {
+    setRelativePathToFile(event) {
         var data = this.state.data;
-        data.path = event.target.value;
+        data.relativePathToFile = event.target.value;
         this.setState({data});
     }
 

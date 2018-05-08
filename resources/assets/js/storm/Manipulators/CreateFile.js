@@ -7,7 +7,7 @@ class CreateFile extends BaseManipulator {
     static getDefaultManipulatorParameters() {
         return {
             name: "CreateFile",
-            path: "",
+            relativePathToFile: "",
             content: ""                                    
         }
     }    
@@ -17,7 +17,7 @@ class CreateFile extends BaseManipulator {
             <div className="container">
                 <h4>Create File</h4>
                 <div className="form-group">
-                    <input placeholder="relative/root/file.php" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
+                    <input placeholder="relative/root/file.php" onChange={this.setRelativePathToFile.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
                 </div>
                 <div className="form-group code-text-area">
                     <textarea rows="20" placeholder="content" onChange={this.setContent.bind(this)} value={this.state.data.content} type="text" className="form-control" />                    
@@ -26,9 +26,9 @@ class CreateFile extends BaseManipulator {
         );
     }
 
-    setPath(event) {
+    setRelativePathToFile(event) {
         var data = this.state.data;
-        data.path = event.target.value;
+        data.relativePathToFile = event.target.value;
         this.setState({data});
     }
 

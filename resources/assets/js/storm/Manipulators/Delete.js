@@ -2,29 +2,29 @@ import * as React from "react";
 import {connect} from 'react-redux';
 import BaseManipulator from "../BaseManipulator";
 
-class DeleteFile extends BaseManipulator {
+class Delete extends BaseManipulator {
     
     static getDefaultManipulatorParameters() {
         return {
-            name: "DeleteFile",
-            path: ""                                    
+            name: "Delete",
+            relativePathToDelete: ""                                    
         }
     }    
 
     renderSettings() {        
         return (            
             <div className="container">
-                <h4>Delete File</h4>
+                <h4>Delete File/Folder</h4>
                 <div className="form-group">
-                    <input placeholder="relative/root/file.php" onChange={this.setPath.bind(this)} value={this.state.data.path} type="text" className="form-control" />
+                    <input placeholder="relative/root/file.php" onChange={this.setRelativePathToDelete.bind(this)} value={this.state.data.relativePathToDelete} type="text" className="form-control" />
                 </div>
             </div>
         );
     }
 
-    setPath(event) {
+    setRelativePathToDelete(event) {
         var data = this.state.data;
-        data.path = event.target.value;
+        data.relativePathToDelete = event.target.value;
         this.setState({data});
     }
 }
@@ -32,4 +32,4 @@ class DeleteFile extends BaseManipulator {
 export default connect(
     BaseManipulator.mapStateToProps, 
     BaseManipulator.matchDispatchToProps
-)(DeleteFile);
+)(Delete);

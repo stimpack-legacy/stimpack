@@ -3,7 +3,7 @@ import Load from "./Manipulators/Load";
 
 import CreateFile from "./Manipulators/CreateFile"
 import CreateDatabase from "./Manipulators/CreateDatabase"
-import DeleteFile from "./Manipulators/DeleteFile"
+import Delete from "./Manipulators/Delete"
 import ReplaceInFile from "./Manipulators/ReplaceInFile"
 import ThrowBackEndError from "./Manipulators/ThrowBackEndError"
 // Add your import here
@@ -16,7 +16,7 @@ const AllManipulators = {
     // Manipulators
     CreateFile,
     CreateDatabase,
-    DeleteFile,
+    Delete,
     ReplaceInFile,
     ThrowBackEndError,
     // Add your manipulator here

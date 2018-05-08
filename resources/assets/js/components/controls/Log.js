@@ -34,7 +34,7 @@ class Log extends Component {
             onRequestClose={this.closeModal.bind(this)}
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
-            className="manipulator-modal medium"
+            className="manipulator-modal"
             >
                 <div className="logItems">
                     <h4>Log</h4>                
