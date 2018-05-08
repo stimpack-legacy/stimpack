@@ -7,7 +7,7 @@ import {openLog} from '../../actions/index';
 import {setQueue} from '../../actions/index';
 import Queue from '../../Queue';
 import Compiler from "../../Compiler"
-
+import Validator from "../../Validator"
 
 class Run extends Component {
     constructor(props) {
@@ -46,6 +46,11 @@ class Run extends Component {
     run() {        
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
+        var vaildation = Validator.validate(compiled);
+        if(vaildation.hasErrors) {
+            alert("Something is bad!");
+            return;
+        }
         var queue = new Queue();
         queue.register(compiled, this.props.parameters);
         this.props.setQueue(queue);

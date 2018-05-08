@@ -64597,7 +64597,8 @@ var ReplaceInFile = function (_BaseManipulator) {
                 name: "ReplaceInFile",
                 relativePathToFile: "",
                 oldString: "",
-                newString: ""
+                newString: "",
+                allowEmptyStringFor: ["newString"]
             };
         }
     }]);
@@ -64680,6 +64681,7 @@ var ThrowBackEndError = function (_BaseManipulator) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Queue__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Compiler__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Validator__ = __webpack_require__(317);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64687,6 +64689,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -64755,6 +64758,11 @@ var Run = function (_Component) {
         value: function run() {
             var compiler = new __WEBPACK_IMPORTED_MODULE_7__Compiler__["a" /* default */](this.props.engine);
             var compiled = compiler.compile();
+            var vaildation = __WEBPACK_IMPORTED_MODULE_8__Validator__["a" /* default */].validate(compiled);
+            if (vaildation.hasErrors) {
+                alert("Something is bad!");
+                return;
+            }
             var queue = new __WEBPACK_IMPORTED_MODULE_6__Queue__["a" /* default */]();
             queue.register(compiled, this.props.parameters);
             this.props.setQueue(queue);
@@ -71758,6 +71766,45 @@ var Delete = function (_BaseManipulator) {
 }(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(Delete));
+
+/***/ }),
+/* 317 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Validator = function () {
+    function Validator() {
+        _classCallCheck(this, Validator);
+    }
+
+    _createClass(Validator, null, [{
+        key: "validate",
+        value: function validate(compiled) {
+
+            var hasErrors = !compiled.map(function (data) {
+                return Object.keys(data).map(function (key) {
+                    return data[key] != null && data[key] != "";
+                }).every(function (item) {
+                    return item;
+                });
+            }).every(function (item) {
+                return item;
+            });
+
+            return {
+                "hasErrors": hasErrors
+            };
+        }
+    }]);
+
+    return Validator;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Validator);
 
 /***/ })
 /******/ ]);

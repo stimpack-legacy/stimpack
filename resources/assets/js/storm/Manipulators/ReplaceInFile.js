@@ -9,7 +9,10 @@ class ReplaceInFile extends BaseManipulator {
             name: "ReplaceInFile",
             relativePathToFile: "",
             oldString: "",
-            newString: ""                                    
+            newString: "",
+            allowEmptyStringFor: [
+                "newString"
+            ]                                    
         }
     }    
 
