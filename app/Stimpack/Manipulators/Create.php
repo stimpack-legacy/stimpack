@@ -17,8 +17,7 @@ class Create extends Manipulator
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
         if ($res === TRUE) {
-            return env('STIMPACK_CODE_PATH') . "/" . $this->data->path;
-            $zip->extractTo(env('STIMPACK_CODE_PATH', '/home/anders/Code') . "/" . $this->data->path);
+            $zip->extractTo($this->env('STIMPACK_CODE_PATH', base_path("../")) . $this->data->path);
             $zip->close();
         } else {
             return "some Error?";

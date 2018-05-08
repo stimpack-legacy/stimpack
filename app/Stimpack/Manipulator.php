@@ -84,4 +84,14 @@ class Manipulator
         chdir(public_path());
         return $projects;
     }
+
+    protected function env($key, $defaultAlsoAppliesIfEmpty)
+    {
+        $value = env($key, "");
+        if($value == "") {
+            return $defaultAlsoAppliesIfEmpty;
+        }
+
+        return $value;
+    }
 }
