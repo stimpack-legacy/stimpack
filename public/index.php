@@ -21,7 +21,15 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+// Support both CGR and normal file structures
+$cgrAutoload = __DIR__.'/../../../../vendor/autoload.php';
+$normalAutoload = __DIR__.'/../vendor/autoload.php';
+
+if(file_exists($cgrAutoload)) {
+    require $cgrAutoload;
+} else {
+    require $normalAutoload;
+}
 
 /*
 |--------------------------------------------------------------------------
