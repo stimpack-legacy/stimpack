@@ -10,21 +10,12 @@ use App\Stimpack\Contexts\Project;
 class Load extends Manipulator
 {
     public function perform() {
-
-        Project::load($this->projectPath());
-
+        Project::load($this->targetProjectPath());
+        
         return [
             "messages" => [
-                "Loaded application at http://" . $this->data->path . ".test",
-                
+                "Loaded application at http://" . $this->data->targetProjectName . ".test",                
             ]
         ];
-    }
-
-    private function projectPath()
-    {
-        return env('STIMPACK_CODE_PATH') . 
-            "/" .
-            $this->data->path;
     }    
 }

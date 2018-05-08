@@ -1,3 +1,25 @@
+// MAKE EPIC SPLASHPAGE
+
+    public function perform() {
+        $welcome=file_get_contents($this->projectPath() . '/resources/views/welcome.blade.php');
+
+        $oldStyle = "background-color: #fff;";        
+        $newStyle = "background-image: url('" . $this->imageUrl . "'); background-size:100%;";
+        $welcome=str_replace($oldStyle, $newStyle, $welcome);
+
+        $oldStyle = "Laravel";        
+        $newStyle = $this->projectName();
+        $welcome=str_replace($oldStyle, $newStyle, $welcome);        
+
+        $oldStyle = "font-weight: 100;";        
+        $newStyle = "font-weight: 900;";
+        $welcome=str_replace($oldStyle, $newStyle, $welcome);
+        
+        file_put_contents($this->projectPath() . '/resources/views/welcome.blade.php', $welcome);
+
+        return "Created splash page!";
+
+// BELOW IS OLD StimPACK COMMAND
 
     /**
      * The name and signature of the console command.

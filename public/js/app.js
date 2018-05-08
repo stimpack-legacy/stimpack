@@ -64303,7 +64303,7 @@ var Load = function (_BaseStarterManipulat) {
                     { className: "form-group" },
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                         "select",
-                        { onChange: this.setPath.bind(this), value: this.state.data.path, className: "form-control", id: "inputGroupSelect01" },
+                        { onChange: this.setTargetProjectName.bind(this), value: this.state.data.targetProjectName, className: "form-control", id: "inputGroupSelect01" },
                         this.renderProjects()
                     )
                 )
@@ -64321,10 +64321,10 @@ var Load = function (_BaseStarterManipulat) {
             });
         }
     }, {
-        key: "setPath",
-        value: function setPath(event) {
+        key: "setTargetProjectName",
+        value: function setTargetProjectName(event) {
             var data = this.state.data;
-            data.path = event.target.value;
+            data.targetProjectName = event.target.value;
             this.setState({ data: data });
 
             // Copy to Node Model
@@ -64335,7 +64335,7 @@ var Load = function (_BaseStarterManipulat) {
         value: function getDefaultManipulatorParameters() {
             return {
                 name: "Load",
-                path: "",
+                targetProjectName: "",
                 isStarter: true
             };
         }

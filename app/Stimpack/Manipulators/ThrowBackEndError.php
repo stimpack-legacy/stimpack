@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Stimpack\Manipulators;
+use Exception;
 
 use App\Stimpack\Manipulator;
 
 class ThrowBackEndError extends Manipulator
 {
     public function perform() {
-        return [][1337];        
+        throw new Exception("This error was created for testing purposes.");        
     }
 }
