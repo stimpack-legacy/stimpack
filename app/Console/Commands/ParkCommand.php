@@ -31,18 +31,19 @@ class ParkCommand extends StimpackCommand
      */
     public function handle()
     {   
-        $parkAt = (!$this->argument("path")) ? getcwd() : $this->argument("path");
+        $this->parkAt = (!$this->argument("path")) ? getcwd() : $this->argument("path");
 
         $this->configureEnviromentFile();
-        $this->setEnviromentParameter("STIMPACK_CODE_PATH", $parkAt);
+        $this->setEnviromentParameter("STIMPACK_CODE_PATH", $this->parkAt);
         $this->createSymlinkToCode();
-        $this->info("Successfully parked at " . $parkAt);
+        $this->info("Successfully parked at " . $this->parkAt);
     }
 
     protected function createSymlinkToCode()
     {
+        $this->info("Create symlink with");
         $this->info("TARGET: " . base_path("../stimpack"));
-        $this->info("LINK: " . env("STIMPACK_CODE_PATH") . "/stimpack");
+        $this->info("LINK: " . $this->parkAt . "/stimpack");
 
         symlink(
             base_path("../stimpack"), // Target
