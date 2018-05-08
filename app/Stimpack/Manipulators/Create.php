@@ -12,8 +12,7 @@ class Create extends Manipulator
         // Get the file from github
         $start = microtime(true);
         //file_put_contents("../storage/stimpack/laravel.zip", fopen("https://github.com/ajthinking/compressed/raw/master/laravel.zip", 'r'));
-
-        // Unzip    
+    
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
         if ($res === TRUE) {
