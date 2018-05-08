@@ -41,14 +41,17 @@ class ParkCommand extends StimpackCommand
 
     protected function createSymlinkToCode()
     {
-        $this->info("Create symlink with");
-        $this->info("FROM: " . base_path("../stimpack"));
-        $this->info("TO: " . $this->parkAt . "/stimpack");
+        $from = base_path();
+        $to = $this->parkAt . "/stimpack";
+        
+        // Delete existing link. Scenarios:
+        // Deploying the stimpack-dev version
+        // Redeploying the globally installed version 
+        if(is_link($to)){
+            unlink($to);
+        }
 
-        symlink(
-            base_path("../stimpack"), // Target
-            $this->parkAt . "/stimpack" // Link
-        );
+        $this->info("Create symlink from $from to $to");
+        symlink($from, $to);
     }
-
 }
