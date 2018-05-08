@@ -33,13 +33,11 @@ class ParkCommand extends StimpackCommand
     {   
         $parkAt = (!$this->argument("path")) ? getcwd() : $this->argument("path");
 
-        $this->setEnviromentParameter(
-            "STIMPACK_CODE_PATH",
-            $parkAt
-        );
+        $this->configureEnviromentFile();
+
+        $this->setEnviromentParameter("STIMPACK_CODE_PATH", $parkAt);
 
         $this->info("Parked at " . $parkAt);
-
-
+        if(symlink());
     }
 }
