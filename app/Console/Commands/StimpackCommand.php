@@ -18,15 +18,15 @@ abstract class StimpackCommand extends Command
         ));
     }
     
-    private function args() {
+    protected function args() {
         return collect($this->argument('parameters'));
     }
 
-    private function fullCommand() {
+    protected function fullCommand() {
         return collect(["stimpack"])->concat($this->args())->implode(" ");
     }
 
-    private function configureEnviromentFile()
+    protected function configureEnviromentFile()
     {
         if(file_exists($this->laravel->environmentFilePath())) {
             return;
