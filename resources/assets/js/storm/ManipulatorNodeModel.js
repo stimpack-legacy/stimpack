@@ -26,7 +26,6 @@ export class ManipulatorNodeModel extends NodeModel {
 		}
 
 		if(this.isStarter()) {
-			console.log("hej!");
 			this.addOutPort(' ');
 			return;
 		}

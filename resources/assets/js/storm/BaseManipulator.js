@@ -69,6 +69,12 @@ export default class BaseManipulator extends BaseWidget {
         );
     }
 
+    setDataParameter(event) {
+        var data = this.state.data;
+        data[event.target.name] = event.target.value;
+        this.setState({data});
+    } 
+
     openModal() {
         this.setState({
             modalIsOpen: true,

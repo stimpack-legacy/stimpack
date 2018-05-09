@@ -155,7 +155,7 @@ class Save extends Component {
                 this.setState({
                     message: "Could not upload pack!"
                 });
-                //console.log("Failed with message: '" + error.responseJSON.message + "'");
+                console.log(error);
             }.bind(this)
         });                
     }    

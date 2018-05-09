@@ -5,6 +5,7 @@ import CreateFile from "./Manipulators/CreateFile"
 import CreateDatabase from "./Manipulators/CreateDatabase"
 import Delete from "./Manipulators/Delete"
 import ReplaceInFile from "./Manipulators/ReplaceInFile"
+import ScaffoldLaravel from "./Manipulators/ScaffoldLaravel"
 import ThrowBackEndError from "./Manipulators/ThrowBackEndError"
 // Add your import here
 
@@ -18,6 +19,7 @@ const AllManipulators = {
     CreateDatabase,
     Delete,
     ReplaceInFile,
+    ScaffoldLaravel,
     ThrowBackEndError,
     // Add your manipulator here
 };
