@@ -6,11 +6,6 @@ export default class Validator {
                 return data[key] != null && data[key] != "";
             }).every(item => { return item; })
         }).every(item => { return item; });
-
-
-
-
-
         return {
             "hasErrors": hasErrors
         }

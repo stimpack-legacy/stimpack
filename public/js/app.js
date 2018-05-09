@@ -2714,7 +2714,7 @@ module.exports = PooledClass;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Manipulators_Load__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateFile__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_CreateDatabase__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_Delete__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_Delete__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ReplaceInFile__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Manipulators_ThrowBackEndError__ = __webpack_require__(289);
 
@@ -35393,8 +35393,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ControlBar__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Header__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Workspace__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Header__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Workspace__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_storm_react_diagrams__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_redux__ = __webpack_require__(6);
@@ -39210,9 +39210,9 @@ module.exports = getHostComponentFromComposite;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controls_Open__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__controls_AddManipulator__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__controls_Run__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controls_Parameters__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controls_Log__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controls_Save__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__controls_Parameters__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__controls_Log__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controls_Save__ = __webpack_require__(298);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40518,7 +40518,7 @@ var Compiler = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(124);
-module.exports = __webpack_require__(311);
+module.exports = __webpack_require__(312);
 
 
 /***/ }),
@@ -40533,14 +40533,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reducers__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reducers__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Main__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_storm_react_diagrams__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__fortawesome_fontawesome__ = __webpack_require__(307);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__fortawesome_fontawesome_free_regular__ = __webpack_require__(308);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__fortawesome_fontawesome_free_solid__ = __webpack_require__(309);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__fortawesome_fontawesome_free_brands__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__fortawesome_fontawesome__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__fortawesome_fontawesome_free_regular__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__fortawesome_fontawesome_free_solid__ = __webpack_require__(310);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__fortawesome_fontawesome_free_brands__ = __webpack_require__(311);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -64511,7 +64511,76 @@ var CreateDatabase = function (_BaseManipulator) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(CreateDatabase));
 
 /***/ }),
-/* 287 */,
+/* 287 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(37);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var Delete = function (_BaseManipulator) {
+    _inherits(Delete, _BaseManipulator);
+
+    function Delete() {
+        _classCallCheck(this, Delete);
+
+        return _possibleConstructorReturn(this, (Delete.__proto__ || Object.getPrototypeOf(Delete)).apply(this, arguments));
+    }
+
+    _createClass(Delete, [{
+        key: "renderSettings",
+        value: function renderSettings() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Delete File/Folder"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: "form-group" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "relative/root/file.php", onChange: this.setRelativePathToDelete.bind(this), value: this.state.data.relativePathToDelete, type: "text", className: "form-control" })
+                )
+            );
+        }
+    }, {
+        key: "setRelativePathToDelete",
+        value: function setRelativePathToDelete(event) {
+            var data = this.state.data;
+            data.relativePathToDelete = event.target.value;
+            this.setState({ data: data });
+        }
+    }], [{
+        key: "getDefaultManipulatorParameters",
+        value: function getDefaultManipulatorParameters() {
+            return {
+                name: "Delete",
+                relativePathToDelete: ""
+            };
+        }
+    }]);
+
+    return Delete;
+}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(Delete));
+
+/***/ }),
 /* 288 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64681,7 +64750,7 @@ var ThrowBackEndError = function (_BaseManipulator) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_index__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Queue__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Compiler__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Validator__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Validator__ = __webpack_require__(291);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64809,6 +64878,44 @@ function matchDispatchToProps(dispatch) {
 
 /***/ }),
 /* 291 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Validator = function () {
+    function Validator() {
+        _classCallCheck(this, Validator);
+    }
+
+    _createClass(Validator, null, [{
+        key: "validate",
+        value: function validate(compiled) {
+
+            var hasErrors = !compiled.map(function (data) {
+                return Object.keys(data).map(function (key) {
+                    return data[key] != null && data[key] != "";
+                }).every(function (item) {
+                    return item;
+                });
+            }).every(function (item) {
+                return item;
+            });
+            return {
+                "hasErrors": hasErrors
+            };
+        }
+    }]);
+
+    return Validator;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Validator);
+
+/***/ }),
+/* 292 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64943,7 +65050,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Parameters));
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64959,7 +65066,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Queue__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_autolink_text2__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_autolink_text2__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_react_autolink_text2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_react_autolink_text2__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -65167,7 +65274,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Log));
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65187,7 +65294,7 @@ var _propTypes = __webpack_require__(35);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _match_parser = __webpack_require__(294);
+var _match_parser = __webpack_require__(295);
 
 var _match_parser2 = _interopRequireDefault(_match_parser);
 
@@ -65291,7 +65398,7 @@ AutoLinkText.propTypes = {
 };
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65341,9 +65448,9 @@ exports.default = function (text) {
   return matches;
 };
 
-var _match_validator = __webpack_require__(295);
+var _match_validator = __webpack_require__(296);
 
-var _url_match = __webpack_require__(296);
+var _url_match = __webpack_require__(297);
 
 var _url_match2 = _interopRequireDefault(_url_match);
 
@@ -65381,7 +65488,7 @@ domainNameRegex.source, tldRegex.source, ')', ')', '(?:' + urlSuffixRegex.source
 /* eslint-enable indent */
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65520,7 +65627,7 @@ function isInvalidProtocolRelativeMatch(protocolRelativeMatch) {
 }
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65684,7 +65791,7 @@ var URLMatch = function () {
 exports.default = URLMatch;
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65963,7 +66070,7 @@ function matchDispatchToProps(dispatch) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Save));
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66019,7 +66126,7 @@ var Header = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (Header);
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66078,16 +66185,16 @@ function mapStateToProps(state) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps)(Workspace));
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__engineReducer__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reDrawReducer__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__latestNodeReducer__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__queueReducer__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__parametersReducer__ = __webpack_require__(306);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__engineReducer__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reDrawReducer__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__latestNodeReducer__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__queueReducer__ = __webpack_require__(306);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__parametersReducer__ = __webpack_require__(307);
 
 
 
@@ -66106,7 +66213,7 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 /* harmony default export */ __webpack_exports__["a"] = (allReducers);
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66115,7 +66222,7 @@ var allReducers = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* combineReduc
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__storm_ManipulatorNodeModel__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__storm_ManipulatorNodeFactory__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__storm_ManipulatorNodeFactory__ = __webpack_require__(303);
 
 
 
@@ -66213,7 +66320,7 @@ function getEngine() {
 });
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66267,7 +66374,7 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 }(__WEBPACK_IMPORTED_MODULE_3_storm_react_diagrams__["AbstractNodeFactory"]);
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66284,7 +66391,7 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 });
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66301,7 +66408,7 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 });
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66321,7 +66428,7 @@ var ManipulatorNodeFactory = function (_AbstractNodeFactory) {
 });
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66348,7 +66455,7 @@ function getParameters() {
 });
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68169,7 +68276,7 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68656,7 +68763,7 @@ bunker(function () {
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70469,7 +70576,7 @@ bunker(function () {
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71688,123 +71795,10 @@ bunker(function () {
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(37);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var Delete = function (_BaseManipulator) {
-    _inherits(Delete, _BaseManipulator);
-
-    function Delete() {
-        _classCallCheck(this, Delete);
-
-        return _possibleConstructorReturn(this, (Delete.__proto__ || Object.getPrototypeOf(Delete)).apply(this, arguments));
-    }
-
-    _createClass(Delete, [{
-        key: "renderSettings",
-        value: function renderSettings() {
-            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                "div",
-                { className: "container" },
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "h4",
-                    null,
-                    "Delete File/Folder"
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "relative/root/file.php", onChange: this.setRelativePathToDelete.bind(this), value: this.state.data.relativePathToDelete, type: "text", className: "form-control" })
-                )
-            );
-        }
-    }, {
-        key: "setRelativePathToDelete",
-        value: function setRelativePathToDelete(event) {
-            var data = this.state.data;
-            data.relativePathToDelete = event.target.value;
-            this.setState({ data: data });
-        }
-    }], [{
-        key: "getDefaultManipulatorParameters",
-        value: function getDefaultManipulatorParameters() {
-            return {
-                name: "Delete",
-                relativePathToDelete: ""
-            };
-        }
-    }]);
-
-    return Delete;
-}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(Delete));
-
-/***/ }),
-/* 317 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Validator = function () {
-    function Validator() {
-        _classCallCheck(this, Validator);
-    }
-
-    _createClass(Validator, null, [{
-        key: "validate",
-        value: function validate(compiled) {
-
-            var hasErrors = !compiled.map(function (data) {
-                return Object.keys(data).map(function (key) {
-                    return data[key] != null && data[key] != "";
-                }).every(function (item) {
-                    return item;
-                });
-            }).every(function (item) {
-                return item;
-            });
-
-            return {
-                "hasErrors": hasErrors
-            };
-        }
-    }]);
-
-    return Validator;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Validator);
 
 /***/ })
 /******/ ]);
