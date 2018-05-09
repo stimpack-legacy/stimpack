@@ -2,7 +2,6 @@ import Create from "./Manipulators/Create";
 import Load from "./Manipulators/Load";
 
 import CreateFile from "./Manipulators/CreateFile"
-import CreateDatabase from "./Manipulators/CreateDatabase"
 import Delete from "./Manipulators/Delete"
 import ReplaceInFile from "./Manipulators/ReplaceInFile"
 import ScaffoldLaravel from "./Manipulators/ScaffoldLaravel"
@@ -16,7 +15,6 @@ const AllManipulators = {
 
     // Manipulators
     CreateFile,
-    CreateDatabase,
     Delete,
     ReplaceInFile,
     ScaffoldLaravel,

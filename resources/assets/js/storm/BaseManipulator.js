@@ -73,6 +73,9 @@ export default class BaseManipulator extends BaseWidget {
         var data = this.state.data;
         data[event.target.name] = event.target.value;
         this.setState({data});
+
+        // Why did I do this? Serializing issue??
+        this.props.node.data = this.state.data;
     } 
 
     openModal() {

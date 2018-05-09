@@ -2713,12 +2713,10 @@ module.exports = PooledClass;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Manipulators_Create__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Manipulators_Load__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateFile__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_CreateDatabase__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_Delete__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ReplaceInFile__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Manipulators_ScaffoldLaravel__ = __webpack_require__(317);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Manipulators_ThrowBackEndError__ = __webpack_require__(289);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_Delete__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_ReplaceInFile__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ScaffoldLaravel__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Manipulators_ThrowBackEndError__ = __webpack_require__(289);
 
 
 
@@ -2736,11 +2734,10 @@ var AllManipulators = {
 
     // Manipulators
     CreateFile: __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateFile__["a" /* default */],
-    CreateDatabase: __WEBPACK_IMPORTED_MODULE_3__Manipulators_CreateDatabase__["a" /* default */],
-    Delete: __WEBPACK_IMPORTED_MODULE_4__Manipulators_Delete__["a" /* default */],
-    ReplaceInFile: __WEBPACK_IMPORTED_MODULE_5__Manipulators_ReplaceInFile__["a" /* default */],
-    ScaffoldLaravel: __WEBPACK_IMPORTED_MODULE_6__Manipulators_ScaffoldLaravel__["a" /* default */],
-    ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_7__Manipulators_ThrowBackEndError__["a" /* default */]
+    Delete: __WEBPACK_IMPORTED_MODULE_3__Manipulators_Delete__["a" /* default */],
+    ReplaceInFile: __WEBPACK_IMPORTED_MODULE_4__Manipulators_ReplaceInFile__["a" /* default */],
+    ScaffoldLaravel: __WEBPACK_IMPORTED_MODULE_5__Manipulators_ScaffoldLaravel__["a" /* default */],
+    ThrowBackEndError: __WEBPACK_IMPORTED_MODULE_6__Manipulators_ThrowBackEndError__["a" /* default */]
     // Add your manipulator here
 };
 
@@ -21349,6 +21346,9 @@ var BaseManipulator = function (_BaseWidget) {
             var data = this.state.data;
             data[event.target.name] = event.target.value;
             this.setState({ data: data });
+
+            // Why did I do this? Serializing issue??
+            this.props.node.data = this.state.data;
         }
     }, {
         key: "openModal",
@@ -40314,6 +40314,16 @@ var BaseStarter = function (_BaseWidget) {
                     )
                 )
             );
+        }
+    }, {
+        key: "setDataParameter",
+        value: function setDataParameter(event) {
+            var data = this.state.data;
+            data[event.target.name] = event.target.value;
+            this.setState({ data: data });
+
+            // Why did I do this? Serializing issue??
+            this.props.node.data = this.state.data;
         }
     }, {
         key: "openModal",
@@ -64236,19 +64246,9 @@ var Create = function (_BaseStarterManipulat) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "new-project", size: "40", onChange: this.settargetProjectName.bind(this), value: this.state.data.targetProjectName, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { name: "targetProjectName", placeholder: "new-project", size: "40", value: this.state.data.targetProjectName, onChange: this.setDataParameter.bind(this), type: "text", className: "form-control" })
                 )
             );
-        }
-    }, {
-        key: "settargetProjectName",
-        value: function settargetProjectName(event) {
-            var data = this.state.data;
-            data.targetProjectName = event.target.value;
-            this.setState({ data: data });
-
-            // Copy to Node Model
-            this.props.node.data = this.state.data;
         }
     }], [{
         key: "getDefaultManipulatorParameters",
@@ -64312,7 +64312,7 @@ var Load = function (_BaseStarterManipulat) {
                     { className: "form-group" },
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                         "select",
-                        { onChange: this.setTargetProjectName.bind(this), value: this.state.data.targetProjectName, className: "form-control", id: "inputGroupSelect01" },
+                        { name: "targetProjectName", onChange: this.setDataParameter.bind(this), value: this.state.data.targetProjectName, className: "form-control", id: "inputGroupSelect01" },
                         this.renderProjects()
                     )
                 )
@@ -64328,16 +64328,6 @@ var Load = function (_BaseStarterManipulat) {
                     project
                 );
             });
-        }
-    }, {
-        key: "setTargetProjectName",
-        value: function setTargetProjectName(event) {
-            var data = this.state.data;
-            data.targetProjectName = event.target.value;
-            this.setState({ data: data });
-
-            // Copy to Node Model
-            this.props.node.data = this.state.data;
         }
     }], [{
         key: "getDefaultManipulatorParameters",
@@ -64399,28 +64389,14 @@ var CreateFile = function (_BaseManipulator) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "relative/root/file.php", onChange: this.setRelativePathToFile.bind(this), value: this.state.data.relativePathToFile, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { name: "relativePathToFile", placeholder: "relative/root/file.php", onChange: this.setDataParameter.bind(this), value: this.state.data.relativePathToFile, type: "text", className: "form-control" })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group code-text-area" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { rows: "20", placeholder: "content", onChange: this.setContent.bind(this), value: this.state.data.content, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { name: "content", rows: "20", placeholder: "content", onChange: this.setDataParameter.bind(this), value: this.state.data.content, type: "text", className: "form-control" })
                 )
             );
-        }
-    }, {
-        key: "setRelativePathToFile",
-        value: function setRelativePathToFile(event) {
-            var data = this.state.data;
-            data.relativePathToFile = event.target.value;
-            this.setState({ data: data });
-        }
-    }, {
-        key: "setContent",
-        value: function setContent(event) {
-            var data = this.state.data;
-            data.content = event.target.value;
-            this.setState({ data: data });
         }
     }], [{
         key: "getDefaultManipulatorParameters",
@@ -64439,87 +64415,7 @@ var CreateFile = function (_BaseManipulator) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(CreateFile));
 
 /***/ }),
-/* 286 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(37);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var CreateDatabase = function (_BaseManipulator) {
-    _inherits(CreateDatabase, _BaseManipulator);
-
-    function CreateDatabase() {
-        _classCallCheck(this, CreateDatabase);
-
-        return _possibleConstructorReturn(this, (CreateDatabase.__proto__ || Object.getPrototypeOf(CreateDatabase)).apply(this, arguments));
-    }
-
-    _createClass(CreateDatabase, [{
-        key: "renderSettings",
-        value: function renderSettings() {
-            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                "div",
-                { className: "container" },
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "h4",
-                    null,
-                    "Create Database"
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                        "select",
-                        { className: "form-control", id: "inputGroupSelect01" },
-                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                            "option",
-                            { value: "mysql" },
-                            "MySQL"
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                            "option",
-                            { value: "sqlite" },
-                            "Sqlite"
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                            "option",
-                            { value: "postgres" },
-                            "PostgreSQL"
-                        )
-                    )
-                )
-            );
-        }
-    }], [{
-        key: "getDefaultManipulatorParameters",
-        value: function getDefaultManipulatorParameters() {
-            return {
-                name: "CreateDatabase",
-                path: "/home/anders/Code/something-new"
-            };
-        }
-    }]);
-
-    return CreateDatabase;
-}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(CreateDatabase));
-
-/***/ }),
+/* 286 */,
 /* 287 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -64563,16 +64459,9 @@ var Delete = function (_BaseManipulator) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { placeholder: "relative/root/file.php", onChange: this.setRelativePathToDelete.bind(this), value: this.state.data.relativePathToDelete, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { name: "relativePathToDelete", placeholder: "relative/root/file.php", onChange: this.setDataParameter.bind(this), value: this.state.data.relativePathToDelete, type: "text", className: "form-control" })
                 )
             );
-        }
-    }, {
-        key: "setRelativePathToDelete",
-        value: function setRelativePathToDelete(event) {
-            var data = this.state.data;
-            data.relativePathToDelete = event.target.value;
-            this.setState({ data: data });
         }
     }], [{
         key: "getDefaultManipulatorParameters",
@@ -64633,40 +64522,19 @@ var ReplaceInFile = function (_BaseManipulator) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group code-text-area" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { placeholder: "relative/root/file.php", onChange: this.setRelativePathToFile.bind(this), value: this.state.data.relativePathToFile, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { name: "relativePathToFile", placeholder: "relative/root/file.php", onChange: this.setDataParameter.bind(this), value: this.state.data.relativePathToFile, type: "text", className: "form-control" })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group code-text-area" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { placeholder: "old-string", onChange: this.setOldString.bind(this), value: this.state.data.oldString, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { name: "oldString", placeholder: "old-string", onChange: this.setDataParameter.bind(this), value: this.state.data.oldString, type: "text", className: "form-control" })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group code-text-area" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { placeholder: "new-string", onChange: this.setNewString.bind(this), value: this.state.data.newString, type: "text", className: "form-control" })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { name: "newString", placeholder: "new-string", onChange: this.setDataParameter.bind(this), value: this.state.data.newString, type: "text", className: "form-control" })
                 )
             );
-        }
-    }, {
-        key: "setRelativePathToFile",
-        value: function setRelativePathToFile(event) {
-            var data = this.state.data;
-            data.relativePathToFile = event.target.value;
-            this.setState({ data: data });
-        }
-    }, {
-        key: "setOldString",
-        value: function setOldString(event) {
-            var data = this.state.data;
-            data.oldString = event.target.value;
-            this.setState({ data: data });
-        }
-    }, {
-        key: "setNewString",
-        value: function setNewString(event) {
-            var data = this.state.data;
-            data.newString = event.target.value;
-            this.setState({ data: data });
         }
     }], [{
         key: "getDefaultManipulatorParameters",

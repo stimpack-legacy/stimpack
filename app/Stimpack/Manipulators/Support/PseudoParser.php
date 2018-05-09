@@ -13,12 +13,10 @@ class PseudoParser
     {
         return $this->segment(
             $this->cleanUp($text)
-        );
-
-        
+        );        
     }
 
-    public function cleanUp($text)
+    private function cleanUp($text)
     {
         // trim preciding newlines
         $text = preg_replace('/^\n+/', '', $text);
@@ -33,7 +31,7 @@ class PseudoParser
         
     }
 
-    public function segment($text)
+    private function segment($text)
     {
         //return explode("\n", $text);
 
@@ -43,7 +41,6 @@ class PseudoParser
         }
         return $parts;          
     }
-
 }
 
 

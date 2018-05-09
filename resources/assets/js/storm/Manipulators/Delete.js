@@ -16,16 +16,10 @@ class Delete extends BaseManipulator {
             <div className="container">
                 <h4>Delete File/Folder</h4>
                 <div className="form-group">
-                    <input placeholder="relative/root/file.php" onChange={this.setRelativePathToDelete.bind(this)} value={this.state.data.relativePathToDelete} type="text" className="form-control" />
+                    <input name="relativePathToDelete" placeholder="relative/root/file.php" onChange={this.setDataParameter.bind(this)} value={this.state.data.relativePathToDelete} type="text" className="form-control" />
                 </div>
             </div>
         );
-    }
-
-    setRelativePathToDelete(event) {
-        var data = this.state.data;
-        data.relativePathToDelete = event.target.value;
-        this.setState({data});
     }
 }
 

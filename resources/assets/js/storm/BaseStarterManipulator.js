@@ -66,6 +66,15 @@ export default class BaseStarter extends BaseWidget {
         );
     }
 
+    setDataParameter(event) {
+        var data = this.state.data;
+        data[event.target.name] = event.target.value;
+        this.setState({data});
+
+        // Why did I do this? Serializing issue??
+        this.props.node.data = this.state.data;
+    } 
+
     openModal() {
         this.setState({
             modalIsOpen: true,

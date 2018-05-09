@@ -17,19 +17,10 @@ class Create extends BaseStarterManipulator {
             <div className="container">
                 <h4>Create project </h4>
                 <div className="form-group">
-                    <input placeholder="new-project" size="40" onChange={this.settargetProjectName.bind(this)} value={this.state.data.targetProjectName} type="text" className="form-control" />
+                    <input name="targetProjectName" placeholder="new-project" size="40" value={this.state.data.targetProjectName} onChange={this.setDataParameter.bind(this)} type="text" className="form-control" />
                 </div>
             </div>
         );
-    }
-
-    settargetProjectName(event) {
-        var data = this.state.data;
-        data.targetProjectName = event.target.value;
-        this.setState({data});                
-        
-        // Copy to Node Model
-        this.props.node.data = this.state.data;
     }
 }
 

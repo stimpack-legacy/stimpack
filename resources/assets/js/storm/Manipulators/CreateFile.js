@@ -17,26 +17,14 @@ class CreateFile extends BaseManipulator {
             <div className="container">
                 <h4>Create File</h4>
                 <div className="form-group">
-                    <input placeholder="relative/root/file.php" onChange={this.setRelativePathToFile.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
+                    <input name="relativePathToFile" placeholder="relative/root/file.php" onChange={this.setDataParameter.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
                 </div>
                 <div className="form-group code-text-area">
-                    <textarea rows="20" placeholder="content" onChange={this.setContent.bind(this)} value={this.state.data.content} type="text" className="form-control" />                    
+                    <textarea name="content" rows="20" placeholder="content" onChange={this.setDataParameter.bind(this)} value={this.state.data.content} type="text" className="form-control" />                    
                 </div>
             </div>
         );
-    }
-
-    setRelativePathToFile(event) {
-        var data = this.state.data;
-        data.relativePathToFile = event.target.value;
-        this.setState({data});
-    }
-
-    setContent(event) {
-        var data = this.state.data;
-        data.content = event.target.value;
-        this.setState({data});        
-    }        
+    }     
 }
 
 export default connect(
