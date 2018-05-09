@@ -33,8 +33,6 @@ class PseudoParser
 
     private function segment($text)
     {
-        //return explode("\n", $text);
-
         $parts = preg_split('/\n\s*\n/', $text);
         if($parts[0] == "") {
             return [];

@@ -2713,9 +2713,9 @@ module.exports = PooledClass;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Manipulators_Create__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Manipulators_Load__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Manipulators_CreateFile__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_Delete__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_ReplaceInFile__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ScaffoldLaravel__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Manipulators_Delete__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Manipulators_ReplaceInFile__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Manipulators_ScaffoldLaravel__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Manipulators_ThrowBackEndError__ = __webpack_require__(289);
 
 
@@ -64415,8 +64415,7 @@ var CreateFile = function (_BaseManipulator) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(CreateFile));
 
 /***/ }),
-/* 286 */,
-/* 287 */
+/* 286 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64479,7 +64478,7 @@ var Delete = function (_BaseManipulator) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(Delete));
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64553,6 +64552,69 @@ var ReplaceInFile = function (_BaseManipulator) {
 }(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(ReplaceInFile));
+
+/***/ }),
+/* 288 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(37);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var ScaffoldLaravel = function (_BaseManipulator) {
+    _inherits(ScaffoldLaravel, _BaseManipulator);
+
+    function ScaffoldLaravel() {
+        _classCallCheck(this, ScaffoldLaravel);
+
+        return _possibleConstructorReturn(this, (ScaffoldLaravel.__proto__ || Object.getPrototypeOf(ScaffoldLaravel)).apply(this, arguments));
+    }
+
+    _createClass(ScaffoldLaravel, [{
+        key: "renderSettings",
+        value: function renderSettings() {
+            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                "div",
+                { className: "container" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "h4",
+                    null,
+                    "Replace in file"
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "div",
+                    { className: "form-group code-text-area" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { rows: "20", name: "pseudoCode", placeholder: "Some Code Here...", value: this.state.data.pseudoCode, type: "text", className: "form-control", onChange: this.setDataParameter.bind(this) })
+                )
+            );
+        }
+    }], [{
+        key: "getDefaultManipulatorParameters",
+        value: function getDefaultManipulatorParameters() {
+            return {
+                name: "ScaffoldLaravel",
+                pseudoCode: ""
+            };
+        }
+    }]);
+
+    return ScaffoldLaravel;
+}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(ScaffoldLaravel));
 
 /***/ }),
 /* 289 */
@@ -71676,73 +71738,6 @@ bunker(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__ = __webpack_require__(37);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var ScaffoldLaravel = function (_BaseManipulator) {
-    _inherits(ScaffoldLaravel, _BaseManipulator);
-
-    function ScaffoldLaravel() {
-        _classCallCheck(this, ScaffoldLaravel);
-
-        return _possibleConstructorReturn(this, (ScaffoldLaravel.__proto__ || Object.getPrototypeOf(ScaffoldLaravel)).apply(this, arguments));
-    }
-
-    _createClass(ScaffoldLaravel, [{
-        key: "renderSettings",
-        value: function renderSettings() {
-            return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                "div",
-                { className: "container" },
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "h4",
-                    null,
-                    "Replace in file"
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "div",
-                    { className: "form-group code-text-area" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { rows: "20", name: "pseudoCode", placeholder: "Some Code Here...", value: this.state.data.pseudoCode, type: "text", className: "form-control", onChange: this.setDataParameter.bind(this) })
-                )
-            );
-        }
-    }], [{
-        key: "getDefaultManipulatorParameters",
-        value: function getDefaultManipulatorParameters() {
-            return {
-                name: "ScaffoldLaravel",
-                pseudoCode: ""
-            };
-        }
-    }]);
-
-    return ScaffoldLaravel;
-}(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(__WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].mapStateToProps, __WEBPACK_IMPORTED_MODULE_2__BaseManipulator__["a" /* default */].matchDispatchToProps)(ScaffoldLaravel));
 
 /***/ })
 /******/ ]);
