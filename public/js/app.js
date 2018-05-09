@@ -71857,7 +71857,7 @@ var ScaffoldLaravel = function (_BaseManipulator) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group code-text-area" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { name: "pseudoCode", placeholder: "Some Code Here...", value: this.state.data.pseudoCode, type: "text", className: "form-control", onChange: this.setDataParameter.bind(this) })
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { rows: "20", name: "pseudoCode", placeholder: "Some Code Here...", value: this.state.data.pseudoCode, type: "text", className: "form-control", onChange: this.setDataParameter.bind(this) })
                 )
             );
         }

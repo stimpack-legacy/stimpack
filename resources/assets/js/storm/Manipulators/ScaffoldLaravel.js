@@ -16,7 +16,7 @@ class ScaffoldLaravel extends BaseManipulator {
             <div className="container">
                 <h4>Replace in file</h4>                
                 <div className="form-group code-text-area">
-                    <textarea name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
+                    <textarea rows="20" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
                 </div>                
             </div>
         );
