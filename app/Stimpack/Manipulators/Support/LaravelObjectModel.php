@@ -10,17 +10,18 @@ class LaravelObjectModel
 {
     use ValidateObjectModelTrait;
 
-    public function __construct()
+    public function __construct($directives)
     {
+        $this->directives = $directives;
         $this->errors = collect();
     }
 
-    public static function make()
+    public static function make($directives)
     {
-        return new LaravelObjectModel();
+        return new LaravelObjectModel($directives);
     }
 
-    public function from($segments)
+    public function installFrom($segments)
     {
         $this->segments = $segments;
 
@@ -28,16 +29,23 @@ class LaravelObjectModel
             return $this->errors;
         }
 
-        return EntityFactory::from($this->segments)->files();    
+        return EntityFactory::makeWith($this->directives)->getAllEntetiesFrom($this->segments)->map(function($entity) {
+            return $entity->install();
+        })->flatten();
     }
 
     public function validate()
     {
         return collect([
-            $this->segmentTitleMustBeAValidPHPName(),
+            $this->segmentTitleMustBeAValidPHPName(),   
             $this->twoSegmentsCantHaveTheSameTitle(),
         ])->every(function($passedTest) {
             return $passedTest;
         });
+    }
+
+    public function hasErrors()
+    {
+        return $this->errors->isNotEmpty();
     }
 }

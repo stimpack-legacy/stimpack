@@ -5,8 +5,9 @@ namespace App\Stimpack\Contexts;
 use Illuminate\Support\Facades\Log;
 use App\Stimpack\Task;
 use Exception;
+use Illuminate\Filesystem\Filesystem;
 
-class File
+class File extends Filesystem
 {
     private $path;
     private $content;
@@ -99,12 +100,12 @@ class File
         return $this;
     }
 
-    // Untested
-    public function delete()
-    {
-        unlink($this->path);
-        return $this;
-    }
+    // Untested CONFLICT WITH FILESYSTEM
+    //public function delete()
+    //{
+    //    unlink($this->path);
+    //    return $this;
+    //}
 
     public function empty()
     {

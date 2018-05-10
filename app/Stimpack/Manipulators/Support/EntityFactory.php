@@ -13,17 +13,23 @@ use App\Stimpack\Manipulators\Support\Entity\RelationshipEntity;
 
 class EntityFactory
 {
-    public function __construct($segments)
+    public function __construct($directives)
+    {
+        $this->directives = $directives;
+    }
+
+    public static function makeWith($directives)
+    {
+        return (new EntityFactory($directives));
+    }
+
+    public function getAllEntetiesFrom($segments)
     {
         $this->segments = $segments;
+        return $this->all();
     }
 
-    public static function from($segments)
-    {
-        return (new EntityFactory($segments));
-    }
-
-    public function files()
+    public function all()
     {
         $this->models = $this->segments->filter(function($segment) {
             return $this->isModel($segment);
@@ -43,25 +49,17 @@ class EntityFactory
             return new PureTableEntity($segment);
         });
 
-        return $this->models->concat($this->relationships)->concat($this->pureTables)->map(function($entity) {
-            return $entity->files();
+        $all = $this->models->concat($this->relationships)->concat($this->pureTables);
+
+        // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
+        // Furthermore we also attach the directives passed from ScaffoldLaravel
+        return $all->map(function($entity) {
+            $entity->allModels = $this->models;
+            $entity->allRelationships = $this->relationships;
+            $entity->allPureTables = $this->pureTables;
+            $entity->directives = $this->directives;
+            return $entity;
         })->flatten();
-    }
-
-    public function segmentToEntity($segment)
-    {
-        // If uppercase first char its a Model
-        if($segment->title() == studly_case($segment->title())) {
-            return new ModelEntity($segment);
-        }
-
-        // If lowercase model1_model2 its a many to many relationship table
-        if(str_contains($segment->title(),"_")) {
-            return new RelationshipEntity($segment);
-        }
-
-        // if lowercase foobar its just a table
-        return new PureTableEntity($segment);
     }
 
     public function isModel($segment)

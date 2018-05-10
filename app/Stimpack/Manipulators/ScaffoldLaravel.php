@@ -13,22 +13,22 @@ class ScaffoldLaravel extends Manipulator
 {
     public function perform() {
         
-        $result = $this->createFilesFromPseudoCode($this->data->pseudoCode);
+        $result = $this->createFilesFromPseudoCode();
 
         return [
             "messages" => $result
         ];        
     }
 
-    public function createFilesFromPseudoCode($pseudoCode)
+    public function createFilesFromPseudoCode()
     {
         // Clean, segment and validate the supplied pseudoCode
-        // Then we use it to build a ObjectModel containing all the Laravel components needed    
-        $objectModel = LaravelObjectModel::make()->from(
-            PseudoParser::parse($pseudoCode)
+        // Then we use it to build an ObjectModel to create files and inject values as needed    
+        return LaravelObjectModel::make((object) [
+            "targetProjectName" => $this->data->context->targetProjectName,
+            "targetProjectPath" => $this->targetProjectPath()            
+        ])->installFrom(
+            PseudoParser::parse($this->data->pseudoCode)
         );
-
-
-        return $objectModel;
     }
 }

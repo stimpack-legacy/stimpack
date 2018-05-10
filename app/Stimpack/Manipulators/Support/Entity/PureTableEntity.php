@@ -6,10 +6,14 @@ use App\Stimpack\Manipulators\Support\Entity\Entity;
 
 class PureTableEntity extends Entity
 {
-    public function files()
-    {
+    public function install() {
         return collect([
-            base_path("database/migrations/pure_tables/" . $this->segment->title() . ".php")
+            $this->migrationFile()
         ]);
+    }
+
+    public function migrationFile()
+    {
+        return base_path("database/migrations/pure_table_" . $this->segment->title() . ".php");
     }
 }

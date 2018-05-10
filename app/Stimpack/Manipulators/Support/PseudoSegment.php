@@ -18,4 +18,9 @@ class PseudoSegment
     {
         return $this->parts->first();        
     }
+
+    public function attributes()
+    {
+        return $this->parts->slice(1)->values();        
+    }    
 }
