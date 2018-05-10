@@ -12,22 +12,19 @@ class ModelEntity extends Entity
         return collect([
             $this->makeModelFile(),
             //$this->makeMigrationFile(),
-            //$this->makeControllerFile()
+            //$this->makeControllerFile(),
+            //$this->injectRoutes()
         ]);
     }
 
     private function makeModelFile()
     {
-        $fileSystem = new Filesystem();
-        $file = path($this->directives->targetProjectPath, "app/Models/" . $this->segment->title() . ".php");
-        
-        if(!$fileSystem->isDirectory($fileSystem->dirname($file))){
-            $fileSystem->makeDirectory($fileSystem->dirname($file));
-        }
+        $file = File::init()->put(
+            $this->modelFilePath(),
+            $this->modelFileContent()
+        );       
 
-        $fileSystem->put($file, "HÄR SKA MODEL TEMPLATEN LIGGA!");
-
-        return "Created :" . $file;
+        return "app/Models/" . $this->title . ".php";
     }
 
     private function makeMigrationFile()
@@ -39,4 +36,14 @@ class ModelEntity extends Entity
     {
         return path($this->directives->targetProjectPath, "app/Http/Controllers/" . $this->segment->title() . "Controller.php");
     }
+
+    private function modelFilePath()
+    {
+        return path($this->directives->targetProjectPath, "app/Models/" . $this->title . ".php");
+    }
+
+    private function modelFileContent()
+    {
+        return "Some content";
+    }    
 }

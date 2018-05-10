@@ -64592,7 +64592,7 @@ var ScaffoldLaravel = function (_BaseManipulator) {
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "h4",
                     null,
-                    "Replace in file"
+                    "Object pseudo model - Stubs - Settings - Preview"
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",

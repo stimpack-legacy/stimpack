@@ -10,7 +10,8 @@ class CreateFile extends Manipulator
 
         $file = File::init()->put(
             $this->path($this->data->relativePathToFile), 
-            $this->data->content);
+            $this->data->content
+        );
 
         return [
             "messages" => [
