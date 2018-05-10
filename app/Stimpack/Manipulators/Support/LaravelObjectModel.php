@@ -3,6 +3,8 @@
 namespace App\Stimpack\Manipulators\Support;
 use App\Stimpack\Manipulators\Support\PseudoSegment;
 use App\Stimpack\Manipulators\Support\ValidateObjectModelTrait;
+use App\Stimpack\Manipulators\Support\EntityFactory;
+
 
 class LaravelObjectModel
 {
@@ -25,7 +27,8 @@ class LaravelObjectModel
         if(!$this->validate()) {
             return $this->errors;
         }
-        return ["Ok I just created your project!"];    
+
+        return EntityFactory::from($this->segments)->files();    
     }
 
     public function validate()
