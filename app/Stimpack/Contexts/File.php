@@ -26,8 +26,16 @@ class File extends Filesystem
         "methodInjectionSpot" => '/(\n)}[\s\n\r]*$/',
     ];
 
-    public function __construct($path) {
-        $this->path = $path;                
+    public static function init()
+    {
+        return new File();
+    }
+
+    public function put($path, $contents, $lock = false) {
+        if(!$this->isDirectory($this->dirname($path))){
+            $this->makeDirectory($this->dirname($path), 0755, true);
+        }
+        parent::put($path, $contents, $lock);        
     }
 
     private function open()
