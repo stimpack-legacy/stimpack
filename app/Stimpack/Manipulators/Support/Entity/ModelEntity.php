@@ -35,13 +35,13 @@ class ModelEntity extends Entity
 
     private function modelFileContent()
     {
-        return $this->fillStub(
-            base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"),
+        return str_pair_replace(
             collect([
                 "MODEL" => $this->title(),
                 "MASS_ASSIGNABLE_ATTRIBUTES" => "       // none at this point.",
                 "HIDDEN_ATTRIBUTES" => "        // none at this point"
-            ])
+            ]),
+            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"))
         );
     }
 
@@ -77,14 +77,21 @@ class ModelEntity extends Entity
 
     private function migrationFileContent()
     {
-        return $this->fillStub(
-            base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"),
+        $content = str_pair_replace(
             collect([
                 "CLASS_NAME" => $this->migrationClassName(),
-                "TABLE_NAME" => $this->migrationTableName(),
-                "ATTRIBUTES" => "ATTRIBUTES"
-            ])
+                "TABLE_NAME" => $this->migrationTableName()
+            ]),
+            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"))
         );
+
+        $content = str_block_replace(
+            "COLUMNS",
+            $this->migrationColumns(),
+            $content
+        );
+
+        return $content;
     }
 
 

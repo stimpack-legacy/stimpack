@@ -10,9 +10,7 @@ class PackController extends Controller
 {
     public function save(Request $request, $pack) {
 
-        File::loadOrCreate(storage_path("stimpack/packs/" . $pack))
-            ->content($request->fileContent)
-            ->save();
+        File::init()->put(storage_path("stimpack/packs/" . $pack), $request->fileContent);
 
         return "OK I saved the pack!";
     }

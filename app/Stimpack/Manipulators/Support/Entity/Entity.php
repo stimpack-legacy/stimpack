@@ -41,12 +41,10 @@ class Entity
         return Str::plural(Str::snake(class_basename($this->title())));
     }
 
-    public function fillStub($path, $replacementPairs)
+    public function migrationColumns()
     {
-        return $replacementPairs->map(function($value, $key) {
-            return collect([$key => $value]);
-        })->reduce(function($content, $pair) {
-            return str_replace($pair->keys()->first(), $pair->values()->first(), $content);
-        }, File::init()->get($path));
+        return $this->attributes->map(function($attribute) {
+            return $attribute->raw();
+        })->implode("\n");
     }
 }
