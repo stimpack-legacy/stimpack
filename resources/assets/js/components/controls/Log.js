@@ -34,7 +34,7 @@ class Log extends Component {
             onRequestClose={this.closeModal.bind(this)}
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
-            className="manipulator-modal"
+            className="manipulator-modal large"
             >
                 <div className="logItems">
                     <h4>Log</h4>                
@@ -57,7 +57,7 @@ class Log extends Component {
         return this.props.queue.finished.map((item, index) => {
             return(
                 <div className="log-group" key={index}> 
-                    <li><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</li>
+                    <div><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</div>
                     {item.result.messages.map((message, index) => {
                         return (
                             <p className="log-item-message" key={index}>
@@ -74,7 +74,7 @@ class Log extends Component {
         if(this.props.queue.pending) {
             return (
                 <div key="pending">                
-                    <li><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>                
+                    <li className="message-no-wrap"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>                
                 </div>
             );
         }

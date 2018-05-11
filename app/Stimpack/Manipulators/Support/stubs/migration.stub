@@ -4,7 +4,7 @@ use Illuminate\\Support\\Facades\\Schema;
 use Illuminate\\Database\\Schema\\Blueprint;
 use Illuminate\\Database\\Migrations\\Migration;
 
-class $MIGRATION-CLASS-NAME$ extends Migration
+class CLASS_NAME extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class $MIGRATION-CLASS-NAME$ extends Migration
      */
     public function up()
     {
-        Schema::create('$TABLE-NAME$', function (Blueprint $table) {
-            $table->increments('id');            
-$COLUMNS$
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::create('TABLE_NAME', function (Blueprint $table) {
+            COLUMNS
         });
     }
 
@@ -28,6 +25,6 @@ $COLUMNS$
      */
     public function down()
     {
-        Schema::dropIfExists('$TABLE-NAME$');
+        Schema::dropIfExists('TABLE_NAME');
     }
 }

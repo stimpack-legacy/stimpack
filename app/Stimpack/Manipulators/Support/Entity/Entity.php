@@ -3,6 +3,7 @@
 namespace App\Stimpack\Manipulators\Support\Entity;
 use App\Stimpack\Contexts\File;
 use App\Stimpack\Manipulators\Support\Attribute;
+use Illuminate\Support\Str;
 
 class Entity
 {
@@ -28,6 +29,16 @@ class Entity
     public function singularLowerCaseTitle()
     {
         return strtolower($this->title());
+    }
+
+    public function pluralStudlyCaseTitle()
+    {
+        return studly_case(Str::plural(class_basename($this->title())));
+    }
+
+    public function pluralSnakeCaseTitle()
+    {
+        return Str::plural(Str::snake(class_basename($this->title())));
     }
 
     public function fillStub($path, $replacementPairs)

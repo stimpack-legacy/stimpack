@@ -65061,7 +65061,7 @@ var Log = function (_Component) {
                     onRequestClose: this.closeModal.bind(this),
                     contentLabel: 'Example Modal',
                     overlayClassName: 'no-overlay',
-                    className: 'manipulator-modal'
+                    className: 'manipulator-modal large'
                 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -65096,7 +65096,7 @@ var Log = function (_Component) {
                     'div',
                     { className: 'log-group', key: index },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'li',
+                        'div',
                         null,
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + _this2.icons("succeded") }),
                         ' ',
@@ -65121,7 +65121,7 @@ var Log = function (_Component) {
                     { key: 'pending' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'li',
-                        null,
+                        { className: 'message-no-wrap' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa ' + this.icons("pending") }),
                         ' ',
                         this.props.queue.pending.name

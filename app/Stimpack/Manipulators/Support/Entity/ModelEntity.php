@@ -5,6 +5,7 @@ namespace App\Stimpack\Manipulators\Support\Entity;
 use App\Stimpack\Manipulators\Support\Entity\Entity;
 use App\Stimpack\Contexts\File;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class ModelEntity extends Entity
 {
@@ -24,7 +25,7 @@ class ModelEntity extends Entity
             $this->modelFileContent()
         );       
 
-        return "app/Models/" . $this->title . ".php";
+        return "http://stimpack-dev.test/preview/file/at/" . $this->modelFilePath();
     }
 
     private function modelFilePath()
@@ -38,7 +39,8 @@ class ModelEntity extends Entity
             base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"),
             collect([
                 "MODEL" => $this->title(),
-                "MASS_ASSIGNABLE_ATTRIBUTES" => "// none at this point."
+                "MASS_ASSIGNABLE_ATTRIBUTES" => "       // none at this point.",
+                "HIDDEN_ATTRIBUTES" => "        // none at this point"
             ])
         );
     }
@@ -50,21 +52,36 @@ class ModelEntity extends Entity
             $this->migrationFileContent()
         );       
 
-        return "app/Models/" . $this->title . ".php";
+        return "http://stimpack-dev.test/preview/file/at/" . $this->migrationFilePath();
     }
 
     private function migrationFilePath()
     {
-        return path($this->directives->targetProjectPath, "database/migrations/" . $this->title . ".php");
-    }    
+        return path($this->directives->targetProjectPath, "database/migrations/" . $this->migrationFileName());
+    }
+    
+    private function migrationFileName()
+    {
+        return date('Y_m_d_His') . "_create_" . $this->pluralSnakeCaseTitle() . "_table.php";        
+    }
+
+    private function migrationClassName()
+    {        
+        return "Create" . $this->pluralStudlyCaseTitle() . "Table.php";        
+    }
+    
+    private function migrationTableName()
+    {
+        return $this->pluralSnakeCaseTitle();
+    }
 
     private function migrationFileContent()
     {
         return $this->fillStub(
             base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"),
             collect([
-                "MODEL" => $this->title(),
-                "TABLE_NAME" => "DUMMY",
+                "CLASS_NAME" => $this->migrationClassName(),
+                "TABLE_NAME" => $this->migrationTableName(),
                 "ATTRIBUTES" => "ATTRIBUTES"
             ])
         );
