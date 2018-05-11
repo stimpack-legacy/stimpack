@@ -8,12 +8,12 @@ class RelationshipEntity extends Entity
 {
     public function install() {
         return collect([
-            $this->migrationFile()
+            //$this->migrationFile()
         ]);
     }
 
     public function migrationFile()
     {
-        return base_path("database/migrations/relationship_" . $this->segment->title() . ".php");
+        return "WOOOO THIS IS A RELATIONSHIP: " . $this->title();
     }    
 }

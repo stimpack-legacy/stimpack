@@ -11,7 +11,7 @@ class ModelEntity extends Entity
     public function install() {
         return collect([
             $this->makeModelFile(),
-            //$this->makeMigrationFile(),
+            $this->makeMigrationFile(),
             //$this->makeControllerFile(),
             //$this->injectRoutes()
         ]);
@@ -27,16 +27,6 @@ class ModelEntity extends Entity
         return "app/Models/" . $this->title . ".php";
     }
 
-    private function makeMigrationFile()
-    {
-        return path($this->directives->targetProjectPath, "database/migrations/create_" . $this->segment->title() . "_table.php");    
-    }
-    
-    private function makeControllerFile()
-    {
-        return path($this->directives->targetProjectPath, "app/Http/Controllers/" . $this->segment->title() . "Controller.php");
-    }
-
     private function modelFilePath()
     {
         return path($this->directives->targetProjectPath, "app/Models/" . $this->title . ".php");
@@ -44,6 +34,42 @@ class ModelEntity extends Entity
 
     private function modelFileContent()
     {
-        return "Some content";
+        return $this->fillStub(
+            base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"),
+            collect([
+                "MODEL" => $this->title(),
+                "MASS_ASSIGNABLE_ATTRIBUTES" => "// none at this point."
+            ])
+        );
+    }
+
+    private function makeMigrationFile()
+    {
+        $file = File::init()->put(
+            $this->migrationFilePath(),
+            $this->migrationFileContent()
+        );       
+
+        return "app/Models/" . $this->title . ".php";
+    }
+
+    private function migrationFilePath()
+    {
+        return path($this->directives->targetProjectPath, "database/migrations/" . $this->title . ".php");
     }    
+
+    private function migrationFileContent()
+    {
+        return $this->fillStub(
+            base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"),
+            collect([
+                "MODEL" => $this->title(),
+                "TABLE_NAME" => "DUMMY",
+                "ATTRIBUTES" => "ATTRIBUTES"
+            ])
+        );
+    }
+
+
+    
 }

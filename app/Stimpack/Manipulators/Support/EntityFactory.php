@@ -71,7 +71,12 @@ class EntityFactory
     public function isRelationship($segment)
     {
         // If segment matches MODEL1_MODEL2
-        return (!$this->isModel($segment)) && str_contains($segment->title(),"_");
+        $modelOptions = $this->models->map(function($modelEntity) {
+            return $modelEntity->singularLowerCaseTitle();
+        })->implode("|");
+        $manyToManyRegExp = "/^(" . $modelOptions . ")_(" . $modelOptions . ")$/";        
+        
+        return (!$this->isModel($segment)) && preg_match($manyToManyRegExp,$segment->title());
     }
     
     public function isPureTable($segment)
