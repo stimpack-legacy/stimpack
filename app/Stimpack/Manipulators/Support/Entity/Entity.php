@@ -26,6 +26,11 @@ class Entity
         return $this->title;
     }
 
+    public function attributes()
+    {
+        return $this->attributes;
+    }    
+
     public function singularLowerCaseTitle()
     {
         return strtolower($this->title());
