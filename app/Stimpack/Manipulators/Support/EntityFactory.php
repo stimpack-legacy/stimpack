@@ -49,15 +49,18 @@ class EntityFactory
             return new PureTableEntity($segment);
         });
 
-        $all = $this->models->concat($this->relationships)->concat($this->pureTables);
+        $this->all = $this->models->concat($this->relationships)->concat($this->pureTables);
 
-        // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
-        // Furthermore we also attach the directives passed from ScaffoldLaravel
-        return $all->map(function($entity) {
+        return $this->all->map(function($entity) {
+            // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
             $entity->allModels = $this->models;
             $entity->allRelationships = $this->relationships;
             $entity->allPureTables = $this->pureTables;
+            // We also append the attributes
+            $entity->attributes = AttributeFactory::make($this->all)->forEntity($entity);
+            // Furthermore we also attach the directives passed from ScaffoldLaravel
             $entity->directives = $this->directives;
+
             return $entity;
         })->flatten();
     }

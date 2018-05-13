@@ -19,7 +19,7 @@ class PseudoSegment
         return $this->parts->first();        
     }
 
-    public function attributes()
+    public function pseudoAttributes()
     {
         return $this->parts->slice(1)->values();        
     }    

@@ -11,9 +11,7 @@ class Entity
     {
         $this->segment = $segment;
         $this->title = $segment->title();
-        $this->attributes = $segment->attributes()->map(function($raw) {
-            return new Attribute($raw); 
-        });
+        $this->pseudoAttributes = $this->segment->pseudoAttributes();
     }
 
     public static function make($segment)
@@ -26,9 +24,9 @@ class Entity
         return $this->title;
     }
 
-    public function attributes()
+    public function pseudoAttributes()
     {
-        return $this->attributes;
+        return $this->pseudoAttributes;
     }    
 
     public function singularLowerCaseTitle()
@@ -49,7 +47,7 @@ class Entity
     public function migrationColumns()
     {
         return $this->attributes->map(function($attribute) {
-            return $attribute->raw();
-        })->implode("\n");
+            return $attribute->migrationStatements();
+        })->flatten()->implode("\n");
     }
 }
