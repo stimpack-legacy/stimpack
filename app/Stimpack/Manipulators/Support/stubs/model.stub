@@ -12,7 +12,7 @@ class MODEL extends Model
      * @var array
      */
     protected $fillable = [
-        MASS_ASSIGNABLE_ATTRIBUTES
+        FILLABLE
     ];
 
     /**
@@ -21,10 +21,6 @@ class MODEL extends Model
      * @var array
      */
     protected $hidden = [
-        HIDDEN_ATTRIBUTES
+        HIDDEN
     ];
-
-    BELONGS_TO_RELATIONSHIPS
-    HAS_MANY_RELATIONSHIPS
-    BELONGS_TO_MANY_RELATIONSHIPS
 }

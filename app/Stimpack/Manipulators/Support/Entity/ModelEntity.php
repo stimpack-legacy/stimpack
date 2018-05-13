@@ -38,8 +38,8 @@ class ModelEntity extends Entity
         return str_pair_replace(
             collect([
                 "MODEL" => $this->title(),
-                "MASS_ASSIGNABLE_ATTRIBUTES" => "       // none at this point.",
-                "HIDDEN_ATTRIBUTES" => "        // none at this point"
+                "FILLABLE" => $this->renderFillableAttributes(),
+                "HIDDEN" => $this->renderHiddenAttributes()
             ]),
             File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"))
         );
@@ -94,6 +94,21 @@ class ModelEntity extends Entity
         return $content;
     }
 
-
+    private function renderFillableAttributes()
+    {
+        return $this->attributes()->filter(function($attribute) {
+            return $attribute->isFillable();
+        })->map(function($attribute) {
+                return "'" . $attribute->name() . "'";
+        })->implode(", ");
+    }
     
+    private function renderHiddenAttributes()
+    {
+        return $this->attributes()->filter(function($attribute) { 
+            return $attribute->isHidden();
+        })->map(function($attribute) {
+            return "'" . $attribute->name() . "'";
+        })->implode(", ");
+    }    
 }

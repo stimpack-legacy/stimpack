@@ -27,6 +27,11 @@ class Entity
     public function pseudoAttributes()
     {
         return $this->pseudoAttributes;
+    }
+    
+    public function attributes()
+    {
+        return $this->attributes;
     }    
 
     public function singularLowerCaseTitle()

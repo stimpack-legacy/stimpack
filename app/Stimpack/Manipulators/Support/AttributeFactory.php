@@ -20,34 +20,24 @@ class AttributeFactory
             return $candidate->title() == $entity->title();
         })->pseudoAttributes();
 
-        $attributes = $pseudoAttributes->map(function($pseudoAttribute) {
-            $name = $pseudoAttribute;
-            $migrationStatements = collect([
-                $this->makeMigrationStatement($name)
-            ]);
-            $isHidden = false;
-            $isFillable = false;
-            
+        $attributes = $pseudoAttributes->map(function($name) {
             return new Attribute(
                 $name,
-                $migrationStatements,
-                $isHidden,
-                $isFillable
+                collect([$this->makeMigrationStatements($name)]),
+                $this->isHidden($name),
+                $this->isFillable($name)
             );
         });
 
         return $attributes;
-        // Lookup
-            // <model>_id check for table <model> if so add multiple lines (integer field + foreign key)
-
     }
 
-    public function makeMigrationStatement($name)
+    public function makeMigrationStatements($name)
     {
         return collect([
             $this->overridden($name), 
             $this->reserved($name),
-            //$this->ruled($name),
+            $this->ruled($name),
             $this->default($name)
         ])->first(function($nameCandidate) {
             return $nameCandidate;
@@ -73,110 +63,67 @@ class AttributeFactory
         ])->get($name);       
     }
 
+    private function ruled($name)
+    {
+        $transformer = $this->rules()->first(function ($transformer, $rule) use($name) {
+            return preg_match($rule, $name);
+        });
+
+        if($transformer)
+        {
+            return $transformer($name);
+        }
+        
+    }
+
+    private function rules()
+    {
+        return collect([
+            // if attribute ends on _id its assumed to be a One to Many (one to one not supported atm)
+            // improvement would be to also check if <MODEL>_id actually is a model (exluding current model)
+            '/_id$/' => function($name) {                
+                $tableName = snake_case(str_plural(
+                    str_replace_last("_id", "", $name)
+                ));
+                return collect([
+                    '$table->integer(' . "'" . $name . "')->unsigned();",
+                    '$table->foreign(' . "'" . $name . "')->references('id')->on('" . $tableName . "')->onDelete('cascade');"
+                ]);
+                
+            },                        
+            // Time columns
+            '/(time|date|_at)$/' => function($name) {
+                return '$table->timestamp(' . "'" . $name . "');";
+            },
+            // Boolean
+            '/^(has_|is_|got_)/' => function($name) {
+                return '$table->boolean(' . "'" . $name . "')->default(false);";
+            }
+        ]);                                
+    }
+
+    private function modelExists($title)
+    {
+        return true; // fix later
+    }
+
     private function default($name)
     {
         return '$table->string(' . "'" . $name . "');";
     }
-}
 
-/*
-import Cache from './Cache';
-
-export default class Attribute {
-    constructor(name) {
-        this.name = name;
-        this.migrationDefinition = this.defineMigrationStatement(name);
-    }
-
-    defineMigrationStatement(name) {
-        return [
-            this.overridden(name), 
-            this.reserved(name),
-            this.ruled(name),
-            this.default(name)
-        ].find((filter) => filter);
-    }
-       
-    overridden(name) {
-        // Handle overridden line starting with $
-        if(name.charAt(0) == "$") {
-            // Save for future reference?
-            return name;
-        }
-
-        // Load previous override rules
-        var overrided = {}; 
-        if(overrided.hasOwnProperty(name)) {
-            return overrided[name];
-        }
-
-        return false;        
-    }
-
-    reserved(name) {
-        var reservedNames = {
-            "id": "$table->increments();",
-            "timestamps": "$table->timestamps();",
-            "rememberToken": "$table->rememberToken();",
-            "timestamps()": "$table->timestamps();",
-            "created_at": "$table->timestamp('created_at')->nullable();",
-            "email": "$table->string('email')->unique();",
-        }
-        if(reservedNames.hasOwnProperty(name)) {
-            return reservedNames[name];
-        }
-
-        return false;        
-    }
-
-    ruled(name) {
-        var matchedRuleKey = Object.keys(this.rules()).find((rule) => (new RegExp(rule)).test(name));
-        if(typeof matchedRuleKey !== "undefined") {
-            return this.rules()[matchedRuleKey](name);
-        }
-
-        return false;
-    }
-
-    default(name) {
-        return "$table->string('" + name + "');"
-    }
-
-    rules() { 
-        return {
-            // One to Many explicit
-            "_id$": function(name) {
-                var cleanedSingular = name.slice(0, name.length-3).replace(/_/g,"");
-                var plural = Cache.getLike(cleanedSingular,'plural');
-                var definition = "$table->integer('" + name + "')->unsigned();";
-                definition += " " + "$table->foreign('" + name + "')->references('id')->on('" + plural + "')->onDelete('cascade');";
-                return definition
-            },            
-            // Time columns
-            "(time|date|_at)$": function(name) {
-                return "$table->timestamp('" + name + "');";
-            },
-            // Boolean
-            "^(has_|is_|got_)": function(name) {
-                return "$table->boolean('" + name + "')->default(false);";
-            },
-        };                        
-    }
-
-    fillable() {
-        return ![
+    private function isFillable($name) {
+        return !collect([
             "created_at",
             "updated_at",
             "id"
-        ].includes(this.name);
+        ])->contains($name);
     }
 
-    hidden() {
-        return [
+    private function isHidden($name) {
+        return collect([
             "password",
             "remember_token"
-        ].includes(this.name);
-    }
-
-
+        ])->contains($name);
+    }    
 }
