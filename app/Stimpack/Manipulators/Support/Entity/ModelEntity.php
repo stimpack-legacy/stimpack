@@ -20,7 +20,7 @@ class ModelEntity extends Entity
 
     private function makeModelFile()
     {
-        $file = File::init()->put(
+        $file = File::save(
             $this->modelFilePath(),
             $this->modelFileContent()
         );       
@@ -35,7 +35,7 @@ class ModelEntity extends Entity
 
     private function modelFileContent()
     {
-        return str_pair_replace(
+        $content = str_pair_replace(
             collect([
                 "MODEL" => $this->title(),
                 "FILLABLE" => $this->renderFillableAttributes(),
@@ -43,11 +43,15 @@ class ModelEntity extends Entity
             ]),
             File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"))
         );
+
+        $content = File::addMethod($content, File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub")));
+
+        return $content;
     }
 
     private function makeMigrationFile()
     {
-        $file = File::init()->put(
+        $file = File::save(
             $this->migrationFilePath(),
             $this->migrationFileContent()
         );       

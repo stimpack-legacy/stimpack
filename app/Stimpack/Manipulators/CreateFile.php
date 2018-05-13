@@ -8,7 +8,7 @@ class CreateFile extends Manipulator
 {
     public function perform() {
 
-        $file = File::init()->put(
+        $file = File::save(
             $this->path($this->data->relativePathToFile), 
             $this->data->content
         );

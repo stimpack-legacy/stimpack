@@ -16,7 +16,7 @@ if (! function_exists('path')) {
 if (! function_exists('str_block_replace')) {
     function str_block_replace($marker, $block, $target) 
     {
-        $pattern = '/(^[^\S\n]+)' . $marker . '\n/m';
+        $pattern = '/(^[^\S\n]*)' . $marker . '/m';
         while(preg_match($pattern, $target, $matches)) {
             $matchedLine = $matches[0];
             $indentation = $matches[1];
@@ -31,6 +31,39 @@ if (! function_exists('str_block_replace')) {
     }
 }
 
+if (! function_exists('is_regexp')) {
+    function is_regexp($candidate) {
+        $regex = "/^\/[\s\S]+\/[sm]*$/";
+        return preg_match($regex, $candidate);
+    }
+}
+
+if (! function_exists('str_pair_replace')) {
+    function str_pair_replace($replacementPairs, $target)
+    {
+        return $replacementPairs->map(function($value, $key) {
+            return collect([$key => $value]);
+        })->reduce(function($content, $pair) {
+            if(is_regexp($pair->keys()->first())) {
+                return preg_replace(
+                    $pair->keys()->first(),
+                    $pair->values()->first(),
+                    $content
+                );
+            }
+            return str_replace(
+                $pair->keys()->first(),
+                $pair->values()->first(),
+                $content
+            );            
+
+        }, $target);
+    }
+}
+
+define("INDENTATION", "    ");
+
+/*
 if (! function_exists('str_pair_replace')) {
     function str_pair_replace($replacementPairs, $target)
     {

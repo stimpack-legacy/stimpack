@@ -9,6 +9,44 @@ use Illuminate\Filesystem\Filesystem;
 
 class File extends Filesystem
 {
+    /* ACTUALLY USED IN CODE */
+
+    public static function save($path, $contents, $lock = false) {
+        $file = new File();
+        
+        if(!$file->isDirectory($file->dirname($path))){
+            $file->makeDirectory($file->dirname($path), 0755, true);
+        }
+        $file->put($path, $contents, $lock);        
+    }
+
+    public function put($path, $contents, $lock = false) {
+        if(!$this->isDirectory($this->dirname($path))){
+            $this->makeDirectory($this->dirname($path), 0755, true);
+        }
+        parent::put($path, $contents, $lock);        
+    }
+
+    public static function addMethod($content, $method) {        
+        return str_block_replace(
+            // we are searching for an injecting marker as guide for where to put the method
+            "MARKER",
+            // method code
+            $method,
+            // Inject the marker
+            preg_replace(
+                self::regexes["methodInjectionSpot"],
+                PHP_EOL . PHP_EOL . "\$1" .INDENTATION. "MARKER\$2",
+                $content,
+                1
+            )
+        );
+    }
+
+    // INJECT OR DESTROY IDEA???!!!!
+
+    /* API ****************************************************************************** */
+
     private $path;
     private $content;
     private $handle;
@@ -23,48 +61,18 @@ class File extends Filesystem
         "uses" => '/(?<=^use )(.*);$/m',
         "useLine" => '/(^use .*[\r\n|\r|\n]{1})/m',
         "fileHeader" => '/<\?php[\r\n|\r|\n]*(?:namespace .*)*[\r\n|\r|\n]*(?:use? .*[\r\n|\r|\n]*)*/',
-        "methodInjectionSpot" => '/(\n)}[\s\n\r]*$/',
+        "methodInjectionSpot" => '/(\n)(}[\s\n\r]*)$/s',
     ];
 
-    public static function init()
+    public function construct($path = null)
     {
-        return new File();
+        $this->path = $path;
+        parent::__construct();
     }
 
-    public function put($path, $contents, $lock = false) {
-        if(!$this->isDirectory($this->dirname($path))){
-            $this->makeDirectory($this->dirname($path), 0755, true);
-        }
-        parent::put($path, $contents, $lock);        
-    }
-
-    private function open()
+    public static function init($path = null)
     {
-        $this->handle = fopen($this->path, "w") or die("Unable to open file!");
-    }
-
-    private function write()
-    {
-        fwrite($this->handle, $this->content);
-    }
-
-    private function close()
-    {
-        fclose($this->handle);
-    }
-
-
-    /* API ****************************************************************************** */
-
-    public static function load($path)
-    {
-        if(!file_exists($path))
-        {
-            throw new Exception("No such file!");
-        }
-        $file = new File($path);
-        $file->content = file_get_contents($file->path());
-        return $file;
+        return new File($path);
     }
 
     public static function create($path)
@@ -108,33 +116,11 @@ class File extends Filesystem
         return $this;
     }
 
-    // Untested CONFLICT WITH FILESYSTEM
-    //public function delete()
-    //{
-    //    unlink($this->path);
-    //    return $this;
-    //}
-
     public function empty()
     {
         $this->content = "";
         return $this;
     }
-
-    public function path()
-    {
-        return $this->path;
-    }
-
-    public function save()
-    {
-        $this->open();
-        $this->write();        
-        $this->close();
-
-        return $this;
-    }
-
 
     public function class($class = false)
     {
@@ -236,8 +222,5 @@ class File extends Filesystem
         })->implode("\n");
     }
 
-    public function addMethod($method) {
-        $this->content = preg_replace(self::regexes["methodInjectionSpot"], $method, $this->content, 1);
-        return $this;
-    }
+
 }
