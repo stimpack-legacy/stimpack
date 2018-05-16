@@ -350,16 +350,6 @@ li a:hover {
   line-height: 45px;
 }
 
-/*.menu-top{
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 20px;
-    background: $darkest;
-    box-shadow: 7px 7px $shadow;
-    z-index: 4 !important;
-}*/
-
 .menu-bottom {
   display: block;
   position: relative;
@@ -367,23 +357,11 @@ li a:hover {
   height: 55px;
   line-height: 50px;
   padding-left: 20px;
-  padding-top: 10px;
+  padding-top: 8px;
   -webkit-box-shadow: 0px 4px #2a2f36;
           box-shadow: 0px 4px #2a2f36;
   background: #434a56;
 }
-
-/*
-.menu{
-    display: inline-block;
-    position: fixed;
-    width: calc(100% - 250px);
-    top: 20px;
-    line-height: 45px;
-    height: 45px;
-    padding-left: 20px;
-    background: lighten($darkest, 10%);
-}*/
 
 .header-menu-item + .header-menu-item {
   margin-left: 27px;
