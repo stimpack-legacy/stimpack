@@ -14,13 +14,13 @@ class Log extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
-        this.state = {};        
+        this.state = {};
     }
 
-    render() {        
+    render() {
         return (
-            <span onClick={this.openModal.bind(this)}>
-                <i title="View log" className="fa fa-align-left icon-control-bar"></i>    
+            <span onClick={this.openModal.bind(this)} className="header-menu-item">
+                <i title="View log" className="fa fa-align-left icon-control-bar"></i><span className="header-menu-item-text">Log</span>
                 {this.renderModal()}
             </span>
         );
@@ -37,7 +37,7 @@ class Log extends Component {
             className="manipulator-modal large"
             >
                 <div className="logItems">
-                    <h4>Log</h4>                
+                    <h4>Log</h4>
                     <ul>
                         {this.renderLogItems()}
                         {this.renderPendingItems()}
@@ -46,7 +46,7 @@ class Log extends Component {
                 </div>
                 <button onClick={this.closeModal.bind(this)} className="btn btn-light">
                     Close
-                </button>                                    
+                </button>
             </Modal>
         );
     }
@@ -56,7 +56,7 @@ class Log extends Component {
     renderLogItems() {
         return this.props.queue.finished.map((item, index) => {
             return(
-                <div className="log-group" key={index}> 
+                <div className="log-group" key={index}>
                     <div><i className={`fa ${this.icons("succeded")}`}></i> {item.name}</div>
                     {item.result.messages.map((message, index) => {
                         return (
@@ -73,17 +73,17 @@ class Log extends Component {
     renderPendingItems() {
         if(this.props.queue.pending) {
             return (
-                <div key="pending">                
-                    <li className="message-no-wrap"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>                
+                <div key="pending">
+                    <li className="message-no-wrap"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>
                 </div>
             );
         }
-    }    
+    }
 
     renderFailedItems() {
         if(this.props.queue.failed) {
             return (
-                <div key="failed"> 
+                <div key="failed">
                     <li><i className={`fa ${this.icons("failed")}`}></i> {this.props.queue.failed.name}</li>
                     {this.props.queue.failed.result.messages.map((message, index) => {
                         return (
@@ -93,7 +93,7 @@ class Log extends Component {
                         )
                     })}
                 </div>
-                            
+
             );
         }
     }
@@ -105,24 +105,24 @@ class Log extends Component {
             "succeded": "fa-check-circle log-ok",
             "failed": "fa-exclamation-circle log-error"
         }[icon];
-    }    
+    }
 
     openModal() {
         this.setState({
             modalIsOpen: true,
         });
     }
-    
+
     afterOpenModal() {
-        // 
+        //
     }
-    
+
     closeModal() {
-        this.setState({modalIsOpen: false});        
+        this.setState({modalIsOpen: false});
     }
-    
+
     componentWillReceiveProps(nextProps) {
-        if(!_.isEqual(this.props.queue, nextProps.queue)) {            
+        if(!_.isEqual(this.props.queue, nextProps.queue)) {
             // React/redux cant save classes - recreate it.
             var queue = Queue.deSerialize(nextProps.queue);
             if(queue.isAboutToRun()) {
@@ -149,6 +149,6 @@ function matchDispatchToProps(dispatch){
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     matchDispatchToProps
 )(Log);

@@ -1,11 +1,14 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,400|Press+Start+2P');
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
 //@import "node_modules/font-awesome/scss/font-awesome.scss";
 @import "variables";
 @import "switch";
 @import "editors";
 @import "icons";
 @import "header";
+@import "side";
 @import "controlBar";
 @import "_modal";
 @import "_log";
@@ -21,9 +24,9 @@ html {
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    background: $semi-dark;  /* fallback for old browsers */
-    background: linear-gradient(to left, lighten($semi-dark, 1%), lighten($semi-dark, 11%), lighten($semi-dark, 19%), lighten($semi-dark, 3%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: $secondary-font;
+    background: $middle;  /* fallback for old browsers */
+    background: linear-gradient(to left, lighten($dark, 1%), lighten($dark, 11%), lighten($dark, 19%), lighten($dark, 3%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
     height: 100%;
 }
@@ -34,11 +37,13 @@ hr {
 
 .srd-demo-canvas {
     height: 90vh;
+    width: calc(100% - 244px);
+    float: right;
 }
 
 #main {
     height: 100%;
-    position: relative;   
+    position: relative;
 }
 
 .invisible {
@@ -53,7 +58,7 @@ hr {
     text-align: center;
     margin-top: 50px;
     width: 100%;
-    bottom: 0;    
+    bottom: 0;
 }
 
 .bottom {
@@ -81,14 +86,14 @@ hr {
 .card {
     margin: 0px;
     border-style: none;
-    background: none;    
+    background: none;
 }
 
 .card-header {
     border-radius: 10px;
     background-color: $darkest;
     padding-top: 5px;
-    padding-bottom: 5px;    
+    padding-bottom: 5px;
 }
 
 .card-header span label{
@@ -112,7 +117,7 @@ p, .form-group label{
 }
 
 .btn-primary {
-    background-color: $neon-green;
+    background-color: $theme-color;
     width: 50%;
 }
 
@@ -122,7 +127,7 @@ p, .form-group label{
 }
 
 .btn-default {
-    background-color: $neon-green;
+    background-color: $theme-color;
     width: auto;
 }
 
@@ -148,4 +153,3 @@ button {
 .table-sm-width {
     width: auto;
 }
-

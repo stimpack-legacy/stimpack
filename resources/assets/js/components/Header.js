@@ -3,16 +3,20 @@ import ReactDOM from 'react-dom';
 import ControlBar from "./ControlBar"
 
 export default class Header extends Component {
-    render() {        
+    render() {
         return (
-            <div id="header" className="header">            
-                <span className="heading-icon-and-app-name">                    
-                    <span className="header-text">stimpack</span>
-                    {/*<i className="fa fa-2x fa-syringe logo"></i>*/}
-                    <ControlBar />
-                </span>
-                                
+            <div id="header" className="header">
+                <div className="logo">
+                    <span className="logo-text">Stimpack</span>
+                </div>
+                <div className="menu">
+                    <div className="menu-top">
+                    </div>
+                    <div className="menu-bottom">
+                        <ControlBar />
+                    </div>
+                </div>
             </div>
         );
-    }    
+    }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ControlBar from './ControlBar';
 import Header from './Header';
+import Side from './Side';
 import Workspace from './Workspace';
 import * as SRD from "storm-react-diagrams"
 import {connect} from 'react-redux';
@@ -12,18 +13,19 @@ import * as _ from "lodash";
 
 
 class Main extends Component {
-    render() {              
-        return (            
+    render() {
+        return (
             <div className="app">
                 <Header />
-                <Workspace />                
+                <Side />
+                <Workspace />
             </div>
         );
     }
 
     // Process the queue - PLEASE REFACTOR THIS
     componentWillReceiveProps(nextProps){
-        if(!_.isEqual(this.props.queue, nextProps.queue)) {            
+        if(!_.isEqual(this.props.queue, nextProps.queue)) {
             // React cant save classes - recreate it.
             var queue = Queue.deSerialize(nextProps.queue);
             // I could not get the Queue class to dispatch events, instead pass callback :/
@@ -37,7 +39,7 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
-    return { 
+    return {
         queue: state.queue
     };
 }
@@ -48,5 +50,5 @@ function matchDispatchToProps(dispatch){
             setQueue: setQueue,
         }, dispatch);
 }
-  
+
 export default connect(mapStateToProps, matchDispatchToProps)(Main)

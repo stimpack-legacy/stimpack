@@ -10,16 +10,15 @@ import Save from "./controls/Save";
 
 
 export default class ControlBar extends Component {
-    render() {        
+    render() {
         return (
             <span id="controlBar" className="controlBar">
                 <Run />
                 <Parameters />
-                <AddManipulator />
                 <Log />
-                <Save />                                                      
+                <Save />
                 <Open />
             </span>
         );
-    }    
+    }
 }
