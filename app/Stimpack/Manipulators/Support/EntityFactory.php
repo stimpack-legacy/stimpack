@@ -8,7 +8,7 @@ use App\Stimpack\Contexts\File;
 use App\Stimpack\Contexts\Project;
 use App\Stimpack\Manipulators\Support\Entity\ModelEntity;
 use App\Stimpack\Manipulators\Support\Entity\PureTableEntity;
-use App\Stimpack\Manipulators\Support\Entity\RelationshipEntity;
+use App\Stimpack\Manipulators\Support\Entity\ManyToManyRelationshipEntity;
 
 
 class EntityFactory
@@ -37,10 +37,10 @@ class EntityFactory
             return new ModelEntity($segment);
         });
 
-        $this->relationships = $this->segments->filter(function($segment) {
-            return $this->isRelationship($segment);
+        $this->manyToManyRelationships = $this->segments->filter(function($segment) {
+            return $this->isManyToManyRelationship($segment);
         })->map(function($segment) {
-            return new RelationshipEntity($segment);
+            return new ManyToManyRelationshipEntity($segment);
         });
 
         $this->pureTables = $this->segments->filter(function($segment) {
@@ -49,12 +49,12 @@ class EntityFactory
             return new PureTableEntity($segment);
         });
 
-        $this->all = $this->models->concat($this->relationships)->concat($this->pureTables);
+        $this->all = $this->models->concat($this->manyToManyRelationships)->concat($this->pureTables);
 
         return $this->all->map(function($entity) {
             // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
             $entity->allModels = $this->models;
-            $entity->allRelationships = $this->relationships;
+            $entity->allManyToManyRelationships = $this->manyToManyRelationships;
             $entity->allPureTables = $this->pureTables;
             // We also append the attributes
             $entity->attributes = AttributeFactory::make($this->all)->forEntity($entity);
@@ -71,7 +71,7 @@ class EntityFactory
         return $segment->title() == studly_case($segment->title());
     }
 
-    public function isRelationship($segment)
+    public function isManyToManyRelationship($segment)
     {
         // If segment matches MODEL1_MODEL2
         $modelOptions = $this->models->map(function($modelEntity) {
@@ -84,6 +84,6 @@ class EntityFactory
     
     public function isPureTable($segment)
     {
-        return (!$this->isModel($segment)) && (!$this->isRelationship($segment));
+        return (!$this->isModel($segment)) && (!$this->isManyToManyRelationship($segment));
     }    
 }

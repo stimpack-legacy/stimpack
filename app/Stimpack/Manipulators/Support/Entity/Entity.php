@@ -56,9 +56,9 @@ class Entity
         })->flatten()->implode("\n");
     }
 
-    public function relationships()
+    public function manyToManyRelationships()
     {
-        $relationships = $this->allModels->filter(function($model) {
+        $manyToManyRelationships = $this->allModels->filter(function($model) {
             
         });
 

@@ -125,5 +125,5 @@ class AttributeFactory
             "password",
             "remember_token"
         ])->contains($name);
-    }    
+    }
 }

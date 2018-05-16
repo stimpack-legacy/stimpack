@@ -4,7 +4,7 @@ namespace App\Stimpack\Manipulators\Support\Entity;
 
 use App\Stimpack\Manipulators\Support\Entity\Entity;
 
-class RelationshipEntity extends Entity
+class ManyToManyRelationshipEntity extends Entity
 {
     public function install() {
         return collect([
