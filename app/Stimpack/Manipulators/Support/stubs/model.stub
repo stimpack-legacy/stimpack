@@ -23,4 +23,5 @@ class MODEL extends Model
     protected $hidden = [
         HIDDEN
     ];
+    RELATIONSHIPS
 }

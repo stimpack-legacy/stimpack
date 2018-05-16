@@ -55,4 +55,19 @@ class Entity
             return $attribute->migrationStatements();
         })->flatten()->implode("\n");
     }
+
+    public function relationships()
+    {
+        $relationships = $this->allModels->filter(function($model) {
+            
+        });
+
+        return collect([]);
+    }
+
+    public function replaceOrDestroyLine($marker, $replacement, $content)
+    {     
+        // placeholder implementation
+        return $content;
+    }
 }

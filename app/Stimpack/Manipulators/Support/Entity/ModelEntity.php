@@ -44,8 +44,9 @@ class ModelEntity extends Entity
             File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"))
         );
 
-        $content = File::addMethod($content, File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub")));
-
+        // The old way - regex :O
+        // $content = File::addMethod($content, File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub")));
+        $content = $this->replaceOrDestroyLine("RELATIONSHIPS", "dummy", $content);
         return $content;
     }
 
