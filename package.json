@@ -10,6 +10,10 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome": "^1.1.8",
+        "@fortawesome/fontawesome-free-brands": "^5.0.13",
+        "@fortawesome/fontawesome-free-regular": "^5.0.13",
+        "@fortawesome/fontawesome-free-solid": "^5.0.13",
         "axios": "^0.17",
         "babel-preset-react": "^6.23.0",
         "cross-env": "^5.1",
@@ -22,10 +26,6 @@
         "testing": "^1.1.1"
     },
     "dependencies": {
-        "@fortawesome/fontawesome": "^1.1.4",
-        "@fortawesome/fontawesome-free-brands": "^5.0.8",
-        "@fortawesome/fontawesome-free-regular": "^5.0.8",
-        "@fortawesome/fontawesome-free-solid": "^5.0.8",
         "bootstrap": "^4.0.0",
         "font-awesome": "^4.7.0",
         "popper.js": "^1.12.9",

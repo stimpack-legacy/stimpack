@@ -14,7 +14,7 @@ if (! function_exists('path')) {
 }
 
 if (! function_exists('str_block_replace')) {
-    function str_block_replace($marker, $block, $target) 
+    function str_block_replace($marker, $block, $target)
     {
         $pattern = '/(^[^\S\n]*)' . $marker . '/m';
         while(preg_match($pattern, $target, $matches)) {
@@ -27,7 +27,7 @@ if (! function_exists('str_block_replace')) {
             $target = str_replace($matchedLine, $indentedBlock, $target);
         }
 
-        return $target;        
+        return $target;
     }
 }
 
@@ -55,7 +55,7 @@ if (! function_exists('str_pair_replace')) {
                 $pair->keys()->first(),
                 $pair->values()->first(),
                 $content
-            );            
+            );
 
         }, $target);
     }
@@ -78,15 +78,15 @@ if (! function_exists('str_pair_replace')) {
 /*
 
 function sample_block() {
-    return 
+    return
 "kniv
 yxa
 såg";
 }
 
 function sample_target() {
-    return 
+    return
 "lista = [
     VERKTYG
 ]";
-}
+}*/
