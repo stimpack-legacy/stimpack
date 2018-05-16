@@ -1,26 +1,86 @@
 .header {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 13px;
-    background-color: $darkest;
-}
-
-.heading-icon-and-app-name {    
-    color: $neon-green;
-    margin-right: 50px;    
-}
-
-
-.header-text {
-    margin-left: 5px;
-    font-weight: 700;
-    font-size: 150%;
-    font-style: italic;
-    //text-transform: uppercase;
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    position: relative;
+    display: block;
 }
 
 .logo{
-    transform: rotate(-305deg);
+    display: inline-block;
+    position: relative;
+    bottom: 0px;
+    height: 71px;
+    line-height: 71px;
+    background: $darkest;
+    width: 250px;
+    text-align: center;
+    box-shadow: -7px 7px $shadow;
+}
+
+.logo-text {
+    position: relative;
+    display: inline;
+    color: $theme-color;
+    text-transform: uppercase;
+    font-family: $primary-font;
+    text-shadow: 2px 2px $lighter;
+    font-size: 20px;
+}
+
+.menu{
+    display: inline-block;
+    position: fixed;
+    width: calc(100% - 250px);
+    line-height: 45px;
+}
+
+/*.menu-top{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: $darkest;
+    box-shadow: 7px 7px $shadow;
+    z-index: 4 !important;
+}*/
+
+.menu-bottom{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 55px;
+    line-height: 50px;
+    padding-left: 20px;
+    padding-top: 10px;
+    box-shadow: 0px 4px $shadow;
+    background: lighten($darkest, 5%);
+}
+
+/*
+.menu{
+    display: inline-block;
+    position: fixed;
+    width: calc(100% - 250px);
+    top: 20px;
+    line-height: 45px;
+    height: 45px;
+    padding-left: 20px;
+    background: lighten($darkest, 10%);
+}*/
+
+.header-menu-item + .header-menu-item{
+    margin-left: 27px;
+}
+
+.header-menu-item{
+    cursor: pointer;
+}
+
+.header-menu-item-text{
+    color: lighten($theme-color, 25%);
+    -webkit-transition: color 0.5s; /* Safari */
+    transition: color 0.5s;
+    font-size: 15px;
+}
+
+.header-menu-item-text:hover{
+    color: $theme-color;
 }

@@ -19,13 +19,13 @@ class Save extends Component {
             name: "",
             description: "",
             message: null
-        };        
+        };
     }
 
-    render() {        
+    render() {
         return (
-            <span onClick={this.openModal.bind(this)}>
-                <i title="Save this pack" className="far fa-save icon-control-bar"></i>
+            <span onClick={this.openModal.bind(this)} className="header-menu-item">
+                <i title="Save this pack" className="far fa-save icon-control-bar"></i><span className="header-menu-item-text">Save</span>
                 {this.renderModal()}
             </span>
         );
@@ -51,18 +51,18 @@ class Save extends Component {
                     <label htmlFor="description">Description</label>
                     <textarea rows="4" placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control" id="description" />
                 </div>
-                {this.renderMessage()} 
-                <div className="modal-buttons">                
+                {this.renderMessage()}
+                <div className="modal-buttons">
                     <button onClick={this.save.bind(this)} className="btn btn-light">
                         Save locally
                     </button>
                     <button onClick={this.upload.bind(this)} className="btn btn-light">
                         Upload to stimpack.io
-                    </button>                                
+                    </button>
                     <button onClick={this.closeModal.bind(this)} className="btn btn-light">
                         Cancel
                     </button>
-                </div>                                       
+                </div>
             </Modal>
         );
     }
@@ -115,14 +115,14 @@ class Save extends Component {
             error: function(error) {
                 this.setState({
                     message: "Could not store!"
-                });                
+                });
                 //var a = JSON.parse(error);
                 console.log("Failed with message: '" + error.responseJSON.message + "'");
             }.bind(this)
-        });                
+        });
     }
-    
-    upload() {        
+
+    upload() {
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
         $.ajax({
@@ -148,7 +148,7 @@ class Save extends Component {
             success: function(result){
                 this.setState({
                     message: "Succesfully uploaded pack!"
-                });                
+                });
                 console.log(result);
             }.bind(this),
             error: function(error) {
@@ -157,8 +157,8 @@ class Save extends Component {
                 });
                 console.log(error);
             }.bind(this)
-        });                
-    }    
+        });
+    }
 
     openModal() {
         this.setState({
@@ -167,11 +167,11 @@ class Save extends Component {
         // Prevent focus bug
         this.props.engine.diagramModel.setLocked(true);
     }
-    
+
     afterOpenModal() {
-        // 
+        //
     }
-    
+
     closeModal() {
         this.setState({
             modalIsOpen: false,
@@ -179,7 +179,7 @@ class Save extends Component {
         });
 
         // Prevent focus bug
-        this.props.engine.diagramModel.setLocked(false);                
+        this.props.engine.diagramModel.setLocked(false);
     }
 
 }
@@ -199,6 +199,6 @@ function matchDispatchToProps(dispatch){
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     matchDispatchToProps
 )(Save);

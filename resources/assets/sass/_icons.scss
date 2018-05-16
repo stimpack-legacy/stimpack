@@ -1,5 +1,5 @@
 .icon-control-bar {
-    color: $neon-green;    
+    color: $theme-color;    
     font-size: 100%;
     margin-right: 10px;    
 } .icon-control-bar:hover {
@@ -9,7 +9,7 @@
 
 .icon-close-task{
     float:right;
-    color: $semi-dark;
+    color: $middle;
     font-size: 165%;
 }
 
@@ -23,11 +23,11 @@
 }
 
 .log-ok {
-    color: $neon-green;    
+    color: $theme-color;    
 }
 
 .log-pending {
-    color: $neon-green;    
+    color: $theme-color;    
 }
 
 .log-error {

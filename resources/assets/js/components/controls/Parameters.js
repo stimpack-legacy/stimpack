@@ -10,15 +10,15 @@ class Parameters extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
-        this.state = {};        
+        this.state = {};
     }
 
-    render() {        
+    render() {
         return (
-            <span onClick={this.openModal.bind(this)}>
-                <i title="Set parameters" className="fa fa-cog icon-control-bar icon-control-bar"></i>
+            <span onClick={this.openModal.bind(this)} className="header-menu-item">
+                <i title="Set parameters" className="fa fa-cog icon-control-bar icon-control-bar"></i><span className="header-menu-item-text">Parameters</span>
                 {this.renderModal()}
-            </span>           
+            </span>
         );
     }
 
@@ -31,23 +31,23 @@ class Parameters extends Component {
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
             className="manipulator-modal"
-            >                
+            >
                 <h4>Set global parameters</h4>
                 <hr />
                 <div className="form-group code-text-area">
-                    <textarea rows="20" placeholder="content" value={this.props.parameters} onChange={this.setParameters.bind(this)} type="text" className="form-control" />                    
+                    <textarea rows="20" placeholder="content" value={this.props.parameters} onChange={this.setParameters.bind(this)} type="text" className="form-control" />
                 </div>
-                <div className="modal-buttons">                                                
+                <div className="modal-buttons">
                     <button onClick={this.closeModal.bind(this)} className="btn btn-light">
                         Close
                     </button>
-                </div>                                    
+                </div>
             </Modal>
         );
     }
 
     setParameters(event) {
-        this.props.setParameters(event.target.value);        
+        this.props.setParameters(event.target.value);
     }
 
     openModal() {
@@ -56,36 +56,36 @@ class Parameters extends Component {
         });
 
         // Prevent focus bug
-        this.props.engine.diagramModel.setLocked(true);        
+        this.props.engine.diagramModel.setLocked(true);
     }
-    
+
     afterOpenModal() {
-        // 
+        //
     }
-    
+
     closeModal() {
-        this.setState({modalIsOpen: false});        
+        this.setState({modalIsOpen: false});
 
         // Prevent focus bug
-        this.props.engine.diagramModel.setLocked(false)        
-    }    
+        this.props.engine.diagramModel.setLocked(false)
+    }
 }
 
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        parameters: state.parameters 
+        parameters: state.parameters
     };
 }
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
-            setParameters: setParameters                        
+            setParameters: setParameters
         }, dispatch);
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     matchDispatchToProps
 )(Parameters);

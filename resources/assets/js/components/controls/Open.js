@@ -8,19 +8,19 @@ class Open extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
-        this.state = {};        
+        this.state = {};
     }
 
-    render() {        
+    render() {
         return (
-            <span onClick={this.openModal.bind(this)}>
-                <i title="Explore packs on stimpack.io" className="fas fa-folder-open icon-control-bar"></i>
+            <span onClick={this.openModal.bind(this)} className="header-menu-item">
+                <i title="Explore packs on stimpack.io" className="fas fa-folder-open icon-control-bar"></i><span className="header-menu-item-text">Open</span>
                 {this.renderModal()}
             </span>
-            
-                
-                
-            
+
+
+
+
         );
     }
 
@@ -33,18 +33,18 @@ class Open extends Component {
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
             className="settings-modal medium"
-            >                
+            >
                 <h4>Open pack</h4>
                 <div className="form-group">
                     <p> Your local packs </p>
                     <ul>
-                        {this.renderLocalPacks()}                
+                        {this.renderLocalPacks()}
                     </ul>
                     <p> Explore all packs on <a href="https://stimpack.io">stimpack.io</a> </p>
                 </div>
-                <div className="container settings-modal-buttons">                    
+                <div className="container settings-modal-buttons">
                     <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
-                </div>                    
+                </div>
             </Modal>
         );
     }
@@ -64,20 +64,20 @@ class Open extends Component {
             modalIsOpen: true,
         });
     }
-    
+
     afterOpenModal() {
-        // 
+        //
     }
-    
+
     closeModal() {
-        this.setState({modalIsOpen: false});        
-    }    
+        this.setState({modalIsOpen: false});
+    }
 }
 
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        foo: state.foo 
+        foo: state.foo
     };
 }
 
@@ -89,6 +89,6 @@ function matchDispatchToProps(dispatch){
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     matchDispatchToProps
 )(Open);

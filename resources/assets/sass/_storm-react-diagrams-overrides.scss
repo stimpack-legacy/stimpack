@@ -24,7 +24,7 @@
 
 .srd-starter-node{
     @extend .srd-default-node;
-    background-color: $neon-green;
+    background-color: $theme-color;
     color: black;
 
     &__name {

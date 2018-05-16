@@ -13,15 +13,15 @@ class Run extends Component {
     constructor(props) {
         super(props);
         Modal.setAppElement('#main');
-        this.state = {};        
+        this.state = {};
     }
 
-    render() {        
+    render() {
         return (
-            <span onClick={this.run.bind(this)}>
-                <i title="Run!" className="fa fa-play icon-control-bar icon-control-bar"></i>
+            <span onClick={this.run.bind(this)} className="header-menu-item">
+                <i title="Run!" className="fa fa-play icon-control-bar icon-control-bar"></i><span className="header-menu-item-text">Run</span>
                 {this.renderModal()}
-            </span>           
+            </span>
         );
     }
 
@@ -34,16 +34,16 @@ class Run extends Component {
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
             className="settings-modal medium"
-            >                
-                <h4>Run!</h4>                
-                <div className="container settings-modal-buttons">                    
+            >
+                <h4>Run!</h4>
+                <div className="container settings-modal-buttons">
                     <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
-                </div>                    
+                </div>
             </Modal>
         );
     }
 
-    run() {        
+    run() {
         var compiler = new Compiler(this.props.engine);
         var compiled = compiler.compile();
         var vaildation = Validator.validate(compiled);
@@ -62,21 +62,21 @@ class Run extends Component {
             modalIsOpen: true,
         });
     }
-    
+
     afterOpenModal() {
-        // 
+        //
     }
-    
+
     closeModal() {
-        this.setState({modalIsOpen: false});        
-    }    
+        this.setState({modalIsOpen: false});
+    }
 }
 
 function mapStateToProps(state) {
     return {
         engine: state.engine,
-        foo: state.foo,        
-        parameters: state.parameters 
+        foo: state.foo,
+        parameters: state.parameters
     };
 }
 
@@ -84,11 +84,11 @@ function matchDispatchToProps(dispatch){
     return bindActionCreators(
         {
             openLog: openLog,
-            setQueue: setQueue                        
+            setQueue: setQueue
         }, dispatch);
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     matchDispatchToProps
 )(Run);
