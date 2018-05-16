@@ -1,1 +1,1 @@
-#Stimpack
+#Stimpack is superb!
