@@ -1,0 +1,4 @@
+public function METHOD_NAME()
+{
+   return $this->BIND_METHOD('App\CLASS_NAME');
+}

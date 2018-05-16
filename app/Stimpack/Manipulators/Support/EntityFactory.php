@@ -89,10 +89,10 @@ class EntityFactory
         return $this->allEntities->map(function($entity) {
             return $entity->attributes->filter(function($attribute) {
                 return preg_match('/(.*)_id$/', $attribute->name());
-            })->map(function($attribute) {
+            })->map(function($attribute) use($entity) {
                 preg_match('/(.*)_id$/', $attribute->name(), $matches);
                 $ownerTableName = $matches[1];
-                return new Relationship($attribute->name(), $ownerTableName, "OneToMany");
+                return new Relationship($ownerTableName, snake_case(str_singular($entity->title())), "OneToMany");
             });
         })->flatten();
     }
