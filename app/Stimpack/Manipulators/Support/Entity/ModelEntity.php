@@ -48,8 +48,10 @@ class ModelEntity extends Entity
         // $content = File::addMethod($content, File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub")));
         
         
-        $methods = $this->allRelationships()->map(function($relationship) {
-            return File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub"));
+        $methods = $this->allRelationships()->filter(function($relationship) {
+            return $relationship->concerns($this); 
+        })->map(function($relationship) {
+            return $relationship->renderFor($this);
         })->implode("\n\n");
 
         $content = $this->replaceOrDestroyLine("RELATIONSHIPS", $methods, $content);

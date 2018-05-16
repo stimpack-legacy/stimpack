@@ -82,4 +82,9 @@ class Entity
         // placeholder implementation
         //return $content;
     }
+
+    public function getBindMethod()
+    {
+        return "hasMany";
+    }    
 }
