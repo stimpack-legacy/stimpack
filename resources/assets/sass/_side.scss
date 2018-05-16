@@ -1,0 +1,30 @@
+.side{
+    display: block;
+    position: fixed;
+    background-color: lighten($darkest, 13%);;
+    width: 243px;
+    height: 100% ;
+    padding: 10px;
+    margin-top: 7px;
+    text-align: center;
+}
+
+.side-button{
+    display: block;
+    position: relative;
+    background-color: $darkest;
+    color: $theme-color;
+    text-transform: uppercase;
+    font-weight: 600;
+    width: 210px;
+    max-width: 210px;
+    height: 50px;
+    border-color: darken($base-color, 5%);
+    border-width: 2px;
+}
+
+.side-button:hover{
+    background-color: $theme-color;
+    color: $darkest;
+    cursor: pointer;
+}

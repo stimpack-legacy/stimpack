@@ -1,4 +1,19 @@
-$neon-green: #AFE418;
-$darkest: rgba(0,0,0, 0.45);
-$dark: rgba(0,0,0, 0.2);
-$semi-dark: #31363F;
+// Typography
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+$primary-font: "Press Start 2P", cursive;
+$secondary-font: 'Open Sans', sans-serif;
+
+// Colors
+$base-color: #31363F;
+
+$darkest: lighten( $base-color, 3%);
+$dark: lighten( $darkest, 5%);
+$middle: lighten( $dark, 5%);
+$lighter: lighten( $middle, 10% );
+$bright: lighten( $lighter, 10% );
+
+$shadow: darken($base-color, 3%);
+
+// Theme color
+$theme-color: #40fc3a;
