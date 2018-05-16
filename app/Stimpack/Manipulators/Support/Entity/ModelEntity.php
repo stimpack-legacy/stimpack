@@ -46,7 +46,9 @@ class ModelEntity extends Entity
 
         // The old way - regex :O
         // $content = File::addMethod($content, File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub")));
-        $content = $this->replaceOrDestroyLine("RELATIONSHIPS", "dummy", $content);
+        
+        $relationships = collect(); //collect(["hej", "två", "också"]);
+        $content = $this->replaceOrDestroyLine("RELATIONSHIPS", $relationships, $content);
         return $content;
     }
 

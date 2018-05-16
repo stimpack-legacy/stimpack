@@ -65,8 +65,12 @@ class Entity
         return collect([]);
     }
 
-    public function replaceOrDestroyLine($marker, $replacement, $content)
-    {     
+    public function replaceOrDestroyLine($marker, $replacements, $content)
+    {
+        if($replacements->isEmpty()) {
+            $pattern = '/(^[^\S\n]*)' . $marker . '\n/m';
+            return preg_replace($pattern, "", $content);    
+        }     
         // placeholder implementation
         return $content;
     }

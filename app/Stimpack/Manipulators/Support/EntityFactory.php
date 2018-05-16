@@ -9,7 +9,7 @@ use App\Stimpack\Contexts\Project;
 use App\Stimpack\Manipulators\Support\Entity\ModelEntity;
 use App\Stimpack\Manipulators\Support\Entity\PureTableEntity;
 use App\Stimpack\Manipulators\Support\Entity\ManyToManyRelationshipEntity;
-
+use App\Stimpack\Relationship;
 
 class EntityFactory
 {
@@ -31,37 +31,65 @@ class EntityFactory
 
     public function all()
     {
-        $this->models = $this->segments->filter(function($segment) {
+        $this->allEntities = collect([
+            $this->modelEntities(),
+            $this->manyToManyRelationshipEntities(),
+            $this->pureTableEntities()
+        ])->flatten();
+
+        // Attach additional information
+        return $this->allEntities->map(function($entity) {
+            // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
+            $entity->allModelEntities = $this->modelEntities();
+            $entity->allManyToManyRelationshipEntities = $this->manyToManyRelationshipEntities();
+            $entity->allPureTableEntities = $this->pureTableEntities();
+            // We also append the attributes
+            $entity->attributes = AttributeFactory::make($this->allEntities)->forEntity($entity);
+            // Furthermore we also attach the directives passed from ScaffoldLaravel
+            $entity->directives = $this->directives;
+            // And relationships
+            $entity->allBelongsToRelationships = $this->belongsToRelationships();
+
+            return $entity;
+        })->flatten();
+    }
+
+    public function modelEntities() {
+        return $this->segments->filter(function($segment) {
             return $this->isModel($segment);
         })->map(function($segment) {
             return new ModelEntity($segment);
         });
-
-        $this->manyToManyRelationships = $this->segments->filter(function($segment) {
+    }
+                
+    public function manyToManyRelationshipEntities()
+    {
+        return $this->segments->filter(function($segment) {
             return $this->isManyToManyRelationship($segment);
         })->map(function($segment) {
             return new ManyToManyRelationshipEntity($segment);
         });
-
-        $this->pureTables = $this->segments->filter(function($segment) {
+    }
+    
+    public function pureTableEntities()
+    {
+        return $this->segments->filter(function($segment) {
             return $this->isPureTable($segment);
         })->map(function($segment) {
             return new PureTableEntity($segment);
         });
+    }    
 
-        $this->all = $this->models->concat($this->manyToManyRelationships)->concat($this->pureTables);
-
-        return $this->all->map(function($entity) {
-            // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
-            $entity->allModels = $this->models;
-            $entity->allManyToManyRelationships = $this->manyToManyRelationships;
-            $entity->allPureTables = $this->pureTables;
-            // We also append the attributes
-            $entity->attributes = AttributeFactory::make($this->all)->forEntity($entity);
-            // Furthermore we also attach the directives passed from ScaffoldLaravel
-            $entity->directives = $this->directives;
-
-            return $entity;
+    public function belongsToRelationships()
+    {
+        return $this->allEntities->map(function($entity) {
+            return $entity->attributes()->filter(function($attribute) {
+                return preg_match('/(.*)_id$/', $attribute->name());
+            })->map(function($attribute) {
+                preg_match('/(.*)_id$/', $attribute->name(), $matches);
+                $ownerTableName = $matches[1];
+                return new Relationship($attribute->name(), $ownerTableName, "BelongsTo");
+            });
         })->flatten();
     }
 
@@ -74,7 +102,7 @@ class EntityFactory
     public function isManyToManyRelationship($segment)
     {
         // If segment matches MODEL1_MODEL2
-        $modelOptions = $this->models->map(function($modelEntity) {
+        $modelOptions = $this->modelEntities()->map(function($modelEntity) {
             return $modelEntity->singularLowerCaseTitle();
         })->implode("|");
         $manyToManyRegExp = "/^(" . $modelOptions . ")_(" . $modelOptions . ")$/";        
