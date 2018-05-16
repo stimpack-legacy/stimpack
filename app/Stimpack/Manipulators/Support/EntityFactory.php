@@ -9,7 +9,7 @@ use App\Stimpack\Contexts\Project;
 use App\Stimpack\Manipulators\Support\Entity\ModelEntity;
 use App\Stimpack\Manipulators\Support\Entity\PureTableEntity;
 use App\Stimpack\Manipulators\Support\Entity\ManyToManyRelationshipEntity;
-use App\Stimpack\Relationship;
+use App\Stimpack\Manipulators\Support\Relationship;
 
 class EntityFactory
 {
@@ -38,7 +38,7 @@ class EntityFactory
         ])->flatten();
 
         // Attach additional information
-        return $this->allEntities->map(function($entity) {
+        $this->allEntities = $this->allEntities->map(function($entity) {
             // Before we return all entities we attach the all the sourounding entities since they might be dependent on each other.
             $entity->allModelEntities = $this->modelEntities();
             $entity->allManyToManyRelationshipEntities = $this->manyToManyRelationshipEntities();
@@ -47,11 +47,15 @@ class EntityFactory
             $entity->attributes = AttributeFactory::make($this->allEntities)->forEntity($entity);
             // Furthermore we also attach the directives passed from ScaffoldLaravel
             $entity->directives = $this->directives;
-            // And relationships
-            $entity->allBelongsToRelationships = $this->belongsToRelationships();
-
             return $entity;
         })->flatten();
+
+        return $this->allEntities->map(function($entity) {
+            // And relationships
+            $entity->allRelationships = $this->allRelationships();
+            return $entity;
+        });
+
     }
 
     public function modelEntities() {
@@ -80,17 +84,24 @@ class EntityFactory
         });
     }    
 
-    public function belongsToRelationships()
+    public function oneToManyRelationships()
     {
         return $this->allEntities->map(function($entity) {
-            return $entity->attributes()->filter(function($attribute) {
+            return $entity->attributes->filter(function($attribute) {
                 return preg_match('/(.*)_id$/', $attribute->name());
             })->map(function($attribute) {
                 preg_match('/(.*)_id$/', $attribute->name(), $matches);
                 $ownerTableName = $matches[1];
-                return new Relationship($attribute->name(), $ownerTableName, "BelongsTo");
+                return new Relationship($attribute->name(), $ownerTableName, "OneToMany");
             });
         })->flatten();
+    }
+
+    public function allRelationships()
+    {
+        return $this->oneToManyRelationships()->concat(
+            $this->manyToManyRelationships()
+        );
     }
 
     public function isModel($segment)
@@ -100,18 +111,29 @@ class EntityFactory
     }
 
     public function isManyToManyRelationship($segment)
-    {
-        // If segment matches MODEL1_MODEL2
-        $modelOptions = $this->modelEntities()->map(function($modelEntity) {
-            return $modelEntity->singularLowerCaseTitle();
-        })->implode("|");
-        $manyToManyRegExp = "/^(" . $modelOptions . ")_(" . $modelOptions . ")$/";        
-        
-        return (!$this->isModel($segment)) && preg_match($manyToManyRegExp,$segment->title());
+    {  
+        return (!$this->isModel($segment)) && preg_match($this->manyToManyRegExp(),$segment->title());
     }
+
+    public function manyToManyRelationships()
+    {
+        return $this->manyToManyRelationshipEntities()->map(function($entity) {
+            preg_match($this->manyToManyRegExp(),$entity->title(), $matches);
+            return new Relationship($matches[1], $matches[2], "ManyToMany");
+        });
+    }    
     
     public function isPureTable($segment)
     {
         return (!$this->isModel($segment)) && (!$this->isManyToManyRelationship($segment));
     }    
+
+    public function manyToManyRegExp()
+    {
+        // If segment matches MODEL1_MODEL2
+        $modelOptions = $this->modelEntities()->map(function($modelEntity) {
+            return $modelEntity->singularLowerCaseTitle();
+        })->implode("|");
+        return "/^(" . $modelOptions . ")_(" . $modelOptions . ")$/";
+    }
 }

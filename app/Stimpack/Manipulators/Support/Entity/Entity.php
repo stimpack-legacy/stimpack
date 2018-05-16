@@ -44,6 +44,11 @@ class Entity
         return studly_case(Str::plural(class_basename($this->title())));
     }
 
+    public function allRelationships()
+    {
+        return $this->allRelationships;
+    }
+
     public function pluralSnakeCaseTitle()
     {
         return Str::plural(Str::snake(class_basename($this->title())));
@@ -67,11 +72,14 @@ class Entity
 
     public function replaceOrDestroyLine($marker, $replacements, $content)
     {
-        if($replacements->isEmpty()) {
-            $pattern = '/(^[^\S\n]*)' . $marker . '\n/m';
+        $pattern = '/(^[^\S\n]*)' . $marker . '\n/m';
+        if($replacements == "") {            
             return preg_replace($pattern, "", $content);    
-        }     
+        }
+        //return $pattern;
+        return str_block_replace($marker, $replacements, $content);
+
         // placeholder implementation
-        return $content;
+        //return $content;
     }
 }
