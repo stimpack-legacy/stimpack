@@ -12,7 +12,7 @@ class Create extends Manipulator
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
         $targetProjectPath = $this->targetProjectPath();
-        
+
         if ($res === TRUE) {
             $zip->extractTo($targetProjectPath);
             $zip->close();
@@ -20,11 +20,22 @@ class Create extends Manipulator
             return "Throw error here!";
         }
 
+        $this->injectAppName($targetProjectPath);
+
         return [
             "messages" => [
                 "Created application at $targetProjectPath",
-                "Check it out at http://" . $this->data->targetProjectName . ".test"                
+                "Check it out at http://" . $this->data->targetProjectName . ".test"
             ]
         ];
+    }
+
+    private function injectAppName($targetProjectPath){
+        $welcomeBlade = $targetProjectPath . "/resources/views/welcome.blade.php";
+        $contents = file_get_contents ($welcomeBlade);
+
+        $contents = str_replace("Laravel", $this->data->targetProjectName, $contents);
+
+        file_put_contents($welcomeBlade, $contents);
     }
 }
