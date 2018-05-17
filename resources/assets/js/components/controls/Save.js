@@ -39,7 +39,7 @@ class Save extends Component {
             onRequestClose={this.closeModal.bind(this)}
             contentLabel="Example Modal"
             overlayClassName="no-overlay"
-            className="manipulator-modal medium"
+            className="manipulator-modal"
             >
                 <h4>Save as a pack</h4>
                 <hr />
@@ -49,17 +49,17 @@ class Save extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
-                    <textarea rows="4" placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control" id="description" />
+                    <textarea  placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control save-description" id="description" />
                 </div>
                 {this.renderMessage()}
-                <div className="modal-buttons">
-                    <button onClick={this.save.bind(this)} className="btn btn-light">
+                <div className="modal-footer modal-buttons">
+                    <button onClick={this.save.bind(this)} className="btn modal-buttons-style">
                         Save locally
                     </button>
-                    <button onClick={this.upload.bind(this)} className="btn btn-light">
+                    <button onClick={this.upload.bind(this)} className="btn modal-buttons-style">
                         Upload to stimpack.io
                     </button>
-                    <button onClick={this.closeModal.bind(this)} className="btn btn-light">
+                    <button onClick={this.closeModal.bind(this)} className="btn button-cancel modal-buttons-style">
                         Cancel
                     </button>
                 </div>

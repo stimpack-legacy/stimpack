@@ -35,6 +35,7 @@ class Open extends Component {
             className="settings-modal medium"
             >
                 <h4>Open pack</h4>
+                <hr />
                 <div className="form-group">
                     <p> Your local packs </p>
                     <ul>
@@ -42,8 +43,8 @@ class Open extends Component {
                     </ul>
                     <p> Explore all packs on <a href="https://stimpack.io">stimpack.io</a> </p>
                 </div>
-                <div className="container settings-modal-buttons">
-                    <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
+                <div className="modal-footer settings-modal-buttons">
+                    <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
                 </div>
             </Modal>
         );

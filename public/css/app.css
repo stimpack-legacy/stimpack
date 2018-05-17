@@ -10749,7 +10749,7 @@ li a:hover {
 .logo-text {
   position: relative;
   display: inline;
-  font-size: 21px;
+  font-size: 21px !important;
 }
 
 .menu {
@@ -10855,55 +10855,67 @@ li a:hover {
   -webkit-box-shadow: -7px 7px #383d48;
           box-shadow: -7px 7px #383d48;
   opacity: 0.95;
+  width: 800px;
+  height: 600px;
 }
 
-h4 {
-  font-size: 17px;
+.parameters-code {
+  width: 100%;
+  height: 450px;
+  overflow-y: scroll;
 }
 
-.small {
-  width: 30%;
-}
-
-.medium {
-  width: 60%;
-}
-
-.large {
-  width: 90%;
-}
-
-.settings-modal-buttons > * {
-  margin-right: 5px;
-}
-
-.btn-stimpack {
-  background-color: #40fc3a;
-  color: black;
-}
-
-.manipulator-project-select {
-  width: auto;
-}
-
-.modal-buttons > * {
-  margin-right: 5px;
+.save-description {
+  height: 290px;
 }
 
 .message {
-  color: #40fc3a !important;
+  color: #40fc3a;
 }
 
-.add-manipulator-button {
-  width: 100%;
+.modal-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 760px;
+  border-top: none;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  padding: 0px;
+  padding-bottom: 20px;
 }
 
-.starter-button {
-  font-weight: 900 !important;
+.modal-buttons-style {
+  color: #383d48;
+  background-color: #67fd62;
+  border-radius: 0px;
+  -webkit-box-shadow: -2px 2px #2a2f36;
+          box-shadow: -2px 2px #2a2f36;
+  -webkit-transition: color 0.5s;
+  /* Safari */
+  transition: color 0.5s;
+  -webkit-transition: box-shadow 0.5s;
+  /* Safari */
+  -webkit-transition: -webkit-box-shadow 0.5s;
+  transition: -webkit-box-shadow 0.5s;
+  transition: box-shadow 0.5s;
+  transition: box-shadow 0.5s, -webkit-box-shadow 0.5s;
+  font-weight: 600;
+  outline: none;
 }
 
-.code-text-area {
-  width: 800px;
+.modal-buttons-style:hover {
+  color: #383d48;
+  background-color: #31fc2b;
+  -webkit-box-shadow: 0px 0px #2a2f36;
+          box-shadow: 0px 0px #2a2f36;
+  outline: none;
+}
+
+.button-cancel {
+  border: 2px solid #40fc3a;
+  background-color: #383d48;
+  color: #40fc3a;
 }
 
 .logItems {
@@ -10927,6 +10939,34 @@ h4 {
   text-transform: uppercase;
   font-family: "Press Start 2P", cursive;
   text-shadow: -2px 2px #646f81;
+  font-size: 17px;
+}
+
+label {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  color: #40fc3a;
+}
+
+.form-control {
+  color: #40fc3a;
+  background-color: #31363F;
+  border-radius: 0px;
+  border: 2px solid #31363F;
+  outline: none;
+}
+
+.form-control:focus {
+  color: #40fc3a;
+  background-color: #31363F;
+  border-radius: 0px;
+  border: 2px solid #40fc3a;
+  border-color: #40fc3a;
+  outline: none;
+}
+
+hr {
+  border-color: #40fc3a;
 }
 
 .srd-diagram {
@@ -11221,10 +11261,6 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
   height: 100%;
-}
-
-hr {
-  border-color: white;
 }
 
 .srd-demo-canvas {

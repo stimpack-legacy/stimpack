@@ -9,53 +9,56 @@
     padding: 20px;
     box-shadow: -7px 7px $darkest;
     opacity: 0.95;
-}
-
-h4{
-    font-size: 17px;
-}
-
-.small {
-    width: 30%;
-}
-
-.medium {
-    width: 60%;
-}
-
-.large {
-    width: 90%;
-}
-
-.settings-modal-buttons > * {
-    margin-right: 5px;
-}
-
-.btn-stimpack {
-    background-color: $theme-color;
-    color: black;
-}
-
-.manipulator-project-select {
-    width: auto;
-}
-
-.modal-buttons > * {
-    margin-right: 5px;
-}
-
-.message {
-    color: $theme-color !important;
-}
-
-.add-manipulator-button {
-    width: 100%;
-}
-
-.starter-button {
-    font-weight: 900 !important;
-}
-
-.code-text-area {
     width: 800px;
+    height: 600px;
+}
+
+.parameters-code {
+    width: 100%;
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.save-description{
+    height: 290px;
+}
+
+.message{
+    color: $theme-color
+}
+
+.modal-footer{
+    position: absolute;
+    bottom: 0px;
+    width: 760px;
+    border-top: none;
+    justify-content: left;
+    padding: 0px;
+    padding-bottom: 20px;
+}
+
+.modal-buttons-style{
+    color: $darkest;
+    background-color: lighten($theme-color, 8%);
+    border-radius: 0px;
+    box-shadow: -2px 2px $shadow;
+    -webkit-transition: color 0.5s; /* Safari */
+    transition: color 0.5s;
+    -webkit-transition: box-shadow 0.5s; /* Safari */
+    transition: box-shadow 0.5s;
+    font-weight: 600;
+    outline: none;
+}
+
+.modal-buttons-style:hover{
+    color: $darkest;
+    background-color: darken($theme-color, 3%);
+    box-shadow: 0px 0px $shadow;
+    outline: none;
+}
+
+.button-cancel{
+    border: 2px solid $theme-color;
+    background-color: $darkest;
+    color: $theme-color;
 }

@@ -60169,6 +60169,7 @@ var Open = function (_Component) {
                     null,
                     'Open pack'
                 ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'form-group' },
@@ -60196,11 +60197,11 @@ var Open = function (_Component) {
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'container settings-modal-buttons' },
+                    { className: 'modal-footer settings-modal-buttons' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { className: 'btn btn-stimpack', onClick: this.closeModal.bind(this) },
-                        'Close'
+                        { className: 'btn modal-buttons-style', onClick: this.closeModal.bind(this) },
+                        'Done'
                     )
                 )
             );
@@ -64913,7 +64914,7 @@ var Parameters = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { onClick: this.openModal.bind(this), className: 'header-menu-item' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Set parameters', className: 'fa fa-cog icon-control-bar icon-control-bar' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { title: 'Set parameters', className: 'fa fa-wrench icon-control-bar icon-control-bar' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'span',
                     { className: 'header-menu-item-text' },
@@ -64943,16 +64944,16 @@ var Parameters = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'form-group code-text-area' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '20', placeholder: 'content', value: this.props.parameters, onChange: this.setParameters.bind(this), type: 'text', className: 'form-control' })
+                    { className: 'form-group' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { placeholder: 'content', value: this.props.parameters, onChange: this.setParameters.bind(this), type: 'text', className: 'form-control parameters-code' })
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'modal-buttons' },
+                    { className: 'modal-footer modal-buttons' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
-                        'Close'
+                        { onClick: this.closeModal.bind(this), className: 'btn modal-buttons-style' },
+                        'Done'
                     )
                 )
             );
@@ -65087,24 +65088,29 @@ var Log = function (_Component) {
                 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'logItems' },
+                    null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'h4',
                         null,
                         'Log'
                     ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'ul',
-                        null,
+                        { className: 'logItems' },
                         this.renderLogItems(),
                         this.renderPendingItems(),
                         this.renderFailedItems()
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
-                    'Close'
+                    'div',
+                    { className: 'modal-footer modal-buttons' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.closeModal.bind(this), className: 'btn modal-buttons-style' },
+                        'Done'
+                    )
                 )
             );
         }
@@ -65834,7 +65840,7 @@ var Save = function (_Component) {
                     onRequestClose: this.closeModal.bind(this),
                     contentLabel: 'Example Modal',
                     overlayClassName: 'no-overlay',
-                    className: 'manipulator-modal medium'
+                    className: 'manipulator-modal'
                 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'h4',
@@ -65860,25 +65866,25 @@ var Save = function (_Component) {
                         { htmlFor: 'description' },
                         'Description'
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '4', placeholder: 'What does it do?', value: this.state.description, onChange: this.changeDescription.bind(this), type: 'textarea', className: 'form-control', id: 'description' })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { placeholder: 'What does it do?', value: this.state.description, onChange: this.changeDescription.bind(this), type: 'textarea', className: 'form-control save-description', id: 'description' })
                 ),
                 this.renderMessage(),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: 'modal-buttons' },
+                    { className: 'modal-footer modal-buttons' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { onClick: this.save.bind(this), className: 'btn btn-light' },
+                        { onClick: this.save.bind(this), className: 'btn modal-buttons-style' },
                         'Save locally'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { onClick: this.upload.bind(this), className: 'btn btn-light' },
+                        { onClick: this.upload.bind(this), className: 'btn modal-buttons-style' },
                         'Upload to stimpack.io'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { onClick: this.closeModal.bind(this), className: 'btn btn-light' },
+                        { onClick: this.closeModal.bind(this), className: 'btn button-cancel modal-buttons-style' },
                         'Cancel'
                     )
                 )
