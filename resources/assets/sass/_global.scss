@@ -3,4 +3,32 @@
     text-transform: uppercase;
     font-family: $primary-font;
     text-shadow: -2px 2px $lighter;
+    font-size: 17px;
+}
+
+label{
+    font-family: $secondary-font;
+    font-weight: 600;
+    color: $theme-color;
+}
+
+.form-control{
+    color: $theme-color;
+    background-color: $base-color;
+    border-radius: 0px;
+    border: 2px solid $base-color;
+    outline: none;
+}
+
+.form-control:focus{
+    color: $theme-color;
+    background-color: $base-color;
+    border-radius: 0px;
+    border: 2px solid $theme-color;
+    border-color: $theme-color;
+    outline: none;
+}
+
+hr{
+    border-color: $theme-color;
 }

@@ -16,7 +16,7 @@ class Parameters extends Component {
     render() {
         return (
             <span onClick={this.openModal.bind(this)} className="header-menu-item">
-                <i title="Set parameters" className="fa fa-cog icon-control-bar icon-control-bar"></i><span className="header-menu-item-text">Parameters</span>
+                <i title="Set parameters" className="fa fa-wrench icon-control-bar icon-control-bar"></i><span className="header-menu-item-text">Parameters</span>
                 {this.renderModal()}
             </span>
         );
@@ -34,12 +34,12 @@ class Parameters extends Component {
             >
                 <h4>Set global parameters</h4>
                 <hr />
-                <div className="form-group code-text-area">
-                    <textarea rows="20" placeholder="content" value={this.props.parameters} onChange={this.setParameters.bind(this)} type="text" className="form-control" />
+                <div className="form-group">
+                    <textarea placeholder="content" value={this.props.parameters} onChange={this.setParameters.bind(this)} type="text" className="form-control parameters-code" />
                 </div>
-                <div className="modal-buttons">
-                    <button onClick={this.closeModal.bind(this)} className="btn btn-light">
-                        Close
+                <div className="modal-footer modal-buttons">
+                    <button onClick={this.closeModal.bind(this)} className="btn modal-buttons-style">
+                        Done
                     </button>
                 </div>
             </Modal>

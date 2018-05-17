@@ -36,17 +36,20 @@ class Log extends Component {
             overlayClassName="no-overlay"
             className="manipulator-modal large"
             >
-                <div className="logItems">
+                <div>
                     <h4>Log</h4>
-                    <ul>
+                    <hr />
+                    <ul className="logItems">
                         {this.renderLogItems()}
                         {this.renderPendingItems()}
                         {this.renderFailedItems()}
                     </ul>
                 </div>
-                <button onClick={this.closeModal.bind(this)} className="btn btn-light">
-                    Close
-                </button>
+                <div className="modal-footer modal-buttons">
+                    <button onClick={this.closeModal.bind(this)} className="btn modal-buttons-style">
+                        Done
+                    </button>
+                </div>
             </Modal>
         );
     }
