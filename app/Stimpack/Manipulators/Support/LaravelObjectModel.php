@@ -16,6 +16,9 @@ class LaravelObjectModel
         $this->errors = collect();
     }
 
+
+    /* API *********************************************************** */
+
     public static function make($directives)
     {
         return new LaravelObjectModel($directives);
@@ -34,7 +37,9 @@ class LaravelObjectModel
         })->flatten();
     }
 
-    public function validate()
+    /* END API *********************************************************** */   
+
+    private function validate()
     {
         return collect([
             $this->segmentTitleMustBeAValidPHPName(),   
@@ -42,10 +47,5 @@ class LaravelObjectModel
         ])->every(function($passedTest) {
             return $passedTest;
         });
-    }
-
-    public function hasErrors()
-    {
-        return $this->errors->isNotEmpty();
     }
 }

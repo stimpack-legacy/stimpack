@@ -86,5 +86,38 @@ class Entity
     public function getBindMethod()
     {
         return "hasMany";
+    }
+
+    public function classCase($string = false)
+    {
+        if(!$string) {
+            return $this->title();
+        }
+        return studly_case($string);
+    }
+
+    public function tableSingularCase($string = false)
+    {
+        if(!$string) {
+            return snake_case($this->title());
+        }
+        return snake_case($string);
+        
+    }
+    
+    public function methodSingularCase($string = false)
+    {
+        if(!$string) {        
+            return camel_case($this->title());
+        }
+        return camel_case($string);
+    }
+    
+    public function methodPluralCase($string = false)
+    {
+        if(!$string) {        
+            return str_plural(camel_case($this->title()));
+        }
+        return str_plural(camel_case($string));
     }    
 }

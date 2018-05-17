@@ -5,26 +5,26 @@ use App\Stimpack\Contexts\File;
 
 class Relationship
 {
-    public function __construct($from, $to, $type)
+    public function __construct($first, $type, $second)
     {
-        $this->from = $from;
-        $this->to = $to;
+        $this->first = $first;
         $this->type = $type;
+        $this->second = $second;
     }
     
-    public function from()
+    public function first()
     {
-        return $this->from;
+        return $this->first;
     }
 
-    public function to()
-    {
-        return $this->to;
-    }
-    
     public function type()
     {
         return $this->type;
+    }
+    
+    public function second()
+    {
+        return $this->second;
     }
     
     public function render($bindMethod, $methodName, $className)
@@ -50,29 +50,23 @@ class Relationship
 
     public function concerns($entity)
     {
-        return $this->from == $entity->singularLowerCaseTitle() || $this->to == $entity->singularLowerCaseTitle();
+        return $this->first == $entity->tableSingularCase();
     }
 
-    public function renderFor($entity)
+    public function renderMethod($entity)
     {
-        if($this->type == "ManyToMany")
-        {
-            if($this->from == $entity->singularLowerCaseTitle()) {
-                return $this->render("belongsToMany", str_plural(camel_case($this->to)), studly_case($this->to));
-            }
-            if($this->to == $entity->singularLowerCaseTitle()) {
-                return $this->render("belongsToMany", str_plural(camel_case($this->from)), studly_case($this->from));
-            }            
-        }
-
-        if($this->type == "OneToMany")
-        {
-            if($this->from == $entity->singularLowerCaseTitle()) {
-                return $this->render("belongsTo", camel_case($this->to), studly_case($this->to));
-            }
-            if($this->to == $entity->singularLowerCaseTitle()) {
-                return $this->render("hasMany", str_plural(camel_case($this->from)), studly_case($this->from));
-            }
-        }        
-    }    
+        return str_pair_replace(
+            collect([
+                "METHOD_NAME" => ($this->type == "belongsTo") ? $entity->methodSingularCase($this->second) : $entity->methodPluralCase($this->second),
+                "BIND_METHOD" => $this->type,
+                "CLASS_NAME" => $entity->classCase($this->second)
+            ]),
+            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/genericRelationship.stub"))
+        );
+    }
+    
+    public function toString()
+    {
+        return $this->first . " " . $this->type . " " . $this->second;
+    }
 }

@@ -18,6 +18,8 @@ class EntityFactory
         $this->directives = $directives;
     }
 
+    /* API *********************************************************** */    
+
     public static function makeWith($directives)
     {
         return (new EntityFactory($directives));
@@ -28,6 +30,8 @@ class EntityFactory
         $this->segments = $segments;
         return $this->all();
     }
+
+    /* END API *********************************************************** */    
 
     public function all()
     {
@@ -91,8 +95,14 @@ class EntityFactory
                 return preg_match('/(.*)_id$/', $attribute->name());
             })->map(function($attribute) use($entity) {
                 preg_match('/(.*)_id$/', $attribute->name(), $matches);
-                $ownerTableName = $matches[1];
-                return new Relationship($ownerTableName, snake_case(str_singular($entity->title())), "OneToMany");
+                $first = $matches[1];
+                $second = snake_case(str_singular($entity->title()));
+                
+                return collect([
+                    new Relationship($first, "hasMany", $second),
+                    new Relationship($second, "belongsTo", $first)                    
+                ]);
+
             });
         })->flatten();
     }
@@ -119,8 +129,11 @@ class EntityFactory
     {
         return $this->manyToManyRelationshipEntities()->map(function($entity) {
             preg_match($this->manyToManyRegExp(),$entity->title(), $matches);
-            return new Relationship($matches[1], $matches[2], "ManyToMany");
-        });
+            return collect([
+                new Relationship($matches[1], "belongsToMany", $matches[2]),
+                new  Relationship($matches[2], "belongsToMany", $matches[1])
+            ]);
+        })->flatten();
     }    
     
     public function isPureTable($segment)

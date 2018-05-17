@@ -51,11 +51,11 @@ class ModelEntity extends Entity
         $methods = $this->allRelationships()->filter(function($relationship) {
             return $relationship->concerns($this); 
         })->map(function($relationship) {
-            return $relationship->renderFor($this);
+            return $relationship->renderMethod($this);
         })->implode("\n\n");
 
         $content = $this->replaceOrDestroyLine("RELATIONSHIPS", $methods, $content);
-        
+
         return $content;
     }
 
