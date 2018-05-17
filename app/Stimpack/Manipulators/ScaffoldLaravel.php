@@ -11,34 +11,27 @@ use Log;
 
 class ScaffoldLaravel extends Manipulator
 {
-    public function perform() {
-        
-        $result = $this->createFilesFromPseudoCode();
-
-        return [
-            "messages" => $result
-        ];        
-    }
-
-    public function createFilesFromPseudoCode()
+    public function __construct($data, $globalParameters = 0)
     {
-        // Clean, segment and validate the supplied pseudoCode
-        // Then we use it to build an ObjectModel to create files and inject values as needed    
-        return LaravelObjectModel::make((object) [
+        parent::__construct($data, $globalParameters);
+        $this->laravelObjectModel = LaravelObjectModel::make((object) [
             "targetProjectName" => $this->data->context->targetProjectName,
             "targetProjectPath" => $this->targetProjectPath()            
-        ])->installFrom(
-            PseudoParser::parse($this->data->pseudoCode)
-        );
+        ]);
+    }
+
+    public function perform() {
+        return [
+            "messages" => $this->laravelObjectModel->installFrom(
+                PseudoParser::parse($this->data->pseudoCode)
+            )
+        ];        
     }
 
     public static function registerSupportRoutes()
     {
         \Route::get('/manipulators/support/scaffoldlaravel/preview', function() {
-            return LaravelObjectModel::make((object) [
-                "targetProjectName" => $this->data->context->targetProjectName,
-                "targetProjectPath" => $this->targetProjectPath()            
-            ])->previewFrom(
+            return $this->laravelObjectModel->previewFrom(
                 PseudoParser::parse($this->data->pseudoCode)
             );
         });
