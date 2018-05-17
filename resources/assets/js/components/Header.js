@@ -7,7 +7,7 @@ export default class Header extends Component {
         return (
             <div id="header" className="header">
                 <div className="logo">
-                    <span className="logo-text">Stimpack</span>
+                    <span className="logo-text headline-text-style">Stimpack</span>
                 </div>
                 <div className="menu">
                     <div className="menu-top">

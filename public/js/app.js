@@ -66080,7 +66080,7 @@ var Header = function (_Component) {
                     { className: 'logo' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'span',
-                        { className: 'logo-text' },
+                        { className: 'logo-text headline-text-style' },
                         'Stimpack'
                     )
                 ),

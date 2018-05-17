@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import BaseStarterManipulator from "../BaseStarterManipulator";
 
 class Create extends BaseStarterManipulator {
-    
+
     static getDefaultManipulatorParameters() {
         return {
             name: "Create",
             targetProjectName: "",
-            isStarter: true                                    
+            isStarter: true
         }
     }
 
@@ -25,6 +25,6 @@ class Create extends BaseStarterManipulator {
 }
 
 export default connect(
-    BaseStarterManipulator.mapStateToProps, 
+    BaseStarterManipulator.mapStateToProps,
     BaseStarterManipulator.matchDispatchToProps
 )(Create);

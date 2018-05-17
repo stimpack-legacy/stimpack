@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:600,400|Press+Start+2P');
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
+// Bootstrap
+@import "~bootstrap/scss/bootstrap.scss";
+
 //@import "node_modules/font-awesome/scss/font-awesome.scss";
 @import "variables";
 @import "switch";
@@ -12,8 +15,7 @@
 @import "controlBar";
 @import "_modal";
 @import "_log";
-
-@import "~bootstrap/scss/bootstrap.scss";
+@import "global";
 
 @import "~storm-react-diagrams/src/sass/main";
 @import "_storm-react-diagrams-overrides.scss";
