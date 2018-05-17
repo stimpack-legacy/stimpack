@@ -30,7 +30,7 @@ class ScaffoldLaravel extends Manipulator
 
     public static function registerSupportRoutes()
     {
-        \Route::get('/manipulators/support/scaffoldlaravel/preview', function() {
+        \Route::get('/manipulators/ScaffoldLaravel/preview', function() {
             return $this->laravelObjectModel->previewFrom(
                 PseudoParser::parse($this->data->pseudoCode)
             );

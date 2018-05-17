@@ -51,7 +51,7 @@ export default class Queue {
 
         $.ajax({
             type: "POST",
-            url: "/perform/" + item.name,
+            url: "/manipulators/" + item.name + "/perform",
             data: {
                 data: nonCircularStringify(item),
                 globalParameters: this.globalParameters
