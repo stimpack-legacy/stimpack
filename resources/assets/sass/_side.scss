@@ -21,12 +21,16 @@
     width: 210px;
     max-width: 210px;
     height: 55px;
-    border-color: darken($base-color, 5%);
-    border-width: 2px;
+    border: none;
+    box-shadow: -2px 2px $shadow;
+    -webkit-transition: box-shadow 0.35s; /* Safari */
+    transition: box-shadow 0.35s;
+    outline: none;
 }
 
 .side-button:hover{
-    background-color: $theme-color;
+    background: $theme-color;
     color: $darkest;
     cursor: pointer;
+    box-shadow: 0px 0px $shadow;
 }

@@ -340,7 +340,7 @@ li a:hover {
   text-transform: uppercase;
   font-family: "Press Start 2P", cursive;
   text-shadow: 2px 2px #646f81;
-  font-size: 20px;
+  font-size: 21px;
 }
 
 .menu {
@@ -406,14 +406,24 @@ li a:hover {
   width: 210px;
   max-width: 210px;
   height: 55px;
-  border-color: #262a31;
-  border-width: 2px;
+  border: none;
+  -webkit-box-shadow: -2px 2px #2a2f36;
+          box-shadow: -2px 2px #2a2f36;
+  -webkit-transition: box-shadow 0.35s;
+  /* Safari */
+  -webkit-transition: -webkit-box-shadow 0.35s;
+  transition: -webkit-box-shadow 0.35s;
+  transition: box-shadow 0.35s;
+  transition: box-shadow 0.35s, -webkit-box-shadow 0.35s;
+  outline: none;
 }
 
 .side-button:hover {
-  background-color: #40fc3a;
+  background: #40fc3a;
   color: #383d48;
   cursor: pointer;
+  -webkit-box-shadow: 0px 0px #2a2f36;
+          box-shadow: 0px 0px #2a2f36;
 }
 
 .controlBarItem {
