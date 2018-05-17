@@ -34,8 +34,13 @@ class ScaffoldLaravel extends Manipulator
 
     public static function registerSupportRoutes()
     {
-        \Route::get('/onthefly', function() {
-            return "Im registering somewhere else :D!";
+        \Route::get('/manipulators/support/scaffoldlaravel/preview', function() {
+            return LaravelObjectModel::make((object) [
+                "targetProjectName" => $this->data->context->targetProjectName,
+                "targetProjectPath" => $this->targetProjectPath()            
+            ])->previewFrom(
+                PseudoParser::parse($this->data->pseudoCode)
+            );
         });
     }
 }

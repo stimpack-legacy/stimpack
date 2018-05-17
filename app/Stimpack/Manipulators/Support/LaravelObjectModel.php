@@ -37,6 +37,21 @@ class LaravelObjectModel
         })->flatten();
     }
 
+    // So far just a placeholder!
+    public function previewFrom($segments)
+    {
+        return collect(["placeholder :-)"]);
+        $this->segments = $segments;
+
+        if(!$this->validate()) {
+            return $this->errors;
+        }
+
+        return EntityFactory::makeWith($this->directives)->getAllEntetiesFrom($this->segments)->map(function($entity) {
+            return $entity->preview();
+        })->flatten();
+    }
+
     /* END API *********************************************************** */   
 
     private function validate()
