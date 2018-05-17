@@ -34,24 +34,9 @@ class Entity
         return $this->attributes;
     }    
 
-    public function singularLowerCaseTitle()
-    {
-        return strtolower($this->title());
-    }
-
-    public function pluralStudlyCaseTitle()
-    {
-        return studly_case(Str::plural(class_basename($this->title())));
-    }
-
     public function allRelationships()
     {
         return $this->allRelationships;
-    }
-
-    public function pluralSnakeCaseTitle()
-    {
-        return Str::plural(Str::snake(class_basename($this->title())));
     }
 
     public function migrationColumns()
@@ -61,32 +46,18 @@ class Entity
         })->flatten()->implode("\n");
     }
 
-    public function manyToManyRelationships()
-    {
-        $manyToManyRelationships = $this->allModels->filter(function($model) {
-            
-        });
-
-        return collect([]);
-    }
-
+    // SHOULD BE MOVED TO FILE!
     public function replaceOrDestroyLine($marker, $replacements, $content)
     {
         $pattern = '/(^[^\S\n]*)' . $marker . '\n/m';
         if($replacements == "") {            
             return preg_replace($pattern, "", $content);    
         }
-        //return $pattern;
+        
         return str_block_replace($marker, $replacements, $content);
-
-        // placeholder implementation
-        //return $content;
     }
 
-    public function getBindMethod()
-    {
-        return "hasMany";
-    }
+    /* TITLE FORMATTING ************************************************* */
 
     public function classCase($string = false)
     {
@@ -119,5 +90,23 @@ class Entity
             return str_plural(camel_case($this->title()));
         }
         return str_plural(camel_case($string));
-    }    
+    }
+
+    public function pluralStudlyCaseTitle($string = false)
+    {
+        if(!$string) {
+            return studly_case(Str::plural(class_basename($this->title())));
+        }
+        return studly_case(Str::plural(class_basename($string)));
+    }
+
+    public function pluralSnakeCaseTitle($string = false)
+    {
+        if(!$string) {        
+            return Str::plural(Str::snake(class_basename($this->title())));
+        }
+        return Str::plural(Str::snake(class_basename($string)));
+    }
+    
+    /* END TITLE FORMATTING ************************************************* */
 }

@@ -20,6 +20,15 @@ class ManipulatorController extends Controller
             abort(500, $e->getMessage());
         }
         return $feedback;
-    }     
+    }
+    
+    public static function registerSupportRoutes()
+    {
+        classes_in_path("app/Stimpack/Manipulators")->each(function($class) {
+            if(method_exists($class, "registerSupportRoutes")) {
+                $class::registerSupportRoutes();
+            }
+        });
+    }
 }
 

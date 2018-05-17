@@ -44,19 +44,24 @@ class ModelEntity extends Entity
             File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"))
         );
 
-        // The old way - regex :O
-        // $content = File::addMethod($content, File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/belongsToRelationship.stub")));
-        
-        
+        $content = $this->replaceOrDestroyLine("RELATIONSHIPS", $this->methodsString(), $content);
+
+        return $content;
+    }
+
+    private function methodsString()
+    {
         $methods = $this->allRelationships()->filter(function($relationship) {
             return $relationship->concerns($this); 
         })->map(function($relationship) {
             return $relationship->renderMethod($this);
-        })->implode("\n\n");
+        });
 
-        $content = $this->replaceOrDestroyLine("RELATIONSHIPS", $methods, $content);
+        if($methods->isNotEmpty()) {
+            return "\n" . $methods->implode("\n\n");
+        }
 
-        return $content;
+        return "";
     }
 
     private function makeMigrationFile()

@@ -63,30 +63,37 @@ if (! function_exists('str_pair_replace')) {
 
 define("INDENTATION", "    ");
 
-/*
-if (! function_exists('str_pair_replace')) {
-    function str_pair_replace($replacementPairs, $target)
-    {
-        return $replacementPairs->map(function($value, $key) {
-            return collect([$key => $value]);
-        })->reduce(function($content, $pair) {
-            return str_replace($pair->keys()->first(), $pair->values()->first(), $content);
-        }, $target);
+
+function classes_in_path($path)
+{
+    $path = base_path($path);
+    $fqcns = array();
+    
+    $allFiles = new IteratorIterator(new DirectoryIterator($path));
+    $phpFiles = new RegexIterator($allFiles, '/\.php$/');
+    foreach ($phpFiles as $phpFile) {
+        $content = file_get_contents($phpFile->getRealPath());
+        $tokens = token_get_all($content);
+        $namespace = '';
+        for ($index = 0; isset($tokens[$index]); $index++) {
+            if (!isset($tokens[$index][0])) {
+                continue;
+            }
+            if (T_NAMESPACE === $tokens[$index][0]) {
+                $index += 2; // Skip namespace keyword and whitespace
+                while (isset($tokens[$index]) && is_array($tokens[$index])) {
+                    $namespace .= $tokens[$index++][1];
+                }
+            }
+            if (T_CLASS === $tokens[$index][0]) {
+                $index += 2; // Skip class keyword and whitespace
+                $fqcns[] = $namespace.'\\'.$tokens[$index][1];
+    
+                # break if you have one class per file (psr-4 compliant)
+                # otherwise you'll need to handle class constants (Foo::class)
+                break;
+            }
+        }
     }
+    return collect($fqcns);
 }
-
-/*
-
-function sample_block() {
-    return
-"kniv
-yxa
-såg";
-}
-
-function sample_target() {
-    return
-"lista = [
-    VERKTYG
-]";
-}*/

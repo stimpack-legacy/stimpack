@@ -31,4 +31,11 @@ class ScaffoldLaravel extends Manipulator
             PseudoParser::parse($this->data->pseudoCode)
         );
     }
+
+    public static function registerSupportRoutes()
+    {
+        \Route::get('/onthefly', function() {
+            return "Im registering somewhere else :D!";
+        });
+    }
 }

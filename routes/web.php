@@ -14,3 +14,7 @@ Route::get('/register/{token}', 'TokenController@register');
 Route::get('/preview/file/at/{path}', function($path) {
     return view("file")->with(["content" => \App\Stimpack\Contexts\File::init()->get($path)]);
 })->where('path', '.*');
+
+
+// Each manipulator have the option to register support routes to assist while the user conigure it.
+App\Http\Controllers\ManipulatorController::registerSupportRoutes();

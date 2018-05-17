@@ -54,12 +54,11 @@ class EntityFactory
             return $entity;
         })->flatten();
 
-        return $this->allEntities->map(function($entity) {
-            // And relationships
+        // Attach relationships
+        return $this->allEntities->map(function($entity) {            
             $entity->allRelationships = $this->allRelationships();
             return $entity;
         });
-
     }
 
     public function modelEntities() {
@@ -107,6 +106,17 @@ class EntityFactory
         })->flatten();
     }
 
+    public function manyToManyRelationships()
+    {
+        return $this->manyToManyRelationshipEntities()->map(function($entity) {
+            preg_match($this->manyToManyRegExp(),$entity->title(), $matches);
+            return collect([
+                new Relationship($matches[1], "belongsToMany", $matches[2]),
+                new  Relationship($matches[2], "belongsToMany", $matches[1])
+            ]);
+        })->flatten();
+    }
+
     public function allRelationships()
     {
         return $this->oneToManyRelationships()->concat(
@@ -123,17 +133,6 @@ class EntityFactory
     public function isManyToManyRelationship($segment)
     {  
         return (!$this->isModel($segment)) && preg_match($this->manyToManyRegExp(),$segment->title());
-    }
-
-    public function manyToManyRelationships()
-    {
-        return $this->manyToManyRelationshipEntities()->map(function($entity) {
-            preg_match($this->manyToManyRegExp(),$entity->title(), $matches);
-            return collect([
-                new Relationship($matches[1], "belongsToMany", $matches[2]),
-                new  Relationship($matches[2], "belongsToMany", $matches[1])
-            ]);
-        })->flatten();
     }    
     
     public function isPureTable($segment)
@@ -145,7 +144,7 @@ class EntityFactory
     {
         // If segment matches MODEL1_MODEL2
         $modelOptions = $this->modelEntities()->map(function($modelEntity) {
-            return $modelEntity->singularLowerCaseTitle();
+            return $modelEntity->tableSingularCase();
         })->implode("|");
         return "/^(" . $modelOptions . ")_(" . $modelOptions . ")$/";
     }
