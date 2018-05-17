@@ -8,6 +8,7 @@ use App\Stimpack\Manipulators\Support\LaravelObjectModel;
 use App\Stimpack\Contexts\Project;
 use App\Stimpack\Contexts\File;
 use Log;
+use Route;
 
 class ScaffoldLaravel extends Manipulator
 {
@@ -30,7 +31,7 @@ class ScaffoldLaravel extends Manipulator
 
     public static function registerSupportRoutes()
     {
-        \Route::get('/manipulators/ScaffoldLaravel/preview', function() {
+        Route::get('/manipulators/ScaffoldLaravel/preview', function() {
             return $this->laravelObjectModel->previewFrom(
                 PseudoParser::parse($this->data->pseudoCode)
             );
