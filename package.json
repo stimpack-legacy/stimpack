@@ -32,6 +32,7 @@
         "react-autolink-text2": "^3.2.0",
         "react-modal": "^3.3.2",
         "react-redux": "^5.0.6",
+        "react-tabs": "^2.2.2",
         "redux": "^3.7.2",
         "storm-react-diagrams": "^5.1.1"
     }
