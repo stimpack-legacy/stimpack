@@ -14,12 +14,9 @@ class Create extends BaseStarterManipulator {
 
     renderSettings() {
         return (
-            <div className="container">
-                <h4>Create project </h4>
                 <div className="form-group">
                     <input name="targetProjectName" placeholder="new-project" size="40" value={this.state.data.targetProjectName} onChange={this.setDataParameter.bind(this)} type="text" className="form-control" />
                 </div>
-            </div>
         );
     }
 }

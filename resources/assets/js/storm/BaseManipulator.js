@@ -12,25 +12,25 @@ import AllManipulators from "./AllManipulators";
 
 export default class BaseManipulator extends BaseWidget {
 	constructor(props) {
-        super("srd-default-node", props);                
-        Modal.setAppElement('#main');        
+        super("srd-default-node", props);
+        Modal.setAppElement('#main');
         this.state = {};
         if(!(typeof(this.props.node.data) == "object")) {
-            this.state.data = AllManipulators[this.constructor.name].getDefaultManipulatorParameters();            
+            this.state.data = AllManipulators[this.constructor.name].getDefaultManipulatorParameters();
             // attach data to node
             this.props.node.data = this.state.data;
         } else {
-            this.state.data = this.props.node.data; 
-        }        
+            this.state.data = this.props.node.data;
+        }
 	}
 
 	generatePort(port) {
 		return <DefaultPortLabel model={port} key={port.id} />;
     }
 
-	render() {        
+	render() {
 		return (
-            
+
 			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()}>
                 {this.renderNode()}
                 <Modal
@@ -40,20 +40,20 @@ export default class BaseManipulator extends BaseWidget {
                     contentLabel="Example Modal"
                     overlayClassName="no-overlay"
                     className="settings-modal"
-                >                
+                >
                     {this.renderSettings()}
-                    <div className="container settings-modal-buttons">                    
-                        <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
-                    </div>                    
+                    <div className="modal-footer settings-modal-buttons">
+                        <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
+                    </div>
                 </Modal>
-			</div> 
+			</div>
 		);
     }
 
     renderNode() {
         return (
             <wrapper>
-                
+
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.manipulator.name}</div>
                 </div>
@@ -76,7 +76,7 @@ export default class BaseManipulator extends BaseWidget {
 
         // Why did I do this? Serializing issue??
         this.props.node.data = this.state.data;
-    } 
+    }
 
     openModal() {
         this.setState({
@@ -86,15 +86,15 @@ export default class BaseManipulator extends BaseWidget {
         // Prevent focus bug
         this.props.engine.diagramModel.setLocked(true);
     }
-    
+
     afterOpenModal() {
-        // 
+        //
     }
-    
+
     closeModal() {
         this.setState({modalIsOpen: false});
         // Prevent focus bug
-        this.props.engine.diagramModel.setLocked(false);        
+        this.props.engine.diagramModel.setLocked(false);
     }
 
     isStarter() {
@@ -104,18 +104,18 @@ export default class BaseManipulator extends BaseWidget {
     manipulator() {
         return this.props.node.state.manipulator;
     }
-    
+
     static mapStateToProps(state) {
         return {
             engine: state.engine,
             foo: state.foo
         };
     }
-    
+
     static matchDispatchToProps(dispatch){
         return bindActionCreators(
             {
                 //
             }, dispatch);
-    }    
+    }
 }

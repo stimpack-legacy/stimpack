@@ -60,7 +60,7 @@ class Save extends Component {
                         Upload to stimpack.io
                     </button>
                     <button onClick={this.closeModal.bind(this)} className="btn button-cancel modal-buttons-style">
-                        Cancel
+                        Close
                     </button>
                 </div>
             </Modal>
