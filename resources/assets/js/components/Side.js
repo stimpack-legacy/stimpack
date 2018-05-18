@@ -7,6 +7,7 @@ import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
 import AllManipulators from "../storm/AllManipulators";
 import {reDrawDiagram} from '../actions/index'
 import {registerLatestNode} from '../actions/index'
+import { studlyCaseWithSpace } from "../Helpers";
 
 class Side extends Component {
     constructor(props) {
@@ -18,8 +19,10 @@ class Side extends Component {
     render() {
         return (
             <div id="side" className="side">
-                {this.renderStarters()}
-                {this.renderManipulators()}
+                <div className="side-button-wrapper">
+                    {this.renderStarters()}
+                    {this.renderManipulators()}
+                </div>
             </div>
         );
     }
@@ -63,7 +66,7 @@ class Side extends Component {
             return (
                 <div key={manipulator.getDefaultManipulatorParameters().name}>
                     <button value={manipulator.getDefaultManipulatorParameters().name} onClick={this.addManipulator.bind(this)} className="side-button starter-button">
-                        {manipulator.getDefaultManipulatorParameters().name}
+                        {studlyCaseWithSpace(manipulator.getDefaultManipulatorParameters().name)}
                     </button>
                 </div>
             )
@@ -78,7 +81,7 @@ class Side extends Component {
             return (
                 <div key={manipulator.getDefaultManipulatorParameters().name}>
                     <button value={manipulator.getDefaultManipulatorParameters().name} onClick={this.addManipulator.bind(this)} className="side-button">
-                        {manipulator.getDefaultManipulatorParameters().name}
+                        {studlyCaseWithSpace(manipulator.getDefaultManipulatorParameters().name)}
                     </button>
                 </div>
             )

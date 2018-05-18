@@ -9,6 +9,7 @@ import { DiagramEngine } from "storm-react-diagrams";
 import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
 import Modal from 'react-modal';
 import AllManipulators from "./AllManipulators";
+import { studlyCaseWithSpace } from "../Helpers";
 
 export default class BaseManipulator extends BaseWidget {
 	constructor(props) {
@@ -42,7 +43,7 @@ export default class BaseManipulator extends BaseWidget {
                     className="settings-modal"
                 >
 					<div className="container">
-		                <h4>{this.spaceBeforeUppercase()}</h4>
+		                <h4>{studlyCaseWithSpace(this.state.data.name)}</h4>
 		                <hr />
 	                    {this.renderSettings()}
 	                    <div className="modal-footer settings-modal-buttons">
@@ -93,10 +94,6 @@ export default class BaseManipulator extends BaseWidget {
 
     afterOpenModal() {
         //
-    }
-
-	spaceBeforeUppercase(){
-        return this.state.data.name.replace(/([A-Z])/g, ' $1').trim();
     }
 
     closeModal() {

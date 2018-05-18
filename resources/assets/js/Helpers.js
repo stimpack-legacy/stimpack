@@ -12,3 +12,7 @@ export const nonCircularStringify = function(data, callback = null, indentation 
         return value;
     }, indentation);
 }
+
+export const studlyCaseWithSpace = function(name){
+    return name.replace(/([A-Z])/g, ' $1').trim();
+}
