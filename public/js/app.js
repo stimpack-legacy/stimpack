@@ -67063,8 +67063,12 @@ var Side = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { id: 'side', className: 'side' },
-                this.renderStarters(),
-                this.renderManipulators()
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'side-button-wrapper' },
+                    this.renderStarters(),
+                    this.renderManipulators()
+                )
             );
         }
     }, {

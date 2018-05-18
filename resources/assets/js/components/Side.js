@@ -19,8 +19,10 @@ class Side extends Component {
     render() {
         return (
             <div id="side" className="side">
-                {this.renderStarters()}
-                {this.renderManipulators()}
+                <div className="side-button-wrapper">
+                    {this.renderStarters()}
+                    {this.renderManipulators()}
+                </div>
             </div>
         );
     }
