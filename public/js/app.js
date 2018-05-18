@@ -21230,6 +21230,7 @@ var ManipulatorNodeModel = function (_NodeModel) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_modal__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_modal__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__AllManipulators__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Helpers__ = __webpack_require__(128);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -21241,6 +21242,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -21302,7 +21304,7 @@ var BaseManipulator = function (_BaseWidget) {
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                             "h4",
                             null,
-                            this.spaceBeforeUppercase()
+                            Object(__WEBPACK_IMPORTED_MODULE_7__Helpers__["b" /* studlyCaseWithSpace */])(this.state.data.name)
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("hr", null),
                         this.renderSettings(),
@@ -21374,11 +21376,6 @@ var BaseManipulator = function (_BaseWidget) {
         key: "afterOpenModal",
         value: function afterOpenModal() {
             //
-        }
-    }, {
-        key: "spaceBeforeUppercase",
-        value: function spaceBeforeUppercase() {
-            return this.state.data.name.replace(/([A-Z])/g, ' $1').trim();
         }
     }, {
         key: "closeModal",
@@ -40355,6 +40352,7 @@ function verifyPlainObject(value, displayName, methodName) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_modal__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_modal__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__AllManipulators__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Helpers__ = __webpack_require__(128);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -40366,6 +40364,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -40427,7 +40426,7 @@ var BaseStarter = function (_BaseWidget) {
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                             "h4",
                             null,
-                            this.state.data.name
+                            Object(__WEBPACK_IMPORTED_MODULE_7__Helpers__["b" /* studlyCaseWithSpace */])(this.state.data.name)
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("hr", null),
                         this.renderSettings(),
@@ -40660,6 +40659,7 @@ function getPanelsCount(children) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return nonCircularStringify; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return studlyCaseWithSpace; });
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var nonCircularStringify = function nonCircularStringify(data) {
@@ -40678,6 +40678,10 @@ var nonCircularStringify = function nonCircularStringify(data) {
         }
         return value;
     }, indentation);
+};
+
+var studlyCaseWithSpace = function studlyCaseWithSpace(name) {
+    return name.replace(/([A-Z])/g, ' $1').trim();
 };
 
 /***/ }),
@@ -67020,6 +67024,7 @@ var Header = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Helpers__ = __webpack_require__(128);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67027,6 +67032,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -67108,7 +67114,7 @@ var Side = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { value: manipulator.getDefaultManipulatorParameters().name, onClick: _this2.addManipulator.bind(_this2), className: 'side-button starter-button' },
-                        manipulator.getDefaultManipulatorParameters().name
+                        Object(__WEBPACK_IMPORTED_MODULE_8__Helpers__["b" /* studlyCaseWithSpace */])(manipulator.getDefaultManipulatorParameters().name)
                     )
                 );
             });
@@ -67127,7 +67133,7 @@ var Side = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { value: manipulator.getDefaultManipulatorParameters().name, onClick: _this3.addManipulator.bind(_this3), className: 'side-button' },
-                        manipulator.getDefaultManipulatorParameters().name
+                        Object(__WEBPACK_IMPORTED_MODULE_8__Helpers__["b" /* studlyCaseWithSpace */])(manipulator.getDefaultManipulatorParameters().name)
                     )
                 );
             });
