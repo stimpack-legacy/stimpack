@@ -40525,7 +40525,7 @@ function matchDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(AddManipulator));
+/* unused harmony default export */ var _unused_webpack_default_export = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(AddManipulator));
 
 /***/ }),
 /* 124 */
@@ -67201,7 +67201,13 @@ var Header = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__controls_AddManipulator__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_modal__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_modal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_redux__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__actions_index__ = __webpack_require__(18);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67214,13 +67220,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
+
+
+
+
 var Side = function (_Component) {
     _inherits(Side, _Component);
 
-    function Side() {
+    function Side(props) {
         _classCallCheck(this, Side);
 
-        return _possibleConstructorReturn(this, (Side.__proto__ || Object.getPrototypeOf(Side)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Side.__proto__ || Object.getPrototypeOf(Side)).call(this, props));
+
+        __WEBPACK_IMPORTED_MODULE_2_react_modal___default.a.setAppElement('#main');
+        _this.state = {};
+        return _this;
     }
 
     _createClass(Side, [{
@@ -67229,50 +67245,139 @@ var Side = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { id: 'side', className: 'side' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'Create'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'Load'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'CreateFile'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'Delete'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'ReplaceInFile'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'ScaffoldLaravel'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'button',
-                    { className: 'side-button' },
-                    'ThrowBackEndError'
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__controls_AddManipulator__["a" /* default */], null)
+                this.renderStarters(),
+                this.renderManipulators()
             );
+        }
+    }, {
+        key: 'addManipulator',
+        value: function addManipulator(event) {
+            var engine = this.props.engine;
+
+            var model = engine.getDiagramModel();
+
+            var node = new __WEBPACK_IMPORTED_MODULE_5__storm_ManipulatorNodeModel__["a" /* ManipulatorNodeModel */]({
+                name: event.target.value
+            });
+
+            node.addPorts();
+
+            node.setPosition(100 + Math.random() * 100, 100 + Math.random() * 100);
+            model.addNode(node);
+
+            var latestNode = model.nodes[this.props.latestNode];
+            if (latestNode) {
+                node.setPosition(latestNode.x + 200, latestNode.y);
+                setTimeout(function () {
+                    if (node.isNormal() && !latestNode.isIndependent()) {
+                        var fromPort = latestNode.getOutPorts()[0]; // Assume 1 port only
+                        var toPort = node.getInPorts()[0]; // Assume 1 port only
+                        var link = fromPort.link(toPort);
+                        model.addAll(link);
+                        this.props.reDrawDiagram(Date.now());
+                    }
+                }.bind(this), 0);
+            }
+
+            this.props.registerLatestNode(node.id);
+            this.props.reDrawDiagram(Date.now());
+            if (!event.shiftKey) {
+                this.closeModal();
+            }
+        }
+    }, {
+        key: 'renderModal',
+        value: function renderModal() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_2_react_modal___default.a,
+                {
+                    isOpen: this.state.modalIsOpen,
+                    onAfterOpen: this.afterOpenModal.bind(this),
+                    onRequestClose: this.closeModal.bind(this),
+                    contentLabel: 'Example Modal',
+                    overlayClassName: 'no-overlay',
+                    className: 'manipulator-modal small'
+                },
+                this.renderStarters(),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                this.renderManipulators()
+            );
+        }
+    }, {
+        key: 'renderStarters',
+        value: function renderStarters() {
+            var _this2 = this;
+
+            return Object.values(__WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__["a" /* default */]).filter(function (manipulator) {
+                return Boolean(manipulator.getDefaultManipulatorParameters().isStarter);
+            }).map(function (manipulator) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { key: manipulator.getDefaultManipulatorParameters().name },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { value: manipulator.getDefaultManipulatorParameters().name, onClick: _this2.addManipulator.bind(_this2), className: 'side-button starter-button' },
+                        manipulator.getDefaultManipulatorParameters().name
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'renderManipulators',
+        value: function renderManipulators() {
+            var _this3 = this;
+
+            return Object.values(__WEBPACK_IMPORTED_MODULE_6__storm_AllManipulators__["a" /* default */]).filter(function (manipulator) {
+                return !Boolean(manipulator.getDefaultManipulatorParameters().isStarter) && !Boolean(manipulator.getDefaultManipulatorParameters().isIndependent);
+            }).map(function (manipulator) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { key: manipulator.getDefaultManipulatorParameters().name },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { value: manipulator.getDefaultManipulatorParameters().name, onClick: _this3.addManipulator.bind(_this3), className: 'side-button' },
+                        manipulator.getDefaultManipulatorParameters().name
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'openModal',
+        value: function openModal() {
+            this.setState({
+                modalIsOpen: true
+            });
+        }
+    }, {
+        key: 'afterOpenModal',
+        value: function afterOpenModal() {
+            //
+        }
+    }, {
+        key: 'closeModal',
+        value: function closeModal() {
+            this.setState({ modalIsOpen: false });
         }
     }]);
 
     return Side;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (Side);
+function mapStateToProps(state) {
+    return {
+        engine: state.engine,
+        latestNode: state.latestNode
+    };
+}
+
+function matchDispatchToProps(dispatch) {
+    return Object(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* bindActionCreators */])({
+        reDrawDiagram: __WEBPACK_IMPORTED_MODULE_7__actions_index__["b" /* reDrawDiagram */],
+        registerLatestNode: __WEBPACK_IMPORTED_MODULE_7__actions_index__["c" /* registerLatestNode */]
+    }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_3_react_redux__["b" /* connect */])(mapStateToProps, matchDispatchToProps)(Side));
 
 /***/ }),
 /* 313 */
