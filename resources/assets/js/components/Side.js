@@ -54,27 +54,6 @@ class Side extends Component {
 
         this.props.registerLatestNode(node.id);
         this.props.reDrawDiagram(Date.now());
-        if (!event.shiftKey) {
-            this.closeModal();
-        }
-    }
-
-
-    renderModal() {
-        return (
-            <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
-            onRequestClose={this.closeModal.bind(this)}
-            contentLabel="Example Modal"
-            overlayClassName="no-overlay"
-            className="manipulator-modal small"
-            >
-                {this.renderStarters()}
-                <hr />
-                {this.renderManipulators()}
-            </Modal>
-        );
     }
 
     renderStarters() {
@@ -104,20 +83,6 @@ class Side extends Component {
                 </div>
             )
         })
-    }
-
-    openModal() {
-        this.setState({
-            modalIsOpen: true,
-        });
-    }
-
-    afterOpenModal() {
-        //
-    }
-
-    closeModal() {
-        this.setState({modalIsOpen: false});
     }
 }
 
