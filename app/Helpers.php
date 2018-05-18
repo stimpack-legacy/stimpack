@@ -97,3 +97,5 @@ function classes_in_path($path)
     }
     return collect($fqcns);
 }
+
+define('T123', "Hola again33!");

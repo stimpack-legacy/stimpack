@@ -40,7 +40,6 @@ class LaravelObjectModel
     // So far just a placeholder!
     public function previewFrom($segments)
     {
-        return collect(["placeholder :-)"]);
         $this->segments = $segments;
 
         if(!$this->validate()) {
