@@ -6,6 +6,7 @@ use App\Stimpack\Manipulators\Support\Entity\Entity;
 use App\Stimpack\Contexts\File;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use App\Stimpack\FilePreview;
 
 class ModelEntity extends Entity
 {
@@ -20,8 +21,8 @@ class ModelEntity extends Entity
 
     public function preview() {
         return collect([
-            $this->modelFilePath() => $this->modelFileContent(),
-            $this->migrationFilePath() => $this->migrationFileContent(),
+            new FilePreview($this->modelFilePath(), $this->modelFileContent()),
+            new FilePreview($this->migrationFilePath(), $this->migrationFileContent())
         ]);
     }    
 

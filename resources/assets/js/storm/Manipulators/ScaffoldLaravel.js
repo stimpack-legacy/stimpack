@@ -25,24 +25,23 @@ class ScaffoldLaravel extends BaseManipulator {
 
                     <TabPanel>
                         <div className="form-group code-text-area">
-                            <textarea rows="20" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
+                            <textarea rows="5" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
                         </div>
                     </TabPanel>
                     <TabPanel>
                         <div className="form-group code-text-area">
-                            <textarea rows="20" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
+                            <textarea rows="5" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
                         </div>
                     </TabPanel>
                     <TabPanel>
                         <p> This is some settings for you to change </p>
                     </TabPanel>
                     <TabPanel>
-                    <div className="form-group code-text-area">
-                        <textarea rows="20" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
-                    </div>
+                    <p> Here is the result </p>
+                    <button onClick={this.preview} >Update!</button>
                     </TabPanel>
                 </Tabs>
-                <button onClick={this.preview} >See preview!</button>
+                
             </div>
         );
     }
@@ -54,7 +53,7 @@ class ScaffoldLaravel extends BaseManipulator {
             url: "/manipulators/ScaffoldLaravel/preview",
             data: {
                 data: JSON.stringify({
-                    pseudoCode: "Car",
+                    pseudoCode: "Car\n\nHuman",
                     context: {
                         targetProjectName: ""
                     }
