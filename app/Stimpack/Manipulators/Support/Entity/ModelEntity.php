@@ -18,6 +18,13 @@ class ModelEntity extends Entity
         ]);
     }
 
+    public function preview() {
+        return collect([
+            $this->modelFilePath() => $this->modelFileContent(),
+            $this->migrationFilePath() => $this->migrationFileContent(),
+        ]);
+    }    
+
     private function makeModelFile()
     {
         $file = File::save(

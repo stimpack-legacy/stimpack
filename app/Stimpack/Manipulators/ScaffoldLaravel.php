@@ -16,9 +16,15 @@ class ScaffoldLaravel extends Manipulator
     {
         parent::__construct($data, $globalParameters);
         $this->laravelObjectModel = LaravelObjectModel::make((object) [
-            "targetProjectName" => $this->data->context->targetProjectName,
             "targetProjectPath" => $this->targetProjectPath()            
         ]);
+    }
+
+    public static function make() {
+        return new ScaffoldLaravel(
+            json_decode(request()->data),
+            json_decode(request()->globalParameters)
+        );
     }
 
     public function perform() {
@@ -31,9 +37,13 @@ class ScaffoldLaravel extends Manipulator
 
     public static function registerSupportRoutes()
     {
-        Route::get('/manipulators/ScaffoldLaravel/preview', function() {
-            return $this->laravelObjectModel->previewFrom(
-                PseudoParser::parse($this->data->pseudoCode)
+        Route::post('/manipulators/ScaffoldLaravel/preview', function() {
+            return LaravelObjectModel::make((object) [
+                "targetProjectPath" => '' // This is only a relative preview            
+            ])->previewFrom(
+                PseudoParser::parse(
+                    ScaffoldLaravel::make()->data->pseudoCode
+                )
             );
         });
     }

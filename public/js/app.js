@@ -61637,13 +61637,10 @@ function componentWillMount() {
 
 function componentWillReceiveProps(nextProps) {
   // Call this.constructor.gDSFP to support sub-classes.
-  // Use the setState() updater to ensure state isn't stale in certain edge cases.
-  function updater(prevState) {
-    var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
-    return state !== null && state !== undefined ? state : null;
+  var state = this.constructor.getDerivedStateFromProps(nextProps, this.state);
+  if (state !== null && state !== undefined) {
+    this.setState(state);
   }
-  // Binding "this" is important for shallow renderer support.
-  this.setState(updater.bind(this));
 }
 
 function componentWillUpdate(nextProps, nextState) {
@@ -64918,8 +64915,36 @@ var ScaffoldLaravel = function (_BaseManipulator) {
                             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("textarea", { rows: "20", name: "pseudoCode", placeholder: "Some Code Here...", value: this.state.data.pseudoCode, type: "text", className: "form-control", onChange: this.setDataParameter.bind(this) })
                         )
                     )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                    "button",
+                    { onClick: this.preview },
+                    "See preview!"
                 )
             );
+        }
+    }, {
+        key: "preview",
+        value: function preview() {
+            console.log("Sending request!");
+            $.ajax({
+                type: "POST",
+                url: "/manipulators/ScaffoldLaravel/preview",
+                data: {
+                    data: JSON.stringify({
+                        pseudoCode: "Car",
+                        context: {
+                            targetProjectName: ""
+                        }
+                    })
+                },
+                success: function (result) {
+                    console.log("Success!", result);
+                }.bind(this),
+                error: function (error) {
+                    console.log("Failiure!", error);
+                }.bind(this)
+            });
         }
     }], [{
         key: "getDefaultManipulatorParameters",
