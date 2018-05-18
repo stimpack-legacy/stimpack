@@ -28,11 +28,12 @@ class CreateFile extends BaseManipulator {
                     mode="php"
                     theme="monokai"
                     showGutter={false}
+                    height='350px'
+                    width='100%'                    
                     showPrintMargin={false}
                     highlightActiveLine={false}
                     onChange={this.changeContent.bind(this)}
-                    value={this.state.content}
-                    defaultValue="<?php Lets go!"
+                    value={this.state.data.content}
                     name="createxxx"
                     editorProps={
                         {$blockScrolling: true}
@@ -43,11 +44,10 @@ class CreateFile extends BaseManipulator {
     }
     
     changeContent(newValue) {
-        var content = newValue;
-        this.setState({
-            content
-        });
-
+        var data = this.state.data;
+        data.content = newValue;        
+        this.setState({data});
+        this.props.node.data = this.state.data;
     }
 }
 
