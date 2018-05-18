@@ -3,24 +3,21 @@ import {connect} from 'react-redux';
 import BaseStarterManipulator from "../BaseStarterManipulator";
 
 class Load extends BaseStarterManipulator {
-    
+
     static getDefaultManipulatorParameters() {
         return {
             name: "Load",
             targetProjectName: "",
-            isStarter: true                                    
+            isStarter: true
         }
     }
 
-    renderSettings() {        
+    renderSettings() {
         return (
-            <div className="container">
-                <h4>Create Database</h4>
-                <div className="form-group">
-                    <select name="targetProjectName" onChange={this.setDataParameter.bind(this)} value={this.state.data.targetProjectName} className="form-control" id="inputGroupSelect01">                                                  
-                        {this.renderProjects()}
-                    </select>
-              </div>
+            <div className="form-group">
+                <select name="targetProjectName" onChange={this.setDataParameter.bind(this)} value={this.state.data.targetProjectName} className="form-control" id="inputGroupSelect01">
+                    {this.renderProjects()}
+                </select>
             </div>
         );
     }
@@ -35,6 +32,6 @@ class Load extends BaseStarterManipulator {
 }
 
 export default connect(
-    BaseStarterManipulator.mapStateToProps, 
+    BaseStarterManipulator.mapStateToProps,
     BaseStarterManipulator.matchDispatchToProps
 )(Load);

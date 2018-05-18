@@ -21299,11 +21299,11 @@ var BaseManipulator = function (_BaseWidget) {
                     this.renderSettings(),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                         "div",
-                        { className: "container settings-modal-buttons" },
+                        { className: "modal-footer settings-modal-buttons" },
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                             "button",
-                            { className: "btn btn-stimpack", onClick: this.closeModal.bind(this) },
-                            "Close"
+                            { className: "btn modal-buttons-style", onClick: this.closeModal.bind(this) },
+                            "Done"
                         )
                     )
                 )
@@ -21363,7 +21363,7 @@ var BaseManipulator = function (_BaseWidget) {
     }, {
         key: "afterOpenModal",
         value: function afterOpenModal() {
-            // 
+            //
         }
     }, {
         key: "closeModal",
@@ -40594,14 +40594,24 @@ var BaseStarter = function (_BaseWidget) {
                         overlayClassName: "no-overlay",
                         className: "settings-modal"
                     },
-                    this.renderSettings(),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                         "div",
-                        { className: "container settings-modal-buttons" },
+                        { className: "container" },
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                            "button",
-                            { className: "btn btn-stimpack", onClick: this.closeModal.bind(this) },
-                            "Close"
+                            "h4",
+                            null,
+                            this.state.data.name
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("hr", null),
+                        this.renderSettings(),
+                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                            "div",
+                            { className: "modal-footer settings-modal-buttons" },
+                            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
+                                "button",
+                                { className: "btn modal-buttons-style", onClick: this.closeModal.bind(this) },
+                                "Done"
+                            )
                         )
                     )
                 )
@@ -40656,7 +40666,7 @@ var BaseStarter = function (_BaseWidget) {
     }, {
         key: "afterOpenModal",
         value: function afterOpenModal() {
-            // 
+            //
         }
     }, {
         key: "closeModal",
@@ -64494,17 +64504,8 @@ var Create = function (_BaseStarterManipulat) {
         value: function renderSettings() {
             return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                 "div",
-                { className: "container" },
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "h4",
-                    null,
-                    "Create project "
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { name: "targetProjectName", placeholder: "new-project", size: "40", value: this.state.data.targetProjectName, onChange: this.setDataParameter.bind(this), type: "text", className: "form-control" })
-                )
+                { className: "form-group" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("input", { name: "targetProjectName", placeholder: "new-project", size: "40", value: this.state.data.targetProjectName, onChange: this.setDataParameter.bind(this), type: "text", className: "form-control" })
             );
         }
     }], [{
@@ -64558,20 +64559,11 @@ var Load = function (_BaseStarterManipulat) {
         value: function renderSettings() {
             return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                 "div",
-                { className: "container" },
+                { className: "form-group" },
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "h4",
-                    null,
-                    "Create Database"
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                    "div",
-                    { className: "form-group" },
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
-                        "select",
-                        { name: "targetProjectName", onChange: this.setDataParameter.bind(this), value: this.state.data.targetProjectName, className: "form-control", id: "inputGroupSelect01" },
-                        this.renderProjects()
-                    )
+                    "select",
+                    { name: "targetProjectName", onChange: this.setDataParameter.bind(this), value: this.state.data.targetProjectName, className: "form-control", id: "inputGroupSelect01" },
+                    this.renderProjects()
                 )
             );
         }
@@ -64643,6 +64635,7 @@ var CreateFile = function (_BaseManipulator) {
                     null,
                     "Create File"
                 ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("hr", null),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group" },
@@ -64712,6 +64705,7 @@ var Delete = function (_BaseManipulator) {
                     null,
                     "Delete File/Folder"
                 ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("hr", null),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group" },
@@ -64775,6 +64769,7 @@ var ReplaceInFile = function (_BaseManipulator) {
                     null,
                     "Replace in file"
                 ),
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("hr", null),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     "div",
                     { className: "form-group code-text-area" },
@@ -66980,7 +66975,7 @@ var Save = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { onClick: this.closeModal.bind(this), className: 'btn button-cancel modal-buttons-style' },
-                        'Cancel'
+                        'Close'
                     )
                 )
             );
