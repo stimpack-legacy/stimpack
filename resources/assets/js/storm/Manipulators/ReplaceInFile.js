@@ -18,9 +18,7 @@ class ReplaceInFile extends BaseManipulator {
 
     renderSettings() {
         return (
-            <div className="container">
-                <h4>Replace in file</h4>
-                <hr />               
+            <div>
                 <div className="form-group code-text-area">
                     <textarea name="relativePathToFile" placeholder="relative/root/file.php" onChange={this.setDataParameter.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
                 </div>

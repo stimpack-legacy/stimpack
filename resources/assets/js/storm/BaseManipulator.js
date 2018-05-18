@@ -41,10 +41,14 @@ export default class BaseManipulator extends BaseWidget {
                     overlayClassName="no-overlay"
                     className="settings-modal"
                 >
-                    {this.renderSettings()}
-                    <div className="modal-footer settings-modal-buttons">
-                        <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
-                    </div>
+					<div className="container">
+		                <h4>{this.spaceBeforeUppercase()}</h4>
+		                <hr />
+	                    {this.renderSettings()}
+	                    <div className="modal-footer settings-modal-buttons">
+	                        <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
+	                    </div>
+					</div>
                 </Modal>
 			</div>
 		);
@@ -89,6 +93,10 @@ export default class BaseManipulator extends BaseWidget {
 
     afterOpenModal() {
         //
+    }
+
+	spaceBeforeUppercase(){
+        return this.state.data.name.replace(/([A-Z])/g, ' $1').trim();
     }
 
     closeModal() {

@@ -14,9 +14,7 @@ class CreateFile extends BaseManipulator {
 
     renderSettings() {
         return (
-            <div className="container">
-                <h4>Create File</h4>
-                <hr />
+            <div>
                 <div className="form-group">
                     <input name="relativePathToFile" placeholder="relative/root/file.php" onChange={this.setDataParameter.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
                 </div>
