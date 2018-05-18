@@ -61637,10 +61637,13 @@ function componentWillMount() {
 
 function componentWillReceiveProps(nextProps) {
   // Call this.constructor.gDSFP to support sub-classes.
-  var state = this.constructor.getDerivedStateFromProps(nextProps, this.state);
-  if (state !== null && state !== undefined) {
-    this.setState(state);
+  // Use the setState() updater to ensure state isn't stale in certain edge cases.
+  function updater(prevState) {
+    var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
+    return state !== null && state !== undefined ? state : null;
   }
+  // Binding "this" is important for shallow renderer support.
+  this.setState(updater.bind(this));
 }
 
 function componentWillUpdate(nextProps, nextState) {
@@ -64835,7 +64838,7 @@ var ScaffoldLaravel = function (_BaseManipulator) {
         value: function renderSettings() {
             return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                 "div",
-                { className: "container" },
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](
                     __WEBPACK_IMPORTED_MODULE_3_react_tabs__["d" /* Tabs */],
                     null,

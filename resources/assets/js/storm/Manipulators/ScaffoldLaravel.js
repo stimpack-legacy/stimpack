@@ -4,17 +4,17 @@ import BaseManipulator from "../BaseManipulator";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 class ScaffoldLaravel extends BaseManipulator {
-    
+
     static getDefaultManipulatorParameters() {
         return {
             name: "ScaffoldLaravel",
-            pseudoCode: ""                                    
+            pseudoCode: ""
         }
-    }    
+    }
 
-    renderSettings() {        
+    renderSettings() {
         return (
-            <div className="container">                
+            <div>               
                 <Tabs>
                     <TabList>
                         <Tab><h4>PseudoCode</h4></Tab>
@@ -39,14 +39,14 @@ class ScaffoldLaravel extends BaseManipulator {
                     <TabPanel>
                     <div className="form-group code-text-area">
                         <textarea rows="20" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
-                    </div>                        
+                    </div>
                     </TabPanel>
                 </Tabs>
-                <button onClick={this.preview} >See preview!</button>         
+                <button onClick={this.preview} >See preview!</button>
             </div>
         );
     }
-    
+
     preview() {
         console.log("Sending request!");
         $.ajax({
@@ -67,11 +67,11 @@ class ScaffoldLaravel extends BaseManipulator {
             error: function(error) {
                 console.log("Failiure!", error);
             }.bind(this)
-        });        
+        });
     }
 }
 
 export default connect(
-    BaseManipulator.mapStateToProps, 
+    BaseManipulator.mapStateToProps,
     BaseManipulator.matchDispatchToProps
 )(ScaffoldLaravel);
