@@ -10661,7 +10661,7 @@ li a:hover {
   padding: 10px;
   margin-top: 7px;
   text-align: center;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .side-button-wrapper {
