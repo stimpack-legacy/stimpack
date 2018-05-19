@@ -15,8 +15,8 @@ export default class ControlBar extends Component {
                 <Run />
                 <Parameters />
                 <Log />
-                <Save />
                 <Open />
+                <Save />
             </span>
         );
     }
