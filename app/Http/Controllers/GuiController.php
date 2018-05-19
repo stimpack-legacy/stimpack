@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Stimpack\Pack;
+use App\Http\Controllers\ManipulatorController;
 
 class GuiController extends Controller
 {
@@ -13,7 +14,8 @@ class GuiController extends Controller
         $this->data = [
             'projects' => $this->projects(), 
             'packs' => $this->localPacks(),
-            'stimpack_io_token' => env('STIMPACK_IO_TOKEN')
+            'stimpack_io_token' => env('STIMPACK_IO_TOKEN'),
+            'manipulatorData' => ManipulatorController::attachStartupData()
         ];
     }
 
