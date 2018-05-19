@@ -47,4 +47,16 @@ class ScaffoldLaravel extends Manipulator
             );
         });
     }
+
+    public static function attachStartupData()
+    {
+        return collect([
+            "stubs" => collect([
+                "migration" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/migration.stub')),
+                "model" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/model.stub')),
+                "controller" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/controller.stub')),
+                "seeder" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/seeder.stub'))
+            ])
+        ]);
+    }
 }

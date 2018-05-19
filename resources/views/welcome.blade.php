@@ -15,7 +15,6 @@
         <div id="main"></div>
         <script>
             let data = {!! $data->toJson() !!};
-
         </script>
         <script src="{{asset('js/app.js')}}" ></script>                
     </body>

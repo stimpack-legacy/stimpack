@@ -30,5 +30,19 @@ class ManipulatorController extends Controller
             }
         });
     }
+
+    public static function attachStartupData()
+    {
+        $r = classes_in_path("app/Stimpack/Manipulators")->filter(function($class) {
+            return method_exists($class, "attachStartupData");
+        })->reduce(function($data, $class) {
+            $key = class_basename($class);
+            $data->$key = $class::attachStartupData();
+            return $data;
+        }, new \StdClass);
+
+        //dd($r);
+        return($r);
+    }    
 }
 
