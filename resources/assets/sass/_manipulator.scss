@@ -1,0 +1,17 @@
+.tab-background {
+    //background: $darkest;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+.react-tabs__tab {
+    padding: 0px 10px 5px 10px;
+    color: $theme-color2;
+}
+
+.react-tabs__tab--selected {
+    background: $dark !important;
+    border: none;
+    color: $theme-color;
+}

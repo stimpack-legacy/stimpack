@@ -37,7 +37,7 @@ class ScaffoldLaravel extends BaseManipulator {
         return (
             <div>               
                 <Tabs>
-                    <TabList>
+                    <TabList className="tab-background">
                         <Tab><h6>PseudoCode</h6></Tab>
                         <Tab><h6>Stubs</h6></Tab>
                         <Tab><h6>Settings</h6></Tab>
@@ -58,17 +58,27 @@ class ScaffoldLaravel extends BaseManipulator {
         return (
             <TabPanel>
                 <div className="form-group code-text-area">
-                    <textarea rows="15" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
+                    <textarea rows="13" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
                 </div>
+                <span onClick={this.addUserSystem.bind(this)} className="control-bar-item">
+                    <i title="Set parameters" className={"fas fa-user icon-control-bar"}></i><span className="control-bar-item-text">Add User system</span>
+                </span>
+                <span onClick={this.addUserSystem.bind(this)} className="control-bar-item">
+                    <i title="Set parameters" className={"fas fa-question-circle icon-control-bar"}></i><span className="control-bar-item-text">Sample app</span>
+                </span>                
             </TabPanel>
         )
+    }
+
+    addUserSystem() {
+
     }
 
     renderStubsPanel() {
         return (
             <TabPanel>
                 {this.renderStubSelect()}
-                {this.renderStubEditor()}
+                {this.renderStubEditor()}                                
             </TabPanel>                
         )
     }
