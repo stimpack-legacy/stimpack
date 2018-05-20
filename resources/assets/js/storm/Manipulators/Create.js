@@ -2,14 +2,14 @@ import * as React from "react";
 import {connect} from 'react-redux';
 import BaseStarterManipulator from "../BaseStarterManipulator";
 
-import NewName from '../../NewName.js'
+import {epicNewName} from '../../epicNewName.js'
 
 class Create extends BaseStarterManipulator {
 
     static getDefaultManipulatorParameters() {
         return {
             name: "Create",
-            targetProjectName: NewName.get(),
+            targetProjectName: epicNewName(),
             isStarter: true
         }
     }
