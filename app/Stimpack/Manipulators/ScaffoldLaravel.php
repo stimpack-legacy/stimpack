@@ -27,13 +27,19 @@ class ScaffoldLaravel extends Manipulator
         );
     }
 
-    public function perform() {
+    public function oldPerform() {
         return [
-            "messages" => $this->laravelObjectModel->installFrom(
+            "messages" => $this->laravelObjectModel->installFromOld(
                 PseudoParser::parse($this->data->pseudoCode)
             )
-        ];        
+        ];
     }
+
+    public function perform() {
+        return [
+            "messages" => $this->laravelObjectModel->installFrom($this->data->result)
+        ];
+    }    
 
     public static function registerSupportRoutes()
     {

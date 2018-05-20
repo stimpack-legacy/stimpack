@@ -13,22 +13,26 @@ import 'brace/theme/monokai';
 class ScaffoldLaravel extends BaseManipulator {
 	constructor(props) {
         super(props);
-        // Note the distinction keys directly on state are just for component managment
-        // The data for the actual processing is stored on this.state.data.<key>
-        // A
+        // keys directly on state are just for component managment
         this.state.selectedStub = Object.keys(data.manipulatorData.ScaffoldLaravel.stubs).find(()=>true)
+        this.state.selectedResult = 'default';
 	}
 
+    //  keys to be transfered to this.state.data
     static getDefaultManipulatorParameters() {
         return {
             name: "ScaffoldLaravel",
             pseudoCode: "",
             stubs: data.manipulatorData.ScaffoldLaravel.stubs,
-            targetProjectName: "bajsy"
+            settings: {},
+            result: []
         }
     }
    
     renderSettings() {
+
+        //onChangeTab={this.select.bind(this)}
+
         return (
             <div>               
                 <Tabs>
@@ -36,7 +40,7 @@ class ScaffoldLaravel extends BaseManipulator {
                         <Tab><h6>PseudoCode</h6></Tab>
                         <Tab><h6>Stubs</h6></Tab>
                         <Tab><h6>Settings</h6></Tab>
-                        <Tab><h6>Result</h6></Tab>
+                        <Tab onClick={this.renderResult.bind(this)}><h6>Result</h6></Tab>
                     </TabList>
 
                     {this.renderPseudoCodePanel()}
@@ -69,7 +73,6 @@ class ScaffoldLaravel extends BaseManipulator {
     }
 
     renderStubSelect() {
-        console.log(this.state.selectedStub + "<---");
         return (
             <select name="stubToEdit" value={this.state.selectedStub} onChange={this.changeSelectedStub.bind(this)} className="form-control">
                 {Object.keys(this.state.data.stubs).map((stubName, index) => {
@@ -80,6 +83,19 @@ class ScaffoldLaravel extends BaseManipulator {
             </select>            
         )
     }
+
+    renderResultSelect() {
+        return (
+            <select name="resultToEdit" value={this.state.selectedResult} onChange={this.changeSelectedResult.bind(this)} className="form-control">
+                <option value='default' disabled>Select file</option>
+                {Object.keys(this.state.data.result).map((resultName, index) => {                    
+                    return (
+                        <option key={resultName} value={resultName}> {resultName} </option>
+                    )
+                })}    
+            </select>            
+        )
+    }    
 
     renderStubEditor() {
         return (
@@ -96,19 +112,85 @@ class ScaffoldLaravel extends BaseManipulator {
             name={this.props.node.data.name + "-" + this.props.node.id}
             editorProps={
                 {$blockScrolling: true}
-            }
-            onChangeTab={this.select.bind(this)}
+            }            
         />            
         )
     }
 
-    select() {
-        console.log("Selection!");
+    renderResultEditor() {
+        return (
+            <AceEditor
+            mode="php"
+            theme="monokai"
+            showGutter={false}
+            height='700px'
+            width='100%'                    
+            showPrintMargin={false}
+            highlightActiveLine={false}
+            onChange={this.setResultContent.bind(this)}
+            value={this.valueForSelectedResult()}
+            name={this.props.node.data.name + "-result-" + this.props.node.id}
+            editorProps={
+                {$blockScrolling: true}
+            }            
+        />            
+        )
+    }    
+
+    renderResult() {
+        $.ajax({
+            type: "POST",
+            url: "/manipulators/ScaffoldLaravel/preview",
+            data: {
+                data: JSON.stringify({
+                    pseudoCode: "Car\n\nHuman",
+                    context: {
+                        targetProjectName: ""
+                    }
+                }),
+            },
+            success: function(result){
+                var data = this.state.data;
+                var selectedResult = 'default'
+                data.result = result;
+                this.setState({
+                    data,
+                    selectedResult
+                })
+
+
+            }.bind(this),
+            error: function(error) {
+            }.bind(this)
+        });
     }
 
     setStubContent(newValue) {
-        var stubs = this.state.data.stubs;
-        stubs[this.state.selectedStub] = newValue;
+        //var stubs = this.state.data.stubs;
+        //stubs[this.state.selectedStub] = newValue;
+
+        //this.props.node.data = this.state.data;
+
+        var data = this.state.data
+        data.stubs[this.state.selectedStub] = newValue
+
+        this.setState({
+            data
+        })
+
+        this.props.node.data = this.state.data;
+    }
+
+    setResultContent(newValue) {
+        //var result = this.state.data.result;
+        //result[this.state.selectedResult] = newValue;
+
+        var data = this.state.data
+        data.result[this.state.selectedResult] = newValue
+
+        this.setState({
+            data
+        })
 
         this.props.node.data = this.state.data;
     }
@@ -117,10 +199,21 @@ class ScaffoldLaravel extends BaseManipulator {
         return this.state.data.stubs[this.state.selectedStub]
     }
 
+    valueForSelectedResult() {
+        return this.state.data.result[this.state.selectedResult]
+    }    
+
     changeSelectedStub(event) {
         var selectedStub = event.target.value;
         this.setState({
             selectedStub
+        })
+    }
+
+    changeSelectedResult(event) {
+        var selectedResult = event.target.value;
+        this.setState({
+            selectedResult
         })
     }
 
@@ -135,32 +228,10 @@ class ScaffoldLaravel extends BaseManipulator {
     renderResultPanel() {
         return (
             <TabPanel>
-                <p> Here is the result </p>
-                <button onClick={this.preview} >Update!</button>
-            </TabPanel>
+                {this.renderResultSelect()}
+                {this.renderResultEditor()}
+            </TabPanel>                
         )
-    }
-
-    preview() {
-        $.ajax({
-            type: "POST",
-            url: "/manipulators/ScaffoldLaravel/preview",
-            data: {
-                data: JSON.stringify({
-                    pseudoCode: "Car\n\nHuman",
-                    context: {
-                        targetProjectName: ""
-                    }
-                }),
-            },
-            success: function(result){
-                console.log("Success!", result);
-
-            }.bind(this),
-            error: function(error) {
-                console.log("Failiure!", error);
-            }.bind(this)
-        });
     }
 }
 
