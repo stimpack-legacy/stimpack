@@ -19,7 +19,7 @@ class CreateFile extends BaseManipulator {
 
     renderSettings() {
         return (
-            <div>
+            <wrapper>
                 <div className="form-group">
                     <input name="relativePathToFile" placeholder="relative/root/file.php" onChange={this.setDataParameter.bind(this)} value={this.state.data.relativePathToFile} type="text" className="form-control" />
                 </div>
@@ -38,7 +38,7 @@ class CreateFile extends BaseManipulator {
                         {$blockScrolling: true}
                     }
                 />
-            </div>
+            </wrapper>
         )
     }
 

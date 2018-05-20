@@ -2,6 +2,8 @@ import * as React from "react";
 import {connect} from 'react-redux';
 import BaseStarterManipulator from "../BaseStarterManipulator";
 
+import NewName from '../../NewName.js'
+
 class Create extends BaseStarterManipulator {
 
     static getDefaultManipulatorParameters() {
@@ -15,7 +17,7 @@ class Create extends BaseStarterManipulator {
     renderSettings() {
         return (
                 <div className="form-group">
-                    <input name="targetProjectName" placeholder="new-project" size="40" value={this.state.data.targetProjectName} onChange={this.setDataParameter.bind(this)} type="text" className="form-control" />
+                    <input name="targetProjectName" placeholder={NewName.get()} size="40" value={this.state.data.targetProjectName} onChange={this.setDataParameter.bind(this)} type="text" className="form-control" />
                 </div>
         );
     }
