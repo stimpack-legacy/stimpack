@@ -15,7 +15,7 @@ class ScaffoldLaravel extends BaseManipulator {
 	constructor(props) {
         super(props);
         // keys directly on state are just for component managment
-        this.state.selectedStub = Object.keys(data.manipulatorData.ScaffoldLaravel.stubs).find(()=>true)
+        this.state.selectedStub = 'model'
         this.state.selectedResult = 'default';
 	}
 

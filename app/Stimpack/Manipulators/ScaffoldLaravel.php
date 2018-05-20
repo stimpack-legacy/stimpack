@@ -58,13 +58,17 @@ class ScaffoldLaravel extends Manipulator
 
     public static function attachStartupData()
     {
-        return collect([
-            "stubs" => collect([
-                "migration" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/migration.stub')),
-                "model" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/model.stub')),
-                "controller" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/controller.stub')),
-                "seeder" => File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/seeder.stub'))
-            ])
-        ]);
+        $stubsArray = collect(
+            File::init()->glob(base_path('app/Stimpack/Manipulators/Support/stubs/*'))
+        )->map(function($file) {
+            return str_before(class_basename($file), '.');
+        })->reduce(function($carry, $file) {
+            $carry[$file] = File::init()->get(base_path('app/Stimpack/Manipulators/Support/stubs/' . $file . '.stub'));
+            return $carry;
+        }, []);
+
+        return (collect([
+            "stubs" => collect($stubsArray)
+        ]));
     }
 }
