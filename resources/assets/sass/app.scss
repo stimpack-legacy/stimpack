@@ -5,6 +5,9 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
+// React-tabs
+@import '~react-tabs/style/react-tabs.scss';
+
 //@import "node_modules/font-awesome/scss/font-awesome.scss";
 @import "variables";
 @import "editors";
@@ -13,12 +16,11 @@
 @import "side";
 @import "_modal";
 @import "_log";
+@import "manipulator";
 @import "global";
 
 @import "~storm-react-diagrams/src/sass/main";
 @import "_storm-react-diagrams-overrides.scss";
-
-@import '~react-tabs/style/react-tabs.scss';
 
 
 html {
