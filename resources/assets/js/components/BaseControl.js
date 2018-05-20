@@ -21,20 +21,26 @@ export default class BaseControl extends Component {
 	renderModal() {
 		return (
 			<Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
-            onRequestClose={this.closeModal.bind(this)}
-            contentLabel="Example Modal"
-            overlayClassName="no-overlay"
-            className="manipulator-modal"
-            >
-				<h4>{this.title}</h4>
-                <hr />
+	            isOpen={this.state.modalIsOpen}
+	            onAfterOpen={this.afterOpenModal.bind(this)}
+	            onRequestClose={this.closeModal.bind(this)}
+	            contentLabel="Example Modal"
+	            overlayClassName="no-overlay"
+	            className="control-modal"
+			>
 
-                {this.modalBody()}
+				<div className="stim-modal-container">
+					<div className="stim-modal-header">
+						 <h4>{this.title}</h4>
+					</div>
 
-                <div className="stim-modal-footer modal-buttons">
-                	{this.modalFooter()}
+					<div className="stim-modal-body">
+						 {this.modalBody()}
+					</div>
+
+					<div className="stim-modal-footer">
+						{this.modalFooter()}
+					</div>
 				</div>
             </Modal>
 		)

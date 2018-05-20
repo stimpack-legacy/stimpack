@@ -10705,7 +10705,7 @@ li a:hover {
   border: 2px solid #40fc3a;
 }
 
-.settings-modal,
+.control-modal,
 .manipulator-modal {
   position: absolute;
   top: 50%;
@@ -10756,9 +10756,24 @@ li a:hover {
   text-align: left;
 }
 
+.stim-modal-body {
+  max-height: 450px;
+  overflow-y: auto;
+  color: #c4fec2;
+}
+
+.stim-modal-body a {
+  color: #40fc3a;
+}
+
+.stim-modal-body .form-group {
+  margin-bottom: 0px;
+}
+
 .stim-modal-footer {
   position: absolute;
   display: block;
+  height: 50px;
   bottom: 20px;
   border-top: none;
   padding: 0px;
@@ -10768,6 +10783,7 @@ li a:hover {
   color: #383d48;
   background-color: #67fd62;
   border-radius: 0px;
+  margin-right: 10px;
   -webkit-box-shadow: -2px 2px #2a2f36;
           box-shadow: -2px 2px #2a2f36;
   -webkit-transition: color 0.5s;
@@ -10794,14 +10810,7 @@ li a:hover {
 .button-cancel {
   border: 2px solid #40fc3a;
   background-color: #383d48;
-  color: #40fc3a;
-}
-
-.modal-body {
-  color: #c4fec2;
-}
-
-.modal-body a {
+  height: 38px;
   color: #40fc3a;
 }
 
@@ -10817,6 +10826,7 @@ li a:hover {
 }
 
 .log-group {
+  height: 100%;
   margin-bottom: 20px;
 }
 
@@ -10854,6 +10864,10 @@ label {
 
 hr {
   border-color: #40fc3a;
+}
+
+.form-group + .form-group {
+  margin-top: 10px;
 }
 
 .srd-diagram {
