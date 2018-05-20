@@ -42,14 +42,19 @@ export default class BaseStarter extends BaseWidget {
                     overlayClassName="no-overlay"
                     className="settings-modal"
                 >
-					<div className="container">
-						<h4>{studlyCaseWithSpace(this.state.data.name)}</h4>
-						<hr />
-	                    {this.renderSettings()}
-	                    <div className="modal-footer settings-modal-buttons">
-	                        <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
-	                    </div>
+				<div className="stim-modal-container">
+					<div className="stim-modal-header">
+						 <h4>{studlyCaseWithSpace(this.state.data.name)}</h4>
 					</div>
+
+					<div className="stim-modal-body">
+						 {this.renderSettings()}
+					</div>
+
+					<div className="stim-modal-footer">
+						<button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
+					</div>
+				</div>
                 </Modal>
 			</div>
 		);
