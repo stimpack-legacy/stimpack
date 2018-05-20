@@ -33,7 +33,7 @@ export default class BaseControl extends Component {
 
                 {this.modalBody()}
 
-                <div className="modal-footer modal-buttons">
+                <div className="stim-modal-footer modal-buttons">
                 	{this.modalFooter()}
 				</div>
             </Modal>

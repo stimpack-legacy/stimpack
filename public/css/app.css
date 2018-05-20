@@ -10721,7 +10721,7 @@ li a:hover {
           box-shadow: -7px 7px #383d48;
   opacity: 0.95;
   width: 800px;
-  min-height: 600px;
+  height: 600px;
 }
 
 .parameters-code {
@@ -10738,16 +10738,30 @@ li a:hover {
   color: #40fc3a;
 }
 
-.modal-footer {
-  position: absolute;
-  bottom: 0px;
+.stim-modal-header,
+.stim-modal-body,
+.stim-modal-footer {
+  position: relative;
+  display: block;
   width: 760px;
+  padding-left: 0px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.stim-modal-header {
+  margin-bottom: 10px;
+  height: 40px;
+  border-bottom: 1px solid #40fc3a;
+  text-align: left;
+}
+
+.stim-modal-footer {
+  position: absolute;
+  display: block;
+  bottom: 20px;
   border-top: none;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
   padding: 0px;
-  padding-bottom: 20px;
 }
 
 .modal-buttons-style {

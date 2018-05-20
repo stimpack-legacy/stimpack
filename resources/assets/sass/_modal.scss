@@ -10,7 +10,7 @@
     box-shadow: -7px 7px $darkest;
     opacity: 0.95;
     width: 800px;
-    min-height: 600px;
+    height: 600px;
 }
 
 .parameters-code {
@@ -27,14 +27,34 @@
     color: $theme-color
 }
 
-.modal-footer{
+.stim-modal-container{
+}
+
+.stim-modal-header, .stim-modal-body, .stim-modal-footer{
+    position: relative;
+    display: block;
+    width: $modal-content-width;
+    padding-left: 0px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.stim-modal-header{
+    margin-bottom: 10px;
+    height: 40px;
+    border-bottom: 1px solid $theme-color;
+    text-align: left;
+}
+
+.stim-modal-body{
+}
+
+.stim-modal-footer{
     position: absolute;
-    bottom: 0px;
-    width: 760px;
+    display: block;
+    bottom: 20px;
     border-top: none;
-    justify-content: left;
     padding: 0px;
-    padding-bottom: 20px;
 }
 
 .modal-buttons-style{

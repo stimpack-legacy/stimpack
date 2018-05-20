@@ -1,15 +1,15 @@
-import * as React from "react";
-import * as _ from "lodash";
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import * as React from "react"
+import * as _ from "lodash"
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
-import { DefaultNodeModel } from "storm-react-diagrams";
-import { DefaultPortLabel } from "storm-react-diagrams";
-import { DiagramEngine } from "storm-react-diagrams";
-import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
-import Modal from 'react-modal';
-import AllManipulators from "./AllManipulators";
-import { studlyCaseWithSpace } from "../Helpers";
+import { DefaultNodeModel } from "storm-react-diagrams"
+import { DefaultPortLabel } from "storm-react-diagrams"
+import { DiagramEngine } from "storm-react-diagrams"
+import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams"
+import Modal from 'react-modal'
+import AllManipulators from "./AllManipulators"
+import { studlyCaseWithSpace } from "../Helpers"
 
 export default class BaseManipulator extends BaseWidget {
 	constructor(props) {
@@ -31,7 +31,6 @@ export default class BaseManipulator extends BaseWidget {
 
 	render() {
 		return (
-
 			<div onDoubleClick={this.openModal.bind(this)} {...this.getProps()}>
                 {this.renderNode()}
                 <Modal
@@ -43,23 +42,27 @@ export default class BaseManipulator extends BaseWidget {
                     overlayClassName="no-overlay"
                     className="settings-modal"
                 >
-					<div className="container">
-		                <h4>{studlyCaseWithSpace(this.state.data.name)}</h4>
-		                <hr />
-	                    {this.renderSettings()}
-	                    <div className="modal-footer settings-modal-buttons">
+					<div className="stim-modal-container">
+						<div className="stim-modal-header">
+							 <h4>{studlyCaseWithSpace(this.state.data.name)}</h4>
+						</div>
+
+						<div className="stim-modal-body">
+							 {this.renderSettings()}
+						</div>
+
+	                    <div className="stim-modal-footer">
 	                        <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
 	                    </div>
 					</div>
                 </Modal>
 			</div>
-		);
+		)
     }
 
     renderNode() {
         return (
             <wrapper>
-
                 <div className={this.bem("__title")}>
                     <div className={this.bem("__name")}>{this.props.node.manipulator.name}</div>
                 </div>
@@ -72,7 +75,7 @@ export default class BaseManipulator extends BaseWidget {
                     </div>
                 </div>
             </wrapper>
-        );
+        )
     }
 
     setDataParameter(event) {
@@ -115,7 +118,7 @@ export default class BaseManipulator extends BaseWidget {
         return {
             engine: state.engine,
             foo: state.foo
-        };
+        }
     }
 
     static matchDispatchToProps(dispatch){
