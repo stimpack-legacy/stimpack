@@ -40,21 +40,21 @@
     background: lighten($darkest, 5%);
 }
 
-.header-menu-item + .header-menu-item{
+.control-bar-item + .control-bar-item{
     margin-left: 27px;
 }
 
-.header-menu-item{
+.control-bar-item{
     cursor: pointer;
 }
 
-.header-menu-item-text{
-    color: lighten($theme-color, 25%);
+.control-bar-item-text{
+    color: $theme-color2;
     -webkit-transition: color 0.5s; /* Safari */
     transition: color 0.5s;
     font-size: 15px;
 }
 
-.header-menu-item-text:hover{
+.control-bar-item-text:hover{
     color: $theme-color;
 }

@@ -9,9 +9,9 @@ import {setQueue} from '../actions/index';
 
 export default class BaseControl extends Component {
 	constructor(props) {
-        super(props);
-        Modal.setAppElement('#main');
-        this.state = {};
+        super(props)
+        Modal.setAppElement('#main')
+        this.state = {}
     }
 
 	render() {
@@ -35,15 +35,15 @@ export default class BaseControl extends Component {
 
                 <div className="modal-footer modal-buttons">
                 	{this.modalFooter()}
-                </div>
+				</div>
             </Modal>
 		)
     }
 
 	controlBarItem() {
         return (
-            <span onClick={this.openModal.bind(this)} className="header-menu-item">
-                <i title="Set parameters" className={"fa " + this.icon + " icon-control-bar icon-control-bar"}></i><span className="header-menu-item-text">{this.title}</span>
+            <span onClick={this.openModal.bind(this)} className="control-bar-item">
+                <i title="Set parameters" className={"fa " + this.icon + " icon-control-bar"}></i><span className="control-bar-item-text">{this.title}</span>
                 {this.renderModal()}
             </span>
         )
@@ -83,7 +83,8 @@ export default class BaseControl extends Component {
 	    return {
 	        engine: state.engine,
 	        foo: state.foo,
-	        parameters: state.parameters
+	        parameters: state.parameters,
+			queue: state.queue
 	    };
 	}
 

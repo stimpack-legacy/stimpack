@@ -9,52 +9,34 @@ import {reDrawDiagram} from '../../actions/index'
 import {registerLatestNode} from '../../actions/index'
 import Queue from "../../Queue";
 import AutoLinkText from 'react-autolink-text2';
+import BaseControl from "../BaseControl";
 
-class Log extends Component {
+class Log extends BaseControl {
     constructor(props) {
         super(props);
-        Modal.setAppElement('#main');
-        this.state = {};
+        this.title = "Log"
+        this.modalFooter = this.defaultFooter
+        this.icon = "fa-align-left"
     }
 
-    render() {
-        return (
-            <span onClick={this.openModal.bind(this)} className="header-menu-item">
-                <i title="View log" className="fa fa-align-left icon-control-bar"></i><span className="header-menu-item-text">Log</span>
-                {this.renderModal()}
-            </span>
-        );
+    modalBody() {
+        return(
+            <ul className="logItems modal-body">
+                {this.renderLogItems()}
+                {this.renderPendingItems()}
+                {this.renderFailedItems()}
+                {this.renderEncouragingText()}
+            </ul>
+        )
     }
 
-    renderModal() {
-        return (
-            <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
-            onRequestClose={this.closeModal.bind(this)}
-            contentLabel="Example Modal"
-            overlayClassName="no-overlay"
-            className="manipulator-modal large"
-            >
-                <div>
-                    <h4>Log</h4>
-                    <hr />
-                    <ul className="logItems">
-                        {this.renderLogItems()}
-                        {this.renderPendingItems()}
-                        {this.renderFailedItems()}
-                    </ul>
-                </div>
-                <div className="modal-footer modal-buttons">
-                    <button onClick={this.closeModal.bind(this)} className="btn modal-buttons-style">
-                        Done
-                    </button>
-                </div>
-            </Modal>
-        );
+    renderEncouragingText() {
+        if(this.renderLogItems() == "" && this.renderPendingItems() == undefined && this.renderFailedItems() == undefined) {
+            return(
+                "You need to get back to work to see something here..."
+            )
+        }
     }
-
-
 
     renderLogItems() {
         return this.props.queue.finished.map((item, index) => {
@@ -69,8 +51,8 @@ class Log extends Component {
                         )
                     })}
                 </div>
-            );
-        });
+            )
+        })
     }
 
     renderPendingItems() {
@@ -79,7 +61,7 @@ class Log extends Component {
                 <div key="pending">
                     <li className="message-no-wrap"><i className={`fa ${this.icons("pending")}`}></i> {this.props.queue.pending.name}</li>
                 </div>
-            );
+            )
         }
     }
 
@@ -96,8 +78,7 @@ class Log extends Component {
                         )
                     })}
                 </div>
-
-            );
+            )
         }
     }
 
@@ -110,20 +91,6 @@ class Log extends Component {
         }[icon];
     }
 
-    openModal() {
-        this.setState({
-            modalIsOpen: true,
-        });
-    }
-
-    afterOpenModal() {
-        //
-    }
-
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
-
     componentWillReceiveProps(nextProps) {
         if(!_.isEqual(this.props.queue, nextProps.queue)) {
             // React/redux cant save classes - recreate it.
@@ -131,27 +98,13 @@ class Log extends Component {
             if(queue.isAboutToRun()) {
                 this.setState({
                     modalIsOpen: true,
-                });
+                })
             }
-
         }
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        queue: state.queue
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            //
-        }, dispatch);
-}
-
 export default connect(
-    mapStateToProps,
-    matchDispatchToProps
-)(Log);
+    BaseControl.mapStateToProps,
+    BaseControl.matchDispatchToProps
+)(Log)

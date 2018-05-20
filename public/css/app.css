@@ -10632,23 +10632,23 @@ li a:hover {
   background: #434a56;
 }
 
-.header-menu-item + .header-menu-item {
+.control-bar-item + .control-bar-item {
   margin-left: 27px;
 }
 
-.header-menu-item {
+.control-bar-item {
   cursor: pointer;
 }
 
-.header-menu-item-text {
-  color: #bafeb8;
+.control-bar-item-text {
+  color: #c4fec2;
   -webkit-transition: color 0.5s;
   /* Safari */
   transition: color 0.5s;
   font-size: 15px;
 }
 
-.header-menu-item-text:hover {
+.control-bar-item-text:hover {
   color: #40fc3a;
 }
 
@@ -10703,11 +10703,6 @@ li a:hover {
 
 .starter-button {
   border: 2px solid #40fc3a;
-}
-
-.controlBarItem {
-  display: inline;
-  margin-right: 10px;
 }
 
 .settings-modal,
@@ -10785,6 +10780,14 @@ li a:hover {
 .button-cancel {
   border: 2px solid #40fc3a;
   background-color: #383d48;
+  color: #40fc3a;
+}
+
+.modal-body {
+  color: #c4fec2;
+}
+
+.modal-body a {
   color: #40fc3a;
 }
 

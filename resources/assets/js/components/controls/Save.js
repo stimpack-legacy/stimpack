@@ -5,44 +5,28 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { ManipulatorNodeModel } from "../../storm/ManipulatorNodeModel";
 import AllManipulators from "../../storm/AllManipulators";
-import {reDrawDiagram} from '../../actions/index'
-import {registerLatestNode} from '../../actions/index'
+import {reDrawDiagram} from '../../actions/index';
+import {registerLatestNode} from '../../actions/index';
 import Queue from "../../Queue";
 import {nonCircularStringify} from "../../Helpers";
-import Compiler from "../../Compiler"
+import Compiler from "../../Compiler";
+import BaseControl from "../BaseControl";
 
-class Save extends Component {
+class Save extends BaseControl {
     constructor(props) {
-        super(props);
-        Modal.setAppElement('#main');
+        super(props)
         this.state = {
             name: "",
             description: "",
             message: null
-        };
+        }
+        this.title = "Save",
+        this.icon = "fa-save"
     }
 
-    render() {
+    modalBody() {
         return (
-            <span onClick={this.openModal.bind(this)} className="header-menu-item">
-                <i title="Save this pack" className="far fa-save icon-control-bar"></i><span className="header-menu-item-text">Save</span>
-                {this.renderModal()}
-            </span>
-        );
-    }
-
-    renderModal() {
-        return (
-            <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
-            onRequestClose={this.closeModal.bind(this)}
-            contentLabel="Example Modal"
-            overlayClassName="no-overlay"
-            className="manipulator-modal"
-            >
-                <h4>Save as a pack</h4>
-                <hr />
+            <wrapper className="modal-body">
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input placeholder="new-pack" value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
@@ -52,19 +36,24 @@ class Save extends Component {
                     <textarea  placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control save-description" id="description" />
                 </div>
                 {this.renderMessage()}
-                <div className="modal-footer modal-buttons">
-                    <button onClick={this.save.bind(this)} className="btn modal-buttons-style">
-                        Save locally
-                    </button>
-                    <button onClick={this.upload.bind(this)} className="btn modal-buttons-style">
-                        Upload to stimpack.io
-                    </button>
-                    <button onClick={this.closeModal.bind(this)} className="btn button-cancel modal-buttons-style">
-                        Close
-                    </button>
-                </div>
-            </Modal>
-        );
+            </wrapper>
+        )
+    }
+
+    modalFooter() {
+        return (
+            <div className="modal-footer modal-buttons">
+                <button onClick={this.save.bind(this)} className="btn modal-buttons-style">
+                    Save locally
+                </button>
+                <button onClick={this.upload.bind(this)} className="btn modal-buttons-style">
+                    Upload to stimpack.io
+                </button>
+                <button onClick={this.closeModal.bind(this)} className="btn button-cancel modal-buttons-style">
+                    Close
+                </button>
+            </div>
+        )
     }
 
     renderMessage() {
@@ -109,17 +98,17 @@ class Save extends Component {
             success: function(result){
                 this.setState({
                     message: "Succesfully stored pack!"
-                });
+                })
                 console.log(result);
             }.bind(this),
             error: function(error) {
                 this.setState({
                     message: "Could not store!"
-                });
+                })
                 //var a = JSON.parse(error);
                 console.log("Failed with message: '" + error.responseJSON.message + "'");
             }.bind(this)
-        });
+        })
     }
 
     upload() {
@@ -148,57 +137,20 @@ class Save extends Component {
             success: function(result){
                 this.setState({
                     message: "Succesfully uploaded pack!"
-                });
+                })
                 console.log(result);
             }.bind(this),
             error: function(error) {
                 this.setState({
                     message: "Could not upload pack!"
-                });
+                })
                 console.log(error);
             }.bind(this)
-        });
+        })
     }
-
-    openModal() {
-        this.setState({
-            modalIsOpen: true,
-        });
-        // Prevent focus bug
-        this.props.engine.diagramModel.setLocked(true);
-    }
-
-    afterOpenModal() {
-        //
-    }
-
-    closeModal() {
-        this.setState({
-            modalIsOpen: false,
-            message: null
-        });
-
-        // Prevent focus bug
-        this.props.engine.diagramModel.setLocked(false);
-    }
-
-}
-
-function mapStateToProps(state) {
-    return {
-        engine: state.engine,
-        parameters: state.parameters
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            //
-        }, dispatch);
 }
 
 export default connect(
-    mapStateToProps,
-    matchDispatchToProps
+    BaseControl.mapStateToProps,
+    BaseControl.matchDispatchToProps
 )(Save);
