@@ -49,7 +49,7 @@ class ModelEntity extends Entity
                 "FILLABLE" => $this->renderFillableAttributes(),
                 "HIDDEN" => $this->renderHiddenAttributes()
             ]),
-            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/model.stub"))
+            $this->directives->stubs->model
         );
 
         $content = $this->replaceOrDestroyLine("RELATIONSHIPS", $this->methodsString(), $content);

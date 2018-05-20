@@ -2,6 +2,7 @@ import * as React from "react";
 import {connect} from 'react-redux';
 import BaseManipulator from "../BaseManipulator";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import * as _ from "lodash"
 
 import brace from 'brace';
 import AceEditor from 'react-ace';
@@ -40,7 +41,7 @@ class ScaffoldLaravel extends BaseManipulator {
                         <Tab><h6>PseudoCode</h6></Tab>
                         <Tab><h6>Stubs</h6></Tab>
                         <Tab><h6>Settings</h6></Tab>
-                        <Tab onClick={this.renderResult.bind(this)}><h6>Result</h6></Tab>
+                        <Tab onClick={this.refreshResult.bind(this)}><h6>Result</h6></Tab>
                     </TabList>
 
                     {this.renderPseudoCodePanel()}
@@ -57,7 +58,7 @@ class ScaffoldLaravel extends BaseManipulator {
         return (
             <TabPanel>
                 <div className="form-group code-text-area">
-                    <textarea rows="5" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
+                    <textarea rows="15" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
                 </div>
             </TabPanel>
         )
@@ -103,7 +104,7 @@ class ScaffoldLaravel extends BaseManipulator {
             mode="php"
             theme="monokai"
             showGutter={false}
-            height='700px'
+            height='400px'
             width='100%'                    
             showPrintMargin={false}
             highlightActiveLine={false}
@@ -123,7 +124,7 @@ class ScaffoldLaravel extends BaseManipulator {
             mode="php"
             theme="monokai"
             showGutter={false}
-            height='700px'
+            height='300px'
             width='100%'                    
             showPrintMargin={false}
             highlightActiveLine={false}
@@ -137,13 +138,19 @@ class ScaffoldLaravel extends BaseManipulator {
         )
     }    
 
-    renderResult() {
+    refreshResult() {
+        if(!this.shouldRefreshResult()) {
+            return
+        }
+
         $.ajax({
             type: "POST",
             url: "/manipulators/ScaffoldLaravel/preview",
             data: {
                 data: JSON.stringify({
-                    pseudoCode: "Car\n\nHuman",
+                    pseudoCode: this.state.data.pseudoCode,
+                    stubs: this.state.data.stubs,
+                    settings: this.state.data.settings,
                     context: {
                         targetProjectName: ""
                     }
@@ -153,16 +160,40 @@ class ScaffoldLaravel extends BaseManipulator {
                 var data = this.state.data;
                 var selectedResult = 'default'
                 data.result = result;
+
+                var latestInputs = {
+                    pseudoCode: this.state.data.pseudoCode,
+                    stubs: _.clone(this.state.data.stubs, true),
+                    settings: this.state.data.settings
+                }
+
                 this.setState({
                     data,
-                    selectedResult
+                    selectedResult,
+                    latestInputs
                 })
 
 
             }.bind(this),
             error: function(error) {
             }.bind(this)
+        });        
+    }
+
+    shouldRefreshResult() {
+        var currentInputs = {
+            pseudoCode: this.state.data.pseudoCode,
+            stubs: this.state.data.stubs,
+            settings: this.state.data.settings
+        }
+        
+        console.log({
+            shouldRefresh: !_.isEqual(currentInputs, this.state.latestInputs),
+            currentInputs: currentInputs,
+            latestInputs: this.state.latestInputs
         });
+
+        return !_.isEqual(currentInputs, this.state.latestInputs);
     }
 
     setStubContent(newValue) {

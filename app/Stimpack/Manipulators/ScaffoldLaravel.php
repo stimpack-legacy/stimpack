@@ -16,7 +16,7 @@ class ScaffoldLaravel extends Manipulator
     {
         parent::__construct($data, $globalParameters);
         $this->laravelObjectModel = LaravelObjectModel::make((object) [
-            "targetProjectPath" => $this->targetProjectPath()            
+            "targetProjectPath" => $this->targetProjectPath(),
         ]);
     }
 
@@ -45,7 +45,9 @@ class ScaffoldLaravel extends Manipulator
     {
         Route::post('/manipulators/ScaffoldLaravel/preview', function() {
             return LaravelObjectModel::make((object) [
-                "targetProjectPath" => '' // This is only a relative preview            
+                "targetProjectPath" => '', // This is only a relative preview
+                "stubs" => json_decode(request()->data)->stubs,            
+                "settings" => json_decode(request()->data)->settings            
             ])->previewFrom(
                 PseudoParser::parse(
                     ScaffoldLaravel::make()->data->pseudoCode
