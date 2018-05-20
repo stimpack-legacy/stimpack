@@ -4,7 +4,7 @@ namespace App\Stimpack\Manipulators\Support;
 use App\Stimpack\Manipulators\Support\PseudoSegment;
 use App\Stimpack\Manipulators\Support\ValidateObjectModelTrait;
 use App\Stimpack\Manipulators\Support\EntityFactory;
-
+use App\Stimpack\Contexts\File;
 
 class LaravelObjectModel
 {
@@ -39,9 +39,14 @@ class LaravelObjectModel
 
     public function installFrom($result)
     {
-        return collect($result)->values()->map(function($file) {
-            return "Jag installerade en fil!";
-        });        
+        return collect($result)->each(function($content, $path) {            
+            File::save(
+                path($this->directives->targetProjectPath, $path),
+                $content
+            );
+        })->map(function($content, $path) {
+            return "Created " . $path;
+        })->values();        
     }
 
     // So far just a placeholder!
