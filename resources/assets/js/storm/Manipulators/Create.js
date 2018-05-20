@@ -9,7 +9,7 @@ class Create extends BaseStarterManipulator {
     static getDefaultManipulatorParameters() {
         return {
             name: "Create",
-            targetProjectName: "",
+            targetProjectName: NewName.get(),
             isStarter: true
         }
     }
@@ -17,7 +17,7 @@ class Create extends BaseStarterManipulator {
     renderSettings() {
         return (
                 <div className="form-group">
-                    <input name="targetProjectName" placeholder={NewName.get()} size="40" value={this.state.data.targetProjectName} onChange={this.setDataParameter.bind(this)} type="text" className="form-control" />
+                    <input name="targetProjectName" size="40" value={this.state.data.targetProjectName} onChange={this.setDataParameter.bind(this)} type="text" className="form-control" />
                 </div>
         );
     }
