@@ -24,7 +24,7 @@ class LaravelObjectModel
         return new LaravelObjectModel($directives);
     }
 
-    public function installFrom($segments)
+    public function installFromOld($segments)
     {
         $this->segments = $segments;
 
@@ -37,6 +37,13 @@ class LaravelObjectModel
         })->flatten();
     }
 
+    public function installFrom($result)
+    {
+        return collect($result)->values()->map(function($file) {
+            return "Jag installerade en fil!";
+        });        
+    }
+
     // So far just a placeholder!
     public function previewFrom($segments)
     {
@@ -46,9 +53,20 @@ class LaravelObjectModel
             return $this->errors;
         }
 
-        return EntityFactory::makeWith($this->directives)->getAllEntetiesFrom($this->segments)->map(function($entity) {
+        $filePreviews = EntityFactory::makeWith($this->directives)->getAllEntetiesFrom($this->segments)->map(function($entity) {
             return $entity->preview();
         })->flatten();
+
+        // Convert to object
+        $filePreviews = $filePreviews->reduce(function($result, $item) {
+            $key = $item->path;
+            $result->$key = $item->content;
+            return $result;
+
+        }, new \StdClass());
+
+        return collect($filePreviews);
+
     }
 
     /* END API *********************************************************** */   
