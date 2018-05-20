@@ -6,40 +6,23 @@ import {bindActionCreators} from 'redux';
 import {openLog} from '../../actions/index';
 import {setQueue} from '../../actions/index';
 import Queue from '../../Queue';
-import Compiler from "../../Compiler"
-import Validator from "../../Validator"
+import Compiler from "../../Compiler";
+import Validator from "../../Validator";
+import BaseControl from "../BaseControl";
 
-class Run extends Component {
+class Run extends BaseControl {
     constructor(props) {
         super(props);
-        Modal.setAppElement('#main');
-        this.state = {};
+        this.title = "Run"
+        this.modalFooter = this.defaultFooter
+        this.icon = "fa-play"
     }
 
-    render() {
+    controlBarItem() {
         return (
-            <span onClick={this.run.bind(this)} className="header-menu-item">
-                <i title="Run!" className="fa fa-play icon-control-bar icon-control-bar"></i><span className="header-menu-item-text">Run</span>
-                {this.renderModal()}
+            <span onClick={this.run.bind(this)} className="control-bar-item">
+                <i title="Run!" className={"fa " + this.icon + " icon-control-bar"}></i><span className="control-bar-item-text">{this.title}</span>
             </span>
-        );
-    }
-
-    renderModal() {
-        return (
-            <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
-            onRequestClose={this.closeModal.bind(this)}
-            contentLabel="Example Modal"
-            overlayClassName="no-overlay"
-            className="settings-modal medium"
-            >
-                <h4>Run!</h4>
-                <div className="container settings-modal-buttons">
-                    <button className="btn btn-stimpack" onClick={this.closeModal.bind(this)}>Close</button>
-                </div>
-            </Modal>
         );
     }
 
@@ -56,39 +39,9 @@ class Run extends Component {
         this.props.setQueue(queue);
         this.props.openLog();
     }
-
-    openModal() {
-        this.setState({
-            modalIsOpen: true,
-        });
-    }
-
-    afterOpenModal() {
-        //
-    }
-
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
-}
-
-function mapStateToProps(state) {
-    return {
-        engine: state.engine,
-        foo: state.foo,
-        parameters: state.parameters
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            openLog: openLog,
-            setQueue: setQueue
-        }, dispatch);
 }
 
 export default connect(
-    mapStateToProps,
-    matchDispatchToProps
+    BaseControl.mapStateToProps,
+    BaseControl.matchDispatchToProps
 )(Run);

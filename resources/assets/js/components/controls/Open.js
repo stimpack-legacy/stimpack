@@ -3,51 +3,30 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import BaseControl from "../BaseControl";
 
-class Open extends Component {
+class Open extends BaseControl {
     constructor(props) {
-        super(props);
-        Modal.setAppElement('#main');
-        this.state = {};
+        super(props)
+        this.title = "Open"
+        this.modalFooter = this.defaultFooter
+        this.icon = "fa-folder-open"
     }
 
-    render() {
+    modalBody() {
         return (
-            <span onClick={this.openModal.bind(this)} className="header-menu-item">
-                <i title="Explore packs on stimpack.io" className="fas fa-folder-open icon-control-bar"></i><span className="header-menu-item-text">Open</span>
-                {this.renderModal()}
-            </span>
-
-
-
-
-        );
-    }
-
-    renderModal() {
-        return (
-            <Modal
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal.bind(this)}
-            onRequestClose={this.closeModal.bind(this)}
-            contentLabel="Example Modal"
-            overlayClassName="no-overlay"
-            className="settings-modal medium"
-            >
-                <h4>Open pack</h4>
-                <hr />
-                <div className="form-group">
+            <wrappper className="modal-body">
+                <div>
                     <p> Your local packs </p>
                     <ul>
                         {this.renderLocalPacks()}
                     </ul>
+                </div>
+                <div className="modal-body-bottom">
                     <p> Explore all packs on <a href="https://stimpack.io">stimpack.io</a> </p>
                 </div>
-                <div className="modal-footer settings-modal-buttons">
-                    <button className="btn modal-buttons-style" onClick={this.closeModal.bind(this)}>Done</button>
-                </div>
-            </Modal>
-        );
+            </wrappper>
+        )
     }
 
     renderLocalPacks() {
@@ -56,40 +35,12 @@ class Open extends Component {
                 <a key={pack.name} href={"/open/" + pack.name}>
                     <li>{pack.name}</li>
                 </a>
-            );
-        });
+            )
+        })
     }
-
-    openModal() {
-        this.setState({
-            modalIsOpen: true,
-        });
-    }
-
-    afterOpenModal() {
-        //
-    }
-
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
-}
-
-function mapStateToProps(state) {
-    return {
-        engine: state.engine,
-        foo: state.foo
-    };
-}
-
-function matchDispatchToProps(dispatch){
-    return bindActionCreators(
-        {
-            //
-        }, dispatch);
 }
 
 export default connect(
-    mapStateToProps,
-    matchDispatchToProps
+    BaseControl.mapStateToProps,
+    BaseControl.matchDispatchToProps
 )(Open);
