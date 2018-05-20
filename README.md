@@ -3,20 +3,20 @@ Introduction for stimpack
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/C6CluJd9Hy0/0.jpg)](https://www.youtube.com/watch?v=C6CluJd9Hy0)
 
-## Installation
+### Installation
 ```
 composer global require consolidation/cgr
 cgr stimpack-io/stimpack
 ```
 
-## Quick start
+### Quick start
 ```
 cd /path/to/Code
 stimpack park
 ```
 Navigate to http://stimpack.test (requires Laravel valet or similar setup).
 
-## Development installation
+### Development installation
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/C6CluJd9Hy0/0.jpg)](https://www.youtube.com/watch?v=C6CluJd9Hy0)
 
@@ -28,8 +28,8 @@ Navigate to http://stimpack.test (requires Laravel valet or similar setup).
     npm run watch
 ```
 
-## CLI
+### CLI
 Notes about the CLI
 
-## stimpack.io integration
+### stimpack.io integration
 Get a free token
