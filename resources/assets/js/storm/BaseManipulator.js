@@ -40,7 +40,7 @@ export default class BaseManipulator extends BaseWidget {
                     shouldCloseOnOverlayClick={true}
                     contentLabel="Example Modal"
                     overlayClassName="no-overlay"
-                    className="settings-modal"
+                    className="manipulator-modal"
                 >
 					<div className="stim-modal-container">
 						<div className="stim-modal-header">
