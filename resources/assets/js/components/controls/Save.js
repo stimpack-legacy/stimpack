@@ -26,12 +26,12 @@ class Save extends BaseControl {
 
     modalBody() {
         return (
-            <wrapper className="modal-body">
+            <wrapper>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input placeholder="new-pack" value={this.state.name} onChange={this.changeName.bind(this)} type="text" className="form-control" id="name" />
                 </div>
-                <div className="form-group">
+                <div className="form-group m-b-sm">
                     <label htmlFor="description">Description</label>
                     <textarea  placeholder="What does it do?" value={this.state.description} onChange={this.changeDescription.bind(this)} type="textarea" className="form-control save-description" id="description" />
                 </div>
@@ -42,7 +42,7 @@ class Save extends BaseControl {
 
     modalFooter() {
         return (
-            <div className="modal-footer modal-buttons">
+            <wrapper>
                 <button onClick={this.save.bind(this)} className="btn modal-buttons-style">
                     Save locally
                 </button>
@@ -52,7 +52,7 @@ class Save extends BaseControl {
                 <button onClick={this.closeModal.bind(this)} className="btn button-cancel modal-buttons-style">
                     Close
                 </button>
-            </div>
+            </wrapper>
         )
     }
 

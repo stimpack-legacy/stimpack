@@ -21,7 +21,7 @@ class Log extends BaseControl {
 
     modalBody() {
         return(
-            <ul className="logItems modal-body">
+            <ul className="logItems">
                 {this.renderLogItems()}
                 {this.renderPendingItems()}
                 {this.renderFailedItems()}

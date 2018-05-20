@@ -1,4 +1,4 @@
-.settings-modal, .manipulator-modal  {
+.control-modal, .manipulator-modal  {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -47,11 +47,23 @@
 }
 
 .stim-modal-body{
+    max-height: 450px;
+    overflow-y: auto;
+    color: $theme-color2;
+}
+
+.stim-modal-body a{
+    color: $theme-color;
+}
+
+.stim-modal-body .form-group{
+    margin-bottom: 0px;
 }
 
 .stim-modal-footer{
     position: absolute;
     display: block;
+    height: 50px;
     bottom: 20px;
     border-top: none;
     padding: 0px;
@@ -61,6 +73,7 @@
     color: $darkest;
     background-color: lighten($theme-color, 8%);
     border-radius: 0px;
+    margin-right: 10px;
     box-shadow: -2px 2px $shadow;
     -webkit-transition: color 0.5s; /* Safari */
     transition: color 0.5s;
@@ -80,13 +93,6 @@
 .button-cancel{
     border: 2px solid $theme-color;
     background-color: $darkest;
-    color: $theme-color;
-}
-
-.modal-body{
-    color: $theme-color2;
-}
-
-.modal-body a{
+    height: 38px;
     color: $theme-color;
 }
