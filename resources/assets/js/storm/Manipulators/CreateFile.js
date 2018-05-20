@@ -9,7 +9,6 @@ import 'brace/mode/php';
 import 'brace/theme/monokai';
 
 class CreateFile extends BaseManipulator {
-
     static getDefaultManipulatorParameters() {
         return {
             name: "CreateFile",
@@ -28,8 +27,8 @@ class CreateFile extends BaseManipulator {
                     mode="php"
                     theme="monokai"
                     showGutter={false}
-                    height='700px'
-                    width='100%'                    
+                    height='400px'
+                    width='100%'
                     showPrintMargin={false}
                     highlightActiveLine={false}
                     onChange={this.updateContent.bind(this)}
@@ -40,12 +39,12 @@ class CreateFile extends BaseManipulator {
                     }
                 />
             </div>
-        );
+        )
     }
-    
+
     updateContent(newValue) {
         var data = this.state.data;
-        data.content = newValue;        
+        data.content = newValue;
         this.setState({data});
         this.props.node.data = this.state.data;
     }
