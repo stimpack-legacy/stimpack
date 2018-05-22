@@ -11,7 +11,17 @@ class Entity
     {
         $this->segment = $segment;
         $this->title = $segment->title();
-        $this->pseudoAttributes = $this->segment->pseudoAttributes();
+        //$this->pseudoAttributes = $this->segment->pseudoAttributes();/*
+        $this->pseudoAttributes = $this->segment->pseudoAttributes()->concat(
+            collect([
+                'id',
+                'created_at',
+                'updated_at'
+            ])->filter(function($name) {
+                return !$this->segment->pseudoAttributes()->contains($name);
+            })
+        );
+        
     }
 
     public static function make($segment)
