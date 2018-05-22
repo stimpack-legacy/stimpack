@@ -274,6 +274,12 @@ class ScaffoldLaravel extends BaseManipulator {
             </TabPanel>                
         )
     }
+
+    // ENSURE RESULT IS UPDATED EVEN IF THE RESULT PANEL IS NOT VISITED
+    closeModal() {
+        this.refreshResult()
+        super.closeModal()
+    }    
 }
 
 export default connect(
