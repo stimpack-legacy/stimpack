@@ -32,8 +32,8 @@ class ManyToManyRelationshipEntity extends Entity
     {   
         $content = str_pair_replace(
             collect([
-                "CLASS_NAME" => $this->migrationClassName(),
-                "TABLE_NAME" => $this->migrationTableName()
+                "CLASS_NAME" => $this->migrationClassNameSingular(),
+                "TABLE_NAME" => $this->migrationTableNameSingular()
             ]),
             File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"))
         );
