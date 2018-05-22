@@ -20,8 +20,7 @@ class Entity
             ])->filter(function($name) {
                 return !$this->segment->pseudoAttributes()->contains($name);
             })
-        );
-        
+        );        
     }
 
     public static function make($segment)
