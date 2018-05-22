@@ -4,6 +4,7 @@ namespace App\Stimpack\Manipulators\Support\Entity;
 
 use App\Stimpack\Manipulators\Support\Entity\Entity;
 use App\Stimpack\FilePreview;
+use App\Stimpack\Contexts\File;
 
 class ManyToManyRelationshipEntity extends Entity
 {
@@ -28,7 +29,21 @@ class ManyToManyRelationshipEntity extends Entity
     }
 
     public function migrationFileContent()
-    {
-        return "Not implemented! We need to extract <model1> and <model2> to create the foreign keys...";
+    {   
+        $content = str_pair_replace(
+            collect([
+                "CLASS_NAME" => $this->migrationClassName(),
+                "TABLE_NAME" => $this->migrationTableName()
+            ]),
+            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"))
+        );
+
+        $content = str_block_replace(
+            "COLUMNS",
+            $this->migrationColumns(),
+            $content
+        );
+
+        return $content;        
     }
 }

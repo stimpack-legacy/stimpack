@@ -2,6 +2,8 @@
 
 namespace App\Stimpack\Manipulators\Support;
 
+use App\Stimpack\Manipulators\Support\EntityFactory;
+
 class AttributeFactory
 {
     public function __construct($entities)
@@ -16,9 +18,20 @@ class AttributeFactory
     
     public function forEntity($entity)
     {
+        $pseudoAttributes = $entity->pseudoAttributes();
+
         $pseudoAttributes = $this->entities->first(function($candidate) use($entity) {
             return $candidate->title() == $entity->title();
         })->pseudoAttributes();
+        
+        if(preg_match($this->manyToManyRegExp($entity), $entity->title(), $matches)) {
+            
+            $pseudoAttributes = $pseudoAttributes->concat(collect([
+                $matches[1] . "_id",
+                $matches[2] . "_id"
+            ]));
+        }
+        
 
         $attributes = $pseudoAttributes->map(function($name) {
             return new Attribute(
@@ -30,6 +43,17 @@ class AttributeFactory
         });
 
         return $attributes;
+    }
+
+    public function manyToManyRegExp($entity)
+    {
+        // If segment matches MODEL1_MODEL2
+        $modelOptions = $this->entities->filter(function($candidate) use($entity) {
+            return $candidate->title() != $entity->title();
+        })->map(function($candidate) {
+            return $candidate->tableSingularCase();
+        })->implode("|");
+        return "/^(" . $modelOptions . ")_(" . $modelOptions . ")$/";
     }
 
     public function makeMigrationStatements($name)
