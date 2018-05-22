@@ -7,7 +7,6 @@ remember_token
 password_resets
 email
 token
-$table->timestamp('created_at');
 `;
 
 /* REFERENCE:

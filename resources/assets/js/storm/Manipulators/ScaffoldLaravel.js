@@ -10,6 +10,9 @@ import AceEditor from 'react-ace';
 import 'brace/mode/php';
 import 'brace/theme/monokai';
 
+import sampleApp from '../../templates/sampleApp'
+import userSystem from '../../templates/userSystem'
+
 
 class ScaffoldLaravel extends BaseManipulator {
 	constructor(props) {
@@ -63,7 +66,7 @@ class ScaffoldLaravel extends BaseManipulator {
                 <span onClick={this.addUserSystem.bind(this)} className="control-bar-item">
                     <i title="Set parameters" className={"fas fa-user icon-control-bar"}></i><span className="control-bar-item-text">Add User system</span>
                 </span>
-                <span onClick={this.addUserSystem.bind(this)} className="control-bar-item">
+                <span onClick={this.sampleApp.bind(this)} className="control-bar-item">
                     <i title="Set parameters" className={"fas fa-question-circle icon-control-bar"}></i><span className="control-bar-item-text">Sample app</span>
                 </span>                
             </TabPanel>
@@ -71,8 +74,20 @@ class ScaffoldLaravel extends BaseManipulator {
     }
 
     addUserSystem() {
-
+        var data = this.state.data
+        data.pseudoCode = data.pseudoCode + userSystem
+        this.setState({
+            data
+        })
     }
+
+    sampleApp() {
+        var data = this.state.data
+        data.pseudoCode = sampleApp
+        this.setState({
+            data
+        })
+    }    
 
     renderStubsPanel() {
         return (
