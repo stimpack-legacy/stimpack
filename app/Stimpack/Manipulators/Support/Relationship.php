@@ -49,7 +49,7 @@ class Relationship
     }
 
     public function concerns($entity)
-    {
+    {        
         return $this->first == $entity->tableSingularCase();
     }
 

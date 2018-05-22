@@ -98,3 +98,10 @@ User
 
 Garage 
 size";
+
+const MODEL_ENDING_WITH_IS_AND_RELATIONSHIP =
+"User
+name
+
+Penis
+user_id";

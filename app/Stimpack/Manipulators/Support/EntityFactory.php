@@ -95,7 +95,7 @@ class EntityFactory
             })->map(function($attribute) use($entity) {
                 preg_match('/(.*)_id$/', $attribute->name(), $matches);
                 $first = $matches[1];
-                $second = snake_case(str_singular($entity->title()));
+                $second = snake_case($entity->title());
                 
                 return collect([
                     new Relationship($first, "hasMany", $second),

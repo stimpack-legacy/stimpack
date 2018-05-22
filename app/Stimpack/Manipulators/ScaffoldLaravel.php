@@ -44,6 +44,7 @@ class ScaffoldLaravel extends Manipulator
     public static function registerSupportRoutes()
     {
         Route::post('/manipulators/ScaffoldLaravel/preview', function() {
+
             return LaravelObjectModel::make((object) [
                 "targetProjectPath" => '', // This is only a relative preview
                 "stubs" => json_decode(request()->data)->stubs,            
@@ -58,6 +59,13 @@ class ScaffoldLaravel extends Manipulator
 
     public static function attachStartupData()
     {
+        return (collect([
+            "stubs" => ScaffoldLaravel::stubs()
+        ]));
+    }
+
+    public static function stubs()
+    {
         $stubsArray = collect(
             File::init()->glob(base_path('app/Stimpack/Manipulators/Support/stubs/*'))
         )->map(function($file) {
@@ -67,8 +75,6 @@ class ScaffoldLaravel extends Manipulator
             return $carry;
         }, []);
 
-        return (collect([
-            "stubs" => collect($stubsArray)
-        ]));
+        return collect($stubsArray);
     }
 }

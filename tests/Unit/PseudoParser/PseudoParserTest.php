@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Stimpack\Manipulators\Support\PseudoParser;
 
-require(__DIR__ . "/PseudoSamples.php");
+require_once(__DIR__ . "/PseudoSamples.php");
 
 class PseudoParserTest extends TestCase
 {

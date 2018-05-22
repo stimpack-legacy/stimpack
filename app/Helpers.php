@@ -98,4 +98,22 @@ function classes_in_path($path)
     return collect($fqcns);
 }
 
+if (! function_exists('make_object')) {
+    /**
+     * More relaxed and explicit name for json_decode.
+     * Also lets you create a default object withoud StdClass
+     *
+     * @param  string  $json
+     * @return string
+     */
+    function make_object($json = false)
+    {
+        if($json) {
+            return json_decode($json);
+        }
+
+        return json_decode('{}');
+    }
+}
+
 define('T123', "Hola again33!");

@@ -96,9 +96,9 @@ class AttributeFactory
                 return '$table->timestamp(' . "'" . $name . "');";
             },
             // Boolean
-            '/^(has_|is_|got_)/' => function($name) {
-                return '$table->boolean(' . "'" . $name . "')->default(false);";
-            }
+            //'/^(has_|is_|got_)/' => function($name) {
+            //    return '$table->boolean(' . "'" . $name . "')->default(false);";
+            //}
         ]);                                
     }
 
