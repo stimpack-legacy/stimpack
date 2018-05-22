@@ -5,6 +5,7 @@ use App\Stimpack\Manipulators\Support\PseudoSegment;
 use App\Stimpack\Manipulators\Support\ValidateObjectModelTrait;
 use App\Stimpack\Manipulators\Support\EntityFactory;
 use App\Stimpack\Contexts\File;
+use App\Stimpack\FilePreview;
 
 class LaravelObjectModel
 {
@@ -49,7 +50,7 @@ class LaravelObjectModel
         })->values();        
     }
 
-    // So far just a placeholder!
+    // Refactor needed!!
     public function previewFrom($segments)
     {
         $this->segments = $segments;
@@ -62,6 +63,14 @@ class LaravelObjectModel
             return $entity->preview();
         })->flatten();
 
+        // Sort by path
+        $sortedArray = $filePreviews->toArray();
+        usort($sortedArray, function($a, $b) {
+            if($a->path == $b->path){ return 0 ; }
+            return ($a->path < $b->path) ? -1 : 1;
+        });
+        $filePreviews = collect($sortedArray);
+        
         // Convert to object
         $filePreviews = $filePreviews->reduce(function($result, $item) {
             $key = $item->path;

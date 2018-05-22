@@ -187,7 +187,7 @@ class ScaffoldLaravel extends BaseManipulator {
             }.bind(this),
             error: function(error) {
             }.bind(this)
-        });        
+        });
     }
 
     shouldRefreshResult() {
