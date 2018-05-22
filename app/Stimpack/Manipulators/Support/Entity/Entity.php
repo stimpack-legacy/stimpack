@@ -118,4 +118,43 @@ class Entity
     }
     
     /* END TITLE FORMATTING ************************************************* */
+
+    protected function migrationFilePath()
+    {
+        return path($this->directives->targetProjectPath, "database/migrations/" . $this->migrationFileName());
+    }
+
+    protected function migrationFileName()
+    {
+        return date('Y_m_d_His') . "_create_" . $this->pluralSnakeCaseTitle() . "_table.php";        
+    }
+
+    protected function migrationClassName()
+    {        
+        return "Create" . $this->pluralStudlyCaseTitle() . "Table.php";        
+    }
+    
+    protected function migrationTableName()
+    {
+        return $this->pluralSnakeCaseTitle();
+    }
+
+    protected function migrationFileContent()
+    {
+        $content = str_pair_replace(
+            collect([
+                "CLASS_NAME" => $this->migrationClassName(),
+                "TABLE_NAME" => $this->migrationTableName()
+            ]),
+            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"))
+        );
+
+        $content = str_block_replace(
+            "COLUMNS",
+            $this->migrationColumns(),
+            $content
+        );
+
+        return $content;
+    }
 }

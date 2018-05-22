@@ -3,6 +3,7 @@
 namespace App\Stimpack\Manipulators\Support\Entity;
 
 use App\Stimpack\Manipulators\Support\Entity\Entity;
+use App\Stimpack\FilePreview;
 
 class PureTableEntity extends Entity
 {
@@ -12,8 +13,9 @@ class PureTableEntity extends Entity
         ]);
     }
 
-    public function migrationFile()
-    {
-        return base_path("database/migrations/pure_table_" . $this->segment->title() . ".php");
+    public function preview() {
+        return collect([
+            new FilePreview($this->migrationFilePath(), $this->migrationFileContent())
+        ]);
     }
 }

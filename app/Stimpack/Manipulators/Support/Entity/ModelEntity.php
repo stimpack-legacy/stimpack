@@ -82,45 +82,6 @@ class ModelEntity extends Entity
         return "http://stimpack-dev.test/preview/file/at/" . $this->migrationFilePath();
     }
 
-    private function migrationFilePath()
-    {
-        return path($this->directives->targetProjectPath, "database/migrations/" . $this->migrationFileName());
-    }
-    
-    private function migrationFileName()
-    {
-        return date('Y_m_d_His') . "_create_" . $this->pluralSnakeCaseTitle() . "_table.php";        
-    }
-
-    private function migrationClassName()
-    {        
-        return "Create" . $this->pluralStudlyCaseTitle() . "Table.php";        
-    }
-    
-    private function migrationTableName()
-    {
-        return $this->pluralSnakeCaseTitle();
-    }
-
-    private function migrationFileContent()
-    {
-        $content = str_pair_replace(
-            collect([
-                "CLASS_NAME" => $this->migrationClassName(),
-                "TABLE_NAME" => $this->migrationTableName()
-            ]),
-            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/migration.stub"))
-        );
-
-        $content = str_block_replace(
-            "COLUMNS",
-            $this->migrationColumns(),
-            $content
-        );
-
-        return $content;
-    }
-
     private function renderFillableAttributes()
     {
         return $this->attributes()->filter(function($attribute) {
