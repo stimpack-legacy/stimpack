@@ -31,6 +31,7 @@ class EnvCommand extends StimpackCommand
      */
     public function handle()
     {
+        $this->line("You are running stimpack <VERSION> from: " . base_path() . "\n");
         $this->table(["Parameter", "Value"], [
             ["STIMPACK_APP_PATH", (env('STIMPACK_APP_PATH')) ? env('STIMPACK_APP_PATH') : "-"],
             ["STIMPACK_CODE_PATH", (env('STIMPACK_CODE_PATH')) ? env('STIMPACK_CODE_PATH') : "Not set!"],

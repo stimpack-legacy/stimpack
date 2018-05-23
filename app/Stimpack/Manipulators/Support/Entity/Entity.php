@@ -109,6 +109,14 @@ class Entity
         return studly_case(Str::plural(class_basename($string)));
     }
 
+    public function studlyCaseTitle($string = false)
+    {
+        if(!$string) {
+            return studly_case(class_basename($this->title()));
+        }
+        return studly_case(class_basename($string));
+    }
+
     public function pluralSnakeCaseTitle($string = false)
     {
         if(!$string) {        
@@ -116,6 +124,15 @@ class Entity
         }
         return Str::plural(Str::snake(class_basename($string)));
     }
+    
+    public function SnakeCaseTitle($string = false)
+    {
+        if(!$string) {        
+            return Str::snake(class_basename($this->title()));
+        }
+        return Str::snake(class_basename($string));
+    }
+    
     
     /* END TITLE FORMATTING ************************************************* */
 
@@ -134,10 +151,23 @@ class Entity
         return "Create" . $this->pluralStudlyCaseTitle() . "Table.php";        
     }
     
+    protected function migrationClassNameSingular()
+    {        
+        return "Create" . $this->studlyCaseTitle() . "Table.php";        
+    }
+    
     protected function migrationTableName()
     {
         return $this->pluralSnakeCaseTitle();
     }
+
+    protected function migrationTableNameSingular()
+    {
+        return $this->SnakeCaseTitle();
+    }
+
+    
+
 
     protected function migrationFileContent()
     {
