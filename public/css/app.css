@@ -10931,12 +10931,13 @@ li a:hover {
   position: relative;
   bottom: 0px;
   height: 71px;
-  line-height: 71px;
+  line-height: 68px;
   background: #3b3a40;
   width: 250px;
   text-align: center;
   -webkit-box-shadow: -7px 7px #2d2c30;
           box-shadow: -7px 7px #2d2c30;
+  border: 3px solid #3b3a40;
 }
 
 .logo-text {
@@ -11114,7 +11115,7 @@ li a:hover {
 
 .modal-buttons-style {
   color: #3b3a40;
-  background-color: #67fd62;
+  background-color: #40fc3a;
   border-radius: 0px;
   margin-right: 10px;
   -webkit-box-shadow: -2px 2px #2d2c30;
@@ -11134,7 +11135,7 @@ li a:hover {
 
 .modal-buttons-style:hover {
   color: #3b3a40;
-  background-color: #31fc2b;
+  background-color: #0bf504;
   -webkit-box-shadow: 0px 0px #2d2c30;
           box-shadow: 0px 0px #2d2c30;
   outline: none;
