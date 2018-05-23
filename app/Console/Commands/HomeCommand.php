@@ -40,7 +40,6 @@ class HomeCommand extends StimpackCommand
                          /_/';
         
         $this->line($logo);
-        $this->info("\n         By stimpack.io and contributors 2017-" . date("Y") . "\n");        
-        $this->line("You are running stimpack <VERSION> from: " . base_path() . "\n");        
+        $this->info("\n         By stimpack.io and contributors 2017-" . date("Y") . "\n");                        
     }    
 }
