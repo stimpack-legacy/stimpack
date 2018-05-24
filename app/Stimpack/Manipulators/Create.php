@@ -8,6 +8,7 @@ use ZipArchive;
 
 class Create extends Manipulator
 {
+    // The provider options in the manipulator are just for inspiration...
     public function perform() {
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
