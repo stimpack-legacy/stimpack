@@ -98,7 +98,8 @@ export default class BaseControl extends Component {
 	    return bindActionCreators(
 	        {
 	            openLog: openLog,
-	            setQueue: setQueue
+				setQueue: setQueue,
+				setParameters: setParameters
 	        }, dispatch);
 	}
 }

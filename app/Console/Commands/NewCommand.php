@@ -23,7 +23,7 @@ class NewCommand extends StimpackCommand
      *
      * @var string
      */
-    protected $description = 'Run a pack';
+    protected $description = 'Create a new site';
 
     /**
      * Execute the console command.
@@ -32,7 +32,7 @@ class NewCommand extends StimpackCommand
      */
     public function handle()
     {
-        $this->info("Running pack " . $this->argument('pack') . "!\n");
+        $this->info("Creating site " . $this->argument('target') . "!\n");
         $parameters = make_object();
         $parameters->target = $this->argument('target');
 

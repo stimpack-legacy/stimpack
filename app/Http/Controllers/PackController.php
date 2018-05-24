@@ -10,12 +10,11 @@ use App\LocalPack;
 class PackController extends Controller
 {
     public function save(Request $request, $packName) {
-        $pack = new LocalPack();
+        $pack = LocalPack::firstOrNew(["name" => $packName]);
         $pack->name = $packName;
         $pack->content = $request->content;
         $pack->description = $request->description;
         $pack->save();
-
         return "OK I saved the pack!";
     }
 }
