@@ -116,4 +116,19 @@ if (! function_exists('make_object')) {
     }
 }
 
-define('T123', "Hola again33!");
+if (! function_exists('set_env_value')) {
+    function set_env_value($envKey, $envValue)
+    {
+        $envFile = app()->environmentFilePath();
+        $str = file_get_contents($envFile);   
+        $str = preg_replace("/^({$envKey}=)(.*)/m", "{$envKey}={$envValue}\n", $str, -1, $numberOfMatches);
+        if($numberOfMatches == 0) {
+            info("found matches!");
+            return file_put_contents(app()->environmentFilePath(), PHP_EOL . "{$envKey}={$envValue}" . PHP_EOL , FILE_APPEND | LOCK_EX);
+        }
+        info("didnt found matches!");
+        $fp = fopen($envFile, 'w');
+        fwrite($fp, $str);
+        fclose($fp);
+    }
+}
