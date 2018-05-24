@@ -24,9 +24,9 @@ export default class BaseControl extends Component {
 	            isOpen={this.state.modalIsOpen}
 	            onAfterOpen={this.afterOpenModal.bind(this)}
 	            onRequestClose={this.closeModal.bind(this)}
-	            contentLabel="Example Modal"
-	            overlayClassName="no-overlay"
+	            contentLabel="Example Modal"	            
 	            className="control-modal"
+				shouldCloseOnOverlayClick={true}
 			>
 
 				<div className="stim-modal-container">

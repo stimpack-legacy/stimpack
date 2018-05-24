@@ -96,3 +96,7 @@
     height: 38px;
     color: $theme-color;
 }
+
+.ReactModal__Overlay {
+    background-color: rgba(0,0,0,0.3) !important;
+}

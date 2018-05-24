@@ -36,11 +36,10 @@ export default class BaseManipulator extends BaseWidget {
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal.bind(this)}
-                    onRequestClose={this.closeModal.bind(this)}
-                    shouldCloseOnOverlayClick={true}
-                    contentLabel="Example Modal"
-                    overlayClassName="no-overlay"
+                    onRequestClose={this.closeModal.bind(this)}                    
+                    contentLabel="Example Modal"                    
                     className="manipulator-modal"
+                    shouldCloseOnOverlayClick={true}
                 >
 					<div className="stim-modal-container">
 						<div className="stim-modal-header">
