@@ -71,7 +71,7 @@
 
 .modal-buttons-style{
     color: $darkest;
-    background-color: lighten($theme-color, 8%);
+    background-color: $theme-color;
     border-radius: 0px;
     margin-right: 10px;
     box-shadow: -2px 2px $shadow;
@@ -85,7 +85,7 @@
 
 .modal-buttons-style:hover{
     color: $darkest;
-    background-color: darken($theme-color, 3%);
+    background-color: darken($theme-color, 12%);
     box-shadow: 0px 0px $shadow;
     outline: none;
 }

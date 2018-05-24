@@ -2,14 +2,21 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:600,400|Press+Start+2P');
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
+// Variables
+@import "variables";
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap.scss";
 
 // React-tabs
 @import '~react-tabs/style/react-tabs.scss';
 
+// Storm
+@import "~storm-react-diagrams/src/sass/main";
+@import "_storm-react-diagrams-overrides.scss";
+
 //@import "node_modules/font-awesome/scss/font-awesome.scss";
-@import "variables";
+
 @import "editors";
 @import "icons";
 @import "header";
@@ -18,9 +25,6 @@
 @import "_log";
 @import "manipulator";
 @import "global";
-
-@import "~storm-react-diagrams/src/sass/main";
-@import "_storm-react-diagrams-overrides.scss";
 
 
 html {
