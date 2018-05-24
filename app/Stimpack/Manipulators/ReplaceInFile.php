@@ -8,14 +8,14 @@ class ReplaceInFile extends Manipulator
 {
     public function perform() 
     {        
-        $file = File::load($this->path($this->data->relativePathToFile))
-            ->replace($this->data->oldString, $this->data->newString)
-            ->save();
+        $file = $this->path($this->data->relativePathToFile);
+        $contents = file_get_contents ($file);         
+        $contents = str_replace($this->data->oldString, $this->data->newString, $contents);
+        file_put_contents($file, $contents);
 
         return [
             "messages" => [
-                "Found " . $file->path(),
-                $file->report . " matches replaced."
+                "Replaced " . $this->data->oldString . " with " . $this->data->newString
             ]
         ];
     }

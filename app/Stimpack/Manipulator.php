@@ -7,7 +7,7 @@ use Log;
 
 class Manipulator
 {
-    public function __construct($data, $globalParameters = 0)
+    public function __construct($data, $globalParameters)
     {
         
         $this->globalParameters = $globalParameters;             

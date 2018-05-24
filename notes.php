@@ -1,67 +1,22 @@
 <?php
-
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Car extends Model
+namespace App\Console\Commands;
+use Illuminate\Console\Command;
+use App\Console\Controllers\ManipulatorController;
+use App\Http\Controllers\GuiController;
+class StimpackCommand extends Command
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        //
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-}
-
-// MAKE EPIC SPLASHPAGE
-
-    public function perform() {
-        $welcome=file_get_contents($this->projectPath() . '/resources/views/welcome.blade.php');
-
-        $oldStyle = "background-color: #fff;";        
-        $newStyle = "background-image: url('" . $this->imageUrl . "'); background-size:100%;";
-        $welcome=str_replace($oldStyle, $newStyle, $welcome);
-
-        $oldStyle = "Laravel";        
-        $newStyle = $this->projectName();
-        $welcome=str_replace($oldStyle, $newStyle, $welcome);        
-
-        $oldStyle = "font-weight: 100;";        
-        $newStyle = "font-weight: 900;";
-        $welcome=str_replace($oldStyle, $newStyle, $welcome);
-        
-        file_put_contents($this->projectPath() . '/resources/views/welcome.blade.php', $welcome);
-
-        return "Created splash page!";
-
-// BELOW IS OLD StimPACK COMMAND
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'xxxstimpack {parameters?*}';
-
+    protected $signature = 'stimpack {parameters?*}';
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Proxy command for stimpack-cli';
-
     /**
      * Create a new command instance.
      *
@@ -71,7 +26,6 @@ class Car extends Model
     {
         parent::__construct();
     }
-
     /**
      * Execute the console command.
      *
@@ -81,10 +35,9 @@ class Car extends Model
     {
         $handler = collect([
             'stimpack' => "homeHandler",
-            'stimpack park' => "parkHandler",
             'stimpack help' => "helpHandler",
             'stimpack list' => "listHandler",
-            'stimpack run [\w-]+(\s+[\w-]+=[\w-]+)*' => "runHandler",
+            'stimpack run [\w-\s]+' => "runHandler",
             "stimpack new [\w-]+( from [\w-\/]+)?" => "newHandler",
             "stimpack open [\w-]+" => "openHandler",            
             // default
@@ -92,19 +45,14 @@ class Car extends Model
         ])->first(function($handler, $regex) {                        
             return preg_match('/^' . $regex . '$/', $this->fullCommand());
         });
-
         $this->$handler();
     }
-
-
     private function args() {
         return collect($this->argument('parameters'));
     }
-
     private function fullCommand() {
         return collect(["stimpack"])->concat($this->args())->implode(" ");
     }
-
     private function homeHandler() {
         $logo = '
         _____ __  _                            __  
@@ -118,23 +66,7 @@ class Car extends Model
         $this->line("\n             By Anders Jürisoo and contributors");
         $this->helpHandler();
     }
-
-    private function parkHandler() {
-        //$this->info("Im about to park juuust here: " . getcwd());
-        $this->setEnviromentParameter("STIMPACK_CODE", getcwd());
-    }
-
-    protected function setEnviromentParameter($key, $value)
-    {
-        file_put_contents($this->laravel->environmentFilePath(), preg_replace(
-            '/STIMPACK_CODE=.*$/m',
-            $key . "=" . $value,
-            file_get_contents($this->laravel->environmentFilePath())
-        ));
-    }    
-
     private function helpHandler() {
-
         $this->table(["Command", "Hint"], [
             ["stimpack", "Display help"],
             ["stimpack park", "Install and set stimpack home to current directory."],
@@ -144,50 +76,34 @@ class Car extends Model
             
         ]);        
     }
-
     private function openHandler() {
         // stimpack open pack
         $project = $this->args()[1];
         exec("xdg-open http://stimpack.test/open/" . $project);
     }
-
     private function runHandler() {
-        // stimpack run pack p1=v1 p2=v2 ...
+        // stimpack run pack
         $packName = $this->args()[1];
-
-        $passedParameters = $this->args()->slice(2)->values()->map(function($statement) {
-            return [str_before($statement,"=") => str_after($statement,"=")];
-        })->collapse();
-
-        $defaultParameters = collect(json_decode(
-            file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
-        )->parameters);
-
-        $parameters = (object) $defaultParameters->merge($passedParameters)->toArray();
-
+        $packParameters = $this->args()->slice(2)->values();
         $compiledManipulators = collect(json_decode(
             file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
         )->compiled);
-
-
         $this->info("Running pack " . $packName . "!\n");
         
-        $compiledManipulators->each(function($manipulator) use($parameters) {
+        $compiledManipulators->each(function($manipulator) {
             $this->info($manipulator->name);
             collect(
-                ManipulatorController::make()->perform($manipulator, $parameters)["messages"]
+                ManipulatorController::make()->perform($manipulator)["messages"]
             )->each(function ($message) {
                 $this->comment(" - " .$message);
             });
             $this->line("");    
         });
     }
-
     private function newHandler() {
         // stimpack new app from template
         $projectName = $this->args()[1];
         $packName = $this->args()[3];
-
         $compiledManipulators = collect(json_decode(
             file_get_contents(storage_path("stimpack/packs/" . $packName . ".json"))
         )->compiled)->map(function($manipulator) use($projectName, $packName) {
@@ -196,12 +112,10 @@ class Car extends Model
             {
                 $manipulator->path = $projectName;
             }
-
             // Reset all context paths to the project to be created
             $manipulator->context->path = $projectName;                        
             return $manipulator;
         });
-
         $compiledManipulators->each(function($manipulator) {
             $this->info($manipulator->name);
             collect(
@@ -231,4 +145,5 @@ class Car extends Model
             })->toArray()
         );        
         
-    }
+    }    
+}
