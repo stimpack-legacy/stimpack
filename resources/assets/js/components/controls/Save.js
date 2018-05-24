@@ -83,17 +83,16 @@ class Save extends BaseControl {
         var compiled = compiler.compile();
         $.ajax({
             type: "POST",
-            url: "/save/" + this.state.name + ".json",
+            url: "/save/" + this.state.name,
             data: {
-                fileContent: nonCircularStringify({
-                    name: this.state.name,
-                    created: (new Date(Date.now()).toLocaleString()),
+                content: nonCircularStringify({
                     // Used to redraw the diagram
                     diagram: this.props.engine.diagramModel.serializeDiagram(),
                     // Used to run the pack from command line
                     compiled: compiled,
                     parameters: JSON.parse(this.props.parameters)
-                }, null, 4)
+                }, null, 4),
+                description: this.state.description
             },
             success: function(result){
                 this.setState({

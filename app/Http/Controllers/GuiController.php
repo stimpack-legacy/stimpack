@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
-use App\Stimpack\Pack;
+use App\LocalPack;
+use App\Stimpack\GlobalPack;
 use App\Http\Controllers\ManipulatorController;
 
 class GuiController extends Controller
@@ -13,7 +14,7 @@ class GuiController extends Controller
     public function __construct() {
         $this->data = [
             'projects' => $this->projects(), 
-            'packs' => $this->localPacks(),
+            'packs' => LocalPack::all(),
             'stimpack_io_token' => env('STIMPACK_IO_TOKEN'),
             'manipulatorData' => ManipulatorController::attachStartupData()
         ];
@@ -28,11 +29,10 @@ class GuiController extends Controller
     {
         
         if($author != "local") {            
-            $this->data["pack"] = new Pack(
+            $this->data["pack"] = new GlobalPack(
                 $packName,
                 json_decode(file_get_contents("http://data.stimpack.test/packs/" . $author . "/" . $packName))
             );
-//            dd($this->data["packs"][0]);
         } else {
             $this->data["pack"] = collect($this->data["packs"])->first(function($pack) use($packName) {
                 return $pack->name == $packName;
@@ -45,18 +45,6 @@ class GuiController extends Controller
     public function openLocal($packName)
     {
         return $this->open("local", $packName);
-    }    
-
-
-    public function localPacks()
-    {
-        chdir(storage_path("stimpack/packs"));
-        return collect(array_filter(glob("*"), 'is_file'))->map(function($filename) {
-            return new Pack(
-                str_replace_last(".json", "", $filename),
-                json_decode(file_get_contents($filename))
-            ); 
-        });
     }
 
     /* PRIVATES ******************************************************************/

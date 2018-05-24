@@ -5,7 +5,7 @@ Route::get('/', 'GuiController@index');
 Route::get('open/{packName}', 'GuiController@openLocal');
 Route::get('open/{author}/{packName}', 'GuiController@open');
 
-Route::post('save/{pack}', 'PackController@save');
+Route::post('save/{packName}', 'PackController@save');
 
 
 Route::post('manipulators/{manipulator}/perform', 'ManipulatorController@perform');

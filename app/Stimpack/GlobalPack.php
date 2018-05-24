@@ -2,7 +2,7 @@
 
 namespace App\Stimpack;
 
-class Pack
+class GlobalPack
 {
     public function __construct($name, $content)
     {
