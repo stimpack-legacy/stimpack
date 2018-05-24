@@ -11148,6 +11148,10 @@ li a:hover {
   color: #40fc3a;
 }
 
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
 .logItems {
   padding-left: 20px;
   text-align: left;
