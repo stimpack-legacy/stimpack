@@ -32,11 +32,21 @@ class ParkCommand extends StimpackCommand
     public function handle()
     {   
         $this->parkAt = (!$this->argument("path")) ? getcwd() : $this->argument("path");
-
         $this->configureEnviromentFile();
-        $this->setEnviromentParameter("STIMPACK_CODE_PATH", $this->parkAt);
+        set_env_value("STIMPACK_CODE_PATH", $this->parkAt);
         $this->createSymlinkToCode();
+        $this->setupDatabase();
         $this->info("Successfully parked at " . $this->parkAt);
+    }
+
+    public function setupDatabase()
+    {
+        $dbPath = base_path('storage/stimpack/stimpack.sqlite');
+        if(!file_exists($dbPath)) {
+            $this->info("Created a new database at " . $dbPath);
+        }
+        
+        set_env_value("DB_DATABASE", base_path('storage/stimpack/stimpack.sqlite'));
     }
 
     protected function createSymlinkToCode()
