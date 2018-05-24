@@ -5,6 +5,7 @@
 /public/js/app.js
 /storage/*.key
 /storage/stimpack/packs/*
+/storage/stimpack/stimpack.sqlite
 /vendor
 /.idea
 /.vagrant
