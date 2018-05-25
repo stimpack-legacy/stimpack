@@ -85,14 +85,13 @@ class Save extends BaseControl {
             type: "POST",
             url: "/save/" + this.state.name,
             data: {
+                name: this.state.name,
+                description: this.state.description,
                 content: nonCircularStringify({
-                    // Used to redraw the diagram
                     diagram: this.props.engine.diagramModel.serializeDiagram(),
-                    // Used to run the pack from command line
                     compiled: compiled,
                     parameters: JSON.parse(this.props.parameters)
-                }, null, 4),
-                description: this.state.description
+                }, null, 4)
             },
             success: function(result){
                 this.setState({
@@ -118,17 +117,12 @@ class Save extends BaseControl {
             beforeSend: function(request) {
                 request.setRequestHeader("stimpack-io-token", data.stimpack_io_token);
             },
-            url: "http://data.stimpack.test/packs/upload/",
+            url: data.stimpack_data_url + "/packs/upload/",
             data: {
                 name: this.state.name,
                 description: this.state.description,
-                fileContent: nonCircularStringify({
-                    name: this.state.name,
-                    description: this.state.description,
-                    created: (new Date(Date.now()).toLocaleString()),
-                    // Used to redraw the diagram
+                content: nonCircularStringify({
                     diagram: this.props.engine.diagramModel.serializeDiagram(),
-                    // Used to run the pack from command line
                     compiled: compiled,
                     parameters: JSON.parse(this.props.parameters)
                 }, null, 4)
