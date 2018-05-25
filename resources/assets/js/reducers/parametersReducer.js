@@ -5,7 +5,9 @@ var defaultParameters =
 
 function getParameters() {
 	if(!(typeof data.pack == "undefined")) {
-		return JSON.stringify(data.pack.content.parameters, null, 4);
+		return JSON.stringify(
+			JSON.parse(data.pack.content, null, 4).parameters
+		);
     }
     
 	return defaultParameters;

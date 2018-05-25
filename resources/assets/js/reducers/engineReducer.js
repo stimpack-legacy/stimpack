@@ -13,8 +13,6 @@ import { ManipulatorNodeModel } from "../storm/ManipulatorNodeModel";
 import { ManipulatorNodeFactory } from "../storm/ManipulatorNodeFactory";
 
 
-
-
 function engineWithLoadedModel() {
 	//1) setup the diagram engine
 	var engine = new DiagramEngine();
@@ -26,7 +24,11 @@ function engineWithLoadedModel() {
 	//2) setup the diagram model
 	var model = new DiagramModel();
 	
-	model.deSerializeDiagram(data.pack.content.diagram, engine);
+
+	console.log(JSON.parse(data.pack.content).diagram);
+
+	model.deSerializeDiagram(
+		JSON.parse(data.pack.content).diagram, engine);
 	engine.setDiagramModel(model);
 	return engine;	
 }
