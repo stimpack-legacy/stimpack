@@ -86,7 +86,7 @@ class Save extends BaseControl {
             type: "POST",
             url: "/save/" + slug(this.state.name),
             data: {
-                name: this.state.name,
+                name: slug(this.state.name),
                 description: this.state.description,
                 content: nonCircularStringify({
                     diagram: this.props.engine.diagramModel.serializeDiagram(),
@@ -120,7 +120,7 @@ class Save extends BaseControl {
             },
             url: data.stimpack_data_url + "/packs/upload/",
             data: {
-                name: this.state.name,
+                name: slug(this.state.name),
                 description: this.state.description,
                 content: nonCircularStringify({
                     diagram: this.props.engine.diagramModel.serializeDiagram(),

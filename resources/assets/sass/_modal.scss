@@ -1,7 +1,7 @@
 .control-modal, .manipulator-modal  {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: calc(50% + 27.5px);
+    left: calc(50% + 121px);
     transform: translate(-50%, -50%) !important;
     font-family: $secondary-font;
     background: $dark;  /* fallback for old browsers */
@@ -11,6 +11,12 @@
     opacity: 0.95;
     width: 800px;
     height: 600px;
+}
+
+
+.manipulator-modal{
+    height: 85%;
+    min-height: 600px;
 }
 
 .parameters-code {
@@ -24,7 +30,8 @@
 }
 
 .message{
-    color: $theme-color
+    color: $theme-color;
+    margin-top: 10px;
 }
 
 .stim-modal-container{
