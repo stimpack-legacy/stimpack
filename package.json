@@ -35,6 +35,7 @@
         "react-redux": "^5.0.6",
         "react-tabs": "^2.2.2",
         "redux": "^3.7.2",
+        "slug": "^0.9.1",
         "storm-react-diagrams": "^5.1.1"
     }
 }

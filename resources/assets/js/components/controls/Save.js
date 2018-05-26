@@ -11,6 +11,7 @@ import Queue from "../../Queue";
 import {nonCircularStringify} from "../../Helpers";
 import Compiler from "../../Compiler";
 import BaseControl from "../BaseControl";
+import slug from "slug";
 
 class Save extends BaseControl {
     constructor(props) {
@@ -83,7 +84,7 @@ class Save extends BaseControl {
         var compiled = compiler.compile();
         $.ajax({
             type: "POST",
-            url: "/save/" + this.state.name,
+            url: "/save/" + slug(this.state.name),
             data: {
                 name: this.state.name,
                 description: this.state.description,
@@ -95,7 +96,7 @@ class Save extends BaseControl {
             },
             success: function(result){
                 this.setState({
-                    message: "Succesfully stored pack!"
+                    message: "Succesfully stored pack with name: " + slug(this.state.name)
                 })
                 console.log(result);
             }.bind(this),
@@ -129,7 +130,7 @@ class Save extends BaseControl {
             },
             success: function(result){
                 this.setState({
-                    message: "Succesfully uploaded pack!"
+                    message: "Succesfully uploaded pack with name: " + slug(this.state.name)
                 })
                 console.log(result);
             }.bind(this),
