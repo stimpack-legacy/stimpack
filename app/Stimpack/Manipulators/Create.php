@@ -11,7 +11,7 @@ class Create extends Manipulator
     // The provider options in the manipulator are just for inspiration...
     public function perform() {
         // fix later...
-        file_put_contents(base_path("storage/stimpack/laravel.zip"), fopen("https://github.com/stimpack-io/laravel-as-a-zip/raw/master/laravel.zip", 'r'));
+        file_put_contents(storage_path("stimpack/laravel.zip"), fopen("https://github.com/stimpack-io/laravel-as-a-zip/raw/master/laravel.zip", 'r'));
 
         $zip = new ZipArchive;
         $res = $zip->open(storage_path("stimpack/laravel.zip"));
