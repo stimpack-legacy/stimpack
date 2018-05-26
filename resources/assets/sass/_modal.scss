@@ -13,6 +13,7 @@
     height: 600px;
 }
 
+
 .manipulator-modal{
     height: 85%;
     min-height: 600px;
@@ -29,7 +30,8 @@
 }
 
 .message{
-    color: $theme-color
+    color: $theme-color;
+    margin-top: 10px;
 }
 
 .stim-modal-container{
