@@ -4,6 +4,7 @@ namespace App\Stimpack;
 
 use stdClass;
 use Log;
+use App\Stimpack\Contexts\File;
 
 class Manipulator
 {
@@ -89,5 +90,14 @@ class Manipulator
         return $this->targetProjectPath() . "/" . $relativePath;
     }
 
+    protected function targetEnv($key) {
+        $result = preg_match(
+            '/^' . $key . '=(.*)$/m',
+            File::init()->get($this->path('.env')),
+            $matches
+        );
+
+        return $matches[1];
+    }
 
 }

@@ -6,7 +6,7 @@ use App\Console\Commands\StimpackCommand;
 use Illuminate\Console\Command;
 use App\Console\Controllers\ManipulatorController;
 use App\Http\Controllers\GuiController;
-use App\LocalPack;
+use App\Pack;
 
 
 class RunCommand extends StimpackCommand
@@ -46,7 +46,7 @@ class RunCommand extends StimpackCommand
         }, make_object());
 
         $compiledManipulators = collect(
-            json_decode(LocalPack::where('name', $this->argument('pack'))->first()->content)->compiled
+            json_decode(Pack::where('name', $this->argument('pack'))->first()->content)->compiled
         );
         
 

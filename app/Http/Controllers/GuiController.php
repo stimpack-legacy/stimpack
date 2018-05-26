@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
-use App\LocalPack;
-use App\GlobalPack;
+use App\Pack;
 use App\Http\Controllers\ManipulatorController;
 
 class GuiController extends Controller
@@ -14,7 +13,7 @@ class GuiController extends Controller
     public function __construct() {
         $this->data = [
             'projects' => $this->projects(), 
-            'packs' => LocalPack::all(),
+            'packs' => Pack::all(),
             'stimpack_io_token' => env('STIMPACK_IO_TOKEN'),
             'stimpack_data_url' => env('STIMPACK_DATA_URL'),
             'manipulatorData' => ManipulatorController::attachStartupData()
@@ -30,7 +29,7 @@ class GuiController extends Controller
     {
         
         if($author != "local") {
-            $this->data["pack"] = new GlobalPack(
+            $this->data["pack"] = new Pack(
                 (array) json_decode(file_get_contents(env('STIMPACK_DATA_URL') . "/packs/" . $author . "/" . $packName))                
             );
         } else {
