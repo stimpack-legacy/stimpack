@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocalPacksTable extends Migration
+class CreatePacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLocalPacksTable extends Migration
      */
     public function up()
     {
-        Schema::create('local_packs', function (Blueprint $table) {
+        Schema::create('packs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('description');
@@ -29,6 +29,6 @@ class CreateLocalPacksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('local_packs');
+        Schema::dropIfExists('packs');
     }
 }

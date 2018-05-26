@@ -6,7 +6,7 @@ use App\Console\Commands\StimpackCommand;
 use Illuminate\Console\Command;
 use App\Console\Controllers\ManipulatorController;
 use App\Http\Controllers\GuiController;
-use App\LocalPack;
+use App\Pack;
 
 
 class NewCommand extends StimpackCommand
@@ -16,7 +16,7 @@ class NewCommand extends StimpackCommand
      *
      * @var string
      */
-    protected $signature = 'stimpack:new {target} {from} {pack}';
+    protected $signature = 'stimpack:new {target} {from?} {pack?}';
 
     /**
      * The console command description.
@@ -32,14 +32,12 @@ class NewCommand extends StimpackCommand
      */
     public function handle()
     {
-        $this->info("Creating site " . $this->argument('target') . "!\n");
         $parameters = make_object();
         $parameters->target = $this->argument('target');
 
         $compiledManipulators = collect(
-            json_decode(LocalPack::where('name', $this->argument('pack'))->first()->content)->compiled
-        );
-        
+            json_decode($this->packToRun()->content)->compiled
+        );        
 
         $compiledManipulators->each(function($manipulator) use($parameters) {
             $this->info($manipulator->name);
@@ -50,6 +48,24 @@ class NewCommand extends StimpackCommand
             });
             $this->line("");    
         });        
-    }    
+    }
+    
+    public function packToRun()
+    {
+        if($this->assumesDefaultPack()) {
+            return $this->defaultPack();
+        }
+        
+        return Pack::where('name', $this->argument('pack'))->first();
+    }
+
+    public function assumesDefaultPack() {
+        return (!$this->argument('from')) && (!$this->argument('pack'));
+    }
+
+    public function defaultPack()
+    {
+        return Pack::where("name", "default")->firstOrFail();
+    }
 }
 
