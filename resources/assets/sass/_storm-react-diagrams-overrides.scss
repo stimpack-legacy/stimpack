@@ -1,8 +1,20 @@
 // Prettier ports
 .srd-port{
     background: none;
-
     text-align: right !important;
+}
+
+.srd-default-node{
+    background: $darkest;
+}
+
+.srd-default-node__title{
+    background: none;
+}
+
+.srd-default-node__name, .srd-starter-node__name {
+    font-family: $secondary-font;
+    font-weight: 600;
 }
 
 // Enforce Node min width
@@ -36,10 +48,10 @@
         display: flex;
         background-image: linear-gradient(rgba(black, 0.1), rgba(black, 0.2));
     }
-    
+
     &__in, &__out{
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-    }    
+    }
 }
