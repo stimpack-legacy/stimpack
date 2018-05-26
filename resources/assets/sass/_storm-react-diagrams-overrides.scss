@@ -21,6 +21,11 @@
 .srd-node {
     min-width: 80px;
     //text-align: center;
+    cursor: grab;
+}
+
+.srd-node:active{
+    cursor: grabbing;
 }
 
 .srd-independent-node{
