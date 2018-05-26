@@ -10694,8 +10694,31 @@ a.text-dark:focus {
   text-align: right !important;
 }
 
+.srd-default-node,
+.srd-independent-node,
+.srd-starter-node {
+  background: #3b3a40;
+}
+
+.srd-default-node__title {
+  background: none;
+}
+
+.srd-default-node__name,
+.srd-starter-node__name {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
 .srd-node {
   min-width: 80px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.srd-node:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 .srd-independent-node {
@@ -10800,10 +10823,6 @@ h6 ~ *:not(h6) {
   height: 100px;
 }
 
-.ace_editor {
-  background: black !important;
-}
-
 .editor-tabs {
   list-style-type: none;
   padding: 0;
@@ -10880,6 +10899,14 @@ li a:hover {
 
 #tools > * {
   margin-left: 10px;
+}
+
+.ace_editor {
+  background: #3b3a40 !important;
+}
+
+.react-tabs__tab {
+  bottom: 0px;
 }
 
 .icon-control-bar {
@@ -11042,8 +11069,8 @@ li a:hover {
 .control-modal,
 .manipulator-modal {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: calc(50% + 27.5px);
+  left: calc(50% + 121px);
   -webkit-transform: translate(-50%, -50%) !important;
           transform: translate(-50%, -50%) !important;
   font-family: "Open Sans", sans-serif;
@@ -11058,6 +11085,11 @@ li a:hover {
   height: 600px;
 }
 
+.manipulator-modal {
+  height: 85%;
+  min-height: 600px;
+}
+
 .parameters-code {
   width: 100%;
   height: 450px;
@@ -11070,6 +11102,7 @@ li a:hover {
 
 .message {
   color: #40fc3a;
+  margin-top: 10px;
 }
 
 .stim-modal-header,
@@ -11091,7 +11124,7 @@ li a:hover {
 }
 
 .stim-modal-body {
-  max-height: 450px;
+  max-height: 520px;
   overflow-y: auto;
   color: #c4fec2;
 }
@@ -11150,6 +11183,10 @@ li a:hover {
 
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.textarea-scaffold {
+  height: 447px;
 }
 
 .logItems {

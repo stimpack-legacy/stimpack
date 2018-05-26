@@ -32,13 +32,13 @@ class ScaffoldLaravel extends BaseManipulator {
             result: []
         }
     }
-   
+
     renderSettings() {
 
         //onChangeTab={this.select.bind(this)}
 
         return (
-            <div>               
+            <div>
                 <Tabs>
                     <TabList className="tab-background">
                         <Tab><h6>PseudoCode</h6></Tab>
@@ -51,24 +51,24 @@ class ScaffoldLaravel extends BaseManipulator {
                     {this.renderStubsPanel()}
                     {this.renderSettingsPanel()}
                     {this.renderResultPanel()}
-                </Tabs>                
+                </Tabs>
             </div>
         );
     }
-    
+
 
     renderPseudoCodePanel() {
         return (
             <TabPanel>
                 <div className="form-group code-text-area">
-                    <textarea rows="13" name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control" onChange={this.setDataParameter.bind(this)} />
+                    <textarea name="pseudoCode" placeholder="Some Code Here..." value={this.state.data.pseudoCode} type="text" className="form-control textarea-scaffold" onChange={this.setDataParameter.bind(this)} />
                 </div>
                 <span onClick={this.addUserSystem.bind(this)} className="control-bar-item">
                     <i title="Set parameters" className={"fas fa-user icon-control-bar"}></i><span className="control-bar-item-text">Add User system</span>
                 </span>
                 <span onClick={this.sampleApp.bind(this)} className="control-bar-item">
                     <i title="Set parameters" className={"fas fa-question-circle icon-control-bar"}></i><span className="control-bar-item-text">Sample app</span>
-                </span>                
+                </span>
             </TabPanel>
         )
     }
@@ -87,14 +87,14 @@ class ScaffoldLaravel extends BaseManipulator {
         this.setState({
             data
         })
-    }    
+    }
 
     renderStubsPanel() {
         return (
             <TabPanel>
                 {this.renderStubSelect()}
-                {this.renderStubEditor()}                                
-            </TabPanel>                
+                {this.renderStubEditor()}
+            </TabPanel>
         )
     }
 
@@ -105,8 +105,8 @@ class ScaffoldLaravel extends BaseManipulator {
                     return (
                         <option key={stubName} value={stubName}> {stubName} </option>
                     )
-                })}    
-            </select>            
+                })}
+            </select>
         )
     }
 
@@ -114,14 +114,14 @@ class ScaffoldLaravel extends BaseManipulator {
         return (
             <select name="resultToEdit" value={this.state.selectedResult} onChange={this.changeSelectedResult.bind(this)} className="form-control">
                 <option value='default' disabled>Select file</option>
-                {Object.keys(this.state.data.result).map((resultName, index) => {                    
+                {Object.keys(this.state.data.result).map((resultName, index) => {
                     return (
                         <option key={resultName} value={resultName}> {resultName} </option>
                     )
-                })}    
-            </select>            
+                })}
+            </select>
         )
-    }    
+    }
 
     renderStubEditor() {
         return (
@@ -129,8 +129,8 @@ class ScaffoldLaravel extends BaseManipulator {
             mode="php"
             theme="monokai"
             showGutter={false}
-            height='400px'
-            width='100%'                    
+            height='410px'
+            width='100%'
             showPrintMargin={false}
             highlightActiveLine={false}
             onChange={this.setStubContent.bind(this)}
@@ -138,8 +138,8 @@ class ScaffoldLaravel extends BaseManipulator {
             name={this.props.node.data.name + "-" + this.props.node.id}
             editorProps={
                 {$blockScrolling: true}
-            }            
-        />            
+            }
+        />
         )
     }
 
@@ -149,8 +149,8 @@ class ScaffoldLaravel extends BaseManipulator {
             mode="php"
             theme="monokai"
             showGutter={false}
-            height='300px'
-            width='100%'                    
+            height='410px'
+            width='100%'
             showPrintMargin={false}
             highlightActiveLine={false}
             onChange={this.setResultContent.bind(this)}
@@ -158,10 +158,10 @@ class ScaffoldLaravel extends BaseManipulator {
             name={this.props.node.data.name + "-result-" + this.props.node.id}
             editorProps={
                 {$blockScrolling: true}
-            }            
-        />            
+            }
+        />
         )
-    }    
+    }
 
     refreshResult() {
         if(!this.shouldRefreshResult()) {
@@ -211,7 +211,7 @@ class ScaffoldLaravel extends BaseManipulator {
             stubs: this.state.data.stubs,
             settings: this.state.data.settings
         }
-        
+
         console.log({
             shouldRefresh: !_.isEqual(currentInputs, this.state.latestInputs),
             currentInputs: currentInputs,
@@ -257,7 +257,7 @@ class ScaffoldLaravel extends BaseManipulator {
 
     valueForSelectedResult() {
         return this.state.data.result[this.state.selectedResult]
-    }    
+    }
 
     changeSelectedStub(event) {
         var selectedStub = event.target.value;
@@ -286,7 +286,7 @@ class ScaffoldLaravel extends BaseManipulator {
             <TabPanel>
                 {this.renderResultSelect()}
                 {this.renderResultEditor()}
-            </TabPanel>                
+            </TabPanel>
         )
     }
 
@@ -294,7 +294,7 @@ class ScaffoldLaravel extends BaseManipulator {
     closeModal() {
         this.refreshResult()
         super.closeModal()
-    }    
+    }
 }
 
 export default connect(
