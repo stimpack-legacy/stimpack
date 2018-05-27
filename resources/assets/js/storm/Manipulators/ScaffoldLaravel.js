@@ -40,17 +40,17 @@ class ScaffoldLaravel extends BaseManipulator {
         return (
             <div>
                 <Tabs>
-                    <TabList className="tab-background">
+                    <TabList className="tab-background">                        
                         <Tab><h6>PseudoCode</h6></Tab>
-                        <Tab><h6>Stubs</h6></Tab>
-                        <Tab><h6>Settings</h6></Tab>
+                        <Tab><h6>Stubs</h6></Tab>                                                
                         <Tab onClick={this.refreshResult.bind(this)}><h6>Result</h6></Tab>
+                        <Tab><h6>Help</h6></Tab>
                     </TabList>
 
                     {this.renderPseudoCodePanel()}
-                    {this.renderStubsPanel()}
-                    {this.renderSettingsPanel()}
+                    {this.renderStubsPanel()}                    
                     {this.renderResultPanel()}
+                    {this.renderHelpPanel()}
                 </Tabs>
             </div>
         );
@@ -273,10 +273,22 @@ class ScaffoldLaravel extends BaseManipulator {
         })
     }
 
-    renderSettingsPanel() {
+    renderHelpPanel() {
         return (
             <TabPanel>
-                <p> This is some settings for you to change </p>
+                <div className="help-tab">
+                    <ul>
+                        <li><p> In the PseudoCode tab, press the sample app button to see an example of valid syntax. </p></li>
+                        <li><p> Press Add user system to add the default Laravel auth. </p></li>
+                        <li><p> Define any number of segments as group of rows separated by two newlines. </p></li>
+                        <li><p> The first line in each segment determins the type. </p></li>
+                        <li><p> Use pascal case to create a Model. Example: "CarBrands" </p></li>
+                        <li><p> Use model1_model2 in snake case for manyToMany relationship, for instance "car_passenger" </p></li>
+                        <li><p> Use snake case for pure tables. Example: "password_resets" </p></li>
+                        <li><p> Please note this manipulator is a part of the stimpack Alfa release and is a experimental feature</p></li>
+                        <li><p> Limitations include no support multiple one-to-many between two models and no one-to-one distinction</p></li>
+                    </ul>
+                </div>
             </TabPanel>
         )
     }

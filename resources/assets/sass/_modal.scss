@@ -55,7 +55,7 @@
 
 .stim-modal-body{
     max-height: 520px;
-    overflow-y: auto;
+    overflow-y: hidden;
     color: $theme-color2;
 }
 
@@ -110,4 +110,9 @@
 
 .textarea-scaffold{
     height: 447px;
+}
+
+.help-tab {
+    padding-top: 10px;
+    padding-left: 20px;
 }
