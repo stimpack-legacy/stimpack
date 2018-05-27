@@ -1,12 +1,11 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Http\Controllers;
 
-use DummyFullModelClass;
+use App\MODEL;
 use Illuminate\Http\Request;
-use DummyRootNamespaceHttp\Controllers\Controller;
 
-class DummyClass extends Controller
+class CONTROLLER extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +41,10 @@ class DummyClass extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \CLASS  $INSTANCE
      * @return \Illuminate\Http\Response
      */
-    public function show(DummyModelClass $DummyModelVariable)
+    public function show(CLASS $INSTANCE)
     {
         //
     }
@@ -53,10 +52,10 @@ class DummyClass extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \CLASS  $INSTANCE
      * @return \Illuminate\Http\Response
      */
-    public function edit(DummyModelClass $DummyModelVariable)
+    public function edit(CLASS $INSTANCE)
     {
         //
     }
@@ -65,10 +64,10 @@ class DummyClass extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \CLASS  $INSTANCE
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DummyModelClass $DummyModelVariable)
+    public function update(Request $request, CLASS $INSTANCE)
     {
         //
     }
@@ -76,10 +75,10 @@ class DummyClass extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \DummyFullModelClass  $DummyModelVariable
+     * @param  \CLASS  $INSTANCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DummyModelClass $DummyModelVariable)
+    public function destroy(CLASS $INSTANCE)
     {
         //
     }

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
-class MODELSeeder extends Seeder
+class CLASS_NAME extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,9 +13,10 @@ class MODELSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('TABLE')->insert([
+        $faker = Faker::create();
+        DB::table('TABLE')->insert([
             [
-ATTRIBUTES
+                SEEDER_STATEMENTS
             ],
         ]);
     }

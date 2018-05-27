@@ -222,11 +222,6 @@ class ScaffoldLaravel extends BaseManipulator {
     }
 
     setStubContent(newValue) {
-        //var stubs = this.state.data.stubs;
-        //stubs[this.state.selectedStub] = newValue;
-
-        //this.props.node.data = this.state.data;
-
         var data = this.state.data
         data.stubs[this.state.selectedStub] = newValue
 
@@ -238,9 +233,6 @@ class ScaffoldLaravel extends BaseManipulator {
     }
 
     setResultContent(newValue) {
-        //var result = this.state.data.result;
-        //result[this.state.selectedResult] = newValue;
-
         var data = this.state.data
         data.result[this.state.selectedResult] = newValue
 
@@ -280,13 +272,13 @@ class ScaffoldLaravel extends BaseManipulator {
                     <ul>
                         <li><p> In the PseudoCode tab, press the sample app button to see an example of valid syntax. </p></li>
                         <li><p> Press Add user system to add the default Laravel auth. </p></li>
-                        <li><p> Define any number of segments as group of rows separated by two newlines. </p></li>
-                        <li><p> The first line in each segment determins the type. </p></li>
+                        <li><p> Define any number of segments consisting of grouped rows separated by two newlines. </p></li>
+                        <li><p> The first line in each segment determins the type, the following sets the attributes </p></li>
                         <li><p> Use pascal case to create a Model. Example: "CarBrands" </p></li>
-                        <li><p> Use model1_model2 in snake case for manyToMany relationship, for instance "car_passenger" </p></li>
+                        <li><p> Use model1_model2 with snake case for manyToMany relationship, for instance "car_passenger" </p></li>
                         <li><p> Use snake case for pure tables. Example: "password_resets" </p></li>
                         <li><p> Please note this manipulator is a part of the stimpack Alfa release and is a experimental feature</p></li>
-                        <li><p> Limitations include no support multiple one-to-many between two models and no one-to-one distinction</p></li>
+                        <li><p> Limitations include no support for multiple one-to-many between two models and no one-to-one distinction</p></li>
                     </ul>
                 </div>
             </TabPanel>

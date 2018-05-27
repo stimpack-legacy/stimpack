@@ -5,6 +5,8 @@ namespace App\Stimpack\Manipulators\Support\Entity;
 use App\Stimpack\Manipulators\Support\Entity\Entity;
 use App\Stimpack\FilePreview;
 use App\Stimpack\Contexts\File;
+use DateTime;
+use DateInterval;
 
 class ManyToManyRelationshipEntity extends Entity
 {
@@ -24,8 +26,14 @@ class ManyToManyRelationshipEntity extends Entity
     {
         return path(
             $this->directives->targetProjectPath,
-            "database/migrations/" . date('Y_m_d_His') . "_create_" . $this->title() . "_table.php"
+            "database/migrations/" . $this->migrationFileName()
         );
+    }
+
+    protected function migrationFileName()
+    {
+        return (new DateTime())->add(new DateInterval('PT' . $this->segment->segmentIndex . 'S'))->format('Y_m_d_His')
+             . "_create_" . $this->title() . "_table.php";        
     }
 
     public function migrationFileContent()

@@ -4,6 +4,8 @@ namespace App\Stimpack\Manipulators\Support\Entity;
 use App\Stimpack\Contexts\File;
 use App\Stimpack\Manipulators\Support\Attribute;
 use Illuminate\Support\Str;
+use DateTime;
+use DateInterval;
 
 class Entity
 {
@@ -12,15 +14,17 @@ class Entity
         $this->segment = $segment;
         $this->title = $segment->title();
         //$this->pseudoAttributes = $this->segment->pseudoAttributes();/*
-        $this->pseudoAttributes = $this->segment->pseudoAttributes()->concat(
-            collect([
-                'id',
-                'created_at',
-                'updated_at'
-            ])->filter(function($name) {
-                return !$this->segment->pseudoAttributes()->contains($name);
-            })
-        );        
+        $this->pseudoAttributes = $this->addIfNotExists(
+            collect(['id','timestamps']),
+            $this->segment->pseudoAttributes()
+        );
+    }
+
+    private function addIfNotExists($names, $pseudoAttributes)
+    {
+        return $names->filter(function($name) use($pseudoAttributes) {
+            return !$pseudoAttributes->contains($name);
+        })->concat($pseudoAttributes);
     }
 
     public static function make($segment)
@@ -52,6 +56,13 @@ class Entity
     {
         return $this->attributes->map(function($attribute) {
             return $attribute->migrationStatements();
+        })->flatten()->implode("\n");
+    }
+
+    public function seederColumns()
+    {
+        return $this->attributes->map(function($attribute) {
+            return $attribute->seederStatements();
         })->flatten()->implode("\n");
     }
 
@@ -143,7 +154,8 @@ class Entity
 
     protected function migrationFileName()
     {
-        return date('Y_m_d_His') . "_create_" . $this->pluralSnakeCaseTitle() . "_table.php";        
+        return (new DateTime())->add(new DateInterval('PT' . $this->segment->segmentIndex . 'S'))->format('Y_m_d_His')
+             . "_create_" . $this->pluralSnakeCaseTitle() . "_table.php";        
     }
 
     protected function migrationClassName()

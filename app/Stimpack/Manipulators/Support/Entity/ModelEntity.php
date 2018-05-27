@@ -10,36 +10,40 @@ use App\Stimpack\FilePreview;
 
 class ModelEntity extends Entity
 {
-    public function install() {
-        return collect([
-            $this->makeModelFile(),
-            $this->makeMigrationFile(),
-            //$this->makeControllerFile(),
-            //$this->injectRoutes()
-        ]);
-    }
-
     public function preview() {
         return collect([
             new FilePreview($this->modelFilePath(), $this->modelFileContent()),
-            new FilePreview($this->migrationFilePath(), $this->migrationFileContent())
+            new FilePreview($this->migrationFilePath(), $this->migrationFileContent()),
+            new FilePreview($this->controllerFilePath(), $this->controllerFileContent()),            
+            // OUCH! this feel apart, did not make it on time.
+            //new FilePreview($this->seederFilePath(), $this->seederFileContent())
         ]);
     }    
 
-    private function makeModelFile()
+    private function controllerFilePath()
     {
-        $file = File::save(
-            $this->modelFilePath(),
-            $this->modelFileContent()
-        );       
-
-        return "http://stimpack-dev.test/preview/file/at/" . $this->modelFilePath();
+        return path($this->directives->targetProjectPath, "app/Http/Controllers/" . $this->title . "Controller.php");
     }
 
+    private function controllerFileContent()
+    {
+        $content = str_pair_replace(
+            collect([
+                "MODEL" => $this->title(),
+                "CONTROLLER" => $this->title() . "Controller",
+                "CLASS" => $this->title(),
+                "INSTANCE" => camel_case($this->title())
+            ]),
+            $this->directives->stubs->controller
+        );
+
+        return $content;
+    }
+    
     private function modelFilePath()
     {
-        return path($this->directives->targetProjectPath, "app/Models/" . $this->title . ".php");
-    }
+        return path($this->directives->targetProjectPath, "app/" . $this->title . ".php");
+    }    
 
     private function modelFileContent()
     {
@@ -61,26 +65,50 @@ class ModelEntity extends Entity
     {
         $methods = $this->allRelationships()->filter(function($relationship) {
             return $relationship->concerns($this); 
-        })->map(function($relationship) {
+        })->map(function($relationship) {            
             return $relationship->renderMethod($this);
         });
-
         if($methods->isNotEmpty()) {
             return "\n" . $methods->implode("\n\n");
         }
 
         return "";
     }
-
-    private function makeMigrationFile()
+   
+    private function seederFilePath()
     {
-        $file = File::save(
-            $this->migrationFilePath(),
-            $this->migrationFileContent()
-        );       
-
-        return "http://stimpack-dev.test/preview/file/at/" . $this->migrationFilePath();
+        return path($this->directives->targetProjectPath, "database/seeds/" . $this->seederFileName());
     }
+
+    private function seederFileContent()
+    {
+        $content = str_pair_replace(
+            collect([
+                "CLASS_NAME" => $this->seederClassName(),
+                "TABLE" => $this->pluralSnakeCaseTitle()
+            ]),
+            File::init()->get(base_path("app/Stimpack/Manipulators/Support/stubs/seeder.stub"))
+        );
+
+        
+        $content = str_block_replace(
+            "SEEDER_STATEMENTS",
+            $this->seederColumns(),
+            $content
+        );
+
+        return $content;        
+    }
+    
+    private function seederFileName()
+    {
+        return $this->title() . "Seeder.php";        
+    }    
+
+    private function seederClassName()
+    {
+        return $this->title() . "Seeder";        
+    }  
 
     private function renderFillableAttributes()
     {

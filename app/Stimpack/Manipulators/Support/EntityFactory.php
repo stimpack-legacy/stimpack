@@ -89,7 +89,9 @@ class EntityFactory
 
     public function oneToManyRelationships()
     {
-        return $this->allEntities->map(function($entity) {
+        return $this->allEntities->filter(function($entity) {
+            return !$this->isManyToManyRelationship($entity->segment);
+        })->map(function($entity) {
             return $entity->attributes->filter(function($attribute) {
                 return preg_match('/(.*)_id$/', $attribute->name());
             })->map(function($attribute) use($entity) {
@@ -112,7 +114,7 @@ class EntityFactory
             preg_match($this->manyToManyRegExp(),$entity->title(), $matches);
             return collect([
                 new Relationship($matches[1], "belongsToMany", $matches[2]),
-                new  Relationship($matches[2], "belongsToMany", $matches[1])
+                new Relationship($matches[2], "belongsToMany", $matches[1])
             ]);
         })->flatten();
     }

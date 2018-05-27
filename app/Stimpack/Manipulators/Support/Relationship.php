@@ -65,7 +65,7 @@ class Relationship
         );
     }
     
-    public function toString()
+    public function __toString()
     {
         return $this->first . " " . $this->type . " " . $this->second;
     }

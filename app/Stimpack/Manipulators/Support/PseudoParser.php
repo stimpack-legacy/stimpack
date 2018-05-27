@@ -5,6 +5,11 @@ use App\Stimpack\Manipulators\Support\PseudoSegment;
 
 class PseudoParser
 {
+    public function __construct()
+    {
+        $this->segmentIndex = 0;
+    }
+
     public static function make()
     {
         return new PseudoParser();
@@ -43,8 +48,10 @@ class PseudoParser
         return collect(preg_split('/\n\s*\n/', $text))->filter(function($item) {
             return $item != "";
         })->map(function($segment) {
+            $this->segmentIndex++;
             return new PseudoSegment(
-                collect(preg_split('/\n/', $segment))
+                collect(preg_split('/\n/', $segment)),
+                $this->segmentIndex
             );
         });
     }
