@@ -27,19 +27,22 @@ class ScaffoldLaravel extends Manipulator
         );
     }
 
-    public function oldPerform() {
-        return [
-            "messages" => $this->laravelObjectModel->installFromOld(
-                PseudoParser::parse($this->data->pseudoCode)
-            )
-        ];
-    }
+
 
     public function perform() {
+        $this->clearOldMigrations();
         return [
             "messages" => $this->laravelObjectModel->installFrom($this->data->result)
         ];
     }    
+
+    public function clearOldMigrations() {
+        $files = glob($this->path('database/migrations/') . '*'); // get all file names
+        foreach($files as $file){ // iterate files
+          if(is_file($file))
+            unlink($file); // delete file
+        }        
+    }
 
     public static function registerSupportRoutes()
     {

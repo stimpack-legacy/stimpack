@@ -148,12 +148,12 @@ class Entity
 
     protected function migrationClassName()
     {        
-        return "Create" . $this->pluralStudlyCaseTitle() . "Table.php";        
+        return "Create" . $this->pluralStudlyCaseTitle() . "Table";        
     }
     
     protected function migrationClassNameSingular()
     {        
-        return "Create" . $this->studlyCaseTitle() . "Table.php";        
+        return "Create" . $this->studlyCaseTitle() . "Table";        
     }
     
     protected function migrationTableName()

@@ -62,15 +62,15 @@ class LaravelObjectModel
         $filePreviews = EntityFactory::makeWith($this->directives)->getAllEntetiesFrom($this->segments)->map(function($entity) {
             return $entity->preview();
         })->flatten();
-
-        // Sort by path
+        /*
+        // Sort by path ( disaebled to prevent relationship conflict )
         $sortedArray = $filePreviews->toArray();
         usort($sortedArray, function($a, $b) {
             if($a->path == $b->path){ return 0 ; }
             return ($a->path < $b->path) ? -1 : 1;
         });
         $filePreviews = collect($sortedArray);
-        
+        */
         // Convert to object
         $filePreviews = $filePreviews->reduce(function($result, $item) {
             $key = $item->path;
