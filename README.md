@@ -24,7 +24,8 @@ Navigate to http://stimpack.test (requires Laravel valet or similar setup).
     cd stimpack-dev
     composer install
     cp .env.example .env
-    # get github tokens from ajthinking if you intend to connect to data.stimpack.x while developing
+    # possilby install stimpack-io/data
+    # get github tokens from ajthinking if needed
     php artisan key:generate
     cd .. && ./stimpack-dev park
     npm install
