@@ -1,7 +1,8 @@
 # Stimpack
 Introduction for stimpack
+GIF
+Kickstarter video
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/C6CluJd9Hy0/0.jpg)](https://www.youtube.com/watch?v=C6CluJd9Hy0)
 
 ### Installation
 ```
@@ -18,18 +19,16 @@ Navigate to http://stimpack.test (requires Laravel valet or similar setup).
 
 ### Development installation
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/C6CluJd9Hy0/0.jpg)](https://www.youtube.com/watch?v=C6CluJd9Hy0)
-
-```git clone to folder eg. "stimpack-dev"
+```git clone git@github.com:stimpack-io/stimpack.git stimpack-dev
+    cd stimpack-dev
     composer install
     cp .env.example .env
+    # get github tokens from ajthinking if you intend to connect to data.stimpack.x while developing
     php artisan key:generate
+    cd .. && ./stimpack-dev park
     npm install
     npm run watch
 ```
 
-### CLI
-Notes about the CLI
-
-### stimpack.io integration
-Get a free token
+### Contribution guide
+Checkout a developer quickstart video here.
