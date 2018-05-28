@@ -19,7 +19,8 @@ Navigate to http://stimpack.test (requires Laravel valet or similar setup).
 
 ### Development installation
 
-```git clone git@github.com:stimpack-io/stimpack.git stimpack-dev
+```
+    git clone git@github.com:stimpack-io/stimpack.git stimpack-dev
     cd stimpack-dev
     composer install
     cp .env.example .env
