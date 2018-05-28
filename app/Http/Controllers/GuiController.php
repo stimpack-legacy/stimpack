@@ -49,8 +49,9 @@ class GuiController extends Controller
     /* PRIVATES ******************************************************************/
 
     private function projects()
-    {        
-        return collect(array_filter(glob(env('STIMPACK_CODE_PATH') . "/*"), 'is_dir'))->values();        
+    {
+        chdir(env('STIMPACK_CODE_PATH'));
+        return collect(array_filter(glob("*"), 'is_dir'))->values();        
     }
 
 

@@ -8,7 +8,8 @@ import ReplaceInFile from "./Manipulators/ReplaceInFile"
 import ScaffoldLaravel from "./Manipulators/ScaffoldLaravel"
 import SetEnv from "./Manipulators/SetEnv"
 import ThrowBackEndError from "./Manipulators/ThrowBackEndError"
-// Add your import here
+import SeedDatabase from "./Manipulators/SeedDatabase"
+
 
 const AllManipulators = {
     // Starters
@@ -23,6 +24,7 @@ const AllManipulators = {
     ScaffoldLaravel,
     SetEnv,
     ThrowBackEndError,
+    SeedDatabase,
     // Add your manipulator here
 };
 
