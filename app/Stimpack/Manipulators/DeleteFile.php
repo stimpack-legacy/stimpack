@@ -3,18 +3,17 @@
 namespace App\Stimpack\Manipulators;
 use App\Stimpack\Manipulator;
 use App\Stimpack\Contexts\ContextFactory;
+use App\Stimpack\Contexts\File;
 
-class Delete extends Manipulator
+class DeleteFile extends Manipulator
 {
     public function perform() {
 
-        $context = ContextFactory::make(
-            $this->path($this->data->relativePathToDelete)
-        )->delete();
+        File::init()->delete($this->path($this->data->relativePathToDelete));
 
         return [
             "messages" => [
-                "Deleted " . $context->path()
+                "Deleted successful."
             ]
         ];
     }

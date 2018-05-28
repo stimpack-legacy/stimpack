@@ -2,11 +2,11 @@ import * as React from "react";
 import {connect} from 'react-redux';
 import BaseManipulator from "../BaseManipulator";
 
-class Delete extends BaseManipulator {
+class DeleteFile extends BaseManipulator {
 
     static getDefaultManipulatorParameters() {
         return {
-            name: "Delete",
+            name: "DeleteFile",
             relativePathToDelete: ""
         }
     }
@@ -23,4 +23,4 @@ class Delete extends BaseManipulator {
 export default connect(
     BaseManipulator.mapStateToProps,
     BaseManipulator.matchDispatchToProps
-)(Delete);
+)(DeleteFile);

@@ -3,13 +3,14 @@ import Load from "./Manipulators/Load";
 
 import CreateDatabase from "./Manipulators/CreateDatabase"
 import CreateFile from "./Manipulators/CreateFile"
-import Delete from "./Manipulators/Delete"
+import DeleteFile from "./Manipulators/DeleteFile"
+import MigrateDatabase from "./Manipulators/MigrateDatabase"
 import ReplaceInFile from "./Manipulators/ReplaceInFile"
 import ScaffoldLaravel from "./Manipulators/ScaffoldLaravel"
+import SeedDatabase from "./Manipulators/SeedDatabase"
 import SetEnv from "./Manipulators/SetEnv"
 import ThrowBackEndError from "./Manipulators/ThrowBackEndError"
-import SeedDatabase from "./Manipulators/SeedDatabase"
-
+// Add your import here
 
 const AllManipulators = {
     // Starters
@@ -19,12 +20,13 @@ const AllManipulators = {
     // Manipulators
     CreateDatabase,
     CreateFile,
-    Delete,
+    MigrateDatabase,
+    DeleteFile,
     ReplaceInFile,
     ScaffoldLaravel,
+    SeedDatabase,
     SetEnv,
     ThrowBackEndError,
-    SeedDatabase,
     // Add your manipulator here
 };
 

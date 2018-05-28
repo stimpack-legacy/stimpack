@@ -2,11 +2,11 @@ import * as React from "react";
 import {connect} from 'react-redux';
 import BaseManipulator from "../BaseManipulator";
 
-class SeedDatabase extends BaseManipulator {
+class MigrateDatabase extends BaseManipulator {
 
     static getDefaultManipulatorParameters() {
         return {
-            name: "SeedDatabase"
+            name: "MigrateDatabase"
         }
     }
 
@@ -22,4 +22,4 @@ class SeedDatabase extends BaseManipulator {
 export default connect(
     BaseManipulator.mapStateToProps,
     BaseManipulator.matchDispatchToProps
-)(SeedDatabase);
+)(MigrateDatabase);
