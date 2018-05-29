@@ -1,8 +1,9 @@
 # Stimpack
 Introduction for stimpack
-GIF
-Kickstarter video
+![Stimpack](https://img.youtube.com/vi/K1ntPeDpg9U/0.jpg)](https://www.youtube.com/watch?v=K1ntPeDpg9U "Stimpack - Promo")
 
+### ALPHA DISCLAIMER!!!
+Stimpack is currently in alpha and will probably require a total re-write. Please contribute your ideas but keep that in mind.
 
 ### Installation
 ```
@@ -33,4 +34,4 @@ Navigate to http://stimpack.test (requires Laravel valet or similar setup).
 ```
 
 ### Contribution guide
-Checkout a developer quickstart video here.
+Checkout a developer quickstart video here (coming soon).
