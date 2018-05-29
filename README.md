@@ -1,6 +1,6 @@
 # Stimpack
-Introduction for stimpack
-![Stimpack](https://img.youtube.com/vi/K1ntPeDpg9U/0.jpg)](https://www.youtube.com/watch?v=K1ntPeDpg9U "Stimpack - Promo")
+Check out the video:
+https://www.youtube.com/watch?v=K1ntPeDpg9U
 
 ### ALPHA DISCLAIMER!!!
 Stimpack is currently in alpha and will probably require a total re-write. Please contribute your ideas but keep that in mind.
