@@ -3,7 +3,7 @@ Check out the video:
 https://www.youtube.com/watch?v=K1ntPeDpg9U
 
 ### ALPHA DISCLAIMER!!!
-Stimpack is currently in early development stage so don't let your scope of contribution be restricted i any way. For example if you have a great idea for a new skeleton structure for the whole code base please let us know through a pull requests, another branch, a poto of a sketch on a napkin. Everything is appriciated!
+Stimpack is currently in early development stage so don't let your scope of contribution be restricted i any way. For example if you have a great idea for a new skeleton structure for the whole code base please let us know through a pull requests, another branch, a photo of a sketch on a napkin. Everything is appriciated!
 
 ### Installation
 ```
