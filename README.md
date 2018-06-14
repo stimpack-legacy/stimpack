@@ -8,7 +8,7 @@ Check out the full promo video [here](https://www.youtube.com/watch?v=K1ntPeDpg9
 Create new projects or manipulate existing projects...
 <img src="https://i.imgur.com/iITjKgw.png"></img>
 ...everything you build is instantly available in the CLI
-<img src="https://i.imgur.com/2YZEqNk.png"></img>
+<img src="https://i.imgur.com/2YZEqNk.png?3"></img>
 Share and reuse packs with the stimpack.io community
 <img src="https://i.imgur.com/8Trjrk2.png"></img>
 
