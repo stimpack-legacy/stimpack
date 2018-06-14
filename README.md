@@ -1,7 +1,7 @@
-# Stimpack
-<img src="https://i.imgur.com/AGAA8Ud.gif" title="source: imgur.com" />
+## Stimpack
+Introducing a web development accelerator built on Laravel
+<img src="https://i.imgur.com/AGAA8Ud.gif" title="source: imgur.com" ></img>
 Check out the full promo video [here](https://www.youtube.com/watch?v=K1ntPeDpg9U)
-
 
 ### ALPHA DISCLAIMER!!!
 Stimpack is currently in early development stage so don't let your scope of contribution be restricted i any way. For example if you have a great idea for a new skeleton structure for the whole code base please let us know through a pull requests, another branch, a photo of a sketch on a napkin. Everything is appriciated!
@@ -33,6 +33,3 @@ Navigate to http://stimpack.test (requires Laravel valet or similar setup).
     npm install
     npm run watch
 ```
-
-### Contribution guide
-Checkout a developer quickstart video here (coming soon).
