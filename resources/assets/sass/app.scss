@@ -34,9 +34,8 @@ html {
 
 body {
     font-family: $secondary-font;
-    background: $middle;  /* fallback for old browsers */
-    background: linear-gradient(to left, lighten($dark, 1%), lighten($dark, 11%), lighten($dark, 19%), lighten($dark, 3%)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: white;
+    background: $main-background;
+    color: black;
     height: 100%;
 }
 

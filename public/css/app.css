@@ -6955,23 +6955,23 @@ button.bg-dark:focus {
 }
 
 .border {
-  border: 1px solid #dee2e6 !important;
+  border: 1px solid #dfe2e5 !important;
 }
 
 .border-top {
-  border-top: 1px solid #dee2e6 !important;
+  border-top: 1px solid #dfe2e5 !important;
 }
 
 .border-right {
-  border-right: 1px solid #dee2e6 !important;
+  border-right: 1px solid #dfe2e5 !important;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid #dfe2e5 !important;
 }
 
 .border-left {
-  border-left: 1px solid #dee2e6 !important;
+  border-left: 1px solid #dfe2e5 !important;
 }
 
 .border-0 {
@@ -10767,6 +10767,10 @@ a.text-dark:focus {
           flex-direction: column;
 }
 
+path {
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
 #pseudo-wrapper {
   font-size: 1rem;
   float: left;
@@ -10951,26 +10955,9 @@ li a:hover {
 .header {
   position: relative;
   display: block;
-}
-
-.logo {
-  display: inline-block;
-  position: relative;
-  bottom: 0px;
-  height: 71px;
-  line-height: 68px;
-  background: #282d31;
-  width: 250px;
+  padding: 20px 0px 20px 80px;
+  background: #282D32;
   text-align: center;
-  -webkit-box-shadow: -7px 7px #1a1d21;
-          box-shadow: -7px 7px #1a1d21;
-  border: 3px solid #282d31;
-}
-
-.logo-text {
-  position: relative;
-  display: inline;
-  font-size: 21px !important;
 }
 
 .menu {
@@ -11007,6 +10994,7 @@ li a:hover {
   /* Safari */
   transition: color 0.5s;
   font-size: 15px;
+  font-weight: 900;
 }
 
 .control-bar-item-text:hover {
@@ -11016,13 +11004,15 @@ li a:hover {
 .side {
   display: block;
   position: fixed;
-  background-color: #454e56;
+  background-color: white;
   width: 243px;
   height: 100%;
   padding: 10px;
   margin-top: 7px;
   text-align: center;
   overflow: auto;
+  border-style: right;
+  border-right: 1px solid #dfe2e5;
 }
 
 .side-button-wrapper {
@@ -11034,8 +11024,8 @@ li a:hover {
   position: relative;
   margin: auto;
   margin-top: 8px;
-  background-color: #282d31;
-  color: #40fc3a;
+  background-color: white;
+  color: #212529;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 13px;
@@ -11043,19 +11033,12 @@ li a:hover {
   max-width: 210px;
   height: 45px;
   border: none;
-  -webkit-box-shadow: -2px 2px #1a1d21;
-          box-shadow: -2px 2px #1a1d21;
-  -webkit-transition: box-shadow 0.35s;
-  /* Safari */
-  -webkit-transition: -webkit-box-shadow 0.35s;
-  transition: -webkit-box-shadow 0.35s;
-  transition: box-shadow 0.35s;
-  transition: box-shadow 0.35s, -webkit-box-shadow 0.35s;
   outline: none;
+  border: 2px solid #212529;
 }
 
 .side-button:hover {
-  background: #40fc3a;
+  background: #212529;
   color: #282d31;
   cursor: pointer;
   -webkit-box-shadow: 0px 0px #1a1d21;
@@ -11063,7 +11046,7 @@ li a:hover {
 }
 
 .starter-button {
-  border: 2px solid #40fc3a;
+  border: 2px solid #212529;
 }
 
 .control-modal,
@@ -11074,15 +11057,15 @@ li a:hover {
   -webkit-transform: translate(-50%, -50%) !important;
           transform: translate(-50%, -50%) !important;
   font-family: "Open Sans", sans-serif;
-  background: #333940;
+  background: white;
   /* fallback for old browsers */
   color: white;
   padding: 20px;
-  -webkit-box-shadow: -7px 7px #282d31;
-          box-shadow: -7px 7px #282d31;
-  opacity: 0.95;
+  -webkit-box-shadow: -7px 7px #807f7f;
+          box-shadow: -7px 7px #807f7f;
   width: 800px;
   height: 600px;
+  border-radius: 10px;
 }
 
 .manipulator-modal {
@@ -11232,8 +11215,7 @@ li a:hover {
 h4 {
   color: #40fc3a;
   text-transform: uppercase;
-  font-family: "Press Start 2P", cursive;
-  text-shadow: -2px 2px #55606a;
+  font-family: "Open Sans", cursive;
   font-size: 17px;
 }
 
@@ -11274,12 +11256,8 @@ html {
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #3f464e;
-  /* fallback for old browsers */
-  background: -webkit-gradient(linear, right top, left top, from(#353c42), color-stop(#4c555f), color-stop(#5e6a75), to(#3a4148));
-  background: linear-gradient(to left, #353c42, #4c555f, #5e6a75, #3a4148);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: white;
+  background: white;
+  color: black;
   height: 100%;
 }
 

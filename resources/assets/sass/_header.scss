@@ -1,26 +1,12 @@
 .header {
     position: relative;
     display: block;
-}
-
-.logo{
-    display: inline-block;
-    position: relative;
-    bottom: 0px;
-    height: 71px;
-    line-height: 68px;
-    background: $darkest;
-    width: 250px;
+    padding: 20px 0px 20px 80px;
+    background: $header-background;
     text-align: center;
-    box-shadow: -7px 7px $shadow;
-    border: 3px solid $darkest;
 }
 
-.logo-text {
-    position: relative;
-    display: inline;
-    font-size: 21px !important;
-}
+
 
 .menu{
     display: inline-block;
@@ -54,6 +40,7 @@
     -webkit-transition: color 0.5s; /* Safari */
     transition: color 0.5s;
     font-size: 15px;
+    font-weight: 900;
 }
 
 .control-bar-item-text:hover{

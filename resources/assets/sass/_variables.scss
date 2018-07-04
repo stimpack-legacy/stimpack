@@ -1,12 +1,10 @@
 // Typography
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
-$primary-font: "Press Start 2P", cursive;
+$primary-font: "Open Sans", cursive;
 $secondary-font: 'Open Sans', sans-serif;
 
 // Colors
-$base-color: #31363F;
-//remove this line to revert to old color
 $base-color: #212529;
 
 $darkest: lighten( $base-color, 3%);
@@ -17,9 +15,17 @@ $bright: lighten( $lighter, 10% );
 
 $shadow: darken($base-color, 3%);
 
+$main-background: white;
+$header-background: #282D32;
+$border-color: #dfe2e5;
+
 // Theme color
 $theme-color: #40fc3a;
 $theme-color2: lighten($theme-color, 27%);
+$corporate-color: $base-color;
 
 // Modals
-$modal-content-width: 760px;;
+$modal-content-width: 760px;
+
+// Diagram
+$path-stroke-color: rgba(0,0,0,0.2);

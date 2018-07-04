@@ -4,13 +4,13 @@
     left: calc(50% + 121px);
     transform: translate(-50%, -50%) !important;
     font-family: $secondary-font;
-    background: $dark;  /* fallback for old browsers */
+    background: $main-background;  /* fallback for old browsers */
     color: white;
     padding: 20px;
-    box-shadow: -7px 7px $darkest;
-    opacity: 0.95;
+    box-shadow: -7px 7px darken($main-background, 50%);
     width: 800px;
     height: 600px;
+    border-radius: 10px;
 }
 
 
@@ -32,9 +32,6 @@
 .message{
     color: $theme-color;
     margin-top: 10px;
-}
-
-.stim-modal-container{
 }
 
 .stim-modal-header, .stim-modal-body, .stim-modal-footer{

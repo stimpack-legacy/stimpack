@@ -11,7 +11,7 @@ import Save from "./controls/Save";
 export default class ControlBar extends Component {
     render() {
         return (
-            <span id="controlBar" className="controlBar">
+            <span id="controlBar" className="control-bar">
                 <Run />
                 <Parameters />
                 <Log />
