@@ -10,6 +10,10 @@ import ScaffoldLaravel from "./Manipulators/ScaffoldLaravel"
 import SeedDatabase from "./Manipulators/SeedDatabase"
 import SetEnv from "./Manipulators/SetEnv"
 import ThrowBackEndError from "./Manipulators/ThrowBackEndError"
+import GitInit from "./Manipulators/GitInit"
+import CreateGithubRepo from "./Manipulators/CreateGithubRepo"
+import AddDNS from "./Manipulators/AddDNS"
+import CreateSiteOnForge from "./Manipulators/CreateSiteOnForge"
 // Add your import here
 
 const AllManipulators = {
@@ -27,6 +31,10 @@ const AllManipulators = {
     SeedDatabase,
     SetEnv,
     ThrowBackEndError,
+    GitInit,
+    CreateGithubRepo,
+    AddDNS,
+    CreateSiteOnForge,
     // Add your manipulator here
 };
 
