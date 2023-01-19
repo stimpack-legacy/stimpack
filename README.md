@@ -1,4 +1,4 @@
-## Stimpack
+## Stimpack - DISCOUNTINED
 Introducing a web development accelerator built on Laravel
 <img src="https://i.imgur.com/AGAA8Ud.gif" title="source: imgur.com" ></img>
 
@@ -18,7 +18,7 @@ Stimpack is currently in early development stage so don't let your scope of cont
 ### Installation
 ```
 composer global require consolidation/cgr
-cgr stimpack-io/stimpack
+cgr stimpack/stimpack
 ```
 
 ### Quick start
